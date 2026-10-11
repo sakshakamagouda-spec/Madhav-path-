@@ -6,14 +6,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>MadhavPath | Devotion · Discipline · Growth</title>
   <meta name="theme-color" content="#10243e">
-  <script>
-    // Ensure clean cache state on load
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(regs => {
-        regs.forEach(r => r.unregister());
-      });
-    }
-  </script>
   <style>
     :root {
       --bg: #fcfaf2;
@@ -34,19 +26,19 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 96px;
+      padding-bottom: 90px;
     }
 
-    /* TOP HEADER */
+    /* TOP BANNER */
     .top-banner {
       background: var(--header-bg);
       color: #fff;
-      padding: 16px 18px 18px;
-      border-radius: 0 0 22px 22px;
-      box-shadow: 0 6px 18px rgba(16, 36, 62, 0.2);
+      padding: 16px 16px 18px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 6px 18px rgba(16, 36, 62, 0.25);
     }
     .banner-sub {
-      font-size: 0.68rem;
+      font-size: 0.65rem;
       letter-spacing: 2px;
       color: #dfb264;
       text-transform: uppercase;
@@ -58,7 +50,7 @@
       align-items: center;
       margin-top: 4px;
     }
-    .app-title { font-size: 1.45rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 8px; }
+    .app-title { font-size: 1.35rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
     .app-title span { color: #f4c46d; }
     .lang-pill {
       background: rgba(255, 255, 255, 0.15);
@@ -71,36 +63,36 @@
     }
     .lang-pill option { color: #1a202c; background: #fff; }
 
-    /* REAL-TIME CLOCK & LIVE MUHURTA BAR */
+    /* REAL-TIME CLOCK & MUHURTA */
     .clock-muhurta-bar {
       margin-top: 10px;
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.1);
-      border: 1px solid rgba(223, 178, 100, 0.35);
+      padding: 9px 12px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(223, 178, 100, 0.4);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      font-size: 0.8rem;
+      font-size: 0.82rem;
     }
     .live-clock-time {
-      font-family: monospace;
+      font-family: monospace, -apple-system, sans-serif;
       font-weight: 800;
       color: #f7e1a0;
-      font-size: 0.95rem;
+      font-size: 1rem;
       letter-spacing: 1px;
     }
     .live-muhurta-tag {
-      background: rgba(223, 178, 100, 0.25);
+      background: rgba(223, 178, 100, 0.3);
       border: 1px solid #dfb264;
-      color: #fff;
+      color: #ffffff;
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 2px 8px;
+      padding: 3px 8px;
       border-radius: 8px;
     }
 
-    .container { max-width: 600px; margin: 0 auto; padding: 14px; }
+    .container { max-width: 600px; margin: 0 auto; padding: 12px; }
     .tab-content { display: none; }
     .tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
     @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -110,10 +102,11 @@
       background: var(--card-bg);
       border: 1px solid var(--border);
       border-radius: 18px;
-      padding: 16px;
-      margin-bottom: 14px;
+      padding: 15px;
+      margin-bottom: 12px;
       box-shadow: var(--shadow);
     }
+    .badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
     .panchang-badge {
       display: inline-flex;
       align-items: center;
@@ -122,9 +115,8 @@
       color: #8c5d11;
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 10px;
-      letter-spacing: 0.5px;
+      padding: 4px 9px;
+      border-radius: 8px;
     }
     .panchang-subbadge {
       display: inline-flex;
@@ -134,58 +126,50 @@
       color: #92400e;
       font-size: 0.72rem;
       font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 10px;
-      float: right;
+      padding: 4px 9px;
+      border-radius: 8px;
     }
     .tithi-title {
-      font-size: 1.35rem;
+      font-size: 1.3rem;
       font-weight: 800;
       color: #1a202c;
-      margin: 10px 0 4px;
-      display: flex;
-      align-items: baseline;
-      gap: 8px;
+      margin: 8px 0 3px;
     }
-    .tithi-sub { font-size: 0.85rem; color: var(--muted); font-weight: normal; }
+    .tithi-sub { font-size: 0.85rem; color: var(--muted); font-weight: normal; margin-left: 6px; }
     .vikram-detail { font-size: 0.82rem; color: #4a5568; margin-bottom: 12px; }
     .panchang-btn {
       width: 100%;
       background: #e8b958;
       color: #382405;
       font-weight: 700;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       border: none;
       border-radius: 12px;
-      padding: 11px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
+      padding: 10px;
       cursor: pointer;
     }
 
-    /* WISDOM CARD */
+    /* WISDOM */
     .wisdom-label {
       color: #0d9488;
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       font-weight: 800;
       letter-spacing: 1px;
       text-transform: uppercase;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
     .sanskrit-text {
-      font-size: 1.22rem;
+      font-size: 1.18rem;
       font-weight: 700;
       color: #1a365d;
-      line-height: 1.8;
+      line-height: 1.75;
       white-space: pre-line;
       margin-bottom: 8px;
     }
     .translation-text {
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       color: #4a5568;
-      line-height: 1.5;
+      line-height: 1.45;
       margin-bottom: 12px;
     }
 
@@ -194,17 +178,17 @@
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
     }
     .stat-card {
       background: var(--card-bg);
       border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 12px 14px;
+      border-radius: 14px;
+      padding: 12px;
       box-shadow: var(--shadow);
     }
     .stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
-    .stat-val { font-size: 1.45rem; font-weight: 800; color: #0f2744; margin-top: 3px; }
+    .stat-val { font-size: 1.4rem; font-weight: 800; color: #0f2744; margin-top: 3px; }
 
     /* ROUTINE */
     .routine-header {
@@ -213,7 +197,7 @@
       align-items: center;
       margin-bottom: 6px;
     }
-    .routine-title { font-size: 1.05rem; font-weight: 800; color: #1a202c; display: flex; align-items: center; gap: 6px; }
+    .routine-title { font-size: 1rem; font-weight: 800; color: #1a202c; }
     .auto-reset-tag { font-size: 0.68rem; color: #2e7d32; font-weight: 700; }
     .progress-bar-bg {
       width: 100%;
@@ -230,30 +214,32 @@
       transition: width 0.3s ease;
     }
     .routine-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; font-style: italic; }
+    .routine-list { margin-bottom: 12px; }
     .routine-item {
       display: flex;
       align-items: center;
       gap: 12px;
-      padding: 9px 0;
+      padding: 10px 4px;
       border-bottom: 1px solid #f6eedb;
       cursor: pointer;
     }
     .routine-item input[type="checkbox"] {
-      width: 19px;
-      height: 19px;
+      width: 20px;
+      height: 20px;
       accent-color: var(--accent-gold);
       border-radius: 4px;
+      cursor: pointer;
     }
     .routine-item.done span { text-decoration: line-through; color: var(--muted); }
-    .routine-item span { font-size: 0.9rem; color: #2d3748; }
+    .routine-item span { font-size: 0.92rem; color: #2d3748; }
 
     /* BUTTONS & FORMS */
-    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
     .btn {
       flex: 1;
-      padding: 10px 12px;
+      padding: 10px;
       border-radius: 10px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       font-weight: 700;
       border: 1px solid var(--border);
       background: #fcfaf4;
@@ -262,7 +248,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 6px;
+      gap: 5px;
     }
     .btn-gold { background: #e8b958; color: #382405; border: none; }
     .btn-gold:active { transform: scale(0.98); }
@@ -279,12 +265,12 @@
 
     /* JAPA */
     .japa-circle {
-      width: 150px;
-      height: 150px;
+      width: 140px;
+      height: 140px;
       border-radius: 50%;
       border: 5px solid #c89332;
       background: #fefbf3;
-      box-shadow: 0 0 20px rgba(200, 147, 50, 0.2);
+      box-shadow: 0 0 18px rgba(200, 147, 50, 0.2);
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -294,11 +280,11 @@
     }
     .japa-circle:active { transform: scale(0.96); }
     .japa-num { font-size: 2.3rem; font-weight: 900; color: #10243e; }
-    .japa-sub { font-size: 0.72rem; color: var(--muted); font-weight: bold; }
+    .japa-sub { font-size: 0.7rem; color: var(--muted); font-weight: bold; }
 
     /* CHAT */
     .chat-box {
-      height: 280px;
+      height: 270px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -312,8 +298,8 @@
     .chat-msg {
       padding: 10px 14px;
       border-radius: 14px;
-      font-size: 0.9rem;
-      max-width: 86%;
+      font-size: 0.88rem;
+      max-width: 88%;
       line-height: 1.45;
     }
     .chat-msg.user { align-self: flex-end; background: #17375e; color: #ffffff; }
@@ -334,7 +320,7 @@
       align-items: flex-end;
       justify-content: space-between;
       height: 110px;
-      padding: 12px 6px 4px;
+      padding: 10px 6px 4px;
       border-bottom: 1.5px solid var(--border);
       margin-top: 8px;
     }
@@ -353,19 +339,19 @@
       transition: height 0.3s;
     }
 
-    /* BOTTOM NAV (7 TABS) */
+    /* BOTTOM NAV (FIXED & HIGH Z-INDEX) */
     .nav-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
       background: #ffffff;
-      border-top: 1px solid var(--border);
+      border-top: 1.5px solid var(--border);
       display: flex;
       justify-content: space-around;
-      padding: 6px 0 8px;
-      z-index: 100;
-      box-shadow: 0 -2px 10px rgba(0,0,0,0.04);
+      padding: 6px 0 max(6px, env(safe-area-inset-bottom));
+      z-index: 9999;
+      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.08);
     }
     .nav-item {
       background: none;
@@ -375,13 +361,13 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 3px;
+      gap: 2px;
       cursor: pointer;
       flex: 1;
       font-weight: 600;
     }
     .nav-item.active { color: #c89332; font-weight: 800; }
-    .nav-icon { font-size: 1.15rem; }
+    .nav-icon { font-size: 1.2rem; }
   </style>
 </head>
 <body>
@@ -401,9 +387,9 @@
     <div class="clock-muhurta-bar">
       <div>
         <span>⏰ </span>
-        <span class="live-clock-time" id="liveClockTime">--:--:--</span>
+        <span class="live-clock-time" id="liveClockTime">00:00:00 AM</span>
       </div>
-      <div class="live-muhurta-tag" id="liveMuhurtaTag">⏳ Loading Muhurta...</div>
+      <div class="live-muhurta-tag" id="liveMuhurtaTag">☀️ Checking Muhurta...</div>
     </div>
   </div>
 
@@ -412,8 +398,8 @@
     <!-- 1. TODAY / HOME -->
     <div id="tab-home" class="tab-content active">
       <div class="card">
-        <div>
-          <span class="panchang-badge">🕉 TODAY'S PANCHANG · पञ्चाङ्ग</span>
+        <div class="badge-row">
+          <span class="panchang-badge">🕉 TODAY'S PANCHANG</span>
           <span class="panchang-subbadge" id="panchangVratTag">🕉 मासिक शिवरात्रि व्रत</span>
         </div>
         <div class="tithi-title">
@@ -468,7 +454,9 @@
           <div class="progress-bar-fill" id="routine-progress-fill"></div>
         </div>
         <div class="routine-desc" id="routine-desc-text">0% completed. Walk forward with quiet, steady discipline.</div>
-        <div id="routineListItems"></div>
+        
+        <!-- ROUTINE LIST ITEMS -->
+        <div class="routine-list" id="routineListItems"></div>
 
         <div style="margin-top:14px;padding-top:10px;border-top:1px dashed var(--border)">
           <div style="font-size:0.8rem;color:var(--muted);font-weight:700;margin-bottom:6px">💧 Hydration Intake Today:</div>
@@ -562,4 +550,506 @@
         <h2 style="font-size:1.1rem; color:#1a202c; margin-bottom:8px;">📔 Daily Spiritual Diary (दैनंदिनी)</h2>
         <p style="font-size:0.82rem; color:var(--muted); margin-bottom:12px;">End your day with Ratri Chintan, gratitude, and mindful reflection.</p>
         
-        <label style="font-size:0.75rem;font
+        <label style="font-size:0.75rem;font-weight:700;color:var(--muted)">STATE OF MIND (भाव)</label>
+        <select id="diaryMood" style="margin:4px 0 10px">
+          <option value="😇 Peaceful & Devotional">😇 Peaceful & Devotional (सत्त्व)</option>
+          <option value="🎯 Focused & Productive">🎯 Focused & Productive</option>
+          <option value="⚡ Restless & Agitated">⚡ Restless & Agitated (रजस्)</option>
+          <option value="🥱 Dull or Distracted">🥱 Dull or Distracted (तमस्)</option>
+        </select>
+
+        <label style="font-size:0.75rem;font-weight:700;color:var(--muted)">TODAY'S KARMA & LESSONS</label>
+        <textarea id="diaryReflection" placeholder="What did you learn from today's efforts?"></textarea>
+
+        <label style="font-size:0.75rem;font-weight:700;color:var(--muted);margin-top:6px;display:block">GRATITUDE OFFERING</label>
+        <textarea id="diaryGratitude" placeholder="3 things you are sincerely thankful for..."></textarea>
+
+        <button class="btn btn-gold" style="width:100%;margin-top:8px" onclick="saveDiaryEntry()">💾 Save Today's Reflection (+30 XP)</button>
+      </div>
+
+      <div class="card">
+        <div style="font-size:0.95rem;font-weight:800;color:var(--navy);margin-bottom:8px">📜 Saved Reflections</div>
+        <div id="diaryHistoryBox">
+          <div style="font-size:0.82rem;color:var(--muted);text-align:center;padding:12px">No reflections recorded yet.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. ANALYTICS & STREAKS -->
+    <div id="tab-analytics" class="tab-content">
+      <div class="card">
+        <h2 style="font-size:1.1rem; color:#1a202c; margin-bottom:10px;">📊 Sadhana Analytics & Consistency</h2>
+        <div class="stats-grid">
+          <div class="stat-card"><div class="stat-label">Karma Tier</div><div class="stat-val" style="font-size:1.1rem" id="anTier">Sadhaka I</div></div>
+          <div class="stat-card"><div class="stat-label">Avg Completion</div><div class="stat-val" style="font-size:1.1rem" id="anAvg">0%</div></div>
+        </div>
+
+        <div style="font-size:0.8rem;font-weight:700;color:var(--muted);margin-top:12px">LAST 7 DAYS HABIT COMPLETION</div>
+        <div class="chart-container" id="anChart"></div>
+        <div style="display:flex;justify-content:space-between;font-size:0.72rem;color:var(--muted);margin-top:4px">
+          <span>7 Days Ago</span>
+          <span>Today</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. MADHAV AI COACH -->
+    <div id="tab-coach" class="tab-content">
+      <div class="card">
+        <h2 style="font-size:1.1rem; color:#1a202c; margin-bottom:6px;">🏹 Madhav AI · Gita Guide</h2>
+        <p style="font-size:0.82rem; color:var(--muted); margin-bottom:12px;">Ask any question about study stress, waking up early, focus, or Gita wisdom.</p>
+        <div class="chat-box" id="coach-stream">
+          <div class="chat-msg bot">Radhe Radhe, Partha. What troubles your intellect today? Ask with an open heart.</div>
+        </div>
+        <div style="display:flex; gap:8px;">
+          <input type="text" id="coach-input" placeholder="Ask Sri Krishna..." onkeydown="if(event.key==='Enter') sendCoachMsg()">
+          <button class="btn btn-gold" onclick="sendCoachMsg()" style="flex:0 0 75px;">Ask</button>
+        </div>
+        <div class="btn-row" style="margin-top:8px">
+          <button class="btn" style="font-size:0.75rem" onclick="promptCoach('How to wake up at 4:30 AM without feeling tired?')">Brahma Muhurta</button>
+          <button class="btn" style="font-size:0.75rem" onclick="promptCoach('How to deal with exam stress using the Gita?')">Exam Stress</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FIXED NAVIGATION BAR (7 TABS) -->
+  <nav class="nav-bar">
+    <button class="nav-item active" id="nav-today" onclick="switchNav('tab-home', this)"><span class="nav-icon">🌅</span>Today</button>
+    <button class="nav-item" id="nav-gita" onclick="switchNav('tab-gita', this)"><span class="nav-icon">📖</span>Gita</button>
+    <button class="nav-item" id="nav-panchang" onclick="switchNav('tab-panchang', this)"><span class="nav-icon">🗓️</span>Panchang</button>
+    <button class="nav-item" id="nav-japa" onclick="switchNav('tab-japa', this)"><span class="nav-icon">📿</span>Japa</button>
+    <button class="nav-item" id="nav-diary" onclick="switchNav('tab-diary', this)"><span class="nav-icon">📔</span>Diary</button>
+    <button class="nav-item" id="nav-analytics" onclick="switchNav('tab-analytics', this)"><span class="nav-icon">📊</span>Stats</button>
+    <button class="nav-item" id="nav-coach" onclick="switchNav('tab-coach', this)"><span class="nav-icon">🏹</span>Coach</button>
+  </nav>
+
+  <script>
+    const CHAPTER_COUNTS = [47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78];
+
+    const DEFAULT_TASKS = [
+      { id: 1, name: "Brahma Muhurta wake-up (4:30 AM)", done: false },
+      { id: 2, name: "Snan & Surya Arghya", done: false },
+      { id: 3, name: "Sattvic Diet Resolution", done: false },
+      { id: 4, name: "1 Round Nama Japa", done: false },
+      { id: 5, name: "Srimad Bhagavad Gita Study", done: false },
+      { id: 6, name: "Evening Reflection (Ratri Chintan)", done: false }
+    ];
+
+    let savedTasks = [];
+    try {
+      const raw = localStorage.getItem('mp_tasks');
+      if (raw) savedTasks = JSON.parse(raw);
+    } catch(e) {}
+    if (!savedTasks || !Array.isArray(savedTasks) || savedTasks.length === 0) {
+      savedTasks = DEFAULT_TASKS;
+    }
+
+    let appState = {
+      lang: localStorage.getItem('mp_lang') || 'en',
+      lastDate: localStorage.getItem('mp_last_date') || '',
+      tasks: savedTasks,
+      water: parseInt(localStorage.getItem('mp_water')) || 0,
+      beads: parseInt(localStorage.getItem('mp_beads')) || 0,
+      malas: parseInt(localStorage.getItem('mp_malas')) || 0,
+      xp: parseInt(localStorage.getItem('mp_xp')) || 0,
+      diary: JSON.parse(localStorage.getItem('mp_diary') || '[]'),
+      history: JSON.parse(localStorage.getItem('mp_history') || '{}')
+    };
+
+    // AUTOMATIC MIDNIGHT RESET
+    function checkDailyReset() {
+      const now = new Date();
+      const todayKey = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}-${String(now.getDate()).padStart(2,'0')}`;
+
+      if (appState.lastDate && appState.lastDate !== todayKey) {
+        const done = appState.tasks.filter(t => t.done).length;
+        const pct = Math.round((done / appState.tasks.length) * 100);
+        appState.history[appState.lastDate] = { pct, water: appState.water, malas: appState.malas };
+        localStorage.setItem('mp_history', JSON.stringify(appState.history));
+
+        // Reset day-specific counters
+        appState.tasks.forEach(t => t.done = false);
+        appState.water = 0;
+        localStorage.setItem('mp_tasks', JSON.stringify(appState.tasks));
+        localStorage.setItem('mp_water', 0);
+      }
+      appState.lastDate = todayKey;
+      localStorage.setItem('mp_last_date', todayKey);
+    }
+
+    // LIVE DIGITAL CLOCK & MUHURTA TRACKER
+    function updateLiveClock() {
+      try {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-US', { hour12: true, hour: '2-digit', minute: '2-digit', second: '2-digit' });
+        const clockEl = document.getElementById('liveClockTime');
+        if (clockEl) clockEl.textContent = timeStr;
+
+        const mins = now.getHours() * 60 + now.getMinutes();
+        const tag = document.getElementById('liveMuhurtaTag');
+        if (!tag) return;
+
+        if (mins >= 270 && mins <= 318) {
+          tag.textContent = "✨ Brahma Muhurta (अमृत वेला)";
+          tag.style.background = "rgba(46, 204, 113, 0.35)";
+        } else if (mins > 318 && mins <= 420) {
+          tag.textContent = "🌅 Pratah Sandhya (सूर्योदय)";
+          tag.style.background = "rgba(243, 156, 18, 0.35)";
+        } else if (mins >= 705 && mins <= 755) {
+          tag.textContent = "☀️ Abhijit Muhurta (शुभ मुहूर्त)";
+          tag.style.background = "rgba(241, 196, 15, 0.35)";
+        } else if (mins >= 990 && mins <= 1080) {
+          tag.textContent = "⚠️ Rahu Kaal (अशुभ वेला)";
+          tag.style.background = "rgba(231, 76, 60, 0.35)";
+        } else if (mins >= 1080 && mins <= 1140) {
+          tag.textContent = "🌆 Sayam Sandhya (संध्या वंदन)";
+          tag.style.background = "rgba(155, 89, 182, 0.35)";
+        } else {
+          tag.textContent = "🕉️ Dhyana & Sadhana";
+          tag.style.background = "rgba(223, 178, 100, 0.25)";
+        }
+      } catch(e) {
+        console.error("Clock update error:", e);
+      }
+    }
+
+    function switchNav(tabId, btn) {
+      document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
+      const target = document.getElementById(tabId);
+      if (target) target.classList.add('active');
+      if (btn) btn.classList.add('active');
+      stopAudio();
+      if (tabId === 'tab-diary') renderDiary();
+      if (tabId === 'tab-analytics') renderAnalytics();
+      window.scrollTo(0, 0);
+    }
+
+    function renderTasks() {
+      const box = document.getElementById('routineListItems');
+      if (!box) return;
+      box.innerHTML = '';
+      let doneCount = 0;
+
+      appState.tasks.forEach((t, i) => {
+        if (t.done) doneCount++;
+        const item = document.createElement('div');
+        item.className = `routine-item ${t.done ? 'done' : ''}`;
+        item.innerHTML = `
+          <input type="checkbox" ${t.done ? 'checked' : ''}>
+          <span>${t.name}</span>
+        `;
+        item.onclick = () => toggleTask(i);
+        const chk = item.querySelector('input');
+        chk.onclick = (e) => { e.stopPropagation(); toggleTask(i); };
+        box.appendChild(item);
+      });
+
+      const pct = Math.round((doneCount / appState.tasks.length) * 100);
+      document.getElementById('habits-stat').textContent = `${doneCount}/${appState.tasks.length}`;
+      document.getElementById('routine-stat').textContent = `${pct}%`;
+      document.getElementById('routine-progress-fill').style.width = `${pct}%`;
+      document.getElementById('routine-desc-text').textContent = `${pct}% completed. Walk forward with quiet, steady discipline.`;
+      localStorage.setItem('mp_tasks', JSON.stringify(appState.tasks));
+    }
+
+    function toggleTask(idx) {
+      appState.tasks[idx].done = !appState.tasks[idx].done;
+      if (appState.tasks[idx].done) addXP(20);
+      renderTasks();
+    }
+
+    function changeWater(delta) {
+      appState.water = Math.max(0, appState.water + delta);
+      localStorage.setItem('mp_water', appState.water);
+      document.getElementById('waterTotal').textContent = `${appState.water} ml`;
+    }
+
+    function addXP(pts) {
+      appState.xp += pts;
+      localStorage.setItem('mp_xp', appState.xp);
+      document.getElementById('xp-stat').textContent = `${appState.xp} XP`;
+    }
+
+    // JAPA MALA
+    function tapJapaBead() {
+      appState.beads++;
+      if (appState.beads >= 108) {
+        appState.beads = 0;
+        appState.malas++;
+        addXP(108);
+        alert("🎉 1 Full Mala (108 Beads) completed! Radhe Radhe! (+108 XP)");
+      }
+      document.getElementById('japa-beads-num').textContent = appState.beads;
+      document.getElementById('japa-malas-num').textContent = appState.malas;
+      document.getElementById('malas-stat').textContent = `${appState.malas} Malas`;
+      localStorage.setItem('mp_beads', appState.beads);
+      localStorage.setItem('mp_malas', appState.malas);
+      if (navigator.vibrate) navigator.vibrate(35);
+    }
+    function resetJapaBeads() {
+      appState.beads = 0;
+      localStorage.setItem('mp_beads', 0);
+      document.getElementById('japa-beads-num').textContent = '0';
+    }
+    function resetAllMalas() {
+      if (confirm("Reset total malas to zero?")) {
+        appState.beads = 0;
+        appState.malas = 0;
+        localStorage.setItem('mp_beads', 0);
+        localStorage.setItem('mp_malas', 0);
+        document.getElementById('japa-beads-num').textContent = '0';
+        document.getElementById('japa-malas-num').textContent = '0';
+        document.getElementById('malas-stat').textContent = '0 Malas';
+      }
+    }
+
+    // AUDIO PLAYBACK (WITH TEMPLE BELL & MOBILE UNLOCK)
+    let isReciting = false;
+    function playAudioText(elementId, btn) {
+      if (isReciting) { stopAudio(); return; }
+      if (!('speechSynthesis' in window)) {
+        alert("Speech synthesis is not supported on this browser.");
+        return;
+      }
+      stopAudio();
+
+      // Play bell chime via Web Audio API
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(528, audioCtx.currentTime); // 528 Hz bell tone
+        gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 1.2);
+        osc.connect(gain);
+        gain.connect(audioCtx.destination);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 1.2);
+      } catch(e) {}
+
+      window.speechSynthesis.resume();
+      const rawText = document.getElementById(elementId).textContent;
+      const cleanText = rawText.replace(/[॥|।0-9\-—]/g, ' ').replace(/\s+/g, ' ').trim();
+      const utter = new SpeechSynthesisUtterance(cleanText);
+      utter.rate = 0.82;
+      utter.pitch = 0.96;
+
+      const voices = speechSynthesis.getVoices();
+      const matchVoice = voices.find(v => v.lang.startsWith('hi') || v.lang.startsWith('sa') || v.lang.includes('IN'));
+      if (matchVoice) utter.voice = matchVoice;
+
+      utter.onstart = () => { isReciting = true; if(btn) btn.textContent = "⏹ Stop"; };
+      utter.onend = () => { isReciting = false; if(btn) btn.textContent = "🔊 Play Audio"; };
+      utter.onerror = () => { isReciting = false; if(btn) btn.textContent = "🔊 Play Audio"; };
+
+      speechSynthesis.speak(utter);
+    }
+    function stopAudio() {
+      if (window.speechSynthesis) speechSynthesis.cancel();
+      isReciting = false;
+      const b1 = document.getElementById('btnAudioDaily');
+      const b2 = document.getElementById('btnAudioGita');
+      if (b1) b1.textContent = "🔊 Play Audio";
+      if (b2) b2.textContent = "🔊 Play Audio";
+    }
+
+    // GITA VERSES
+    function initGita() {
+      const ch = document.getElementById('ch-select');
+      ch.innerHTML = '';
+      for (let i = 1; i <= 18; i++) {
+        ch.innerHTML += `<option value="${i}">Chapter ${i} (${CHAPTER_COUNTS[i-1]})</option>`;
+      }
+      populateVerses();
+    }
+    function populateVerses() {
+      const c = parseInt(document.getElementById('ch-select').value);
+      const v = document.getElementById('v-select');
+      v.innerHTML = '';
+      for (let i = 1; i <= CHAPTER_COUNTS[c-1]; i++) {
+        v.innerHTML += `<option value="${i}">Verse ${i}</option>`;
+      }
+      loadGitaVerse();
+    }
+    async function loadGitaVerse() {
+      const c = document.getElementById('ch-select').value;
+      const v = document.getElementById('v-select').value;
+      document.getElementById('gita-ref').textContent = `CHAPTER ${c} · VERSE ${v}`;
+      
+      const sBox = document.getElementById('gita-sanskrit');
+      const mBox = document.getElementById('gita-meaning');
+      sBox.textContent = `अध्याय ${c} श्लोक ${v}\n(पवित्र श्लोक लोड हो रहा है...)`;
+      mBox.textContent = "Connecting to Gita archive...";
+
+      try {
+        const res = await fetch(`https://vedicscriptures.github.io/slok/${c}/${v}/`);
+        if (res.ok) {
+          const d = await res.json();
+          sBox.textContent = d.slok || sBox.textContent;
+          mBox.textContent = d.tej?.ht || d.siva?.et || d.purohit?.et || "Translation loaded.";
+        }
+      } catch(e) {
+        mBox.textContent = "Connect to the internet to load dynamic verses.";
+      }
+    }
+    function stepGitaVerse(dir) {
+      const v = document.getElementById('v-select');
+      if (v.selectedIndex < v.options.length - 1) {
+        v.selectedIndex++;
+        loadGitaVerse();
+      }
+    }
+
+    // CONTEXT-AWARE SMART MADHAV AI COACH
+    const COACH_WISDOM = [
+      { keys: ["wake", "morning", "4:30", "brahma", "uthna", "neend"], ans: "To rise easily at 4:30 AM (Brahma Muhurta): 1) Stop using screens after 9:30 PM. 2) Avoid heavy food late at night. 3) Keep a copper vessel of water by your bed and drink it immediately upon rising. In these nectar dawn hours, the intellect settles in pure sattva." },
+      { keys: ["exam", "stress", "tension", "fear", "dar", "result", "fail"], ans: "Your anxiety comes from grasping the imagined outcome rather than the immediate action. Sri Krishna teaches in Gita 2.47: 'Your right is only to your prescribed effort, never to the fruits.' Channel 100% of your energy into preparing right now. Dedicate the outcome to Bhagavan." },
+      { keys: ["mind", "focus", "distract", "man", "chitt", "concentration"], ans: "Arjuna described the mind as restless and stubborn as the wild wind. Sri Krishna counsels in Gita 6.35: 'Through steady practice (Abhyasa) and detachment (Vairagya), it can be restrained.' When the mind wanders, gently bring it back to your work without self-blame." },
+      { keys: ["anger", "gussa", "irritat", "krodha"], ans: "In Gita 2.63, the Lord warns: 'From anger arises delusion, from delusion loss of memory, and from loss of memory the ruin of the intellect.' When anger surges, pause for 5 deep breaths, remain silent for two minutes, and chant the holy name." },
+      { keys: ["lazy", "alasyam", "alash", "procrastin"], ans: "Tamas (inertia) binds the soul through negligence, laziness, and excessive sleep (Gita 14.8). Break inertia by performing one micro-action immediately: wash your face with cold water, stand up, and take 10 deep breaths." },
+      { keys: ["peace", "shanti", "sad", "dukha", "lonely"], ans: "True peace does not come from external circumstances, but from inner alignment. In Gita 2.70: Just as the ocean remains unmoved by rivers entering it, one who does not become stirred by desire achieves true serenity." }
+    ];
+    function sendCoachMsg() {
+      const inp = document.getElementById('coach-input');
+      const val = inp.value.trim();
+      if (!val) return;
+      const box = document.getElementById('coach-stream');
+      box.innerHTML += `<div class="chat-msg user">${val}</div>`;
+      inp.value = '';
+      box.scrollTop = box.scrollHeight;
+
+      setTimeout(() => {
+        const q = val.toLowerCase();
+        const found = COACH_WISDOM.find(w => w.keys.some(k => q.includes(k)));
+        const ans = found ? found.ans : `Regarding "${val}": Sri Krishna teaches in Chapter 9 Verse 27: "Whatever you do, whatever you eat, whatever you offer or give away—offer it all with devotion." Steady your mind, discard unnecessary fear, and take the immediate righteous step forward.`;
+        box.innerHTML += `<div class="chat-msg bot">${ans}</div>`;
+        box.scrollTop = box.scrollHeight;
+      }, 400);
+    }
+    function promptCoach(txt) {
+      document.getElementById('coach-input').value = txt;
+      sendCoachMsg();
+    }
+
+    // DIARY
+    function saveDiaryEntry() {
+      const mood = document.getElementById('diaryMood').value;
+      const ref = document.getElementById('diaryReflection').value.trim();
+      const grat = document.getElementById('diaryGratitude').value.trim();
+      if (!ref && !grat) { alert("Please write a short reflection or gratitude note."); return; }
+
+      const entry = {
+        date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+        mood,
+        ref: ref || "Sadhana maintained with quiet discipline.",
+        grat: grat || "Grateful for life, health, and wisdom."
+      };
+      appState.diary.unshift(entry);
+      localStorage.setItem('mp_diary', JSON.stringify(appState.diary));
+      document.getElementById('diaryReflection').value = '';
+      document.getElementById('diaryGratitude').value = '';
+      addXP(30);
+      renderDiary();
+      alert("Diary entry saved! +30 Karma XP awarded.");
+    }
+    function renderDiary() {
+      const box = document.getElementById('diaryHistoryBox');
+      if (!appState.diary.length) {
+        box.innerHTML = '<div style="font-size:0.82rem;color:var(--muted);text-align:center;padding:12px">No reflections recorded yet.</div>';
+        return;
+      }
+      box.innerHTML = appState.diary.map(e => `
+        <div class="diary-card-item">
+          <div style="display:flex;justify-content:space-between;font-size:0.75rem;font-weight:700;color:var(--accent-gold);margin-bottom:4px">
+            <span>📅 ${e.date}</span>
+            <span>${e.mood}</span>
+          </div>
+          <div style="font-size:0.85rem;color:var(--text);margin-bottom:4px"><b>📝 Reflection:</b> ${e.ref}</div>
+          <div style="font-size:0.82rem;color:#2e7d32"><b>🙏 Gratitude:</b> ${e.grat}</div>
+        </div>
+      `).join('');
+    }
+
+    // ANALYTICS
+    function renderAnalytics() {
+      const chart = document.getElementById('anChart');
+      chart.innerHTML = '';
+      const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      const today = new Date();
+      let sum = 0;
+
+      for (let i = 6; i >= 0; i--) {
+        const d = new Date();
+        d.setDate(today.getDate() - i);
+        const dStr = `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`;
+        let pct = 0;
+        if (i === 0) {
+          const done = appState.tasks.filter(t => t.done).length;
+          pct = Math.round((done / appState.tasks.length) * 100);
+        } else if (appState.history[dStr]) {
+          pct = appState.history[dStr].pct || 0;
+        } else {
+          pct = 40;
+        }
+        sum += pct;
+
+        const col = document.createElement('div');
+        col.className = 'chart-bar-col';
+        col.innerHTML = `
+          <small style="font-size:0.68rem;color:var(--muted);font-weight:700">${pct}%</small>
+          <div class="chart-bar-fill" style="height:${Math.max(4, Math.round(pct * 0.75))}px"></div>
+          <span style="font-size:0.72rem;color:var(--muted);font-weight:700">${days[d.getDay()]}</span>
+        `;
+        chart.appendChild(col);
+      }
+
+      document.getElementById('anAvg').textContent = `${Math.round(sum / 7)}%`;
+      let tier = "Sadhaka I";
+      if (appState.xp > 2000) tier = "Paramahamsa 🦚";
+      else if (appState.xp > 1000) tier = "Bhakta Yogi 🕉️";
+      else if (appState.xp > 500) tier = "Karma Yogi 🎯";
+      document.getElementById('anTier').textContent = tier;
+    }
+
+    function switchAppLanguage(l) {
+      appState.lang = l;
+      localStorage.setItem('mp_lang', l);
+    }
+
+    function setTodayPanchang() {
+      const today = new Date().toISOString().split('T')[0];
+      const p = document.getElementById('pDatePick');
+      if (p) { p.value = today; calcPanchang(today); }
+    }
+
+    function calcPanchang(dateStr) {
+      const d = dateStr ? new Date(dateStr) : new Date();
+      const days = ["Ravivara (Sunday)", "Somavara (Monday)", "Mangalavara (Tuesday)", "Budhavara (Wednesday)", "Guruvara (Thursday)", "Shukravara (Friday)", "Shanivara (Saturday)"];
+      document.getElementById('panVara').textContent = days[d.getDay()];
+    }
+
+    // RUN IMMEDIATELY ON SCRIPT LOAD
+    checkDailyReset();
+    renderTasks();
+    initGita();
+    setTodayPanchang();
+    updateLiveClock();
+    setInterval(updateLiveClock, 1000);
+
+    window.onload = () => {
+      document.getElementById('japa-beads-num').textContent = appState.beads;
+      document.getElementById('japa-malas-num').textContent = appState.malas;
+      document.getElementById('malas-stat').textContent = `${appState.malas} Malas`;
+      document.getElementById('xp-stat').textContent = `${appState.xp} XP`;
+      document.getElementById('waterTotal').textContent = `${appState.water} ml`;
+      updateLiveClock();
+    };
+  </script>
+</body>
+</html>
+```
