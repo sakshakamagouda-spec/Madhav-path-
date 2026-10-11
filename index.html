@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MadhavPath · Devotion, Discipline & Wisdom</title>
+
+  <!-- PWA & APP INSTALLATION TAGS -->
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0a1931">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="MadhavPath">
+
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
@@ -71,6 +80,31 @@
       border-radius: 6px;
       font-size: 0.7rem;
       font-weight: 700;
+    }
+
+    /* INSTALL APP BANNER */
+    #installBanner {
+      display: none;
+      background: linear-gradient(135deg, #e5b058, #c69332);
+      color: #0d1f36;
+      padding: 10px 14px;
+      border-radius: 12px;
+      margin: 10px 0;
+      align-items: center;
+      justify-content: space-between;
+      font-weight: 800;
+      font-size: 0.85rem;
+      box-shadow: 0 4px 12px rgba(229,176,88,0.35);
+    }
+    #installBanner button {
+      background: #0d1f36;
+      color: #fff;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 8px;
+      font-weight: 800;
+      font-size: 0.75rem;
+      cursor: pointer;
     }
 
     /* CONTAINER & TABS */
@@ -257,7 +291,7 @@
     }
     .target-ring:active { transform: scale(0.92); }
 
-    /* BOTTOM NAV BAR (7 CLEAN TABS WITHOUT AI COACH) */
+    /* BOTTOM NAV BAR */
     .b-nav {
       position: fixed;
       bottom: 0;
@@ -319,9 +353,14 @@
 
   <main class="wrap">
 
+    <!-- IN-APP INSTALL BUTTON -->
+    <div id="installBanner">
+      <span>📲 Install MadhavPath on Phone</span>
+      <button onclick="window.triggerAppInstall()">Install</button>
+    </div>
+
     <!-- 1. TODAY TAB -->
     <section id="tab-today" class="tab active">
-      <!-- Panchang Glance -->
       <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
         <div class="card-top">
           <span class="badge">🕉 PANCHANG GLANCE</span>
@@ -331,7 +370,6 @@
         <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Purva Ashadha Nakshatra · रविवारीय Ravivara · Vikram Samvat 2083</p>
       </div>
 
-      <!-- Daily Shloka -->
       <div class="card">
         <div class="card-top">
           <span style="font-size:0.72rem; font-weight:800; color:#0f766e;">DAILY WISDOM</span>
@@ -349,7 +387,6 @@
         </div>
       </div>
 
-      <!-- KPIs -->
       <div class="kpis">
         <div class="kpi"><div class="kpi-lbl">Tasks Done</div><div id="kpiTasks" class="kpi-num">0/6</div></div>
         <div class="kpi"><div class="kpi-lbl">Adherence</div><div id="kpiPct" class="kpi-num">0%</div></div>
@@ -357,7 +394,6 @@
         <div class="kpi"><div class="kpi-lbl">Karma XP</div><div id="kpiXp" class="kpi-num">0 XP</div></div>
       </div>
 
-      <!-- Sankalp Routine -->
       <div class="card">
         <div class="card-top">
           <span class="card-title">🌅 Today's Sankalp (Routine)</span>
@@ -365,7 +401,6 @@
         </div>
         <div class="bar" style="margin-bottom:10px;"><div id="routineBar" class="fill" style="background:#eab308;"></div></div>
 
-        <!-- 6 Routine Tasks -->
         <div id="taskList">
           <div id="task-0" class="task" onclick="window.toggleTask(0)">
             <span class="task-name"><span class="task-check" id="chk-0">☐</span> <span id="tname-0">Brahma Muhurta wake-up (4:30 AM)</span></span>
@@ -393,7 +428,6 @@
           </div>
         </div>
 
-        <!-- Hydration -->
         <div class="sub-box">
           <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700;">
             <span>💧 Hydration Intake Tracker</span>
@@ -407,7 +441,6 @@
           <div class="bar"><div id="waterBar" class="fill"></div></div>
         </div>
 
-        <!-- Sleep Schedule -->
         <div class="sub-box">
           <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-bottom:6px;">
             <span>🌙 Sleep & Rest Schedule</span>
@@ -427,7 +460,7 @@
       </div>
     </section>
 
-    <!-- 2. GITA TAB (18 CHAPTERS & COMPLETE SHLOKA ENGINE) -->
+    <!-- 2. GITA TAB -->
     <section id="tab-gita" class="tab">
       <div class="card">
         <div class="card-top">
@@ -456,14 +489,13 @@
         <button onclick="window.markGitaRead()" class="btn btn-gold" style="width:100%; margin-top:8px;">✓ Mark Shloka Read (+20 XP)</button>
       </div>
 
-      <!-- Chapter Overview Card -->
       <div class="card">
         <h4 style="font-size:0.85rem; color:#0d1f36; margin-bottom:6px;">Chapter Essence</h4>
         <p id="gitaChDesc" style="font-size:0.78rem; color:#475569; line-height:1.5;">Arjuna's despondency upon seeing relatives, teachers, and friends arrayed for battle.</p>
       </div>
     </section>
 
-    <!-- 3. PANCHANG TAB (EXPANDED VEDIC CALENDAR) -->
+    <!-- 3. PANCHANG TAB -->
     <section id="tab-panchang" class="tab">
       <div class="card">
         <div class="card-top">
@@ -512,7 +544,7 @@
       </div>
     </section>
 
-    <!-- 4. JAPA TAB (SACRED NAMA JAPA) -->
+    <!-- 4. JAPA TAB -->
     <section id="tab-japa" class="tab">
       <div class="card" style="text-align:center;">
         <div class="card-top">
@@ -545,9 +577,8 @@
       </div>
     </section>
 
-    <!-- 5. GAME TAB (FOCUS SPRINT & ARJUNA'S EYE) -->
+    <!-- 5. GAME TAB -->
     <section id="tab-game" class="tab">
-      <!-- Pomodoro Sprint -->
       <div class="card" style="text-align:center;">
         <div class="card-top">
           <span class="card-title">⏱️ Karma Yoga Focus Sprint</span>
@@ -571,7 +602,6 @@
         </div>
       </div>
 
-      <!-- Arjuna's Eye Game -->
       <div class="card" style="text-align:center;">
         <div class="card-top">
           <span class="card-title">🎯 Arjuna's Eye Challenge</span>
@@ -584,7 +614,7 @@
       </div>
     </section>
 
-    <!-- 6. DIARY TAB (DAINANDINI) -->
+    <!-- 6. DIARY TAB -->
     <section id="tab-diary" class="tab">
       <div class="card">
         <div class="card-top">
@@ -602,7 +632,7 @@
       </div>
     </section>
 
-    <!-- 7. STATS TAB (RICH ANALYTICS DASHBOARD) -->
+    <!-- 7. STATS TAB -->
     <section id="tab-stats" class="tab">
       <div class="card">
         <div class="card-top">
@@ -644,7 +674,7 @@
 
   </main>
 
-  <!-- FIXED BOTTOM NAVIGATION BAR (ALL 7 ICONS VERIFIED) -->
+  <!-- NAVIGATION BAR -->
   <nav class="b-nav" id="bottomNav">
     <button class="b-btn active" data-tab="today"><span>🌅</span><span>Today</span></button>
     <button class="b-btn" data-tab="gita"><span>📖</span><span>Gita</span></button>
@@ -655,7 +685,7 @@
     <button class="b-btn" data-tab="stats"><span>📊</span><span>Stats</span></button>
   </nav>
 
-  <!-- COMPLETE BULLETPROOF APP JAVASCRIPT ENGINE -->
+  <!-- SCRIPT ENGINE -->
   <script>
     // Storage Safety Helpers
     function safeGet(key, def) {
@@ -699,7 +729,6 @@
       }
     };
 
-    // EMBEDDED GITA CHAPTER DATA ACROSS ALL 18 CHAPTERS
     var GITA_CHAPTERS = [
       { num: 1, name: "Arjuna Vishada Yoga", verses: 47, desc: "Arjuna's despondency upon seeing relatives, teachers, and friends arrayed for battle." },
       { num: 2, name: "Sankhya Yoga", verses: 72, desc: "The immortal Soul (Atman), Nishkama Karma Yoga (selfless action), and the steady intellect (Sthitaprajna)." },
@@ -721,7 +750,6 @@
       { num: 18, name: "Moksha Sanyasa Yoga", verses: 78, desc: "The culmination of wisdom: total surrender, liberation, and ultimate peace." }
     ];
 
-    // AUTHENTIC EMBEDDED VERSES FOR EVERY SINGLE CHAPTER (1 to 18) - INCLUDES VERSE 1 FOR ALL CHAPTERS
     var ALL_CHAPTER_VERSES = {
       "1_1": {
         san: "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥",
@@ -763,115 +791,10 @@
         translit: "sannyāsaṁ karmaṇāṁ kṛṣṇa punar yogaṁ ca śaṁsasi |\nyac chreya etayor ekaṁ tan me brūhi su-niścitam ||",
         mean: "Arjuna said: O Krishna, You praise the renunciation of actions, and also Yoga of dedicated action. Tell me conclusively which of the two is better."
       },
-      "5_10": {
-        san: "ब्रह्मण्याधाय कर्माणि सङ्गं त्यक्त्वा करोति यः।\nलिप्यते न स पापेन पद्मपत्रमिवाम्भसा॥",
-        translit: "brahmaṇy ādhāya karmāṇi saṅgaṁ tyaktvā karoti yaḥ |\nlipyate na sa pāpena padma-patram ivāmbhasā ||",
-        mean: "One who performs duty without attachment, dedicating results unto the Divine, is untouched by sin, as a lotus leaf is unaffected by water."
-      },
       "6_1": {
         san: "अनाश्रितः कर्मफलं कार्यं कर्म करोति यः।\nस संन्यासी च योगी च न निरग्निर्न चाक्रियः॥",
         translit: "anāśritaḥ karma-phalaṁ kāryaṁ karma karoti yaḥ |\nsa sannyāsī ca yogī ca na niragnir na cākriyaḥ ||",
-        mean: "One who performs dutiful action without relying on fruits is a true sannyasi and a true yogi, not one who merely renounces external fire and duties."
-      },
-      "6_5": {
-        san: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥",
-        translit: "uddhared ātmanātmānaṁ nātmānam avasādayet |\nātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ ||",
-        mean: "Elevate yourself through the power of your own mind; never degrade yourself. The mind alone is your greatest ally, and the mind alone is your greatest obstacle."
-      },
-      "7_1": {
-        san: "मय्यासक्तमनाः पार्थ योगं युञ्जन्मदाश्रयः।\nअसंशयं समग्रं मां यथा ज्ञास्यसि तच्छृणु॥",
-        translit: "mayy āsakta-manāḥ pārtha yogaṁ yuñjan mad-āśrayaḥ |\nasaṁśayaṁ samagraṁ māṁ yathā jñāsyasi tac chṛṇu ||",
-        mean: "The Supreme Lord said: With mind fixed on Me, taking full shelter in Me, practice yoga, and hear how you shall know Me fully and beyond doubt."
-      },
-      "7_7": {
-        san: "मत्तः परतरं नान्यत्किञ्चिदस्ति धनञ्जय।\nमयि सर्वमिदं प्रोतं सूत्रे मणिगणा इव॥",
-        translit: "mattaḥ parataraṁ nānyat kiñcid asti dhanañjaya |\nmayi sarvam idaṁ protaṁ sūtre maṇi-gaṇā iva ||",
-        mean: "There is nothing whatsoever higher than Me, O Arjuna. All this cosmic tapestry is strung on Me, like rows of pearls upon a thread."
-      },
-      "8_1": {
-        san: "किं तद्ब्रह्म किमध्यात्मं किं कर्म पुरुषोत्तम।\nअधिभूतं च किं प्रोक्तमधिदैवं किमुच्यते॥",
-        translit: "kiṁ tad brahma kim adhyātmaṁ kiṁ karma puruṣottama |\nadhibhūtaṁ ca kiṁ proktam adhidaivaṁ kim ucyate ||",
-        mean: "Arjuna asked: What is Brahman? What is the inner Self? What is Karma, O Supreme Divine? What is called the physical realm and celestial realm?"
-      },
-      "8_5": {
-        san: "अन्तकाले च मामेव स्मरन्मुक्त्वा कलेवरम्।\nयः प्रयाति स मद्भावं याति नास्त्यत्र संशयः॥",
-        translit: "anta-kāle ca mām eva smaran muktvā kalevaram |\nyaḥ prayāti sa mad-bhāvaṁ yāti nāsty atra saṁśayaḥ ||",
-        mean: "Whoever, at the end of bodily life, departs remembering Me alone, certainly attains to My state of being; there is no doubt about this."
-      },
-      "9_1": {
-        san: "इदं तु ते गुह्यतमं प्रवक्ष्याम्यनसूयवे।\nज्ञानं विज्ञानसहितं यज्ज्ञात्वा मोक्ष्यसेऽशुभात्॥",
-        translit: "idaṁ tu te guhyatamaṁ pravakṣyāmy anasūyave |\njñānaṁ vijñāna-sahitaṁ yaj jñātvā mokṣyase'śubhāt ||",
-        mean: "The Lord said: To you who are free from malice, I shall declare this most secret sovereign wisdom along with direct insight, freeing you from bondage."
-      },
-      "9_22": {
-        san: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।\nतेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥",
-        translit: "ananyāś cintayanto māṁ ye janāḥ paryupāsate |\nteṣāṁ nityābhiyuktānāṁ yoga-kṣemaṁ vahāmy aham ||",
-        mean: "To those who always remember Me with undivided devotion, I carry what they lack and safeguard what they possess."
-      },
-      "10_1": {
-        san: "भूय एव महाबाहो शृणु मे परमं वचः।\nयत्तेऽहं प्रीयमाणाय वक्ष्यामि हितकाम्यया॥",
-        translit: "bhūya eva mahā-bāho śṛṇu me paramaṁ vacaḥ |\nyat te'haṁ prīyamāṇāya vakṣyāmi hita-kāmyayā ||",
-        mean: "The Lord said: Listen further, O mighty-armed Arjuna, to My supreme word, which I speak for your benefit because you are dear to Me."
-      },
-      "10_8": {
-        san: "अहं सर्वस्य प्रभवो मत्तः सर्वं प्रवर्तते।\nइति मत्वा भजन्ते मां बुधा भावसमन्विताः॥",
-        translit: "ahaṁ sarvasya prabhavo mattaḥ sarvaṁ pravartate |\niti matvā bhajante māṁ budhā bhāva-samanvitāḥ ||",
-        mean: "I am the divine origin of all creation; everything emanates from Me. Realizing this sacred truth, the wise revere Me with heartful devotion."
-      },
-      "11_1": {
-        san: "मदनुग्रहाय परमं गुह्यमध्यात्मसञ्ज्ञितम्।\nयत्त्वयोक्तं वचस्तेन मोहोऽयं विगतो मम॥",
-        translit: "mad-anugrahāya paramaṁ guhyam adhyātma-sañjñitam |\nyat tvayoktaṁ vacas tena moho'yaṁ vigato mama ||",
-        mean: "Arjuna said: By the supreme confidential spiritual instructions You have spoken out of compassion for me, my illusion is dispelled."
-      },
-      "11_32": {
-        san: "कालोऽस्मि लोकक्षयकृत्प्रवृद्धो\nलोकान्समाहर्तुमिह प्रवृत्तः।\nऋतेऽपि त्वां न भविष्यन्ति सर्वे\nयेऽवस्थिताः प्रत्यनीकेषु योधाः॥",
-        translit: "kālo'smi loka-kṣaya-kṛt pravṛddho lokān samāhartum iha pravṛttaḥ | ṛte'pi tvāṁ na bhaviṣyanti sarve ye'vasthitāḥ pratyanīkeṣu yodhāḥ ||",
-        mean: "Time I am, the great destroyer of the worlds. Even without your combat, none of the warriors assembled in opposing ranks shall survive."
-      },
-      "12_1": {
-        san: "एवं सततयुक्ता ये भक्तास्त्वां पर्युपासते।\nये चाप्यक्षरमव्यक्तं तेषां के योगवित्तमाः॥",
-        translit: "evaṁ satata-yuktā ye bhaktās tvāṁ paryupāsate |\nye cāpy akṣaram avyaktaṁ teṣāṁ ke yoga-vittamāḥ ||",
-        mean: "Arjuna asked: Between those devotees who always worship Your personal form, and those who revere the formless unmanifest, who is more perfect in yoga?"
-      },
-      "12_2": {
-        san: "मय्यावेश्य मनो ये मां नित्ययुक्ता उपासते।\nश्रद्धया परयोपेतास्ते मे युक्ततमा मताः॥",
-        translit: "mayy āveśya mano ye māṁ nitya-yuktā upāsate |\nśraddhayā parayopetās te me yuktatamā matāḥ ||",
-        mean: "The Lord said: Those who fix their minds steadfastly on My form, worshipping Me with pure faith, are regarded by Me as the most accomplished."
-      },
-      "13_1": {
-        san: "इदं शरीरं कौन्तेय क्षेत्रमित्यभिधीयते।\nएतद्यो वेत्ति तं प्राहुः क्षेत्रज्ञ इति तद्विदः॥",
-        translit: "idaṁ śarīraṁ kaunteya kṣetram ity abhidhīyate |\netad yo vetti taṁ prāhuḥ kṣetrajña iti tad-vidaḥ ||",
-        mean: "The Lord said: This body, O Arjuna, is termed the Field (Kshetra), and one who witnesses and knows this field is called the Knower (Kshetragya)."
-      },
-      "14_1": {
-        san: "परं भूयः प्रवक्ष्यामि ज्ञानानां ज्ञानमुत्तमम्।\nयज्ज्ञात्वा मुनयः सर्वे परां सिद्धिमितो गताः॥",
-        translit: "paraṁ bhūyaḥ pravakṣyāmi jñānānāṁ jñānam uttamam |\nyaj jñātvā munayaḥ sarve parāṁ siddhim ito gatāḥ ||",
-        mean: "The Lord said: I shall once again reveal that supreme wisdom of all knowledge, understanding which all sages have attained supreme liberation."
-      },
-      "15_1": {
-        san: "ऊर्ध्वमूलमधःशाखमश्वत्थं प्राहुरव्ययम्।\nछन्दांसि यस्य पर्णानि यस्तं वेद स वेदवित्॥",
-        translit: "ūrdhva-mūlam adhaḥ-śākham aśvatthaṁ prāhur avyayam |\nchandāṁsi yasya parṇāni yas taṁ veda sa veda-vit ||",
-        mean: "There is an eternal banyan tree with roots above and branches below; its leaves are sacred verses. One who knows this cosmic tree knows the Vedas."
-      },
-      "15_15": {
-        san: "सर्वस्य चाहं हृदि सन्निविष्टो\nमत्तः स्मृतिर्ज्ञानमपोहनञ्च।\nवेदैश्च सर्वैरहमेव वेद्यो\nवेदान्तकृद्वेदविदेव चाहम्॥",
-        translit: "sarvasya cāhaṁ hṛdi sanniviṣṭo mattaḥ smṛtir jñānam apohanañ ca | vedaiś ca sarvair aham eva vedyo vedānta-kṛd veda-vid eva cāham ||",
-        mean: "I am seated in the heart of all beings; from Me emanate remembrance, knowledge, and their loss. By all scriptures, I alone am to be known."
-      },
-      "16_1": {
-        san: "अभयं सत्त्वसंशुद्धिर्ज्ञानयोगव्यवस्थितिः।\nदानं दमश्च यज्ञश्च स्वाध्यायस्तप आर्जवम्॥",
-        translit: "abhayaṁ sattva-saṁśuddhir jñāna-yoga-vyavasthitiḥ |\ndānaṁ damaś ca yajñaś ca svādhyāyas tapa ārjavam ||",
-        mean: "Fearlessness, inner purification, steadfastness in spiritual knowledge, selfless charity, sense-restraint, austerity, and uprightness are divine virtues."
-      },
-      "17_1": {
-        san: "ये शास्त्रविधिमुत्सृज्य यजन्ते श्रद्धयान्विताः।\nतेषां निष्ठा तु का कृष्ण सत्त्वमाहो रजस्तमः॥",
-        translit: "ye śāstra-vidhim utsṛjya yajante śraddhayānvitāḥ |\nteṣāṁ niṣṭhā tu kā kṛṣṇa sattvam āho rajas tamaḥ ||",
-        mean: "Arjuna asked: What is the nature of faith of those who set aside ritual injunctions but worship with full reverence? Is it Sattva, Rajas, or Tamas?"
-      },
-      "18_1": {
-        san: "संन्यासस्य महाबाहो तत्त्वमिच्छामि वेदितुम्।\nत्यागस्य च हृषीकेश पृथक्केशिनिषूदन॥",
-        translit: "sannyāsasya mahā-bāho tattvam icchāmi veditum |\ntyāgasya ca hṛṣīkeśa pṛthak keśi-niṣūdana ||",
-        mean: "Arjuna said: I desire to know distinctly, O mighty-armed Hrishikesha, the true principle of renunciation (Sannyasa) and detachment (Tyaga)."
+        mean: "One who performs dutiful action without relying on fruits is a true sannyasi and a true yogi."
       },
       "18_66": {
         san: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥",
@@ -880,7 +803,6 @@
       }
     };
 
-    // STATE INITIALIZATION
     var curLang = safeGet('mp_lang', 'en');
     var tasks = [false, false, false, false, false, false];
     try {
@@ -896,54 +818,41 @@
     var xp = parseInt(safeGet('mp_xp', '0'), 10) || 0;
     var gameScore = 0;
 
-    // SPRINT TIMER STATE
     var sprintTimer = null;
     var sprintSeconds = 15 * 60;
     var isSprintActive = false;
 
-    // ROCK-SOLID GLOBAL NAVIGATION HANDLER
-    window.switchTab = function(id, btn) {
-      try {
-        var tabs = document.querySelectorAll('.tab');
-        for (var i = 0; i < tabs.length; i++) {
-          tabs[i].classList.remove('active');
+    // NAVIGATION
+    window.switchTab = function(id) {
+      var tabs = document.querySelectorAll('.tab');
+      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
+      var btns = document.querySelectorAll('.b-btn');
+      for (var j = 0; j < btns.length; j++) btns[j].classList.remove('active');
+      
+      var target = document.getElementById('tab-' + id);
+      if (target) target.classList.add('active');
+      
+      for (var m = 0; m < btns.length; m++) {
+        if (btns[m].getAttribute('data-tab') === id) {
+          btns[m].classList.add('active');
+          break;
         }
-        var btns = document.querySelectorAll('.b-btn');
-        for (var j = 0; j < btns.length; j++) {
-          btns[j].classList.remove('active');
-        }
-        
-        var target = document.getElementById('tab-' + id);
-        if (target) {
-          target.classList.add('active');
-        }
-        
-        // Highlight corresponding button
-        for (var m = 0; m < btns.length; m++) {
-          if (btns[m].getAttribute('data-tab') === id) {
-            btns[m].classList.add('active');
-            break;
-          }
-        }
-        window.stopRecite();
-        window.scrollTo(0, 0);
-      } catch(err) {
-        console.error("Navigation error:", err);
       }
+      window.stopRecite();
+      window.scrollTo(0, 0);
     };
 
-    // ATTACH CLICK AND TOUCH LISTENERS DIRECTLY TO ALL NAVIGATION BUTTONS
     function bindNavButtons() {
       var bBtns = document.querySelectorAll('.b-btn');
       for (var b = 0; b < bBtns.length; b++) {
-        bBtns[b].addEventListener('click', function(e) {
+        bBtns[b].addEventListener('click', function() {
           var tabId = this.getAttribute('data-tab');
-          if (tabId) window.switchTab(tabId, this);
+          if (tabId) window.switchTab(tabId);
         });
       }
     }
 
-    // MULTI-LANGUAGE SWITCHER
+    // MULTI-LANGUAGE
     window.changeLang = function(l) {
       curLang = l;
       safeSet('mp_lang', l);
@@ -1058,7 +967,7 @@
       if (sm) sm.textContent = malas;
     };
 
-    // FOCUS SPRINT LOGIC
+    // SPRINT & GAME
     window.setSprintDuration = function(m) {
       window.resetSprint();
       sprintSeconds = m * 60;
@@ -1130,7 +1039,7 @@
       window.addXp(30);
     };
 
-    // AUDIO CHIME
+    // AUDIO CHIME & SPEECH
     window.chime = function() {
       try {
         var C = window.AudioContext || window.webkitAudioContext;
@@ -1191,7 +1100,7 @@
       if (rp) rp.textContent = t;
     };
 
-    // GITA ENGINE POPULATING ALL 18 CHAPTERS WITH IMMEDIATE VERSE 1
+    // GITA ENGINE
     window.initGita = function() {
       var ch = document.getElementById('gitaCh');
       if (!ch) return;
@@ -1227,20 +1136,18 @@
       var c = ch.value;
       var v = vr.value;
       var key = c + "_" + v;
-      var defaultChKey = c + "_1"; // Guaranteed fallback for each of the 18 chapters
+      var defaultChKey = c + "_1";
       var gt = document.getElementById('gitaTag');
       var gs = document.getElementById('gitaShloka');
       var gtr = document.getElementById('gitaTranslit');
       var gm = document.getElementById('gitaMean');
       if (gt) gt.textContent = 'CHAPTER ' + c + ' · VERSE ' + v;
 
-      // 1. Check embedded authentic database
       if (ALL_CHAPTER_VERSES[key]) {
         if (gs) gs.textContent = ALL_CHAPTER_VERSES[key].san;
         if (gtr) gtr.textContent = ALL_CHAPTER_VERSES[key].translit;
         if (gm) gm.textContent = ALL_CHAPTER_VERSES[key].mean;
       } else if (ALL_CHAPTER_VERSES[defaultChKey]) {
-        // Immediate authentic chapter shloka fallback
         if (gs) gs.textContent = ALL_CHAPTER_VERSES[defaultChKey].san;
         if (gtr) gtr.textContent = ALL_CHAPTER_VERSES[defaultChKey].translit;
         if (gm) gm.textContent = ALL_CHAPTER_VERSES[defaultChKey].mean;
@@ -1248,25 +1155,6 @@
         if (gs) gs.textContent = "अध्याय " + c + " · श्लोक " + v + "\n(श्रीमद्भगवद्गीता स्वाध्याय)";
         if (gtr) gtr.textContent = "Chapter " + c + ", Verse " + v;
         if (gm) gm.textContent = "Meditate upon the divine wisdom of Bhagavan Sri Krishna.";
-      }
-
-      // 2. Fetch from public scriptures archive
-      if (window.fetch) {
-        fetch('https://vedicscriptures.github.io/slok/' + c + '/' + v + '/')
-          .then(function(res) {
-            if (res.ok) return res.json();
-            throw new Error('API unavailable');
-          })
-          .then(function(data) {
-            if (data && data.slok) {
-              if (gs) gs.textContent = data.slok;
-              if (gtr && data.transliteration) gtr.textContent = data.transliteration;
-              var translation = (data.siva && data.siva.et) || (data.purohit && data.purohit.et) || (data.tej && data.tej.ht) || (ALL_CHAPTER_VERSES[key] ? ALL_CHAPTER_VERSES[key].mean : "Sacred teachings of Bhagavan Sri Krishna.");
-              if (curLang === 'hi' && data.tej && data.tej.ht) translation = data.tej.ht;
-              if (gm) gm.textContent = translation;
-            }
-          })
-          .catch(function() {});
       }
     };
 
@@ -1277,23 +1165,6 @@
       if (idx >= 0 && idx < vr.options.length) {
         vr.selectedIndex = idx;
         window.loadShloka();
-      } else if (d > 0) {
-        var ch = document.getElementById('gitaCh');
-        if (ch && ch.selectedIndex < ch.options.length - 1) {
-          ch.selectedIndex++;
-          window.onChapter(ch.value);
-        }
-      } else if (d < 0) {
-        var ch2 = document.getElementById('gitaCh');
-        if (ch2 && ch2.selectedIndex > 0) {
-          ch2.selectedIndex--;
-          window.onChapter(ch2.value);
-          var vr2 = document.getElementById('gitaVr');
-          if (vr2) {
-            vr2.selectedIndex = vr2.options.length - 1;
-            window.loadShloka();
-          }
-        }
       }
     };
 
@@ -1302,7 +1173,6 @@
       window.chime();
     };
 
-    // PANCHANG ENGINE
     window.resetPanchangToday = function() {
       var p = document.getElementById('pDatePick');
       if (p) p.value = new Date().toISOString().slice(0, 10);
@@ -1314,7 +1184,6 @@
       if (pt) pt.textContent = "कृष्ण Chaturdashi (Krishna Paksha)";
     };
 
-    // CLOCK TICKER
     function updateClockImmediate() {
       var d = new Date();
       var c = document.getElementById('liveClock');
@@ -1328,6 +1197,35 @@
         else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya (सायं सन्ध्या)";
         else mh.textContent = "🕉️ Dhyana Vela (ध्यान वेला)";
       }
+    }
+
+    // PWA INSTALLATION TRIGGER
+    var deferredPrompt;
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      var b = document.getElementById('installBanner');
+      if (b) b.style.display = 'flex';
+    });
+
+    window.triggerAppInstall = function() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(function(choiceResult) {
+          if (choiceResult.outcome === 'accepted') {
+            var b = document.getElementById('installBanner');
+            if (b) b.style.display = 'none';
+          }
+          deferredPrompt = null;
+        });
+      }
+    };
+
+    // SERVICE WORKER REGISTRATION
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function() {
+        navigator.serviceWorker.register('./sw.js').catch(function() {});
+      });
     }
 
     // INITIALIZATION RUNNER
