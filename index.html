@@ -1,22 +1,22 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="color-scheme: light;">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="color-scheme" content="light">
 <title>MadhavPath · Devotion, Discipline & Wisdom</title>
 ​<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a1931">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MadhavPath">
 ​<style>
 :root {
+color-scheme: light;
 --navy: #0a1931;
 --navy-light: #132b4f;
 --gold: #d4a345;
 --gold-deep: #b45309;
---gold-bg: #fef8eb;
 --bg: #fcfaf3;
 --card-bg: #ffffff;
 --border: #edd59b;
@@ -26,20 +26,20 @@
 ​* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
 font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-background: var(--bg);
-color: var(--text);
-padding-bottom: 84px;
+background: #fcfaf3 !important;
+color: #1e293b !important;
+padding-bottom: 96px;
 -webkit-font-smoothing: antialiased;
 }
 ​/* HEADER */
 .header {
 background: #0a1931 !important;
-background: linear-gradient(135deg, #0a1931, #132b4f) !important;
+background: linear-gradient(135deg, #0a1931 0%, #132b4f 100%) !important;
 color: #ffffff !important;
 padding: 14px 14px 16px;
 border-bottom: 3px solid #d4a345;
 border-radius: 0 0 18px 18px;
-box-shadow: 0 4px 16px rgba(10, 25, 49, 0.3);
+box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 }
 .header-top {
 display: flex;
@@ -91,14 +91,11 @@ border-radius: 6px;
 font-size: 0.7rem;
 font-weight: 700;
 }
-​/* CONTAINER & TABS */
+​/* CONTAINER */
 .wrap { max-width: 520px; margin: 0 auto; padding: 12px; }
-.tab { display: none; }
-.tab.active { display: block; animation: fadeIn 0.15s ease-out; }
-@keyframes fadeIn { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
 ​/* CARDS */
 .card {
-background: #ffffff;
+background: #ffffff !important;
 border: 1px solid #edd59b;
 border-radius: 14px;
 padding: 14px;
@@ -370,7 +367,7 @@ setInterval(tickClock, 1000);
 </script>
 ​<main class="wrap">
 ​<!-- TAB 1: TODAY -->
-<section id="tab-today" class="tab active">
+<section id="tab-today" class="tab-pane" style="display:block;">
 <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
 <div class="card-top">
 <span class="badge">🕉 PANCHANG GLANCE</span>
@@ -484,7 +481,7 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 2: GITA -->
-<section id="tab-gita" class="tab">
+<section id="tab-gita" class="tab-pane" style="display:none;">
 <div class="card">
 <div class="card-top">
 <span class="card-title">📖 Srimad Bhagavad Gita</span>
@@ -515,7 +512,7 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 3: PANCHANG -->
-<section id="tab-panchang" class="tab">
+<section id="tab-panchang" class="tab-pane" style="display:none;">
 <div class="card">
 <div class="card-top">
 <span class="card-title">🗓️ Comprehensive Vedic Panchang</span>
@@ -557,7 +554,7 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 4: JAPA -->
-<section id="tab-japa" class="tab">
+<section id="tab-japa" class="tab-pane" style="display:none;">
 <div class="card" style="text-align:center;">
 <div class="card-top">
 <span class="card-title">📿 Digital Jaap Mala Counter</span>
@@ -585,7 +582,7 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 5: GAME -->
-<section id="tab-game" class="tab">
+<section id="tab-game" class="tab-pane" style="display:none;">
 <div class="card" style="text-align:center;">
 <div class="card-top">
 <span class="card-title">⏱️ Karma Yoga Focus Sprint</span>
@@ -617,7 +614,7 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 6: DIARY -->
-<section id="tab-diary" class="tab">
+<section id="tab-diary" class="tab-pane" style="display:none;">
 <div class="card">
 <div class="card-top">
 <span class="card-title">📔 Spiritual Diary (दैनंदिनी)</span>
@@ -633,7 +630,7 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 7: STATS -->
-<section id="tab-stats" class="tab">
+<section id="tab-stats" class="tab-pane" style="display:none;">
 <div class="card">
 <div class="card-top">
 <span class="card-title">📊 Comprehensive Sadhana Analytics</span>
@@ -685,7 +682,7 @@ setInterval(tickClock, 1000);
 </section>
 ​</main>
 ​<!-- FAIL-SAFE PERMANENTLY FIXED BOTTOM NAVIGATION BAR -->
-<nav style="position:fixed; bottom:0; left:0; right:0; max-width:520px; margin:0 auto; background:#ffffff; border-top:2px solid #edd59b; display:flex; justify-content:space-between; align-items:center; z-index:99999; box-shadow:0 -4px 16px rgba(0,0,0,0.1); padding:4px 0 max(4px, env(safe-area-inset-bottom));">
+<nav style="position:fixed !important; bottom:0 !important; left:0 !important; right:0 !important; max-width:520px !important; margin:0 auto !important; background:#ffffff !important; border-top:2px solid #edd59b !important; display:flex !important; flex-direction:row !important; justify-content:space-between !important; align-items:center !important; z-index:99999 !important; box-shadow:0 -4px 16px rgba(0,0,0,0.1) !important; padding:4px 0 max(4px, env(safe-area-inset-bottom)) !important;">
 <button id="navBtn-today" onclick="window.switchTab('today')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#b45309; font-weight:800; font-size:10px;">
 <span style="font-size:20px; line-height:1.2;">🌅</span><span>Today</span>
 </button>
@@ -766,18 +763,16 @@ var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
 for (var i = 0; i < tabs.length; i++) {
 var t = document.getElementById('tab-' + tabs[i]);
 var b = document.getElementById('navBtn-' + tabs[i]);
-if (t) t.classList.remove('active');
+if (t) t.style.display = (tabs[i] === tabId) ? 'block' : 'none';
 if (b) {
+if (tabs[i] === tabId) {
+b.style.color = '#b45309';
+b.style.fontWeight = '800';
+} else {
 b.style.color = '#64748b';
 b.style.fontWeight = '700';
 }
 }
-var target = document.getElementById('tab-' + tabId);
-var activeBtn = document.getElementById('navBtn-' + tabId);
-if (target) target.classList.add('active');
-if (activeBtn) {
-activeBtn.style.color = '#b45309';
-activeBtn.style.fontWeight = '800';
 }
 window.stopRecite();
 window.scrollTo(0, 0);
