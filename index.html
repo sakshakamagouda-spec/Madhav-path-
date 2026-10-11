@@ -6,40 +6,41 @@
 <title>MadhavPath</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
-body { font-family: system-ui, -apple-system, sans-serif; background: #fbf9f4; color: #1e293b; padding-bottom: 70px; }
-.header { background: #0d1f36; color: #fff; padding: 14px 14px 16px; border-bottom: 2px solid #d4a345; border-radius: 0 0 16px 16px; }
-.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.brand { font-size: 1rem; font-weight: 800; color: #fef0cd; }
-.lang-drop { background: rgba(255,255,255,0.15); border: 1px solid #d4a345; color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 0.75rem; }
+body { font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; background: #fbf9f4; color: #1e293b; padding-bottom: 75px; }
+.header { background: #0d1f36; color: #fff; padding: 12px 14px 14px; border-bottom: 2px solid #d4a345; border-radius: 0 0 16px 16px; }
+.header-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.brand { font-size: 1.05rem; font-weight: 800; color: #fef0cd; display: flex; align-items: center; gap: 6px; }
+.lang-drop { background: rgba(255,255,255,0.15); border: 1px solid #d4a345; color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 0.75rem; outline: none; }
 .lang-drop option { background: #0d1f36; color: #fff; }
 .clock-bar { background: rgba(0,0,0,0.3); border: 1px solid rgba(212,163,69,0.35); border-radius: 10px; padding: 6px 12px; display: flex; justify-content: space-between; align-items: center; }
-.clock-val { font-weight: 800; font-family: monospace; color: #fef0cd; font-size: 0.85rem; }
-.muhurta-val { background: rgba(212,163,69,0.25); border: 1px solid #d4a345; color: #fae29c; padding: 2px 8px; border-radius: 6px; font-size: 0.68rem; font-weight: 700; }
+.clock-val { font-weight: 800; font-family: monospace; color: #fef0cd; font-size: 0.9rem; }
+.muhurta-val { background: rgba(212,163,69,0.25); border: 1px solid #d4a345; color: #fae29c; padding: 2px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 .wrap { max-width: 480px; margin: 0 auto; padding: 10px; }
 .tab { display: none; } .tab.active { display: block; }
-.card { background: #fff; border: 1px solid #ebdcc4; border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+.card { background: #fff; border: 1px solid #ebdcc4; border-radius: 12px; padding: 12px; margin-bottom: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.03); }
 .card-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .badge { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: #fef3d6; color: #8a6218; border: 1px solid #ecd59b; }
 .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
 .kpi { background: #fff; border: 1px solid #ebdcc4; border-radius: 10px; padding: 8px 10px; }
 .kpi-lbl { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
 .kpi-num { font-size: 1.15rem; font-weight: 800; color: #0d1f36; margin-top: 2px; }
-.task { display: flex; align-items: center; justify-content: space-between; padding: 8px 10px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 8px; margin-bottom: 6px; cursor: pointer; }
-.task.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.75; }
-.task.checked span { text-decoration: line-through; color: #64748b; }
+.task { display: flex; align-items: center; justify-content: space-between; padding: 9px 10px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 8px; margin-bottom: 6px; cursor: pointer; transition: all 0.2s; }
+.task.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.8; }
+.task.checked .task-name { text-decoration: line-through; color: #64748b; }
+.task-check { font-size: 1rem; margin-right: 6px; }
 .sub-box { background: #faf6ee; border: 1px solid #edd59b; border-radius: 8px; padding: 8px 10px; margin-top: 8px; }
 .shloka-box { background: #fcf9ee; border: 1px solid #edd59b; border-radius: 8px; padding: 10px; text-align: center; margin: 8px 0; }
-.shloka-san { font-size: 0.95rem; font-weight: 700; color: #0d1f36; line-height: 1.5; }
+.shloka-san { font-size: 0.95rem; font-weight: 700; color: #0d1f36; line-height: 1.5; font-family: Georgia, serif; }
 .shloka-mean { font-size: 0.75rem; color: #475569; margin-top: 6px; border-top: 1px dashed #edd59b; padding-top: 6px; }
 .btns { display: flex; gap: 6px; }
 .btn { flex: 1; padding: 8px; border-radius: 8px; border: none; font-size: 0.72rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 .btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0d1f36; }
 .btn-navy { background: #0d1f36; color: #fef0cd; }
 .btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
-.b-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 480px; margin: 0 auto; background: #fff; border-top: 1px solid #ebdcc4; display: flex; justify-content: space-around; padding: 4px 0; z-index: 999; }
-.b-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.62rem; font-weight: 700; color: #94a3b8; cursor: pointer; flex: 1; padding: 4px 0; }
+.b-nav { position: fixed; bottom: 0; left: 0; right: 0; max-width: 480px; margin: 0 auto; background: #fff; border-top: 1px solid #ebdcc4; display: flex; justify-content: space-around; padding: 5px 0; z-index: 999; box-shadow: 0 -2px 10px rgba(0,0,0,0.05); }
+.b-btn { background: none; border: none; display: flex; flex-direction: column; align-items: center; font-size: 0.62rem; font-weight: 700; color: #94a3b8; cursor: pointer; flex: 1; padding: 3px 0; }
 .b-btn.active { color: #b88628; }
-.b-btn span:first-child { font-size: 1.1rem; }
+.b-btn span:first-child { font-size: 1.15rem; margin-bottom: 1px; }
 .bar { height: 6px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
 .fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
 </style>
@@ -62,6 +63,24 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #fbf9f4; c
 <span id="liveMuhurta" class="muhurta-val">✨ Brahma Muhurta</span>
 </div>
 </header>
+​<!-- Immediate Inline Clock Trigger -->
+<script>
+function updateClockImmediate() {
+var d = new Date();
+var c = document.getElementById('liveClock');
+if (c) c.textContent = d.toLocaleTimeString('en-US');
+var m = d.getHours() * 60 + d.getMinutes();
+var mh = document.getElementById('liveMuhurta');
+if (mh) {
+if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta";
+else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya";
+else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta";
+else mh.textContent = "🕉️ Dhyana Vela";
+}
+}
+updateClockImmediate();
+setInterval(updateClockImmediate, 1000);
+</script>
 ​<main class="wrap">
 <!-- 1. TODAY TAB -->
 <section id="tab-today" class="tab active">
@@ -94,8 +113,34 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #fbf9f4; c
 <span style="font-size:0.85rem; font-weight:800; color:#0d1f36;">🌅 Today's Sankalp</span>
 <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-reset 00:00</span>
 </div>
-<div class="bar" style="margin-bottom:8px;"><div id="routineBar" class="fill" style="background:#eab308;"></div></div>
-<div id="taskList"></div>
+<div class="bar" style="margin-bottom:10px;"><div id="routineBar" class="fill" style="background:#eab308;"></div></div>
+​<!-- Pre-rendered 6 Tasks -->
+<div id="taskList">
+<div id="task-0" class="task" onclick="toggleTask(0)">
+<span class="task-name"><span class="task-check" id="chk-0">☐</span> <span id="tname-0">Brahma Muhurta wake-up (4:30 AM)</span></span>
+<span class="badge">+25 XP</span>
+</div>
+<div id="task-1" class="task" onclick="toggleTask(1)">
+<span class="task-name"><span class="task-check" id="chk-1">☐</span> <span id="tname-1">Snan & Surya Arghya</span></span>
+<span class="badge">+15 XP</span>
+</div>
+<div id="task-2" class="task" onclick="toggleTask(2)">
+<span class="task-name"><span class="task-check" id="chk-2">☐</span> <span id="tname-2">Sattvic Diet Resolution</span></span>
+<span class="badge">+15 XP</span>
+</div>
+<div id="task-3" class="task" onclick="toggleTask(3)">
+<span class="task-name"><span class="task-check" id="chk-3">☐</span> <span id="tname-3">1 Round Nama Japa</span></span>
+<span class="badge">+20 XP</span>
+</div>
+<div id="task-4" class="task" onclick="toggleTask(4)">
+<span class="task-name"><span class="task-check" id="chk-4">☐</span> <span id="tname-4">Srimad Bhagavad Gita Study</span></span>
+<span class="badge">+20 XP</span>
+</div>
+<div id="task-5" class="task" onclick="toggleTask(5)">
+<span class="task-name"><span class="task-check" id="chk-5">☐</span> <span id="tname-5">Evening Reflection (Ratri Chintan)</span></span>
+<span class="badge">+15 XP</span>
+</div>
+</div>
 ​<div class="sub-box">
 <div style="display:flex; justify-content:space-between; font-size:0.75rem; font-weight:700;"><span>💧 Hydration</span><span id="waterGoal">0 / 2500 ml</span></div>
 <div style="display:flex; align-items:center; justify-content:space-between; margin-top:6px;">
@@ -124,7 +169,8 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #fbf9f4; c
 </div>
 <div class="shloka-box">
 <div id="gitaTag" style="font-size:0.7rem; font-weight:800; color:#b45309; margin-bottom:4px;">CH 2 · VERSE 47</div>
-<div id="gitaShloka" class="shloka-san">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन...</div>
+<div id="gitaShloka" class="shloka-san">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
+मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
 <div id="gitaMean" class="shloka-mean">Perform your duty without attachment to the outcome.</div>
 </div>
 <div class="btns">
@@ -226,62 +272,62 @@ body { font-family: system-ui, -apple-system, sans-serif; background: #fbf9f4; c
 <button class="b-btn" onclick="switchTab('coach',this)"><span>🏹</span><span>Coach</span></button>
 </nav>
 ​<script>
-// --- 1. INSTANT TICKING CLOCK ---
-function tick() {
-const now = new Date();
-const clk = document.getElementById('liveClock');
-if (clk) clk.textContent = now.toLocaleTimeString('en-US');
-const m = now.getHours() * 60 + now.getMinutes();
-const el = document.getElementById('liveMuhurta');
-if (el) {
-if (m >= 270 && m <= 318) el.textContent = "✨ Brahma Muhurta (अमृत)";
-else if (m > 318 && m <= 420) el.textContent = "🌅 Pratah Sandhya";
-else if (m >= 705 && m <= 755) el.textContent = "☀️ Abhijit Muhurta";
-else el.textContent = "🕉️ Dhyana Vela";
-}
-}
-tick();
-setInterval(tick, 1000);
-​// --- 2. MULTI-LANGUAGE DATA ---
 const I18N = {
 en: { tasks: ["Brahma Muhurta wake-up (4:30 AM)", "Snan & Surya Arghya", "Sattvic Diet Resolution", "1 Round Nama Japa", "Srimad Bhagavad Gita Study", "Evening Reflection (Ratri Chintan)"], mean: "You have a right to perform your prescribed duty, but never to the fruits of action." },
 hi: { tasks: ["ब्रह्म मुहूर्त जागरण (4:30 AM)", "स्नान एवं सूर्य अर्घ्य", "सात्विक आहार संकल्प", "१ माला नाम जप", "श्रीमद्भगवद्गीता स्वाध्याय", "संध्या चिंतन एवं कृतज्ञता"], mean: "कर्म करने में ही तुम्हारा अधिकार है, उसके फलों में कभी नहीं।" },
 kn: { tasks: ["ಬ್ರಾಹ್ಮೀ ಮುಹೂರ್ತ ಜಾಗರಣ (4:30 AM)", "ಸ್ನಾನ ಮತ್ತು ಸೂರ್ಯಾರ್ಘ್ಯ", "ಸಾತ್ವಿಕ ಆಹಾರ ಸಂಕಲ್ಪ", "೧ ಮಾಲೆ ನಾಮ ಜಪ", "ಭಗವದ್ಗೀತಾ ಅಧ್ಯಯನ", "ರಾತ್ರಿ ಚಿಂತನೆ ಮತ್ತು ಕೃತಜ್ಞತೆ"], mean: "ಕರ್ಮದಲ್ಲೇ ನಿನಗೆ ಅಧಿಕಾರ, ಫಲಗಳಲ್ಲಿ ಎಂದಿಗೂ ಬೇಡ." },
 mr: { tasks: ["ब्राह्म मुहूर्त जागरण (4:30 AM)", "स्नान आणि सूर्य अर्घ्य", "सात्त्विक आहार संकल्प", "१ माळ नामजप", "श्रीमद्भगवद्गीता स्वाध्याय", "रात्रीचे आत्मचिंतन"], mean: "कर्म करण्यातच तुझा अधिकार आहे, फळांवर कधीही नाही." },
-te: { tasks: ["బ్రాహ్మీ ముహూర్త జాగరణ (4:30 AM)", "స్నానం మరియు సూర్యార్ఘ్యం", "సాత్విక ఆహార సంకల్పం", "౧ మాల నామ జపం", "శ్రీమద్భగవద్గೀత పఠనం", "రాత్రి ఆత్మపరిశీలన"], mean: "కర్మలందు మాత్రమే నీకు అధికారము కలదు, ఫలములందు ఎన్నడూ లేదు." },
+te: { tasks: ["బ్రాహ్మీ ముహూర్త జాగరణ (4:30 AM)", "స్నానం మరియు సూర్యార్ఘ్యం", "సాత్విక ఆహార సంకల్పం", "౧ మాల నామ జపం", "శ్రీమద్భగవద్గీత పఠనం", "రాత్రి ఆత్మపరిశీలన"], mean: "కర్మలందు మాత్రమే నీకు అధికారము కలదు, ఫలములందు ఎన్నడూ లేదు." },
 ta: { tasks: ["பிரம்ம முகூர்த்த விழிப்பு (4:30 AM)", "நீராடல் & சூரிய அர்க்கியம்", "சாத்வீக உணவு சங்கல்பம்", "1 மாலை நாம ஜபம்", "பகவத் கீதை பாராயணம்", "இரவு சிந்தனை மற்றும் நன்றி"], mean: "கடமையைச் செய்யவே உனக்கு உரிமை உண்டு, அதன் பலனில் ஒருபோதும் இல்லை." }
 };
-​let curLang = localStorage.getItem('mp_lang') || 'en';
-let tasks = [false, false, false, false, false, false];
-try { const t = JSON.parse(localStorage.getItem('mp_tasks')); if (Array.isArray(t)) tasks = t; } catch(e) {}
-let water = parseInt(localStorage.getItem('mp_water') || '0', 10);
-let beads = parseInt(localStorage.getItem('mp_beads') || '0', 10);
-let malas = parseInt(localStorage.getItem('mp_malas') || '0', 10);
-let xp = parseInt(localStorage.getItem('mp_xp') || '0', 10);
-let score = 0;
+​var curLang = localStorage.getItem('mp_lang') || 'en';
+var tasks = [false, false, false, false, false, false];
+try {
+var savedT = JSON.parse(localStorage.getItem('mp_tasks'));
+if (Array.isArray(savedT) && savedT.length === 6) {
+for (var k = 0; k < 6; k++) {
+tasks[k] = (typeof savedT[k] === 'boolean') ? savedT[k] : Boolean(savedT[k]?.done);
+}
+}
+} catch(e) {}
+​var water = parseInt(localStorage.getItem('mp_water') || '0', 10);
+var beads = parseInt(localStorage.getItem('mp_beads') || '0', 10);
+var malas = parseInt(localStorage.getItem('mp_malas') || '0', 10);
+var xp = parseInt(localStorage.getItem('mp_xp') || '0', 10);
+var score = 0;
 ​function changeLang(l) {
 curLang = l;
 localStorage.setItem('mp_lang', l);
-document.getElementById('vMeaning').textContent = I18N[l] ? I18N[l].mean : I18N.en.mean;
+var m = document.getElementById('vMeaning');
+if (m) m.textContent = I18N[l] ? I18N[l].mean : I18N.en.mean;
 renderTasks();
 }
 ​function renderTasks() {
-const list = document.getElementById('taskList');
-list.innerHTML = '';
-const names = I18N[curLang] ? I18N[curLang].tasks : I18N.en.tasks;
-const pts = [25, 15, 15, 20, 20, 15];
-let done = 0;
-for (let i = 0; i < 6; i++) {
-const isD = Boolean(tasks[i]);
-if (isD) done++;
-list.innerHTML +=  <div class="task ${isD ? 'checked' : ''}" onclick="toggleTask(${i})"> <span style="font-size:0.78rem; font-weight:600;">${isD ? '☑' : '☐'} ${names[i]}</span> <span class="badge">+${pts[i]} XP</span> </div>;
+var names = I18N[curLang] ? I18N[curLang].tasks : I18N.en.tasks;
+var done = 0;
+for (var i = 0; i < 6; i++) {
+var el = document.getElementById('task-' + i);
+var chk = document.getElementById('chk-' + i);
+var tn = document.getElementById('tname-' + i);
+if (tn) tn.textContent = names[i];
+if (tasks[i]) {
+done++;
+if (el) el.classList.add('checked');
+if (chk) chk.textContent = '☑';
+} else {
+if (el) el.classList.remove('checked');
+if (chk) chk.textContent = '☐';
 }
-const pct = Math.round((done / 6) * 100);
-document.getElementById('kpiTasks').textContent = ${done}/6;
-document.getElementById('kpiPct').textContent = ${pct}%;
-document.getElementById('routineBar').style.width = ${pct}%;
-const tb = document.getElementById('todayChartBar');
-if (tb) tb.style.height = ${Math.max(15, pct)}%;
+}
+var pct = Math.round((done / 6) * 100);
+var kt = document.getElementById('kpiTasks');
+var kp = document.getElementById('kpiPct');
+var rb = document.getElementById('routineBar');
+var tb = document.getElementById('todayChartBar');
+if (kt) kt.textContent = done + '/6';
+if (kp) kp.textContent = pct + '%';
+if (rb) rb.style.width = pct + '%';
+if (tb) tb.style.height = Math.max(15, pct) + '%';
 }
 ​function toggleTask(i) {
 tasks[i] = !tasks[i];
@@ -292,16 +338,23 @@ renderTasks();
 ​function addWater(v) {
 water = Math.max(0, water + v);
 localStorage.setItem('mp_water', water);
-document.getElementById('waterLbl').textContent = ${water} ml;
-document.getElementById('waterGoal').textContent = ${water} / 2500 ml;
-document.getElementById('waterBar').style.width = ${Math.min(100, Math.round((water / 2500) * 100))}%;
+var wl = document.getElementById('waterLbl');
+var wg = document.getElementById('waterGoal');
+var wb = document.getElementById('waterBar');
+if (wl) wl.textContent = water + ' ml';
+if (wg) wg.textContent = water + ' / 2500 ml';
+if (wb) wb.style.width = Math.min(100, Math.round((water / 2500) * 100)) + '%';
 }
 ​function calcSleep() {
-const [bh, bm] = document.getElementById('bedTime').value.split(':').map(Number);
-const [wh, wm] = document.getElementById('wakeTime').value.split(':').map(Number);
-let diff = (wh * 60 + wm) - (bh * 60 + bm);
+var b = document.getElementById('bedTime');
+var w = document.getElementById('wakeTime');
+if (!b || !w) return;
+var bp = b.value.split(':').map(Number);
+var wp = w.value.split(':').map(Number);
+var diff = (wp[0] * 60 + wp[1]) - (bp[0] * 60 + bp[1]);
 if (diff < 0) diff += 1440;
-document.getElementById('sleepLbl').textContent = ${Math.floor(diff/60)}h ${diff%60}m;
+var sl = document.getElementById('sleepLbl');
+if (sl) sl.textContent = Math.floor(diff/60) + 'h ' + (diff%60) + 'm';
 }
 ​function tapBead() {
 beads++;
@@ -314,42 +367,52 @@ renderJapa();
 function resetBead() { beads = 0; localStorage.setItem('mp_beads', 0); renderJapa(); }
 function resetAllJapa() { beads = 0; malas = 0; localStorage.setItem('mp_beads', 0); localStorage.setItem('mp_malas', 0); renderJapa(); }
 function renderJapa() {
-document.getElementById('beadNum').textContent = beads;
-document.getElementById('malaNum').textContent = malas;
-document.getElementById('kpiMalas').textContent = malas;
+var bn = document.getElementById('beadNum');
+var mn = document.getElementById('malaNum');
+var km = document.getElementById('kpiMalas');
+if (bn) bn.textContent = beads;
+if (mn) mn.textContent = malas;
+if (km) km.textContent = malas;
 }
 ​function hitTarget() {
 score++;
-document.getElementById('gameScore').textContent = score;
+var gs = document.getElementById('gameScore');
+if (gs) gs.textContent = score;
 chime();
 }
 function claimGameXp() { addXp(50); chime(); }
 ​function saveNote() {
-const v = document.getElementById('diaryTxt').value.trim();
+var dt = document.getElementById('diaryTxt');
+if (!dt) return;
+var v = dt.value.trim();
 if (!v) return;
-document.getElementById('diaryFeed').innerHTML = <div style="background:#f1f5f9; padding:5px 8px; border-radius:6px; margin-bottom:4px; font-size:0.7rem;"><b>${new Date().toLocaleDateString()}</b>: ${v}</div> + document.getElementById('diaryFeed').innerHTML;
-document.getElementById('diaryTxt').value = '';
+var df = document.getElementById('diaryFeed');
+if (df) df.innerHTML = '<div style="background:#f1f5f9; padding:5px 8px; border-radius:6px; margin-bottom:4px; font-size:0.7rem;"><b>' + new Date().toLocaleDateString() + '</b>: ' + v + '</div>' + df.innerHTML;
+dt.value = '';
 addXp(30);
 }
 ​function askBot() {
-const inp = document.getElementById('chatInput');
-const v = inp.value.trim();
+var inp = document.getElementById('chatInput');
+if (!inp) return;
+var v = inp.value.trim();
 if (!v) return;
-const b = document.getElementById('chatFeed');
-b.innerHTML += <div style="background:#0d1f36; color:#fff; padding:5px 8px; border-radius:8px; margin-bottom:4px; margin-left:auto; max-width:85%;">${v}</div>;
+var b = document.getElementById('chatFeed');
+if (b) b.innerHTML += '<div style="background:#0d1f36; color:#fff; padding:5px 8px; border-radius:8px; margin-bottom:4px; margin-left:auto; max-width:85%;">' + v + '</div>';
 inp.value = '';
-setTimeout(() => {
-b.innerHTML += <div style="background:#e2e8f0; padding:5px 8px; border-radius:8px; margin-bottom:4px; max-width:85%;">Gita 2.47: Focus purely on duty with an even mind. Never worry about the outcome.</div>;
+setTimeout(function() {
+if (b) {
+b.innerHTML += '<div style="background:#e2e8f0; padding:5px 8px; border-radius:8px; margin-bottom:4px; max-width:85%;">Gita 2.47: Focus purely on duty with an even mind. Never worry about the outcome.</div>';
 b.scrollTop = b.scrollHeight;
+}
 }, 400);
 }
 ​function chime() {
 try {
-const C = window.AudioContext || window.webkitAudioContext;
+var C = window.AudioContext || window.webkitAudioContext;
 if (!C) return;
-const ctx = new C();
-const o = ctx.createOscillator();
-const g = ctx.createGain();
+var ctx = new C();
+var o = ctx.createOscillator();
+var g = ctx.createGain();
 o.type = 'sine'; o.frequency.setValueAtTime(528, ctx.currentTime);
 g.gain.setValueAtTime(0.2, ctx.currentTime);
 g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
@@ -357,12 +420,15 @@ o.connect(g); g.connect(ctx.destination);
 o.start(); o.stop(ctx.currentTime + 0.6);
 } catch(e) {}
 }
-​function playRecite(id = 'vSanskrit') {
+​function playRecite(id) {
+id = id || 'vSanskrit';
 chime();
 if (!('speechSynthesis' in window)) return;
 window.speechSynthesis.cancel();
-const txt = document.getElementById(id).textContent.replace(/[॥|।]/g, ' ');
-const u = new SpeechSynthesisUtterance(txt);
+var el = document.getElementById(id);
+if (!el) return;
+var txt = el.textContent.replace(/[॥|।]/g, ' ');
+var u = new SpeechSynthesisUtterance(txt);
 u.rate = 0.85;
 window.speechSynthesis.speak(u);
 }
@@ -370,54 +436,66 @@ function stopRecite() { if (window.speechSynthesis) window.speechSynthesis.cance
 ​function addXp(p) {
 xp += p;
 localStorage.setItem('mp_xp', xp);
-document.getElementById('kpiXp').textContent = ${xp} XP;
-let t = "Sadhaka I";
+var kx = document.getElementById('kpiXp');
+if (kx) kx.textContent = xp + ' XP';
+var t = "Sadhaka I";
 if (xp > 500) t = "Paramahamsa 🦚";
 else if (xp > 200) t = "Karma Yogi 🎯";
-document.getElementById('tierName').textContent = t;
+var tn = document.getElementById('tierName');
+if (tn) tn.textContent = t;
 }
 ​function switchTab(id, btn) {
-document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-document.querySelectorAll('.b-btn').forEach(b => b.classList.remove('active'));
-const t = document.getElementById(tab-${id});
+document.querySelectorAll('.tab').forEach(function(t) { t.classList.remove('active'); });
+document.querySelectorAll('.b-btn').forEach(function(b) { b.classList.remove('active'); });
+var t = document.getElementById('tab-' + id);
 if (t) t.classList.add('active');
 if (btn) btn.classList.add('active');
 stopRecite();
 window.scrollTo({ top: 0, behavior: 'smooth' });
 }
-​const CH_COUNTS = [47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78];
+​var CH_COUNTS = [47, 72, 43, 42, 29, 47, 30, 28, 34, 42, 55, 20, 35, 27, 20, 24, 28, 78];
 function initGita() {
-const ch = document.getElementById('gitaCh');
+var ch = document.getElementById('gitaCh');
+if (!ch) return;
 ch.innerHTML = '';
-for (let i = 1; i <= 18; i++) ch.innerHTML += <option value="${i}">Chapter ${i}</option>;
+for (var i = 1; i <= 18; i++) ch.innerHTML += '<option value="' + i + '">Chapter ' + i + '</option>';
 ch.value = "2";
 onChapter(2);
 }
 function onChapter(c) {
-const vr = document.getElementById('gitaVr');
+var vr = document.getElementById('gitaVr');
+if (!vr) return;
 vr.innerHTML = '';
-for (let i = 1; i <= CH_COUNTS[c - 1]; i++) vr.innerHTML += <option value="${i}">Verse ${i}</option>;
-if (c === "2") vr.value = "47";
+for (var i = 1; i <= CH_COUNTS[c - 1]; i++) vr.innerHTML += '<option value="' + i + '">Verse ' + i + '</option>';
+if (c == 2) vr.value = "47";
 loadShloka();
 }
 function loadShloka() {
-const c = document.getElementById('gitaCh').value;
-const v = document.getElementById('gitaVr').value;
-document.getElementById('gitaTag').textContent = CH ${c} · VERSE ${v};
-if (c === "2" && v === "47") {
-document.getElementById('gitaShloka').textContent = "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥";
-document.getElementById('gitaMean').textContent = I18N[curLang] ? I18N[curLang].mean : I18N.en.mean;
+var ch = document.getElementById('gitaCh');
+var vr = document.getElementById('gitaVr');
+if (!ch || !vr) return;
+var c = ch.value;
+var v = vr.value;
+var gt = document.getElementById('gitaTag');
+var gs = document.getElementById('gitaShloka');
+var gm = document.getElementById('gitaMean');
+if (gt) gt.textContent = 'CH ' + c + ' · VERSE ' + v;
+if (c == 2 && v == 47) {
+if (gs) gs.textContent = "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥";
+if (gm) gm.textContent = I18N[curLang] ? I18N[curLang].mean : I18N.en.mean;
 } else {
-document.getElementById('gitaShloka').textContent = अध्याय ${c} · श्लोक ${v}\n(पवित्र श्लोक...);
-document.getElementById('gitaMean').textContent = "Focus the mind on continuous practice and detachment (Gita 6.35).";
+if (gs) gs.textContent = "अध्याय " + c + " · श्लोक " + v + "\n(पवित्र श्लोक...)";
+if (gm) gm.textContent = "Focus the mind on continuous practice and detachment (Gita 6.35).";
 }
 }
 function stepVr(d) {
-const vr = document.getElementById('gitaVr');
-const idx = vr.selectedIndex + d;
+var vr = document.getElementById('gitaVr');
+if (!vr) return;
+var idx = vr.selectedIndex + d;
 if (idx >= 0 && idx < vr.options.length) { vr.selectedIndex = idx; loadShloka(); }
 }
-​document.getElementById('langSel').value = curLang;
+​var ls = document.getElementById('langSel');
+if (ls) ls.value = curLang;
 renderTasks();
 addWater(0);
 renderJapa();
