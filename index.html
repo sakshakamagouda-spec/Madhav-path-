@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MadhavPath · Devotion, Discipline & Wisdom</title>
+  <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1931">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -16,6 +17,7 @@
       color: #1e293b !important;
       padding-bottom: 95px;
       -webkit-font-smoothing: antialiased;
+      touch-action: manipulation;
     }
     .header-box {
       background: linear-gradient(135deg, #0a1931 0%, #132b4f 100%) !important;
@@ -42,11 +44,11 @@
     .kpi-tag { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
     .kpi-digit { font-size: 1.22rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
     
-    .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 11px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 9px; margin-bottom: 7px; cursor: pointer; touch-action: manipulation; }
+    .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 11px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 9px; margin-bottom: 7px; cursor: pointer; touch-action: manipulation; transition: all 0.15s ease; }
     .task-item.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
     .task-item.checked .task-text { text-decoration: line-through; color: #64748b; }
-    .task-check-mark { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; }
-    .task-text { font-size: 0.83rem; font-weight: 700; color: #0a1931; }
+    .task-check-mark { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; width: 22px; display: inline-block; text-align: center; }
+    .task-text { font-size: 0.83rem; font-weight: 700; color: #0a1931; flex: 1; }
     
     .btn-action { padding: 9px 8px; border-radius: 8px; border: none; font-size: 0.78rem; font-weight: 700; cursor: pointer; touch-action: manipulation; display: flex; align-items: center; justify-content: center; gap: 5px; }
     .btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0a1931; }
@@ -85,7 +87,7 @@
   <header class="header-box">
     <div class="header-row">
       <div class="brand-title">🦚 माधवपथ · MadhavPath</div>
-      <select id="langSel" class="lang-select" onchange="window.showToast('Language set to ' + this.value.toUpperCase())">
+      <select id="langSel" class="lang-select" onchange="window.setLanguage(this.value)">
         <option value="en">English</option>
         <option value="hi">हिन्दी</option>
         <option value="kn">ಕನ್ನಡ</option>
@@ -136,20 +138,16 @@
         <div class="kpi-item"><div class="kpi-tag">Karma XP</div><div id="kpiXp" class="kpi-digit">0 XP</div></div>
       </div>
 
+      <!-- ROUTINE CARD -->
       <div class="card">
         <div class="card-head">
           <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🌅 Today's Sankalp (Routine)</span>
-          <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-reset 00:00</span>
+          <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-save active</span>
         </div>
         <div class="progress-bar-bg" style="margin-bottom:10px;"><div id="routineBar" class="progress-bar-fill" style="background:#eab308; width:0%;"></div></div>
 
-        <!-- 6 SACRED ROUTINE TASKS -->
-        <div class="task-item" id="taskRow0" onclick="window.toggleTask(0)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk0">☐</span><span class="task-text">Brahma Muhurta wake-up (4:30 AM)</span></div><span class="badge">+25 XP</span></div>
-        <div class="task-item" id="taskRow1" onclick="window.toggleTask(1)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk1">☐</span><span class="task-text">Snan & Surya Arghya</span></div><span class="badge">+15 XP</span></div>
-        <div class="task-item" id="taskRow2" onclick="window.toggleTask(2)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk2">☐</span><span class="task-text">Sattvic Diet Resolution</span></div><span class="badge">+15 XP</span></div>
-        <div class="task-item" id="taskRow3" onclick="window.toggleTask(3)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk3">☐</span><span class="task-text">1 Round Nama Japa</span></div><span class="badge">+20 XP</span></div>
-        <div class="task-item" id="taskRow4" onclick="window.toggleTask(4)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk4">☐</span><span class="task-text">Srimad Bhagavad Gita Study</span></div><span class="badge">+20 XP</span></div>
-        <div class="task-item" id="taskRow5" onclick="window.toggleTask(5)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk5">☐</span><span class="task-text">Evening Reflection (Ratri Chintan)</span></div><span class="badge">+15 XP</span></div>
+        <!-- SACRED ROUTINE TASKS CONTAINER -->
+        <div id="coreTasksContainer"></div>
 
         <!-- CUSTOM HABITS CONTAINER -->
         <div id="customTasksContainer"></div>
@@ -184,8 +182,8 @@
             <span id="sleepLbl" style="color:#16a34a;">Duration: 7h 30m</span>
           </div>
           <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-            <div><small style="color:#64748b; font-size:0.65rem; font-weight:700;">Bedtime</small><input type="time" id="bedTime" value="22:30" class="btn-action btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()"></div>
-            <div><small style="color:#64748b; font-size:0.65rem; font-weight:700;">Wake-up</small><input type="time" id="wakeTime" value="06:00" class="btn-action btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()"></div>
+            <div><small style="color:#64748b; font-size:0.65rem; font-weight:700;">Bedtime</small><input type="time" id="bedTime" value="22:30" class="btn-action btn-light" style="width:100%; padding:6px;" onchange="window.onSleepChange()"></div>
+            <div><small style="color:#64748b; font-size:0.65rem; font-weight:700;">Wake-up</small><input type="time" id="wakeTime" value="06:00" class="btn-action btn-light" style="width:100%; padding:6px;" onchange="window.onSleepChange()"></div>
           </div>
         </div>
       </div>
@@ -328,7 +326,10 @@
         <button onclick="window.saveNote()" class="btn-action btn-navy" style="width:100%;">Save Reflection (+30 XP)</button>
       </div>
       <div class="card">
-        <h4 style="font-size:0.85rem; color:#0d1f36; margin-bottom:6px;">Reflection History</h4>
+        <div class="card-head">
+          <h4 style="font-size:0.85rem; color:#0d1f36;">Reflection History</h4>
+          <span id="diaryCountBadge" class="badge">0 entries</span>
+        </div>
         <div id="diaryFeed"></div>
       </div>
     </section>
@@ -341,7 +342,7 @@
         </div>
         <div class="kpi-row">
           <div class="kpi-item"><div class="kpi-tag">Current Streak</div><div class="kpi-digit">7 Days</div></div>
-          <div class="kpi-item"><div class="kpi-tag">Avg Adherence</div><div class="kpi-digit">84%</div></div>
+          <div class="kpi-item"><div class="kpi-tag">Avg Adherence</div><div id="statsAvgAdherence" class="kpi-digit">84%</div></div>
           <div class="kpi-item"><div class="kpi-tag">Total Malas</div><div id="statsTotalMalas" class="kpi-digit">0</div></div>
           <div class="kpi-item"><div class="kpi-tag">Spiritual Tier</div><div id="tierName" class="kpi-digit" style="font-size:0.95rem;">Sadhaka I</div></div>
         </div>
@@ -361,14 +362,8 @@
           <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%; background:#0284c7;"></div></div>
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:14px 0 6px;">7-Day Adherence Trend</h4>
-        <div style="display:flex; align-items:flex-end; gap:8px; height:120px; border-bottom:2px solid #cbd5e1; padding-top:10px; margin-top:10px; margin-bottom:8px;">
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:60px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Mon</small></div>
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:75px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Tue</small></div>
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:80px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Wed</small></div>
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:65px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Thu</small></div>
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:85px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Fri</small></div>
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:90px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Sat</small></div>
-          <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div id="todayChartBar" style="background:#d97706; height:20px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#0d1f36; font-weight:700; margin-top:4px;">Today</small></div>
+        <div id="trendChartWrap" style="display:flex; align-items:flex-end; gap:8px; height:120px; border-bottom:2px solid #cbd5e1; padding-top:10px; margin-top:10px; margin-bottom:8px;">
+          <!-- 7 Bars rendered dynamically -->
         </div>
       </div>
     </section>
@@ -387,12 +382,147 @@
 
   <div id="toastBox" class="toast-pill">Updated</div>
 
-  <script>
-    // 1. SAFE STORAGE ENGINE
-    function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
-    function setStore(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
+  <script type="module">
+    // Optional Cloud persistence configuration
+    let db = null;
+    let auth = null;
+    let userId = null;
+    const appId = typeof __app_id !== 'undefined' ? __app_id : 'madhavpath-app';
 
-    // 2. TAB SWITCHER
+    if (typeof __firebase_config !== 'undefined') {
+      try {
+        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
+        const { getAuth, signInAnonymously, signInWithCustomToken } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
+        const { getFirestore, doc, setDoc, onSnapshot } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+        
+        const firebaseConfig = JSON.parse(__firebase_config);
+        const app = initializeApp(firebaseConfig);
+        auth = getAuth(app);
+        db = getFirestore(app);
+
+        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+          await signInWithCustomToken(auth, __initial_auth_token);
+        } else {
+          await signInAnonymously(auth);
+        }
+        userId = auth.currentUser?.uid || 'user_local';
+
+        // Listen for cloud updates
+        const userDocRef = doc(db, 'artifacts', appId, 'users', userId, 'sadhana_state', 'main');
+        onSnapshot(userDocRef, (snap) => {
+          if (snap.exists()) {
+            const remoteData = snap.data();
+            if (remoteData && remoteData.timestamp > (window.appState?.timestamp || 0)) {
+              window.mergeRemoteState(remoteData);
+            }
+          }
+        }, (err) => {
+          console.warn("Cloud sync listening silently in background", err);
+        });
+      } catch (err) {
+        console.warn("Storage falling back cleanly to local persistence", err);
+      }
+    }
+
+    window.syncToCloud = async function(stateData) {
+      if (!db || !userId) return;
+      try {
+        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
+        const userDocRef = doc(db, 'artifacts', appId, 'users', userId, 'sadhana_state', 'main');
+        await setDoc(userDocRef, { ...stateData, timestamp: Date.now() }, { merge: true });
+      } catch (e) {}
+    };
+  </script>
+
+  <script>
+    function getTodayKey() {
+      var d = new Date();
+      return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+    }
+
+    var STORAGE_KEY = 'MADHAVPATH_STATE_V1';
+    function loadLocalState() {
+      try {
+        var str = localStorage.getItem(STORAGE_KEY);
+        if (str) return JSON.parse(str);
+      } catch(e) {}
+      return null;
+    }
+    function saveLocalState(st) {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
+      } catch(e) {}
+      if (window.syncToCloud) {
+        window.syncToCloud(st);
+      }
+    }
+
+    var DEFAULT_CORE_TASKS = [
+      { id: 0, name: "Brahma Muhurta wake-up (4:30 AM)", xp: 25, done: false },
+      { id: 1, name: "Snan & Surya Arghya", xp: 15, done: false },
+      { id: 2, name: "Sattvic Diet Resolution", xp: 15, done: false },
+      { id: 3, name: "1 Round Nama Japa", xp: 20, done: false },
+      { id: 4, name: "Srimad Bhagavad Gita Study", xp: 20, done: false },
+      { id: 5, name: "Evening Reflection (Ratri Chintan)", xp: 15, done: false }
+    ];
+
+    var appState = loadLocalState() || {
+      date: getTodayKey(),
+      coreTasks: DEFAULT_CORE_TASKS,
+      customTasks: [],
+      water: 0,
+      bedTime: "22:30",
+      wakeTime: "06:00",
+      beads: 0,
+      malas: 0,
+      xp: 0,
+      diaryNotes: [],
+      lang: "en",
+      weeklyAdherence: [60, 75, 80, 65, 85, 90, 0],
+      sleepHistory: [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5],
+      waterHistory: [2000, 2500, 2250, 2500, 1750, 2500, 0],
+      timestamp: Date.now()
+    };
+
+    // Auto day-reset checker
+    (function checkMidnightReset() {
+      var today = getTodayKey();
+      if (appState.date !== today) {
+        var doneCount = 0;
+        var total = appState.coreTasks.length + appState.customTasks.length;
+        for (var i = 0; i < appState.coreTasks.length; i++) if (appState.coreTasks[i].done) doneCount++;
+        for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) doneCount++;
+        var yesterdayPct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+
+        if (!appState.weeklyAdherence) appState.weeklyAdherence = [60, 75, 80, 65, 85, 90, 0];
+        appState.weeklyAdherence.shift();
+        appState.weeklyAdherence.push(yesterdayPct);
+
+        if (!appState.waterHistory) appState.waterHistory = [2000, 2500, 2250, 2500, 1750, 2500, 0];
+        appState.waterHistory.shift();
+        appState.waterHistory.push(appState.water || 0);
+
+        // Reset checkmarks for new morning
+        for (var k = 0; k < appState.coreTasks.length; k++) appState.coreTasks[k].done = false;
+        for (var l = 0; l < appState.customTasks.length; l++) appState.customTasks[l].done = false;
+        appState.water = 0;
+        appState.date = today;
+        appState.timestamp = Date.now();
+        saveLocalState(appState);
+      }
+    })();
+
+    window.mergeRemoteState = function(remote) {
+      if (!remote) return;
+      appState = remote;
+      window.renderAll();
+    };
+
+    function persist() {
+      appState.timestamp = Date.now();
+      saveLocalState(appState);
+    }
+
     window.switchTab = function(tabId) {
       var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
       for (var i = 0; i < tabs.length; i++) {
@@ -412,9 +542,9 @@
       }
       try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e) {}
       window.scrollTo(0, 0);
+      if (tabId === 'stats') window.renderStats();
     };
 
-    // 3. TOAST MESSENGER
     window.showToast = function(msg) {
       var t = document.getElementById('toastBox');
       if (!t) return;
@@ -423,7 +553,7 @@
       setTimeout(function() { t.style.display = 'none'; }, 2000);
     };
 
-    // 4. LIVE TICKING CLOCK & MUHURTA
+    // LIVE TICKING CLOCK
     (function runClock() {
       function tick() {
         try {
@@ -452,79 +582,45 @@
       setInterval(tick, 1000);
     })();
 
-    var coreTasks = [
-      { name: "Brahma Muhurta wake-up (4:30 AM)", xp: 25, done: false },
-      { name: "Snan & Surya Arghya", xp: 15, done: false },
-      { name: "Sattvic Diet Resolution", xp: 15, done: false },
-      { name: "1 Round Nama Japa", xp: 20, done: false },
-      { name: "Srimad Bhagavad Gita Study", xp: 20, done: false },
-      { name: "Evening Reflection (Ratri Chintan)", xp: 15, done: false }
-    ];
-    var customTasks = [];
-    try { customTasks = JSON.parse(getStore('mp_custom_tasks', '[]')); } catch(e) { customTasks = []; }
-
-    var water = parseInt(getStore('mp_water', '0'), 10) || 0;
-    var beads = parseInt(getStore('mp_beads', '0'), 10) || 0;
-    var malas = parseInt(getStore('mp_malas', '0'), 10) || 0;
-    var xp = parseInt(getStore('mp_xp', '0'), 10) || 0;
-    var gameScore = 0;
-    var sprintTimer = null;
-    var sprintSeconds = 15 * 60;
-    var isSprintActive = false;
+    window.renderCoreTasks = function() {
+      var box = document.getElementById('coreTasksContainer');
+      if (!box) return;
+      box.innerHTML = '';
+      for (var i = 0; i < appState.coreTasks.length; i++) {
+        var t = appState.coreTasks[i];
+        var div = document.createElement('div');
+        div.className = 'task-item' + (t.done ? ' checked' : '');
+        div.id = 'taskRow' + i;
+        div.setAttribute('onclick', 'window.toggleTask(' + i + ')');
+        div.innerHTML = '<div style="display:flex; align-items:center; flex:1;">' +
+          '<span class="task-check-mark" id="chk' + i + '">' + (t.done ? '☑' : '☐') + '</span>' +
+          '<span class="task-text">' + t.name + '</span></div>' +
+          '<span class="badge">+' + t.xp + ' XP</span>';
+        box.appendChild(div);
+      }
+    };
 
     window.toggleTask = function(idx) {
-      if (!coreTasks[idx]) return;
-      coreTasks[idx].done = !coreTasks[idx].done;
-      var chk = document.getElementById('chk' + idx);
-      var row = document.getElementById('taskRow' + idx);
-      if (chk) chk.textContent = coreTasks[idx].done ? '☑' : '☐';
-      if (row) {
-        if (coreTasks[idx].done) row.classList.add('checked');
-        else row.classList.remove('checked');
+      if (!appState.coreTasks[idx]) return;
+      appState.coreTasks[idx].done = !appState.coreTasks[idx].done;
+      if (appState.coreTasks[idx].done) {
+        window.addXp(appState.coreTasks[idx].xp);
+        window.showToast("Completed: " + appState.coreTasks[idx].name);
       }
-      if (coreTasks[idx].done) { window.addXp(coreTasks[idx].xp); }
+      persist();
+      window.renderCoreTasks();
       window.updateRoutineStats();
-    };
-
-    window.toggleCustomTask = function(cIdx) {
-      if (!customTasks[cIdx]) return;
-      customTasks[cIdx].done = !customTasks[cIdx].done;
-      setStore('mp_custom_tasks', JSON.stringify(customTasks));
-      if (customTasks[cIdx].done) { window.addXp(20); }
-      window.renderCustomTasks();
-      window.updateRoutineStats();
-    };
-
-    window.addCustomTask = function() {
-      var inp = document.getElementById('customHabitInput');
-      if (!inp) return;
-      var title = inp.value.trim();
-      if (!title) return;
-      customTasks.push({ id: Date.now(), name: title, done: false });
-      setStore('mp_custom_tasks', JSON.stringify(customTasks));
-      inp.value = '';
-      window.renderCustomTasks();
-      window.updateRoutineStats();
-      window.showToast("Custom Habit Added!");
-    };
-
-    window.deleteCustomTask = function(cIdx) {
-      customTasks.splice(cIdx, 1);
-      setStore('mp_custom_tasks', JSON.stringify(customTasks));
-      window.renderCustomTasks();
-      window.updateRoutineStats();
-      window.showToast("Habit Removed");
     };
 
     window.renderCustomTasks = function() {
       var box = document.getElementById('customTasksContainer');
       if (!box) return;
       box.innerHTML = '';
-      for (var i = 0; i < customTasks.length; i++) {
-        var c = customTasks[i];
+      for (var i = 0; i < appState.customTasks.length; i++) {
+        var c = appState.customTasks[i];
         var div = document.createElement('div');
         div.className = 'task-item' + (c.done ? ' checked' : '');
-        div.innerHTML = '<div style="display:flex; align-items:center;" onclick="window.toggleCustomTask(' + i + ')">' +
+        div.innerHTML = '<div style="display:flex; align-items:center; flex:1;" onclick="window.toggleCustomTask(' + i + ')">' +
           '<span class="task-check-mark">' + (c.done ? '☑' : '☐') + '</span>' +
           '<span class="task-text">' + c.name + '</span></div>' +
           '<div style="display:flex; align-items:center; gap:6px;">' +
@@ -535,38 +631,86 @@
       }
     };
 
+    window.toggleCustomTask = function(cIdx) {
+      if (!appState.customTasks[cIdx]) return;
+      appState.customTasks[cIdx].done = !appState.customTasks[cIdx].done;
+      if (appState.customTasks[cIdx].done) {
+        window.addXp(20);
+        window.showToast("Completed: " + appState.customTasks[cIdx].name);
+      }
+      persist();
+      window.renderCustomTasks();
+      window.updateRoutineStats();
+    };
+
+    window.addCustomTask = function() {
+      var inp = document.getElementById('customHabitInput');
+      if (!inp) return;
+      var title = inp.value.trim();
+      if (!title) return;
+      appState.customTasks.push({ id: Date.now(), name: title, done: false });
+      inp.value = '';
+      persist();
+      window.renderCustomTasks();
+      window.updateRoutineStats();
+      window.showToast("Custom Habit Added!");
+    };
+
+    window.deleteCustomTask = function(cIdx) {
+      appState.customTasks.splice(cIdx, 1);
+      persist();
+      window.renderCustomTasks();
+      window.updateRoutineStats();
+      window.showToast("Habit Removed");
+    };
+
     window.updateRoutineStats = function() {
       var done = 0;
-      for (var i = 0; i < coreTasks.length; i++) if (coreTasks[i].done) done++;
-      for (var j = 0; j < customTasks.length; j++) if (customTasks[j].done) done++;
-      var total = coreTasks.length + customTasks.length;
+      for (var i = 0; i < appState.coreTasks.length; i++) if (appState.coreTasks[i].done) done++;
+      for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) done++;
+      var total = appState.coreTasks.length + appState.customTasks.length;
       var pct = total > 0 ? Math.round((done / total) * 100) : 0;
       var kt = document.getElementById('kpiTasks');
       var kp = document.getElementById('kpiPct');
       var rb = document.getElementById('routineBar');
-      var tb = document.getElementById('todayChartBar');
       if (kt) kt.textContent = done + '/' + total;
       if (kp) kp.textContent = pct + '%';
       if (rb) rb.style.width = pct + '%';
-      if (tb) tb.style.height = Math.max(15, pct) + '%';
     };
 
     window.addWater = function(amt) {
-      water = Math.max(0, water + amt);
-      setStore('mp_water', water);
+      appState.water = Math.max(0, (appState.water || 0) + amt);
+      persist();
+      window.renderWater();
+    };
+
+    window.renderWater = function() {
       var wl = document.getElementById('waterLbl');
       var wg = document.getElementById('waterGoal');
       var wb = document.getElementById('waterBar');
-      var pct = Math.min(100, Math.round((water / 2500) * 100));
-      if (wl) wl.textContent = water + ' ml';
-      if (wg) wg.textContent = water + ' / 2500 ml';
+      var val = appState.water || 0;
+      var pct = Math.min(100, Math.round((val / 2500) * 100));
+      if (wl) wl.textContent = val + ' ml';
+      if (wg) wg.textContent = val + ' / 2500 ml';
       if (wb) wb.style.width = pct + '%';
+    };
+
+    window.onSleepChange = function() {
+      var b = document.getElementById('bedTime');
+      var w = document.getElementById('wakeTime');
+      if (!b || !w) return;
+      appState.bedTime = b.value;
+      appState.wakeTime = w.value;
+      persist();
+      window.calcSleep();
     };
 
     window.calcSleep = function() {
       var b = document.getElementById('bedTime');
       var w = document.getElementById('wakeTime');
       if (!b || !w) return;
+      b.value = appState.bedTime || "22:30";
+      w.value = appState.wakeTime || "06:00";
       var bp = b.value.split(':');
       var wp = w.value.split(':');
       var diff = (parseInt(wp[0], 10)*60 + parseInt(wp[1], 10)) - (parseInt(bp[0], 10)*60 + parseInt(bp[1], 10));
@@ -578,30 +722,130 @@
     };
 
     window.tapBead = function() {
-      beads++;
-      if (beads >= 108) {
-        beads = 0;
-        malas++;
+      appState.beads = (appState.beads || 0) + 1;
+      if (appState.beads >= 108) {
+        appState.beads = 0;
+        appState.malas = (appState.malas || 0) + 1;
         window.addXp(108);
         window.showToast("🎉 1 Full Mala Complete! (+108 XP)");
       }
-      setStore('mp_beads', beads); setStore('mp_malas', malas);
+      persist();
       window.renderJapa();
     };
 
-    window.resetBead = function() { beads = 0; window.renderJapa(); };
-    window.resetAllJapa = function() { beads = 0; malas = 0; setStore('mp_beads', 0); setStore('mp_malas', 0); window.renderJapa(); };
+    window.resetBead = function() { appState.beads = 0; persist(); window.renderJapa(); };
+    window.resetAllJapa = function() { appState.beads = 0; appState.malas = 0; persist(); window.renderJapa(); };
 
     window.renderJapa = function() {
       var bn = document.getElementById('beadNum');
       var mn = document.getElementById('malaNum');
       var km = document.getElementById('kpiMalas');
       var sm = document.getElementById('statsTotalMalas');
-      if (bn) bn.textContent = beads;
-      if (mn) mn.textContent = malas;
-      if (km) km.textContent = malas;
-      if (sm) sm.textContent = malas;
+      var b = appState.beads || 0;
+      var m = appState.malas || 0;
+      if (bn) bn.textContent = b;
+      if (mn) mn.textContent = m;
+      if (km) km.textContent = m;
+      if (sm) sm.textContent = m;
     };
+
+    window.addXp = function(p) {
+      appState.xp = (appState.xp || 0) + p;
+      persist();
+      window.renderXp();
+    };
+
+    window.renderXp = function() {
+      var val = appState.xp || 0;
+      var kx = document.getElementById('kpiXp');
+      if (kx) kx.textContent = val + ' XP';
+      var t = val > 500 ? "Paramahamsa 🦚" : (val > 200 ? "Karma Yogi 🎯" : "Sadhaka I");
+      var tn = document.getElementById('tierName');
+      var rp = document.getElementById('statsRankPill');
+      if (tn) tn.textContent = t;
+      if (rp) rp.textContent = t;
+    };
+
+    window.saveNote = function() {
+      var dt = document.getElementById('diaryTxt');
+      if (!dt) return;
+      var txt = dt.value.trim();
+      if (!txt) return;
+      if (!appState.diaryNotes) appState.diaryNotes = [];
+      var entry = {
+        id: Date.now(),
+        date: new Date().toLocaleDateString(),
+        time: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+        text: txt
+      };
+      appState.diaryNotes.unshift(entry);
+      dt.value = '';
+      window.addXp(30);
+      persist();
+      window.renderDiary();
+      window.showToast("Reflection Saved (+30 XP)");
+    };
+
+    window.deleteNote = function(noteId) {
+      if (!appState.diaryNotes) return;
+      appState.diaryNotes = appState.diaryNotes.filter(function(n) { return n.id !== noteId; });
+      persist();
+      window.renderDiary();
+      window.showToast("Note Deleted");
+    };
+
+    window.renderDiary = function() {
+      var feed = document.getElementById('diaryFeed');
+      var badge = document.getElementById('diaryCountBadge');
+      if (!feed) return;
+      var notes = appState.diaryNotes || [];
+      if (badge) badge.textContent = notes.length + ' entries';
+      if (notes.length === 0) {
+        feed.innerHTML = '<div style="color:#64748b; font-size:0.75rem; padding:8px; text-align:center;">No reflections saved yet. Write your thoughts above!</div>';
+        return;
+      }
+      var html = '';
+      for (var i = 0; i < notes.length; i++) {
+        var n = notes[i];
+        html += '<div style="background:#f1f5f9; border-left:3px solid #d4a345; padding:8px 10px; border-radius:6px; margin-bottom:6px; font-size:0.78rem; display:flex; justify-content:space-between; align-items:flex-start;">' +
+          '<div><div style="font-size:0.68rem; color:#64748b; margin-bottom:2px;"><b>' + n.date + '</b> at ' + n.time + '</div>' +
+          '<div style="color:#0f172a; line-height:1.4;">' + n.text + '</div></div>' +
+          '<button onclick="window.deleteNote(' + n.id + ')" style="background:none; border:none; color:#dc2626; cursor:pointer; font-size:0.95rem; margin-left:8px;">🗑️</button>' +
+          '</div>';
+      }
+      feed.innerHTML = html;
+    };
+
+    window.renderStats = function() {
+      var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Today'];
+      var adherence = appState.weeklyAdherence || [60, 75, 80, 65, 85, 90, 0];
+      var sum = 0;
+      for (var a = 0; a < adherence.length; a++) sum += adherence[a];
+      var avg = Math.round(sum / adherence.length);
+      var aa = document.getElementById('statsAvgAdherence');
+      if (aa) aa.textContent = avg + '%';
+
+      var chartWrap = document.getElementById('trendChartWrap');
+      if (chartWrap) {
+        var cHtml = '';
+        for (var i = 0; i < 7; i++) {
+          var val = adherence[i] || 15;
+          var isToday = (i === 6);
+          cHtml += '<div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;">' +
+            '<div style="background:' + (isToday ? '#d97706' : '#eab308') + '; height:' + Math.max(12, val) + '%; border-radius:4px 4px 0 0;"></div>' +
+            '<small style="font-size:0.65rem; color:' + (isToday ? '#0d1f36; font-weight:800;' : '#64748b;') + ' margin-top:4px;">' + days[i] + '</small>' +
+            '</div>';
+        }
+        chartWrap.innerHTML = cHtml;
+      }
+      window.renderXp();
+      window.renderJapa();
+    };
+
+    var sprintTimer = null;
+    var sprintSeconds = 15 * 60;
+    var isSprintActive = false;
+    var gameScore = 0;
 
     window.setSprintDuration = function(m) { window.resetSprint(); sprintSeconds = m * 60; window.renderSprintDisplay(); };
     window.toggleSprint = function() {
@@ -633,44 +877,6 @@
     };
     window.claimGameXp = function() { window.addXp(50); window.showToast("Claimed 50 Focus XP!"); };
 
-    window.saveNote = function() {
-      var dt = document.getElementById('diaryTxt');
-      if (!dt) return;
-      var txt = dt.value.trim();
-      if (!txt) return;
-      var feed = document.getElementById('diaryFeed');
-      if (feed) feed.innerHTML = '<div style="background:#f1f5f9; border-left:3px solid #d4a345; padding:8px 10px; border-radius:6px; margin-bottom:6px; font-size:0.75rem;"><b>' + new Date().toLocaleDateString() + '</b>: ' + txt + '</div>' + feed.innerHTML;
-      dt.value = ''; window.addXp(30); window.showToast("Reflection Saved (+30 XP)");
-    };
-
-    window.addXp = function(p) {
-      xp += p; setStore('mp_xp', xp);
-      var kx = document.getElementById('kpiXp');
-      if (kx) kx.textContent = xp + ' XP';
-      var t = xp > 500 ? "Paramahamsa 🦚" : (xp > 200 ? "Karma Yogi 🎯" : "Sadhaka I");
-      var tn = document.getElementById('tierName');
-      var rp = document.getElementById('statsRankPill');
-      if (tn) tn.textContent = t;
-      if (rp) rp.textContent = t;
-    };
-
-    window.playRecite = function(id) {
-      try {
-        if (!('speechSynthesis' in window)) return;
-        window.speechSynthesis.cancel();
-        var el = document.getElementById(id || 'vSanskrit');
-        if (!el) return;
-        var u = new SpeechSynthesisUtterance(el.textContent.replace(/[॥|।]/g, ' '));
-        u.rate = 0.82;
-        window.speechSynthesis.speak(u);
-        window.showToast("Reciting holy verse...");
-      } catch(e) {}
-    };
-
-    window.stopRecite = function() {
-      try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
-    };
-
     var GITA_CHAPTERS = [
       { num: 1, name: "Arjuna Vishada", verses: 47, desc: "Despondency upon seeing revered elders arrayed for battle." },
       { num: 2, name: "Sankhya Yoga", verses: 72, desc: "The immortal Soul (Atman) and Nishkama Karma Yoga." },
@@ -697,15 +903,8 @@
       "2_47": { san: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥", translit: "karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||", mean: "You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction." },
       "3_19": { san: "तस्मादसक्तः सततं कार्यं कर्म समाचर।\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः॥", translit: "tasmād asaktaḥ satataṁ kāryaṁ karma samācara | asakto hy ācaran karma param āpnoti pūruṣaḥ ||", mean: "Therefore, unattached, continually perform your duty; by performing action without attachment, one reaches the Supreme." },
       "4_7": { san: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥", translit: "yadā yadā hi dharmasya glānir bhavati bhārata | abhyutthānam adharmasya tadātmānaṁ sṛjāmy aham ||", mean: "Whenever there is a decline of righteousness, O Bharata, and an increase of unrighteousness, at that time I manifest Myself." },
-      "5_10": { san: "ब्रह्मण्याधाय कर्माणि सङ्गं त्यक्त्वा करोति यः।\nलिप्यते न स पापेन पद्मपत्रमिवाम्भसा॥", translit: "brahmaṇy ādhāya karmāṇi saṅgaṁ tyaktvā karoti yaḥ | lipyate na sa pāpena padma-patram ivāmbhasā ||", mean: "One who performs duties offering them to the Divine, abandoning attachment, remains untouched by negativity, just as a lotus leaf is untouched by water." },
       "6_5": { san: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥", translit: "uddhared ātmanātmānaṁ nātmānam avasādayet | ātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ ||", mean: "Elevate yourself through your own mind; do not degrade yourself. For the mind alone is one's friend, and the mind alone is one's enemy." },
-      "7_7": { san: "मत्तः परतरं नान्यत्किञ्चिदस्ति धनञ्जय।\nमयि सर्वमिदं प्रोतं सूत्रे मणिगणा इव॥", translit: "mattaḥ parataraṁ nānyat kiñcid asti dhanañjaya | mayi sarvam idaṁ protaṁ sūtre maṇi-gaṇā iva ||", mean: "There is nothing superior to Me, O Dhananjaya. Everything rests upon Me as pearls strung upon a thread." },
-      "8_5": { san: "अन्तकाले च मामेव स्मरन्मुक्त्वा कलेवरम्।\nयः प्रयाति स मद्भावं याति नास्त्यत्र संशयः॥", translit: "anta-kāle ca mām eva smaran muktvā kalevaram | yaḥ prayāti sa mad-bhāvaṁ yāti nāsty atra saṁśayaḥ ||", mean: "Whoever remembers Me alone at the time of death, leaving the body, attains My divine nature without doubt." },
       "9_22": { san: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।\nतेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥", translit: "ananyāś cintayanto māṁ ye janāḥ paryupāsate | teṣāṁ nityābhiyuktānāṁ yoga-kṣemaṁ vahāmy aham ||", mean: "To those who always remember Me with single-minded devotion, I personally provide what they lack and protect what they possess." },
-      "10_8": { san: "अहं सर्वस्य प्रभवो मत्तः सर्वं प्रवर्तते।\nइति मत्वा भजन्ते मां बुधा भावसमन्विताः॥", translit: "ahaṁ sarvasya prabhavo mattaḥ sarvaṁ pravartate | iti matvā bhajante māṁ budhā bhāva-samanvitāḥ ||", mean: "I am the source of all; from Me everything emerges. Understanding this, the wise adore Me with devotional hearts." },
-      "11_32": { san: "कालोऽस्मि लोकक्षयकृत्प्रवृद्धो लोकान्समाहर्तुमिह प्रवृत्ततः।", translit: "kālo 'smi loka-kṣaya-kṛt pravṛddho lokān samāhartum iha pravṛttaḥ", mean: "Time I am, the great Destroyer of the worlds, engaged here in subduing all beings." },
-      "12_2": { san: "मय्यावेश्य मनो ये मां नित्ययुक्ता उपासते।\nश्रद्धया परयोपेतास्ते मे युक्ततमा मताः॥", translit: "mayy āveśya mano ye māṁ nitya-yuktā upāsate | śraddhayā parayopetās te me yuktatamā matāḥ ||", mean: "Those who fix their minds on Me, ever steadfast, worshipping Me with supreme faith, are considered by Me to be the most proficient in Yoga." },
-      "15_15": { san: "सर्वस्य चाहं हृदि सन्निविष्टो मत्तः स्मृतिर्ज्ञानमपोहनञ्च।", translit: "sarvasya cāhaṁ hṛdi sanniviṣṭo mattaḥ smṛtir jñānam apohanañ ca", mean: "I am seated in the hearts of all beings; from Me arise memory, knowledge, and their loss as well." },
       "18_66": { san: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥", translit: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja | ahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ ||", mean: "Surrender all varieties of rites and take refuge in Me alone. I shall deliver you from all bondage and distress; do not grieve." }
     };
 
@@ -762,7 +961,7 @@
         if (gm) gm.textContent = CELEBRATED_SHLOKAS[key].mean;
         return;
       }
-      // Dynamic repository fetch with offline fallback
+      // Live repository lookup with fallback
       fetch('https://vedicscriptures.github.io/slok/' + c + '/' + v + '/')
         .then(function(res) { return res.json(); })
         .then(function(d) {
@@ -791,13 +990,47 @@
 
     window.markGitaRead = function() { window.addXp(20); window.showToast("Shloka Studied (+20 XP)"); };
 
-    // INITIALIZE APPLICATION
-    window.renderCustomTasks();
-    window.updateRoutineStats();
-    window.renderJapa();
-    window.addWater(0);
-    window.calcSleep();
-    window.initGita();
+    window.playRecite = function(id) {
+      try {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel();
+        var el = document.getElementById(id || 'vSanskrit');
+        if (!el) return;
+        var u = new SpeechSynthesisUtterance(el.textContent.replace(/[॥|।]/g, ' '));
+        u.rate = 0.82;
+        window.speechSynthesis.speak(u);
+        window.showToast("Reciting holy verse...");
+      } catch(e) {}
+    };
+
+    window.stopRecite = function() {
+      try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
+    };
+
+    window.setLanguage = function(lang) {
+      appState.lang = lang;
+      persist();
+      window.showToast("Language saved: " + lang.toUpperCase());
+    };
+
+    window.renderAll = function() {
+      window.renderCoreTasks();
+      window.renderCustomTasks();
+      window.updateRoutineStats();
+      window.renderWater();
+      window.calcSleep();
+      window.renderJapa();
+      window.renderXp();
+      window.renderDiary();
+      window.renderStats();
+      var ls = document.getElementById('langSel');
+      if (ls && appState.lang) ls.value = appState.lang;
+    };
+
+    window.onload = function() {
+      window.renderAll();
+      window.initGita();
+    };
   </script>
 </body>
 </html>
