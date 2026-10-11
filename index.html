@@ -1,38 +1,23 @@
 <!DOCTYPE html>
-<html lang="en" style="color-scheme: light;">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-<meta name="color-scheme" content="light">
 <title>MadhavPath · Devotion, Discipline & Wisdom</title>
-​<link rel="manifest" href="manifest.json">
+<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a1931">
-<meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 ​<style>
-:root {
-color-scheme: light;
---navy: #0a1931;
---navy-light: #132b4f;
---gold: #d4a345;
---gold-deep: #b45309;
---bg: #fcfaf3;
---card-bg: #ffffff;
---border: #edd59b;
---text: #1e293b;
---text-muted: #64748b;
-}
-​* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
-font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-background: #fcfaf3 !important;
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+background-color: #fcfaf3 !important;
 color: #1e293b !important;
-padding-bottom: 96px;
+padding-bottom: 90px;
 -webkit-font-smoothing: antialiased;
 }
-​/* HEADER */
-.header {
+.header-box {
 background: #0a1931 !important;
 background: linear-gradient(135deg, #0a1931 0%, #132b4f 100%) !important;
 color: #ffffff !important;
@@ -41,13 +26,13 @@ border-bottom: 3px solid #d4a345;
 border-radius: 0 0 18px 18px;
 box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 }
-.header-top {
+.header-row {
 display: flex;
 justify-content: space-between;
 align-items: center;
 margin-bottom: 10px;
 }
-.brand {
+.brand-title {
 font-size: 1.15rem;
 font-weight: 800;
 color: #fef0cd;
@@ -55,7 +40,7 @@ display: flex;
 align-items: center;
 gap: 6px;
 }
-.lang-drop {
+.lang-select {
 background: rgba(255,255,255,0.18);
 border: 1px solid #d4a345;
 color: #ffffff;
@@ -65,8 +50,8 @@ font-size: 0.75rem;
 font-weight: 700;
 outline: none;
 }
-.lang-drop option { background: #0a1931; color: #fff; }
-.clock-bar {
+.lang-select option { background: #0a1931; color: #fff; }
+.clock-container {
 background: rgba(0,0,0,0.45);
 border: 1px solid rgba(212,163,69,0.5);
 border-radius: 10px;
@@ -75,14 +60,14 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 }
-.clock-val {
+.clock-display {
 font-weight: 800;
 font-family: monospace;
 color: #fef0cd;
 font-size: 0.98rem;
 letter-spacing: 0.5px;
 }
-.muhurta-val {
+.muhurta-pill {
 background: rgba(212,163,69,0.25);
 border: 1px solid #d4a345;
 color: #fae29c;
@@ -91,9 +76,7 @@ border-radius: 6px;
 font-size: 0.7rem;
 font-weight: 700;
 }
-​/* CONTAINER */
-.wrap { max-width: 520px; margin: 0 auto; padding: 12px; }
-​/* CARDS */
+.app-wrap { max-width: 520px; margin: 0 auto; padding: 12px; }
 .card {
 background: #ffffff !important;
 border: 1px solid #edd59b;
@@ -102,19 +85,11 @@ padding: 14px;
 margin-bottom: 12px;
 box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
-.card-top {
+.card-head {
 display: flex;
 justify-content: space-between;
 align-items: center;
 margin-bottom: 8px;
-}
-.card-title {
-font-size: 0.94rem;
-font-weight: 800;
-color: #0a1931;
-display: flex;
-align-items: center;
-gap: 6px;
 }
 .badge {
 font-size: 0.65rem;
@@ -125,23 +100,21 @@ background: #fef3d6;
 color: #8a6218;
 border: 1px solid #ecd59b;
 }
-​/* KPIS */
-.kpis {
+.kpi-row {
 display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 8px;
 margin-bottom: 10px;
 }
-.kpi {
+.kpi-item {
 background: #ffffff;
 border: 1px solid #edd59b;
 border-radius: 10px;
 padding: 9px 12px;
 }
-.kpi-lbl { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
-.kpi-num { font-size: 1.22rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
-​/* TASKS */
-.task {
+.kpi-tag { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
+.kpi-digit { font-size: 1.22rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
+.task-item {
 display: flex;
 align-items: center;
 justify-content: space-between;
@@ -152,101 +125,12 @@ border-radius: 9px;
 margin-bottom: 7px;
 cursor: pointer;
 touch-action: manipulation;
-transition: background 0.12s;
 }
-.task:active { background: #f5eedf; }
-.task.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
-.task.checked .task-name { text-decoration: line-through; color: #64748b; }
-.task-check { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; }
-.task-left { display: flex; align-items: center; flex: 1; }
-.task-name { font-size: 0.83rem; font-weight: 700; color: #0a1931; line-height: 1.35; }
-.task-actions { display: flex; align-items: center; gap: 6px; }
-.del-btn {
-background: none;
-border: none;
-color: #94a3b8;
-font-size: 1rem;
-cursor: pointer;
-padding: 3px 6px;
-border-radius: 4px;
-}
-.del-btn:hover { color: #dc2626; background: #fee2e2; }
-​/* CUSTOM HABIT FORM */
-.add-habit-box {
-background: #faf6ee;
-border: 1px dashed #d4a345;
-border-radius: 9px;
-padding: 10px;
-margin-top: 10px;
-}
-.add-habit-row { display: flex; gap: 6px; margin-top: 6px; }
-.add-habit-input {
-flex: 2;
-padding: 8px 10px;
-border: 1px solid #cbd5e1;
-border-radius: 7px;
-font-size: 0.82rem;
-outline: none;
-background: #fff;
-}
-.add-habit-select {
-flex: 1;
-padding: 8px 6px;
-border: 1px solid #cbd5e1;
-border-radius: 7px;
-font-size: 0.75rem;
-background: #fff;
-font-weight: 600;
-color: #0a1931;
-}
-​/* SUB BOXES */
-.sub-box {
-background: #faf6ee;
-border: 1px solid #edd59b;
-border-radius: 9px;
-padding: 10px 12px;
-margin-top: 9px;
-}
-.bar { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-.fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
-​/* SHLOKA DISPLAY */
-.shloka-box {
-background: #fcf9ee;
-border: 1px solid #edd59b;
-border-radius: 11px;
-padding: 13px;
-text-align: center;
-margin: 9px 0;
-min-height: 110px;
-}
-.shloka-san {
-font-size: 1.02rem;
-font-weight: 700;
-color: #0a1931;
-line-height: 1.7;
-font-family: Georgia, serif;
-white-space: pre-line;
-}
-.shloka-translit {
-font-size: 0.74rem;
-color: #64748b;
-font-style: italic;
-margin-top: 5px;
-line-height: 1.45;
-white-space: pre-line;
-}
-.shloka-mean {
-font-size: 0.8rem;
-color: #334155;
-margin-top: 9px;
-border-top: 1px dashed #edd59b;
-padding-top: 8px;
-line-height: 1.48;
-}
-​/* BUTTONS */
-.btns { display: flex; gap: 6px; }
-.btn {
-flex: 1;
+.task-item.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
+.task-item.checked .task-text { text-decoration: line-through; color: #64748b; }
+.task-check-mark { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; }
+.task-text { font-size: 0.83rem; font-weight: 700; color: #0a1931; }
+.btn-action {
 padding: 10px 8px;
 border-radius: 8px;
 border: none;
@@ -258,79 +142,53 @@ display: flex;
 align-items: center;
 justify-content: center;
 gap: 5px;
-transition: opacity 0.12s;
 }
-.btn:active { opacity: 0.85; }
 .btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0a1931; }
 .btn-navy { background: #0a1931; color: #fef0cd; }
 .btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
 .btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-​/* PANCHANG */
-.p-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
-.p-item {
+.shloka-text {
+font-size: 1.02rem;
+font-weight: 700;
+color: #0a1931;
+line-height: 1.7;
+font-family: Georgia, serif;
+text-align: center;
+}
+.shloka-translit {
+font-size: 0.74rem;
+color: #64748b;
+font-style: italic;
+margin-top: 5px;
+line-height: 1.45;
+text-align: center;
+}
+.shloka-meaning {
+font-size: 0.8rem;
+color: #334155;
+margin-top: 9px;
+border-top: 1px dashed #edd59b;
+padding-top: 8px;
+line-height: 1.48;
+text-align: center;
+}
+.p-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
+.p-grid-item {
 background: #faf6ee;
 border: 1px solid #edd59b;
 border-radius: 8px;
 padding: 8px 10px;
 }
-.p-lbl { font-size: 0.65rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
-.p-val { font-size: 0.83rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
-​/* GAME ARENA */
-.game-arena {
-background: linear-gradient(135deg, #0d1f36, #16365c);
-color: #fff;
-border-radius: 12px;
-padding: 16px;
-text-align: center;
-margin: 10px 0;
-}
-.target-ring {
-width: 95px;
-height: 95px;
-border-radius: 50%;
-border: 4px dashed #e5b058;
-margin: 14px auto;
-display: flex;
-align-items: center;
-justify-content: center;
-font-size: 2.5rem;
-cursor: pointer;
-touch-action: manipulation;
-}
-​/* STATS DASHBOARD */
-.stat-metric-card {
-background: #faf6ee;
-border: 1px solid #edd59b;
-border-radius: 10px;
-padding: 12px;
-margin-bottom: 8px;
-}
-.stat-metric-head {
-display: flex;
-justify-content: space-between;
-align-items: center;
-margin-bottom: 4px;
-}
-.stat-metric-title { font-size: 0.8rem; font-weight: 700; color: #0a1931; }
-.stat-metric-val { font-size: 1.15rem; font-weight: 800; color: #b45309; }
-.chart-container-lg {
-display: flex;
-align-items: flex-end;
-gap: 8px;
-height: 120px;
-border-bottom: 2px solid #cbd5e1;
-padding-top: 10px;
-margin-top: 10px;
-margin-bottom: 8px;
-}
+.progress-bar-bg { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
+.progress-bar-fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
 </style>
 </head>
 <body>
 ​<!-- HEADER -->
-<header class="header">
-<div class="header-top">
-<div class="brand">🦚 माधवपथ · MadhavPath</div>
-<select id="langSel" class="lang-drop" onchange="window.changeLang(this.value)">
+<header class="header-box">
+<div class="header-row">
+<div class="brand-title">🦚 माधवपथ · MadhavPath</div>
+<select id="langSel" class="lang-select" onchange="window.changeLang(this.value)">
 <option value="en">English</option>
 <option value="hi">हिन्दी</option>
 <option value="kn">ಕನ್ನಡ</option>
@@ -339,130 +197,101 @@ margin-bottom: 8px;
 <option value="ta">தமிழ்</option>
 </select>
 </div>
-<div class="clock-bar">
-<span id="liveClock" class="clock-val">12:00:00 PM</span>
-<span id="liveMuhurta" class="muhurta-val">✨ Brahma Muhurta</span>
+<div class="clock-container">
+<span id="liveClock" class="clock-display">12:00:00 PM</span>
+<span id="liveMuhurta" class="muhurta-pill">✨ Brahma Muhurta</span>
 </div>
 </header>
-​<!-- IMMEDIATE FAIL-SAFE LIVE CLOCK SCRIPT -->
-<script>
-(function(){
-function tickClock() {
-var d = new Date();
-var el = document.getElementById('liveClock');
-if (el) el.textContent = d.toLocaleTimeString('en-US');
-var m = d.getHours() * 60 + d.getMinutes();
-var mh = document.getElementById('liveMuhurta');
-if (mh) {
-if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta (ब्रह्म मुहूर्त)";
-else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya (प्रातः सन्ध्या)";
-else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta (अभिजित)";
-else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya (सायं सन्ध्या)";
-else mh.textContent = "🕉️ Dhyana Vela (ध्यान वेला)";
-}
-}
-tickClock();
-setInterval(tickClock, 1000);
-})();
-</script>
-​<main class="wrap">
+​<main class="app-wrap">
 ​<!-- TAB 1: TODAY -->
-<section id="tab-today" class="tab-pane" style="display:block;">
+<section id="tab-today" style="display:block;">
 <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
-<div class="card-top">
+<div class="card-head">
 <span class="badge">🕉 PANCHANG GLANCE</span>
 <span class="badge" style="background:#fff3e0; color:#b45309;">🔱 Masik Shivaratri</span>
 </div>
-<h3 id="pTithiToday" style="font-size:1.05rem; color:#0d1f36;">कृष्ण Chaturdashi (Krishna Paksha)</h3>
+<h3 style="font-size:1.05rem; color:#0d1f36;">कृष्ण Chaturdashi (Krishna Paksha)</h3>
 <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Purva Ashadha Nakshatra · रविवारीय Ravivara · Vikram Samvat 2083</p>
 </div>
 ​<div class="card">
-<div class="card-top">
+<div class="card-head">
 <span style="font-size:0.72rem; font-weight:800; color:#0f766e;">DAILY WISDOM</span>
 <span class="badge">Gita 2.47</span>
 </div>
-<div class="shloka-box">
-<div id="vSanskrit" class="shloka-san">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
+<div style="background:#fcf9ee; border:1px solid #edd59b; border-radius:11px; padding:13px; margin:9px 0;">
+<div id="vSanskrit" class="shloka-text">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
 मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
 <div id="vTranslit" class="shloka-translit">karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||</div>
-<div id="vMeaning" class="shloka-mean">You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction.</div>
+<div id="vMeaning" class="shloka-meaning">You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction.</div>
 </div>
-<div class="btns">
-<button onclick="window.playRecite('vSanskrit')" class="btn btn-navy">🔊 Recite</button>
-<button onclick="window.stopRecite()" class="btn btn-light">⏹ Stop</button>
-<button onclick="window.switchTab('gita')" class="btn btn-gold">18 Chapters →</button>
+<div style="display:flex; gap:6px;">
+<button onclick="window.playRecite('vSanskrit')" class="btn-action btn-navy" style="flex:1;">🔊 Recite</button>
+<button onclick="window.stopRecite()" class="btn-action btn-light" style="flex:1;">⏹ Stop</button>
+<button onclick="window.switchTab('gita')" class="btn-action btn-gold" style="flex:1;">18 Chapters →</button>
 </div>
 </div>
-​<div class="kpis">
-<div class="kpi"><div class="kpi-lbl">Tasks Done</div><div id="kpiTasks" class="kpi-num">0/6</div></div>
-<div class="kpi"><div class="kpi-lbl">Adherence</div><div id="kpiPct" class="kpi-num">0%</div></div>
-<div class="kpi"><div class="kpi-lbl">Japa Malas</div><div id="kpiMalas" class="kpi-num">0</div></div>
-<div class="kpi"><div class="kpi-lbl">Karma XP</div><div id="kpiXp" class="kpi-num">0 XP</div></div>
+​<div class="kpi-row">
+<div class="kpi-item"><div class="kpi-tag">Tasks Done</div><div id="kpiTasks" class="kpi-digit">0/6</div></div>
+<div class="kpi-item"><div class="kpi-tag">Adherence</div><div id="kpiPct" class="kpi-digit">0%</div></div>
+<div class="kpi-item"><div class="kpi-tag">Japa Malas</div><div id="kpiMalas" class="kpi-digit">0</div></div>
+<div class="kpi-item"><div class="kpi-tag">Karma XP</div><div id="kpiXp" class="kpi-digit">0 XP</div></div>
 </div>
 ​<div class="card">
-<div class="card-top">
-<span class="card-title">🌅 Today's Sankalp (Routine)</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🌅 Today's Sankalp (Routine)</span>
 <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-reset 00:00</span>
 </div>
-<div class="bar" style="margin-bottom:10px;"><div id="routineBar" class="fill" style="background:#eab308; width:0%;"></div></div>
-​<!-- 6 SACRED TASKS PRE-RENDERED IN HTML -->
-<div id="coreTasksBox">
-<div class="task" id="taskRow0" onclick="window.toggleTask(0)">
-<div class="task-left"><span class="task-check" id="chk0">☐</span><span class="task-name" id="tname0">Brahma Muhurta wake-up (4:30 AM)</span></div>
-<div class="task-actions"><span class="badge">+25 XP</span></div>
+<div class="progress-bar-bg" style="margin-bottom:10px;"><div id="routineBar" class="progress-bar-fill" style="background:#eab308; width:0%;"></div></div>
+​<!-- 6 SACRED TASKS -->
+<div class="task-item" id="taskRow0" onclick="window.toggleTask(0)">
+<div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk0">☐</span><span class="task-text">Brahma Muhurta wake-up (4:30 AM)</span></div>
+<span class="badge">+25 XP</span>
 </div>
-<div class="task" id="taskRow1" onclick="window.toggleTask(1)">
-<div class="task-left"><span class="task-check" id="chk1">☐</span><span class="task-name" id="tname1">Snan & Surya Arghya</span></div>
-<div class="task-actions"><span class="badge">+15 XP</span></div>
+<div class="task-item" id="taskRow1" onclick="window.toggleTask(1)">
+<div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk1">☐</span><span class="task-text">Snan & Surya Arghya</span></div>
+<span class="badge">+15 XP</span>
 </div>
-<div class="task" id="taskRow2" onclick="window.toggleTask(2)">
-<div class="task-left"><span class="task-check" id="chk2">☐</span><span class="task-name" id="tname2">Sattvic Diet Resolution</span></div>
-<div class="task-actions"><span class="badge">+15 XP</span></div>
+<div class="task-item" id="taskRow2" onclick="window.toggleTask(2)">
+<div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk2">☐</span><span class="task-text">Sattvic Diet Resolution</span></div>
+<span class="badge">+15 XP</span>
 </div>
-<div class="task" id="taskRow3" onclick="window.toggleTask(3)">
-<div class="task-left"><span class="task-check" id="chk3">☐</span><span class="task-name" id="tname3">1 Round Nama Japa</span></div>
-<div class="task-actions"><span class="badge">+20 XP</span></div>
+<div class="task-item" id="taskRow3" onclick="window.toggleTask(3)">
+<div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk3">☐</span><span class="task-text">1 Round Nama Japa</span></div>
+<span class="badge">+20 XP</span>
 </div>
-<div class="task" id="taskRow4" onclick="window.toggleTask(4)">
-<div class="task-left"><span class="task-check" id="chk4">☐</span><span class="task-name" id="tname4">Srimad Bhagavad Gita Study</span></div>
-<div class="task-actions"><span class="badge">+20 XP</span></div>
+<div class="task-item" id="taskRow4" onclick="window.toggleTask(4)">
+<div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk4">☐</span><span class="task-text">Srimad Bhagavad Gita Study</span></div>
+<span class="badge">+20 XP</span>
 </div>
-<div class="task" id="taskRow5" onclick="window.toggleTask(5)">
-<div class="task-left"><span class="task-check" id="chk5">☐</span><span class="task-name" id="tname5">Evening Reflection (Ratri Chintan)</span></div>
-<div class="task-actions"><span class="badge">+15 XP</span></div>
+<div class="task-item" id="taskRow5" onclick="window.toggleTask(5)">
+<div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk5">☐</span><span class="task-text">Evening Reflection (Ratri Chintan)</span></div>
+<span class="badge">+15 XP</span>
 </div>
-</div>
-​<!-- DYNAMIC CUSTOM HABITS CONTAINER -->
+​<!-- CUSTOM HABITS CONTAINER -->
 <div id="customTasksContainer"></div>
 ​<!-- ADD CUSTOM HABIT -->
-<div class="add-habit-box">
+<div style="background:#faf6ee; border:1px dashed #d4a345; border-radius:9px; padding:10px; margin-top:10px;">
 <div style="font-size:0.78rem; font-weight:700; color:#8a6218;">➕ Add Custom Habit or Sankalp</div>
-<div class="add-habit-row">
-<input type="text" id="customHabitInput" class="add-habit-input" placeholder="e.g. 20m Dhyana, Yoga, Gita Path...">
-<select id="customHabitCategory" class="add-habit-select">
-<option value="Bhakti">Bhakti</option>
-<option value="Health">Health</option>
-<option value="Study">Study</option>
-<option value="Mind">Mind</option>
-</select>
-<button onclick="window.addCustomTask()" class="btn btn-gold" style="flex:0; padding:8px 14px;">Add</button>
+<div style="display:flex; gap:6px; margin-top:6px;">
+<input type="text" id="customHabitInput" style="flex:2; padding:8px; border:1px solid #cbd5e1; border-radius:7px; font-size:0.82rem;" placeholder="e.g. 20m Dhyana, Yoga, Gita Path...">
+<button onclick="window.addCustomTask()" class="btn-action btn-gold" style="flex:0; padding:8px 14px;">Add</button>
 </div>
 </div>
 ​<!-- HYDRATION TRACKER -->
-<div class="sub-box">
+<div style="background:#faf6ee; border:1px solid #edd59b; border-radius:9px; padding:10px 12px; margin-top:9px;">
 <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700;">
 <span>💧 Hydration Intake Tracker</span>
 <span id="waterGoal">0 / 2500 ml</span>
 </div>
 <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-<button class="btn btn-light" style="flex:0; padding:8px 14px;" onclick="window.addWater(-250)">-250 ml</button>
+<button class="btn-action btn-light" style="padding:6px 12px;" onclick="window.addWater(-250)">-250 ml</button>
 <b id="waterLbl" style="font-size:1.15rem; color:#0d1f36;">0 ml</b>
-<button class="btn btn-gold" style="flex:0; padding:8px 14px;" onclick="window.addWater(250)">+250 ml</button>
+<button class="btn-action btn-gold" style="padding:6px 12px;" onclick="window.addWater(250)">+250 ml</button>
 </div>
-<div class="bar"><div id="waterBar" class="fill"></div></div>
+<div class="progress-bar-bg"><div id="waterBar" class="progress-bar-fill"></div></div>
 </div>
 ​<!-- SLEEP TRACKER -->
-<div class="sub-box">
+<div style="background:#faf6ee; border:1px solid #edd59b; border-radius:9px; padding:10px 12px; margin-top:9px;">
 <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-bottom:6px;">
 <span>🌙 Sleep & Rest Schedule</span>
 <span id="sleepLbl" style="color:#16a34a;">Duration: 7h 30m</span>
@@ -470,41 +299,41 @@ setInterval(tickClock, 1000);
 <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
 <div>
 <small style="color:#64748b; font-size:0.65rem; font-weight:700;">Bedtime</small>
-<input type="time" id="bedTime" value="22:30" class="btn btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()">
+<input type="time" id="bedTime" value="22:30" class="btn-action btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()">
 </div>
 <div>
 <small style="color:#64748b; font-size:0.65rem; font-weight:700;">Wake-up</small>
-<input type="time" id="wakeTime" value="06:00" class="btn btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()">
+<input type="time" id="wakeTime" value="06:00" class="btn-action btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()">
 </div>
 </div>
 </div>
 </div>
 </section>
 ​<!-- TAB 2: GITA -->
-<section id="tab-gita" class="tab-pane" style="display:none;">
+<section id="tab-gita" style="display:none;">
 <div class="card">
-<div class="card-top">
-<span class="card-title">📖 Srimad Bhagavad Gita</span>
-<span class="badge" id="gitaChTitle">Chapter 1 · Arjuna Vishada Yoga</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📖 Srimad Bhagavad Gita</span>
+<span class="badge" id="gitaChTitle">Chapter 1</span>
 </div>
 <p style="font-size:0.75rem; color:#64748b; margin-bottom:10px;">Select any Chapter and Verse from all 700 verses of the Gita.</p>
 ​<div style="display:grid; grid-template-columns: 2fr 1fr; gap:6px; margin-bottom:10px;">
-<select id="gitaCh" class="btn btn-light" style="padding:9px; text-align:left; font-weight:700;" onchange="window.onChapter(this.value)"></select>
-<select id="gitaVr" class="btn btn-light" style="padding:9px; font-weight:700;" onchange="window.loadShloka()"></select>
+<select id="gitaCh" class="btn-action btn-light" style="padding:9px; text-align:left; font-weight:700;" onchange="window.onChapter(this.value)"></select>
+<select id="gitaVr" class="btn-action btn-light" style="padding:9px; font-weight:700;" onchange="window.loadShloka()"></select>
 </div>
-​<div class="shloka-box">
-<div id="gitaTag" style="font-size:0.75rem; font-weight:800; color:#b45309; margin-bottom:4px;">CHAPTER 1 · VERSE 1</div>
-<div id="gitaShloka" class="shloka-san">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।
+​<div style="background:#fcf9ee; border:1px solid #edd59b; border-radius:11px; padding:13px; margin:9px 0;">
+<div id="gitaTag" style="font-size:0.75rem; font-weight:800; color:#b45309; margin-bottom:4px; text-align:center;">CHAPTER 1 · VERSE 1</div>
+<div id="gitaShloka" class="shloka-text">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।
 मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥</div>
 <div id="gitaTranslit" class="shloka-translit">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ | māmakāḥ pāṇḍavāścaiva kimakurvata sañjaya ||</div>
-<div id="gitaMean" class="shloka-mean">Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra and eager for battle, what did my sons and the sons of Pandu do?</div>
+<div id="gitaMean" class="shloka-meaning">Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra and eager for battle, what did my sons and the sons of Pandu do?</div>
 </div>
-​<div class="btns">
-<button onclick="window.stepVr(-1)" class="btn btn-light">❮ Prev</button>
-<button onclick="window.playRecite('gitaShloka')" class="btn btn-navy">🔊 Recite Shloka</button>
-<button onclick="window.stepVr(1)" class="btn btn-gold">Next ❯</button>
+​<div style="display:flex; gap:6px;">
+<button onclick="window.stepVr(-1)" class="btn-action btn-light" style="flex:1;">❮ Prev</button>
+<button onclick="window.playRecite('gitaShloka')" class="btn-action btn-navy" style="flex:1;">🔊 Recite</button>
+<button onclick="window.stepVr(1)" class="btn-action btn-gold" style="flex:1;">Next ❯</button>
 </div>
-<button onclick="window.markGitaRead()" class="btn btn-gold" style="width:100%; margin-top:8px;">✓ Mark Shloka Read (+20 XP)</button>
+<button onclick="window.markGitaRead()" class="btn-action btn-gold" style="width:100%; margin-top:8px;">✓ Mark Shloka Read (+20 XP)</button>
 </div>
 ​<div class="card">
 <h4 style="font-size:0.85rem; color:#0d1f36; margin-bottom:6px;">Chapter Essence & Summary</h4>
@@ -512,57 +341,53 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 3: PANCHANG -->
-<section id="tab-panchang" class="tab-pane" style="display:none;">
+<section id="tab-panchang" style="display:none;">
 <div class="card">
-<div class="card-top">
-<span class="card-title">🗓️ Comprehensive Vedic Panchang</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🗓️ Comprehensive Vedic Panchang</span>
 <span class="badge" style="background:#e0f2fe; color:#0369a1;">Vikram 2083</span>
 </div>
-​<div style="display:flex; gap:6px; margin-bottom:10px;">
-<input type="date" id="pDatePick" class="btn btn-light" style="flex:1;" onchange="window.calcPanchang(this.value)">
-<button onclick="window.resetPanchangToday()" class="btn btn-gold" style="flex:0; padding:6px 14px;">Today</button>
-</div>
-​<div class="sub-box" style="margin-top:0;">
-<b id="pMonthTitle" style="color:#0d1f36; font-size:0.92rem;">Phalguna Masa · Krishna Paksha</b>
-<p id="pAyanaTitle" style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Shishira Ritu (Winter-Spring)</p>
+​<div style="background:#faf6ee; border:1px solid #edd59b; border-radius:8px; padding:10px; margin-bottom:10px;">
+<b style="color:#0d1f36; font-size:0.92rem;">Phalguna Masa · Krishna Paksha</b>
+<p style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Shishira Ritu (Winter-Spring)</p>
 </div>
 ​<h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 4px;">Pancha Angas (पञ्चाङ्ग)</h4>
-<div class="p-grid">
-<div class="p-item"><div class="p-lbl">Tithi (तिथि)</div><div class="p-val">Krishna Chaturdashi</div></div>
-<div class="p-item"><div class="p-lbl">Vara (वार)</div><div class="p-val">Ravivara (Sunday)</div></div>
-<div class="p-item"><div class="p-lbl">Nakshatra (नक्षत्र)</div><div class="p-val">Purva Ashadha</div></div>
-<div class="p-item"><div class="p-lbl">Yoga (योग)</div><div class="p-val">Shiva Yoga</div></div>
-<div class="p-item" style="grid-column:span 2;"><div class="p-lbl">Karana (करण)</div><div class="p-val">Garaja Karana</div></div>
+<div class="p-grid-box">
+<div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Krishna Chaturdashi</div></div>
+<div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Ravivara (Sunday)</div></div>
+<div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Purva Ashadha</div></div>
+<div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shiva Yoga</div></div>
+<div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Garaja Karana</div></div>
 </div>
 ​<h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Auspicious Muhurtas (शुभ मुहूर्त)</h4>
-<div class="p-grid">
-<div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Brahma Muhurta</div><div class="p-val">04:30 AM – 05:18 AM</div></div>
-<div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Abhijit Muhurta</div><div class="p-val">11:48 AM – 12:36 PM</div></div>
-<div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Amrita Kalam</div><div class="p-val">02:15 PM – 03:45 PM</div></div>
-<div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Pratah Sandhya</div><div class="p-val">05:18 AM – 06:15 AM</div></div>
+<div class="p-grid-box">
+<div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Brahma Muhurta</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">04:30 AM – 05:18 AM</div></div>
+<div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Abhijit Muhurta</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11:48 AM – 12:36 PM</div></div>
+<div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Amrita Kalam</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">02:15 PM – 03:45 PM</div></div>
+<div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Pratah Sandhya</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">05:18 AM – 06:15 AM</div></div>
 </div>
 ​<h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Inauspicious Timings (अशुभ काल)</h4>
-<div class="p-grid">
-<div class="p-item" style="border-left:3px solid #dc2626;"><div class="p-lbl">Rahu Kaal</div><div class="p-val">04:30 PM – 06:00 PM</div></div>
-<div class="p-item" style="border-left:3px solid #dc2626;"><div class="p-lbl">Yamaganda</div><div class="p-val">12:00 PM – 01:30 PM</div></div>
+<div class="p-grid-box">
+<div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">04:30 PM – 06:00 PM</div></div>
+<div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">12:00 PM – 01:30 PM</div></div>
 </div>
 ​<h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Sacred Observance (व्रत)</h4>
-<div class="sub-box">
+<div style="background:#faf6ee; border:1px solid #edd59b; border-radius:8px; padding:10px;">
 <b style="color:#b45309; font-size:0.85rem;">🔱 Masik Shivaratri Vrata</b>
-<p style="font-size:0.75rem; color:#475569; margin-top:3px;">Favorable for intense Lord Shiva dhyana, fasting, and bilva patra offering.</p>
+<p style="font-size:0.75rem; color:#475569; margin-top:3px;">Favorable for Lord Shiva dhyana, fasting, and offering bilva patra.</p>
 </div>
 </div>
 </section>
 ​<!-- TAB 4: JAPA -->
-<section id="tab-japa" class="tab-pane" style="display:none;">
+<section id="tab-japa" style="display:none;">
 <div class="card" style="text-align:center;">
-<div class="card-top">
-<span class="card-title">📿 Digital Jaap Mala Counter</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📿 Digital Jaap Mala Counter</span>
 <span class="badge">108 BEADS</span>
 </div>
 ​<div style="margin-bottom:10px;">
-<small style="color:#64748b; font-size:0.68rem; font-weight:700;">Mantra</small>
-<select id="japaMantraSel" class="btn btn-light" style="width:100%; margin-top:2px;">
+<small style="color:#64748b; font-size:0.68rem; font-weight:700;">Sacred Mantra</small>
+<select class="btn-action btn-light" style="width:100%; margin-top:2px;">
 <option>Hare Krishna Hare Krishna Krishna Krishna Hare Hare, Hare Rama Hare Rama Rama Rama Hare Hare</option>
 <option>Om Namo Bhagavate Vasudevaya</option>
 <option>Om Namah Shivaya</option>
@@ -575,54 +400,54 @@ setInterval(tickClock, 1000);
 <span style="font-size:0.68rem; font-weight:800; color:#8a6218;">/ 108 BEADS</span>
 </div>
 ​<p style="font-size:0.95rem; font-weight:800; color:#b45309; margin-bottom:12px;">Total Malas: <span id="malaNum">0</span></p>
-​<div class="btns" style="max-width:280px; margin:0 auto;">
-<button onclick="window.resetBead()" class="btn btn-light">Reset Beads</button>
-<button onclick="window.resetAllJapa()" class="btn btn-danger">Reset All</button>
+​<div style="display:flex; gap:6px; max-width:280px; margin:0 auto;">
+<button onclick="window.resetBead()" class="btn-action btn-light" style="flex:1;">Reset Beads</button>
+<button onclick="window.resetAllJapa()" class="btn-action btn-danger" style="flex:1;">Reset All</button>
 </div>
 </div>
 </section>
 ​<!-- TAB 5: GAME -->
-<section id="tab-game" class="tab-pane" style="display:none;">
+<section id="tab-game" style="display:none;">
 <div class="card" style="text-align:center;">
-<div class="card-top">
-<span class="card-title">⏱️ Karma Yoga Focus Sprint</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">⏱️ Karma Yoga Focus Sprint</span>
 <span class="badge">+50 XP</span>
 </div>
 <p style="font-size:0.75rem; color:#64748b; margin-bottom:8px;">Deep work sprint to master distractions.</p>
-​<div class="game-arena">
+​<div style="background:linear-gradient(135deg, #0d1f36, #16365c); color:#fff; border-radius:12px; padding:16px; margin:10px 0;">
 <div style="font-size:0.72rem; color:#fae29c; text-transform:uppercase; font-weight:700;">Focus Timer</div>
 <div id="sprintTimerDisp" style="font-size:2.8rem; font-weight:900; letter-spacing:1px; margin:6px 0; font-family:monospace;">15:00</div>
-<div class="btns" style="max-width:240px; margin:0 auto;">
-<button id="sprintToggleBtn" onclick="window.toggleSprint()" class="btn btn-gold">Start Sprint</button>
-<button onclick="window.resetSprint()" class="btn btn-light">Reset</button>
+<div style="display:flex; gap:6px; max-width:240px; margin:0 auto;">
+<button id="sprintToggleBtn" onclick="window.toggleSprint()" class="btn-action btn-gold" style="flex:1;">Start Sprint</button>
+<button onclick="window.resetSprint()" class="btn-action btn-light" style="flex:1;">Reset</button>
 </div>
 </div>
-​<div class="btns" style="margin-top:8px;">
-<button onclick="window.setSprintDuration(5)" class="btn btn-light">5m Quick</button>
-<button onclick="window.setSprintDuration(15)" class="btn btn-light">15m Deep</button>
-<button onclick="window.setSprintDuration(25)" class="btn btn-light">25m Pomodoro</button>
+​<div style="display:flex; gap:6px; margin-top:8px;">
+<button onclick="window.setSprintDuration(5)" class="btn-action btn-light" style="flex:1;">5m Quick</button>
+<button onclick="window.setSprintDuration(15)" class="btn-action btn-light" style="flex:1;">15m Deep</button>
+<button onclick="window.setSprintDuration(25)" class="btn-action btn-light" style="flex:1;">25m Pomodoro</button>
 </div>
 </div>
 ​<div class="card" style="text-align:center;">
-<div class="card-top">
-<span class="card-title">🎯 Arjuna's Eye Challenge</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🎯 Arjuna's Eye Challenge</span>
 <span class="badge">Score: <b id="gameScore">0</b></span>
 </div>
 <p style="font-size:0.75rem; color:#64748b; margin-bottom:8px;">Keep the wandering mind still. Tap the golden eye to center focus!</p>
-​<div class="target-ring" id="targetBtn" onclick="window.hitTarget()">🎯</div>
-<button onclick="window.claimGameXp()" class="btn btn-gold" style="width:100%;">Claim Focus XP (+50 Karma XP)</button>
+​<div id="targetBtn" onclick="window.hitTarget()" style="width:95px; height:95px; border-radius:50%; border:4px dashed #e5b058; margin:14px auto; display:flex; align-items:center; justify-content:center; font-size:2.5rem; cursor:pointer; touch-action:manipulation;">🎯</div>
+<button onclick="window.claimGameXp()" class="btn-action btn-gold" style="width:100%;">Claim Focus XP (+50 Karma XP)</button>
 </div>
 </section>
 ​<!-- TAB 6: DIARY -->
-<section id="tab-diary" class="tab-pane" style="display:none;">
+<section id="tab-diary" style="display:none;">
 <div class="card">
-<div class="card-top">
-<span class="card-title">📔 Spiritual Diary (दैनंदिनी)</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📔 Spiritual Diary (दैनंदिनी)</span>
 <span class="badge">Ratri Chintan</span>
 </div>
-<p style="font-size:0.75rem; color:#64748b; margin-bottom:6px;">Daily evening reflection, detachment check, and sincere gratitudes.</p>
+<p style="font-size:0.75rem; color:#64748b; margin-bottom:6px;">Daily evening reflection, detachment check, and sincere gratitude.</p>
 <textarea id="diaryTxt" placeholder="Write your evening reflections, mistakes to avoid, and gratitude for today..." style="width:100%; height:90px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.8rem; margin-bottom:8px; font-family:inherit; outline:none;"></textarea>
-<button onclick="window.saveNote()" class="btn btn-navy" style="width:100%;">Save Reflection (+30 XP)</button>
+<button onclick="window.saveNote()" class="btn-action btn-navy" style="width:100%;">Save Reflection (+30 XP)</button>
 </div>
 ​<div class="card">
 <h4 style="font-size:0.85rem; color:#0d1f36; margin-bottom:6px;">Reflection History</h4>
@@ -630,37 +455,35 @@ setInterval(tickClock, 1000);
 </div>
 </section>
 ​<!-- TAB 7: STATS -->
-<section id="tab-stats" class="tab-pane" style="display:none;">
+<section id="tab-stats" style="display:none;">
 <div class="card">
-<div class="card-top">
-<span class="card-title">📊 Comprehensive Sadhana Analytics</span>
+<div class="card-head">
+<span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📊 Comprehensive Sadhana Analytics</span>
 <span class="badge" id="statsRankPill">Sadhaka I</span>
 </div>
-​<div class="kpis">
-<div class="kpi"><div class="kpi-lbl">Current Streak</div><div class="kpi-num">7 Days</div></div>
-<div class="kpi"><div class="kpi-lbl">Avg Adherence</div><div class="kpi-num">84%</div></div>
-<div class="kpi"><div class="kpi-lbl">Total Malas</div><div id="statsTotalMalas" class="kpi-num">0</div></div>
-<div class="kpi"><div class="kpi-lbl">Spiritual Tier</div><div id="tierName" class="kpi-num" style="font-size:0.95rem;">Sadhaka I</div></div>
+​<div class="kpi-row">
+<div class="kpi-item"><div class="kpi-tag">Current Streak</div><div class="kpi-digit">7 Days</div></div>
+<div class="kpi-item"><div class="kpi-tag">Avg Adherence</div><div class="kpi-digit">84%</div></div>
+<div class="kpi-item"><div class="kpi-tag">Total Malas</div><div id="statsTotalMalas" class="kpi-digit">0</div></div>
+<div class="kpi-item"><div class="kpi-tag">Spiritual Tier</div><div id="tierName" class="kpi-digit" style="font-size:0.95rem;">Sadhaka I</div></div>
 </div>
 ​<h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 6px;">📈 Weekly Wellness & Recovery Records</h4>
-​<div class="stat-metric-card">
-<div class="stat-metric-head">
-<span class="stat-metric-title">🌙 Weekly Avg Sleep Record</span>
-<span id="statWeeklySleep" class="stat-metric-val">7h 30m / night</span>
+​<div style="background:#faf6ee; border:1px solid #edd59b; border-radius:10px; padding:12px; margin-bottom:8px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+<span style="font-size:0.8rem; font-weight:700; color:#0a1931;">🌙 Weekly Avg Sleep Record</span>
+<span id="statWeeklySleep" style="font-size:1.15rem; font-weight:800; color:#b45309;">7h 30m / night</span>
 </div>
-<div class="bar"><div class="fill" style="width:94%; background:#16a34a;"></div></div>
-<small style="color:#64748b; font-size:0.65rem; margin-top:4px; display:block;">Target: 7-8 hrs optimal restorative rest for Brahma Muhurta.</small>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width:94%; background:#16a34a;"></div></div>
 </div>
-​<div class="stat-metric-card">
-<div class="stat-metric-head">
-<span class="stat-metric-title">💧 Weekly Avg Hydration Record</span>
-<span id="statWeeklyWater" class="stat-metric-val">2250 ml / day</span>
+​<div style="background:#faf6ee; border:1px solid #edd59b; border-radius:10px; padding:12px; margin-bottom:8px;">
+<div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+<span style="font-size:0.8rem; font-weight:700; color:#0a1931;">💧 Weekly Avg Hydration Record</span>
+<span id="statWeeklyWater" style="font-size:1.15rem; font-weight:800; color:#b45309;">2250 ml / day</span>
 </div>
-<div class="bar"><div id="statWaterBar" class="fill" style="width:90%; background:#0284c7;"></div></div>
-<small style="color:#64748b; font-size:0.65rem; margin-top:4px; display:block;">Target: 2500 ml daily pure water for bodily purity.</small>
+<div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%; background:#0284c7;"></div></div>
 </div>
 ​<h4 style="font-size:0.82rem; color:#0d1f36; margin:14px 0 6px;">7-Day Adherence Trend</h4>
-<div class="chart-container-lg">
+<div style="display:flex; align-items:flex-end; gap:8px; height:120px; border-bottom:2px solid #cbd5e1; padding-top:10px; margin-top:10px; margin-bottom:8px;">
 <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:60px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Mon</small></div>
 <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:75px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Tue</small></div>
 <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:80px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Wed</small></div>
@@ -669,44 +492,60 @@ setInterval(tickClock, 1000);
 <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div style="background:#eab308; height:90px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#64748b; margin-top:4px;">Sat</small></div>
 <div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;"><div id="todayChartBar" style="background:#d97706; height:20px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.65rem; color:#0d1f36; font-weight:700; margin-top:4px;">Today</small></div>
 </div>
-​<h4 style="font-size:0.82rem; color:#0d1f36; margin:14px 0 6px;">Core Disciplines Consistency</h4>
-<div style="font-size:0.75rem;">
-<div style="display:flex; justify-content:space-between; margin-top:5px;"><span>🌅 Brahma Muhurta</span><b>85%</b></div>
-<div class="bar"><div class="fill" style="width:85%; background:#d97706;"></div></div>
-<div style="display:flex; justify-content:space-between; margin-top:5px;"><span>📿 Nama Japa</span><b>90%</b></div>
-<div class="bar"><div class="fill" style="width:90%; background:#2563eb;"></div></div>
-<div style="display:flex; justify-content:space-between; margin-top:5px;"><span>📖 Gita Swadhyaya</span><b>80%</b></div>
-<div class="bar"><div class="fill" style="width:80%; background:#16a34a;"></div></div>
-</div>
 </div>
 </section>
 ​</main>
 ​<!-- FAIL-SAFE PERMANENTLY FIXED BOTTOM NAVIGATION BAR -->
-<nav style="position:fixed !important; bottom:0 !important; left:0 !important; right:0 !important; max-width:520px !important; margin:0 auto !important; background:#ffffff !important; border-top:2px solid #edd59b !important; display:flex !important; flex-direction:row !important; justify-content:space-between !important; align-items:center !important; z-index:99999 !important; box-shadow:0 -4px 16px rgba(0,0,0,0.1) !important; padding:4px 0 max(4px, env(safe-area-inset-bottom)) !important;">
-<button id="navBtn-today" onclick="window.switchTab('today')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#b45309; font-weight:800; font-size:10px;">
+<nav style="position:fixed !important; bottom:0 !important; left:0 !important; right:0 !important; width:100% !important; max-width:520px !important; margin:0 auto !important; background:#ffffff !important; border-top:2px solid #edd59b !important; display:flex !important; flex-direction:row !important; justify-content:space-between !important; align-items:center !important; z-index:999999 !important; box-shadow:0 -4px 16px rgba(0,0,0,0.1) !important; padding:4px 0 max(4px, env(safe-area-inset-bottom)) !important;">
+<button id="navBtn-today" onclick="window.switchTab('today')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#b45309 !important; font-weight:800 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">🌅</span><span>Today</span>
 </button>
-<button id="navBtn-gita" onclick="window.switchTab('gita')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-weight:700; font-size:10px;">
+<button id="navBtn-gita" onclick="window.switchTab('gita')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#64748b !important; font-weight:700 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">📖</span><span>Gita</span>
 </button>
-<button id="navBtn-panchang" onclick="window.switchTab('panchang')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-weight:700; font-size:10px;">
+<button id="navBtn-panchang" onclick="window.switchTab('panchang')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#64748b !important; font-weight:700 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">🗓️</span><span>Panchang</span>
 </button>
-<button id="navBtn-japa" onclick="window.switchTab('japa')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-weight:700; font-size:10px;">
+<button id="navBtn-japa" onclick="window.switchTab('japa')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#64748b !important; font-weight:700 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">📿</span><span>Japa</span>
 </button>
-<button id="navBtn-game" onclick="window.switchTab('game')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-weight:700; font-size:10px;">
+<button id="navBtn-game" onclick="window.switchTab('game')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#64748b !important; font-weight:700 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">🎯</span><span>Game</span>
 </button>
-<button id="navBtn-diary" onclick="window.switchTab('diary')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-weight:700; font-size:10px;">
+<button id="navBtn-diary" onclick="window.switchTab('diary')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#64748b !important; font-weight:700 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">📔</span><span>Diary</span>
 </button>
-<button id="navBtn-stats" onclick="window.switchTab('stats')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-weight:700; font-size:10px;">
+<button id="navBtn-stats" onclick="window.switchTab('stats')" style="flex:1 !important; background:none !important; border:none !important; display:flex !important; flex-direction:column !important; align-items:center !important; justify-content:center !important; padding:4px 1px !important; cursor:pointer !important; color:#64748b !important; font-weight:700 !important; font-size:10px !important;">
 <span style="font-size:20px; line-height:1.2;">📊</span><span>Stats</span>
 </button>
 </nav>
-​<!-- MADHAVPATH COMPACT RUNTIME ENGINE -->
+​<!-- FAIL-SAFE RUNTIME SCRIPT -->
 <script>
+// Storage Safe Helpers
+function getStore(k, d) {
+try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; }
+}
+function setStore(k, v) {
+try { localStorage.setItem(k, v); } catch(e) {}
+}
+​// CLOCK RUNTIME
+function tick() {
+var d = new Date();
+var el = document.getElementById('liveClock');
+if (el) el.textContent = d.toLocaleTimeString('en-US');
+var m = d.getHours() * 60 + d.getMinutes();
+var mh = document.getElementById('liveMuhurta');
+if (mh) {
+if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta";
+else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya";
+else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta";
+else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
+else mh.textContent = "🕉️ Dhyana Vela";
+}
+}
+tick();
+setInterval(tick, 1000);
+​// GITA METADATA
 var GITA_CHAPTERS = [
 { num: 1, name: "Arjuna Vishada Yoga", verses: 47, desc: "Despondency upon seeing revered elders arrayed for battle." },
 { num: 2, name: "Sankhya Yoga", verses: 72, desc: "The immortal Soul (Atman) and Nishkama Karma Yoga." },
@@ -721,20 +560,20 @@ var GITA_CHAPTERS = [
 { num: 11, name: "Vishwarupa Darshana Yoga", verses: 55, desc: "The awe-inspiring revelation of the Universal Cosmic Form." },
 { num: 12, name: "Bhakti Yoga", verses: 20, desc: "The direct path of loving surrender and virtues dearest to Krishna." },
 { num: 13, name: "Kshetra Kshetragya Vibhaga", verses: 35, desc: "The field of the body and the Supreme Knower of Consciousness." },
-{ num: 14, name: "Gunatraya Vibhaga Yoga", verses: 27, desc: "The three modes: Sattva (purity), Rajas (passion), Tamas (inertia)." },
+{ num: 14, name: "Gunatraya Vibhaga Yoga", verses: 27, desc: "The three modes: Sattva, Rajas, and Tamas." },
 { num: 15, name: "Purushottama Yoga", verses: 20, desc: "The eternal sacred tree and Supreme Transcendental Person." },
 { num: 16, name: "Daivasura Sampad Vibhaga", verses: 24, desc: "Divine virtues versus egoistic, demoniac traits." },
-{ num: 17, name: "Shraddhatraya Vibhaga", verses: 28, desc: "The threefold division of faith, food, sacrifice, and penance." },
+{ num: 17, name: "Shraddhatraya Vibhaga", verses: 28, desc: "The threefold division of faith, food, and sacrifice." },
 { num: 18, name: "Moksha Sanyasa Yoga", verses: 78, desc: "The culmination of wisdom: total surrender and supreme peace." }
 ];
 ​var CELEBRATED_SHLOKAS = {
-"1_1": { san: "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥", translit: "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ |\nmāmakāḥ pāṇḍavāścaiva kimakurvata sañjaya ||", mean: "Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra and eager for battle, what did my sons and the sons of Pandu do?" },
-"2_47": { san: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥", translit: "karmaṇyevādhikāraste mā phaleṣu kadācana |\nmā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||", mean: "You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction." },
-"3_19": { san: "तस्मादसक्तः सततं कार्यं कर्म समाचर।\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः॥", translit: "tasmād asaktaḥ satataṁ kāryaṁ karma samācara |\nasakto hy ācaran karma param āpnoti pūruṣaḥ ||", mean: "Therefore, unattached, continually perform your duty; by performing action without attachment, one reaches the Supreme." },
-"4_7": { san: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥", translit: "yadā yadā hi dharmasya glānir bhavati bhārata |\nabhyutthānam adharmasya tadātmānaṁ sṛjāmy aham ||", mean: "Whenever there is a decline of righteousness, O Bharata, and an increase of unrighteousness, at that time I manifest Myself." },
-"6_5": { san: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥", translit: "uddhared ātmanātmānaṁ nātmānam avasādayet |\nātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ ||", mean: "Elevate yourself through your own mind; do not degrade yourself. For the mind alone is one's friend, and the mind alone is one's enemy." },
-"9_22": { san: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।\nतेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥", translit: "ananyāś cintayanto māṁ ye janāḥ paryupāsate |\nteṣāṁ nityābhiyuktānāṁ yoga-kṣemaṁ vahāmy aham ||", mean: "To those who always remember Me with single-minded devotion, I personally provide what they lack and protect what they possess." },
-"18_66": { san: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥", translit: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja |\nahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ ||", mean: "Surrender all varieties of rites and take refuge in Me alone. I shall deliver you from all bondage and distress; do not grieve." }
+"1_1": { san: "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥", translit: "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ | māmakāḥ pāṇḍavāścaiva kimakurvata sañjaya ||", mean: "Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra and eager for battle, what did my sons and the sons of Pandu do?" },
+"2_47": { san: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥", translit: "karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||", mean: "You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction." },
+"3_19": { san: "तस्मादसक्तः सततं कार्यं कर्म समाचर।\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः॥", translit: "tasmād asaktaḥ satataṁ kāryaṁ karma samācara | asakto hy ācaran karma param āpnoti pūruṣaḥ ||", mean: "Therefore, unattached, continually perform your duty; by performing action without attachment, one reaches the Supreme." },
+"4_7": { san: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥", translit: "yadā yadā hi dharmasya glānir bhavati bhārata | abhyutthānam adharmasya tadātmānaṁ sṛjāmy aham ||", mean: "Whenever there is a decline of righteousness, O Bharata, and an increase of unrighteousness, at that time I manifest Myself." },
+"6_5": { san: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥", translit: "uddhared ātmanātmānaṁ nātmānam avasādayet | ātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ ||", mean: "Elevate yourself through your own mind; do not degrade yourself. For the mind alone is one's friend, and the mind alone is one's enemy." },
+"9_22": { san: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।\nतेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥", translit: "ananyāś cintayanto māṁ ye janāḥ paryupāsate | teṣāṁ nityābhiyuktānāṁ yoga-kṣemaṁ vahāmy aham ||", mean: "To those who always remember Me with single-minded devotion, I personally provide what they lack and protect what they possess." },
+"18_66": { san: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥", translit: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja | ahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ ||", mean: "Surrender all varieties of rites and take refuge in Me alone. I shall deliver you from all bondage and distress; do not grieve." }
 };
 ​var coreTasks = [
 { name: "Brahma Muhurta wake-up (4:30 AM)", xp: 25, done: false },
@@ -745,19 +584,16 @@ var GITA_CHAPTERS = [
 { name: "Evening Reflection (Ratri Chintan)", xp: 15, done: false }
 ];
 ​var customTasks = [];
-try {
-var savedCustom = JSON.parse(localStorage.getItem('mp_custom_tasks') || '[]');
-if (Array.isArray(savedCustom)) customTasks = savedCustom;
-} catch(e) {}
-​var water = parseInt(localStorage.getItem('mp_water') || '0', 10) || 0;
-var beads = parseInt(localStorage.getItem('mp_beads') || '0', 10) || 0;
-var malas = parseInt(localStorage.getItem('mp_malas') || '0', 10) || 0;
-var xp = parseInt(localStorage.getItem('mp_xp') || '0', 10) || 0;
+try { customTasks = JSON.parse(getStore('mp_custom_tasks', '[]')); } catch(e) { customTasks = []; }
+​var water = parseInt(getStore('mp_water', '0'), 10) || 0;
+var beads = parseInt(getStore('mp_beads', '0'), 10) || 0;
+var malas = parseInt(getStore('mp_malas', '0'), 10) || 0;
+var xp = parseInt(getStore('mp_xp', '0'), 10) || 0;
 var gameScore = 0;
 var sprintTimer = null;
 var sprintSeconds = 15 * 60;
 var isSprintActive = false;
-​// TAB SWITCHER
+​// TAB NAVIGATION
 window.switchTab = function(tabId) {
 var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
 for (var i = 0; i < tabs.length; i++) {
@@ -777,7 +613,7 @@ b.style.fontWeight = '700';
 window.stopRecite();
 window.scrollTo(0, 0);
 };
-​// TASK TOGGLE
+​// TASK CHECKLIST
 window.toggleTask = function(idx) {
 if (!coreTasks[idx]) return;
 coreTasks[idx].done = !coreTasks[idx].done;
@@ -797,7 +633,7 @@ window.updateRoutineStats();
 ​window.toggleCustomTask = function(cIdx) {
 if (!customTasks[cIdx]) return;
 customTasks[cIdx].done = !customTasks[cIdx].done;
-try { localStorage.setItem('mp_custom_tasks', JSON.stringify(customTasks)); } catch(e) {}
+setStore('mp_custom_tasks', JSON.stringify(customTasks));
 if (customTasks[cIdx].done) {
 window.chime();
 window.addXp(20);
@@ -809,9 +645,9 @@ window.updateRoutineStats();
 var inp = document.getElementById('customHabitInput');
 if (!inp) return;
 var title = inp.value.trim();
-if (!title) { alert('Please enter a habit title.'); return; }
+if (!title) return;
 customTasks.push({ id: Date.now(), name: title, done: false });
-try { localStorage.setItem('mp_custom_tasks', JSON.stringify(customTasks)); } catch(e) {}
+setStore('mp_custom_tasks', JSON.stringify(customTasks));
 inp.value = '';
 window.chime();
 window.renderCustomTasks();
@@ -819,7 +655,7 @@ window.updateRoutineStats();
 };
 ​window.deleteCustomTask = function(cIdx) {
 customTasks.splice(cIdx, 1);
-try { localStorage.setItem('mp_custom_tasks', JSON.stringify(customTasks)); } catch(e) {}
+setStore('mp_custom_tasks', JSON.stringify(customTasks));
 window.renderCustomTasks();
 window.updateRoutineStats();
 };
@@ -827,18 +663,19 @@ window.updateRoutineStats();
 var box = document.getElementById('customTasksContainer');
 if (!box) return;
 box.innerHTML = '';
-customTasks.forEach(function(c, i) {
+for (var i = 0; i < customTasks.length; i++) {
+var c = customTasks[i];
 var div = document.createElement('div');
-div.className = 'task' + (c.done ? ' checked' : '');
-div.innerHTML = '<div class="task-left" onclick="window.toggleCustomTask(' + i + ')">' +
-'<span class="task-check">' + (c.done ? '☑' : '☐') + '</span>' +
-'<span class="task-name">' + c.name + '</span></div>' +
-'<div class="task-actions">' +
+div.className = 'task-item' + (c.done ? ' checked' : '');
+div.innerHTML = '<div style="display:flex; align-items:center;" onclick="window.toggleCustomTask(' + i + ')">' +
+'<span class="task-check-mark">' + (c.done ? '☑' : '☐') + '</span>' +
+'<span class="task-text">' + c.name + '</span></div>' +
+'<div style="display:flex; align-items:center; gap:6px;">' +
 '<span class="badge">+20 XP</span>' +
-'<button class="del-btn" onclick="event.stopPropagation(); window.deleteCustomTask(' + i + ')">🗑️</button>' +
+'<button onclick="event.stopPropagation(); window.deleteCustomTask(' + i + ')" style="background:none; border:none; color:#dc2626; font-size:1rem; cursor:pointer;">🗑️</button>' +
 '</div>';
 box.appendChild(div);
-});
+}
 };
 ​window.updateRoutineStats = function() {
 var done = 0;
@@ -858,7 +695,7 @@ if (tb) tb.style.height = Math.max(15, pct) + '%';
 ​// HYDRATION & SLEEP
 window.addWater = function(amt) {
 water = Math.max(0, water + amt);
-try { localStorage.setItem('mp_water', water); } catch(e) {}
+setStore('mp_water', water);
 var wl = document.getElementById('waterLbl');
 var wg = document.getElementById('waterGoal');
 var wb = document.getElementById('waterBar');
@@ -866,8 +703,6 @@ var pct = Math.min(100, Math.round((water / 2500) * 100));
 if (wl) wl.textContent = water + ' ml';
 if (wg) wg.textContent = water + ' / 2500 ml';
 if (wb) wb.style.width = pct + '%';
-var sw = document.getElementById('statWeeklyWater');
-if (sw) sw.textContent = (water > 0 ? water : 2250) + ' ml / day';
 };
 ​window.calcSleep = function() {
 var b = document.getElementById('bedTime');
@@ -880,11 +715,9 @@ if (diff < 0) diff += 1440;
 var hrs = Math.floor(diff / 60);
 var mins = diff % 60;
 var sl = document.getElementById('sleepLbl');
-var sws = document.getElementById('statWeeklySleep');
 if (sl) sl.textContent = 'Duration: ' + hrs + 'h ' + mins + 'm';
-if (sws) sws.textContent = hrs + 'h ' + mins + 'm / night';
 };
-​// JAPA MALA COUNTER
+​// JAPA
 window.tapBead = function() {
 beads++;
 window.chime();
@@ -893,10 +726,8 @@ beads = 0;
 malas++;
 window.addXp(108);
 }
-try {
-localStorage.setItem('mp_beads', beads);
-localStorage.setItem('mp_malas', malas);
-} catch(e) {}
+setStore('mp_beads', beads);
+setStore('mp_malas', malas);
 window.renderJapa();
 };
 ​window.resetBead = function() {
@@ -905,6 +736,8 @@ window.renderJapa();
 };
 ​window.resetAllJapa = function() {
 beads = 0; malas = 0;
+setStore('mp_beads', 0);
+setStore('mp_malas', 0);
 window.renderJapa();
 };
 ​window.renderJapa = function() {
@@ -917,7 +750,7 @@ if (mn) mn.textContent = malas;
 if (km) km.textContent = malas;
 if (sm) sm.textContent = malas;
 };
-​// FOCUS SPRINT & GAME
+​// SPRINT & GAME
 window.setSprintDuration = function(m) {
 window.resetSprint();
 sprintSeconds = m * 60;
@@ -983,10 +816,10 @@ feed.innerHTML = '<div style="background:#f1f5f9; border-left:3px solid #d4a345;
 dt.value = '';
 window.addXp(30);
 };
-​// XP
+​// XP & RANK
 window.addXp = function(p) {
 xp += p;
-try { localStorage.setItem('mp_xp', xp); } catch(e) {}
+setStore('mp_xp', xp);
 var kx = document.getElementById('kpiXp');
 if (kx) kx.textContent = xp + ' XP';
 var t = xp > 500 ? "Paramahamsa 🦚" : (xp > 200 ? "Karma Yogi 🎯" : "Sadhaka I");
@@ -1079,7 +912,7 @@ if (gtr) gtr.textContent = CELEBRATED_SHLOKAS[key].translit;
 if (gm) gm.textContent = CELEBRATED_SHLOKAS[key].mean;
 return;
 }
-​// Dynamic online fetch for all 700 verses with graceful offline fallback
+​// Fetch fallback online
 fetch('https://vedicscriptures.github.io/slok/' + c + '/' + v + '/')
 .then(function(res) { return res.json(); })
 .then(function(d) {
@@ -1108,11 +941,7 @@ window.loadShloka();
 window.addXp(20);
 window.chime();
 };
-​window.calcPanchang = function() {};
-window.resetPanchangToday = function() {
-var p = document.getElementById('pDatePick');
-if (p) p.value = new Date().toISOString().slice(0, 10);
-};
+​window.changeLang = function(l) {};
 ​// INITIALIZATION
 window.renderCustomTasks();
 window.updateRoutineStats();
@@ -1120,7 +949,6 @@ window.renderJapa();
 window.addWater(0);
 window.calcSleep();
 window.initGita();
-window.resetPanchangToday();
 </script>
 </body>
 </html>
