@@ -1,240 +1,581 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
   <title>MadhavPath | Devotion · Discipline · Growth</title>
-  
   <meta name="theme-color" content="#0d1f36">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  
-  <!-- Tailwind CSS & Inter Font -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Inter:wght@400;500;600;700;800&family=Yatra+One&display=swap" rel="stylesheet">
-
   <style>
-    :root {
-      --gold-primary: #d4a345;
-      --gold-dark: #b88523;
-      --gold-light: #fef8eb;
-      --navy-deep: #0a1728;
-      --navy-card: #13243c;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
-      font-family: 'Inter', sans-serif;
-      background-color: #fcfaf5;
-      color: #242e3e;
-      -webkit-tap-highlight-color: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #fbf9f4;
+      color: #1e293b;
+      min-height: 100vh;
+      padding-bottom: 85px;
       user-select: none;
     }
-    .font-sanskrit {
-      font-family: 'Georgia', serif;
+    /* HEADER */
+    .app-header {
+      background: linear-gradient(135deg, #091524 0%, #122846 60%, #1b3d68 100%);
+      color: #ffffff;
+      padding: 16px 16px 18px;
+      border-radius: 0 0 22px 22px;
+      border-bottom: 2px solid #d4a345;
+      box-shadow: 0 4px 18px rgba(9, 21, 36, 0.25);
     }
-    .font-brand {
-      font-family: 'Cinzel', serif;
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
     }
-    /* Hide scrollbars */
-    ::-webkit-scrollbar { display: none; }
-    * { -ms-overflow-style: none; scrollbar-width: none; }
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .brand-icon {
+      width: 36px;
+      height: 36px;
+      background: linear-gradient(135deg, #d4a345, #fae29c);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    }
+    .brand-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+    .brand-sub {
+      font-size: 0.65rem;
+      color: #d8af5c;
+      letter-spacing: 1px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .lang-dropdown {
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid #d4a345;
+      color: #fef0cd;
+      font-size: 0.75rem;
+      font-weight: 700;
+      padding: 5px 8px;
+      border-radius: 10px;
+      outline: none;
+    }
+    .lang-dropdown option { background: #0d1f36; color: #fff; }
 
-    /* Touch & micro-animations */
-    .tap-effect {
-      transition: transform 0.12s ease, opacity 0.12s ease;
+    /* CLOCK BAR */
+    .clock-bar {
+      background: rgba(0, 0, 0, 0.28);
+      border: 1px solid rgba(212, 163, 69, 0.35);
+      border-radius: 12px;
+      padding: 8px 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
     }
-    .tap-effect:active {
-      transform: scale(0.96);
-      opacity: 0.9;
+    .clock-time {
+      font-weight: 800;
+      font-family: monospace;
+      color: #fef0cd;
+      letter-spacing: 1px;
+    }
+    .muhurta-tag {
+      background: rgba(212, 163, 69, 0.25);
+      border: 1px solid #d4a345;
+      color: #fae29c;
+      padding: 3px 8px;
+      border-radius: 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
     }
 
-    /* Glows */
-    .gold-glow {
-      box-shadow: 0 4px 20px rgba(212, 163, 69, 0.28);
+    /* CONTAINER */
+    .main-container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 12px;
     }
-    .navy-glow {
-      box-shadow: 0 8px 24px rgba(10, 23, 40, 0.25);
+    .tab-view { display: none; }
+    .tab-view.active { display: block; }
+
+    /* CARDS */
+    .card {
+      background: #ffffff;
+      border: 1px solid #ebdcc4;
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+    }
+    .card-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .pill {
+      font-size: 0.7rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 6px;
+    }
+    .pill-gold { background: #fef3d6; color: #8a6218; border: 1px solid #ecd59b; }
+    .pill-green { background: #eaf7ed; color: #1e7e34; }
+
+    /* STATS KPI GRID */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .kpi-card {
+      background: #ffffff;
+      border: 1px solid #ebdcc4;
+      border-radius: 14px;
+      padding: 10px 12px;
+    }
+    .kpi-label { font-size: 0.68rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
+    .kpi-val { font-size: 1.25rem; font-weight: 800; color: #0d1f36; margin-top: 2px; }
+
+    /* ROUTINE CHECKLIST */
+    .task-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 9px 10px;
+      background: #fdfbf7;
+      border: 1px solid #edd59b;
+      border-radius: 12px;
+      margin-bottom: 7px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .task-item.checked {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+      opacity: 0.75;
+    }
+    .task-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: #1e293b;
+    }
+    .task-item.checked .task-left span {
+      text-decoration: line-through;
+      color: #64748b;
+    }
+    .task-check {
+      width: 18px;
+      height: 18px;
+      accent-color: #d4a345;
+      cursor: pointer;
+    }
+    .xp-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      color: #8a6218;
+      background: #fef7e7;
+      padding: 2px 6px;
+      border-radius: 6px;
+      border: 1px solid #ecd59b;
+    }
+
+    /* HYDRATION & SLEEP */
+    .sub-tracker {
+      background: #faf6ee;
+      border: 1px solid #edd59b;
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+    .sub-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #0d1f36;
+      margin-bottom: 8px;
+    }
+    .water-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .step-btn {
+      background: #ffffff;
+      border: 1px solid #ecd59b;
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.78rem;
+      color: #0d1f36;
+      cursor: pointer;
+    }
+    .bar-shell {
+      width: 100%;
+      height: 6px;
+      background: #e2d7c5;
+      border-radius: 10px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+    .bar-fill {
+      height: 100%;
+      background: #2b7a78;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .time-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .time-input {
+      width: 100%;
+      padding: 6px 8px;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #1e293b;
+    }
+
+    /* GITA CARD */
+    .shloka-box {
+      background: #fcf9ee;
+      border: 1px solid #edd59b;
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      margin: 10px 0;
+    }
+    .shloka-san {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #0d1f36;
+      line-height: 1.6;
+    }
+    .shloka-mean {
+      font-size: 0.78rem;
+      color: #475569;
+      line-height: 1.45;
+      margin-top: 8px;
+      border-top: 1px dashed #edd59b;
+      padding-top: 8px;
+    }
+    .btn-row {
+      display: flex;
+      gap: 6px;
+    }
+    .btn {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 10px;
+      border: none;
+      font-size: 0.75rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+    }
+    .btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0d1f36; }
+    .btn-navy { background: #0d1f36; color: #fef0cd; }
+    .btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+
+    /* JAPA SCREEN */
+    .japa-circle {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 8px solid #d4a345;
+      margin: 16px auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(212, 163, 69, 0.25);
+      cursor: pointer;
+    }
+    .japa-num { font-size: 3rem; font-weight: 900; color: #0d1f36; }
+    .japa-sub { font-size: 0.65rem; font-weight: 800; color: #8a6218; letter-spacing: 1px; }
+
+    /* GAME ARENA */
+    .focus-arena {
+      height: 130px;
+      background: #fcf9ee;
+      border: 1px dashed #d4a345;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 12px 0;
+      overflow: hidden;
+    }
+    .focus-bubble {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f59e0b, #d97706);
+      border: 3px solid #ffffff;
+      font-size: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(217, 119, 6, 0.4);
+      transition: transform 0.1s ease;
+    }
+
+    /* BOTTOM NAV */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      max-width: 500px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-top: 1px solid #ebdcc4;
+      display: flex;
+      justify-content: space-around;
+      padding: 6px 2px;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+      z-index: 100;
+    }
+    .nav-btn {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      font-size: 0.65rem;
+      font-weight: 700;
+      color: #94a3b8;
+      cursor: pointer;
+      flex: 1;
+      padding: 4px 0;
+    }
+    .nav-btn.active { color: #b88628; }
+    .nav-btn span:first-child { font-size: 1.15rem; }
+
+    /* TOAST */
+    .toast-box {
+      position: fixed;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0d1f36;
+      color: #fae29c;
+      border: 1px solid #d4a345;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 800;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+      display: none;
+      z-index: 999;
     }
   </style>
 </head>
-<body class="min-h-screen pb-24 flex flex-col justify-between">
+<body>
 
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toastNotification" class="fixed top-5 left-1/2 -translate-x-1/2 -translate-y-24 transition-all duration-300 z-50 bg-[#0d1f36] text-[#fef1cb] border border-[#d4a345] px-5 py-2.5 rounded-full shadow-2xl text-xs font-bold tracking-wide flex items-center gap-2 pointer-events-none max-w-[90%] text-center">
-    <span id="toastIcon">✨</span>
-    <span id="toastText">Radhe Radhe!</span>
-  </div>
+  <!-- TOAST -->
+  <div id="toastBox" class="toast-box">✨ Radhe Radhe!</div>
 
-  <!-- TOP HERO HEADER -->
-  <header class="bg-gradient-to-br from-[#091524] via-[#10243e] to-[#183963] text-white px-4 pt-4 pb-5 rounded-b-[24px] shadow-lg border-b-2 border-[#d4a345]/50">
-    <div class="max-w-md mx-auto">
-      
-      <!-- Top meta row: App Name & Multi-Language Picker -->
-      <div class="flex items-center justify-between gap-2">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#d4a345] to-[#f9e09d] flex items-center justify-center text-xl shadow-md">
-            🦚
-          </div>
-          <div>
-            <h1 class="text-base font-bold font-brand tracking-wide text-white leading-tight">
-              माधवपथ <span class="text-[#f9d889] text-xs font-sans font-semibold tracking-normal">· MadhavPath</span>
-            </h1>
-            <p id="i18n-subhead" class="text-[9px] uppercase tracking-widest text-[#d8af5c] font-bold">DEVOTION · DISCIPLINE · GROWTH</p>
-          </div>
-        </div>
-
-        <!-- Real-Time Language Dropdown -->
-        <div class="relative">
-          <select id="langDropdown" onchange="onSelectLanguage(this.value)" class="bg-[#1b3457]/90 text-amber-200 border border-[#d4a345] text-xs font-bold py-1.5 px-2.5 rounded-xl outline-none cursor-pointer tap-effect shadow">
-            <option value="en">English</option>
-            <option value="hi">हिन्दी</option>
-            <option value="kn">ಕನ್ನಡ</option>
-            <option value="mr">मराठी</option>
-            <option value="te">తెలుగు</option>
-            <option value="ta">தமிழ்</option>
-          </select>
+  <!-- HEADER -->
+  <header class="app-header">
+    <div class="header-top">
+      <div class="brand-group">
+        <div class="brand-icon">🦚</div>
+        <div>
+          <div class="brand-title">माधवपथ · MadhavPath</div>
+          <div class="brand-sub">DEVOTION · DISCIPLINE · GROWTH</div>
         </div>
       </div>
+      <select id="langSelect" class="lang-dropdown" onchange="changeLanguage(this.value)">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="kn">ಕನ್ನಡ</option>
+        <option value="mr">मराठी</option>
+        <option value="te">తెలుగు</option>
+        <option value="ta">தமிழ்</option>
+      </select>
+    </div>
 
-      <!-- Live Clock & Muhurta Bar -->
-      <div class="mt-3.5 bg-white/10 backdrop-blur-md border border-[#d4a345]/30 rounded-xl p-2.5 flex items-center justify-between text-xs">
-        <div class="flex items-center gap-2">
-          <span class="text-amber-300">⏰</span>
-          <span id="liveClock" class="font-mono text-amber-100 font-extrabold text-sm tracking-wider">00:00:00</span>
-        </div>
-        <div id="liveMuhurta" class="bg-[#d4a345]/25 border border-[#d4a345]/60 text-amber-200 text-[10px] font-bold px-2.5 py-1 rounded-lg">
-          ✨ Calculating Muhurta...
-        </div>
-      </div>
-
+    <!-- LIVE CLOCK -->
+    <div class="clock-bar">
+      <span id="liveClock" class="clock-time">00:00:00 AM</span>
+      <span id="liveMuhurta" class="muhurta-tag">✨ Calculating...</span>
     </div>
   </header>
 
-  <!-- MAIN INTERACTIVE APP CONTAINER -->
-  <main class="max-w-md mx-auto w-full px-3.5 pt-3.5 flex-1">
+  <!-- MAIN VIEW -->
+  <main class="main-container">
 
-    <!-- TAB 1: TODAY (HOME) -->
-    <section id="tab-today" class="tab-pane active space-y-3">
+    <!-- 1. TODAY TAB -->
+    <section id="tab-today" class="tab-view active">
       
-      <!-- TODAY'S PANCHANG CARD -->
-      <div class="bg-white rounded-2xl p-4 border border-[#ecd9b8] shadow-sm">
-        <div class="flex items-center justify-between mb-2">
-          <span id="i18n-panchang-tag" class="bg-amber-100 text-amber-900 text-[11px] font-bold px-2.5 py-0.5 rounded-md">
-            🕉 TODAY'S PANCHANG
-          </span>
-          <span id="panchangVratBadge" class="bg-orange-100 text-orange-800 text-[11px] font-bold px-2.5 py-0.5 rounded-md">
-            🔱 Masik Shivaratri
-          </span>
+      <!-- Panchang -->
+      <div class="card">
+        <div class="card-head">
+          <span class="pill pill-gold">🕉 TODAY'S PANCHANG</span>
+          <span class="pill" style="background:#fff3e0; color:#b45309;">🔱 Masik Shivaratri</span>
         </div>
-        <div class="mt-1">
-          <h2 id="panchangTithiName" class="text-lg font-extrabold text-[#0d1f36]">कृष्ण Chaturdashi</h2>
-          <p id="panchangSubDetail" class="text-xs text-gray-500 font-medium">Purva Nakshatra · रविवारीय Ravivara</p>
-          <p id="panchangVikramYear" class="text-[11px] text-gray-400 mt-0.5">Vikram Samvat 2083 · Phalguna Masa · Dakshinayana</p>
-        </div>
-        <button onclick="navigateTab('panchang')" class="w-full mt-3 bg-gradient-to-r from-[#e8be63] to-[#c7912d] text-[#121c2b] font-bold text-xs py-2.5 rounded-xl tap-effect shadow flex items-center justify-center gap-1.5">
-          <span id="i18n-btn-view-panchang">View Full Vedic Panchang & Timings</span> →
+        <h2 style="font-size:1.15rem; color:#0d1f36;">कृष्ण Chaturdashi</h2>
+        <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Purva Nakshatra · रविवारीय Ravivara</p>
+        <p style="font-size:0.7rem; color:#94a3b8; margin-top:1px;">Vikram Samvat 2083 · Phalguna Masa · Dakshinayana</p>
+        <button onclick="switchTab('panchang')" class="btn btn-gold" style="width:100%; margin-top:10px;">
+          View Full Vedic Panchang & Timings →
         </button>
       </div>
 
-      <!-- DAILY GITA WISDOM CARD -->
-      <div class="bg-gradient-to-br from-[#ffffff] to-[#fffaf0] rounded-2xl p-4 border border-[#e8d7b5] shadow-sm">
-        <div class="flex items-center justify-between mb-2">
-          <span id="i18n-wisdom-tag" class="text-[10px] font-bold tracking-wider text-teal-800 uppercase">DAILY WISDOM · नित्य उपदेश</span>
-          <span class="text-[10px] font-bold text-amber-700 bg-amber-50 px-2 py-0.5 rounded border border-amber-200">Gita 2.47</span>
+      <!-- Wisdom -->
+      <div class="card">
+        <div class="card-head">
+          <span style="font-size:0.7rem; font-weight:800; color:#0f766e; text-transform:uppercase;">DAILY WISDOM · नित्य उपदेश</span>
+          <span class="pill pill-gold">Gita 2.47</span>
         </div>
-        <div id="dailySanskritText" class="font-sanskrit text-sm md:text-base font-bold text-[#10243e] leading-relaxed my-2.5 bg-amber-50/50 p-2.5 rounded-xl border border-amber-200/50 text-center">
-          कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥
+        <div class="shloka-box">
+          <div id="dailyVerseSanskrit" class="shloka-san">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
+          <div id="dailyVerseMeaning" class="shloka-mean">You have a right to perform your prescribed duty, but never to the fruits of action.</div>
         </div>
-        <p id="dailyMeaningText" class="text-xs text-gray-700 leading-relaxed font-normal mb-3">
-          You have a right to perform your prescribed duty, but never to the fruits of action.
-        </p>
-        
-        <div class="flex gap-2">
-          <button id="btnReciteDaily" onclick="handleReciteDaily()" class="flex-1 bg-[#10243e] text-amber-200 text-xs font-bold py-2 rounded-xl tap-effect flex items-center justify-center gap-1 shadow">
-            🔊 <span id="i18n-play-btn">Play Audio</span>
-          </button>
-          <button onclick="stopRecitation()" class="px-3 bg-gray-100 text-gray-700 border border-gray-300 text-xs font-bold rounded-xl tap-effect">
-            ⏹ <span id="i18n-stop-btn">Stop</span>
-          </button>
-          <button onclick="navigateTab('gita')" class="flex-1 bg-amber-100 text-amber-900 border border-amber-300 text-xs font-bold py-2 rounded-xl tap-effect">
-            <span id="i18n-all-gita-btn">All 18 Chapters →</span>
-          </button>
+        <div class="btn-row">
+          <button onclick="playRecitation('dailyVerseSanskrit')" class="btn btn-navy">🔊 Play Audio</button>
+          <button onclick="stopRecitation()" class="btn btn-light">⏹ Stop</button>
+          <button onclick="switchTab('gita')" class="btn btn-gold">All 18 Chapters →</button>
         </div>
       </div>
 
-      <!-- STATS KPI GRID -->
-      <div class="grid grid-cols-2 gap-2.5">
-        <div class="bg-white p-3 rounded-2xl border border-[#ebdcc4] shadow-sm">
-          <div id="i18n-stat-habits-title" class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Tasks Completed</div>
-          <div id="statHabitsRatio" class="text-xl font-extrabold text-[#0d1f36] mt-0.5">0/6</div>
+      <!-- Stats Grid -->
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-label">Tasks Completed</div>
+          <div id="kpiTasks" class="kpi-val">0/6</div>
         </div>
-        <div class="bg-white p-3 rounded-2xl border border-[#ebdcc4] shadow-sm">
-          <div id="i18n-stat-routine-title" class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Daily Adherence</div>
-          <div id="statRoutinePercent" class="text-xl font-extrabold text-[#0d1f36] mt-0.5">0%</div>
+        <div class="kpi-card">
+          <div class="kpi-label">Daily Adherence</div>
+          <div id="kpiProgress" class="kpi-val">0%</div>
         </div>
-        <div class="bg-white p-3 rounded-2xl border border-[#ebdcc4] shadow-sm">
-          <div id="i18n-stat-malas-title" class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Malas Chanted</div>
-          <div id="statMalasCount" class="text-xl font-extrabold text-amber-600 mt-0.5">0 Malas</div>
+        <div class="kpi-card">
+          <div class="kpi-label">Malas Chanted</div>
+          <div id="kpiMalas" class="kpi-val">0 Malas</div>
         </div>
-        <div class="bg-white p-3 rounded-2xl border border-[#ebdcc4] shadow-sm">
-          <div id="i18n-stat-xp-title" class="text-[10px] font-bold text-gray-400 uppercase tracking-wide">Karma Points</div>
-          <div id="statXpCount" class="text-xl font-extrabold text-teal-700 mt-0.5">0 XP</div>
+        <div class="kpi-card">
+          <div class="kpi-label">Karma Points</div>
+          <div id="kpiXp" class="kpi-val">0 XP</div>
         </div>
       </div>
 
-      <!-- SANKALP ROUTINE CHECKLIST CARD -->
-      <div class="bg-white rounded-2xl p-4 border border-[#ecd9b8] shadow-sm">
-        <div class="flex items-center justify-between">
-          <h3 id="i18n-routine-head" class="text-sm font-extrabold text-[#0d1f36]">🌅 Today's Sankalp (Routine)</h3>
-          <span class="text-[10px] font-bold text-emerald-600 flex items-center gap-1">
-            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-            <span id="i18n-autoreset-badge">Auto-reset 00:00</span>
-          </span>
+      <!-- Routine Checklist -->
+      <div class="card">
+        <div class="card-head">
+          <span style="font-size:0.85rem; font-weight:800; color:#0d1f36;">🌅 Today's Sankalp (Routine)</span>
+          <span class="pill pill-green">● Auto-reset 00:00</span>
         </div>
 
-        <!-- Routine Progress Bar -->
-        <div class="w-full bg-amber-100 h-2 rounded-full overflow-hidden my-2.5">
-          <div id="routineProgressFill" class="bg-gradient-to-r from-amber-500 to-yellow-400 h-full w-0 transition-all duration-300"></div>
+        <div class="bar-shell" style="margin-bottom:8px;">
+          <div id="routineBar" class="bar-fill" style="background:#eab308;"></div>
         </div>
-        <p id="routineStatusText" class="text-[11px] text-gray-500 italic mb-3">0% completed. Walk forward with quiet, steady discipline.</p>
+        <p id="routineSub" style="font-size:0.72rem; color:#64748b; font-style:italic; margin-bottom:10px;">0% completed. Walk forward with quiet, steady discipline.</p>
 
-        <!-- Dynamic Tasks List -->
-        <div id="routineTaskList" class="space-y-2">
-          <!-- Filled by JavaScript -->
+        <!-- Hardcoded 6 Tasks: Visible Guaranteed -->
+        <div id="routineList">
+          <div class="task-item" id="task-0" onclick="toggleTask(0)">
+            <div class="task-left">
+              <input type="checkbox" id="check-0" class="task-check" pointer-events="none">
+              <span id="label-0">Brahma Muhurta wake-up (4:30 AM)</span>
+            </div>
+            <span class="xp-badge">+25 XP</span>
+          </div>
+          <div class="task-item" id="task-1" onclick="toggleTask(1)">
+            <div class="task-left">
+              <input type="checkbox" id="check-1" class="task-check" pointer-events="none">
+              <span id="label-1">Snan & Surya Arghya</span>
+            </div>
+            <span class="xp-badge">+15 XP</span>
+          </div>
+          <div class="task-item" id="task-2" onclick="toggleTask(2)">
+            <div class="task-left">
+              <input type="checkbox" id="check-2" class="task-check" pointer-events="none">
+              <span id="label-2">Sattvic Diet Resolution</span>
+            </div>
+            <span class="xp-badge">+15 XP</span>
+          </div>
+          <div class="task-item" id="task-3" onclick="toggleTask(3)">
+            <div class="task-left">
+              <input type="checkbox" id="check-3" class="task-check" pointer-events="none">
+              <span id="label-3">1 Round Nama Japa</span>
+            </div>
+            <span class="xp-badge">+20 XP</span>
+          </div>
+          <div class="task-item" id="task-4" onclick="toggleTask(4)">
+            <div class="task-left">
+              <input type="checkbox" id="check-4" class="task-check" pointer-events="none">
+              <span id="label-4">Srimad Bhagavad Gita Study</span>
+            </div>
+            <span class="xp-badge">+20 XP</span>
+          </div>
+          <div class="task-item" id="task-5" onclick="toggleTask(5)">
+            <div class="task-left">
+              <input type="checkbox" id="check-5" class="task-check" pointer-events="none">
+              <span id="label-5">Evening Reflection (Ratri Chintan)</span>
+            </div>
+            <span class="xp-badge">+15 XP</span>
+          </div>
         </div>
 
-        <!-- HYDRATION INTAKE SUB-TRACKER -->
-        <div class="mt-4 p-3 rounded-xl bg-[#faf6ed] border border-[#ecd9b8]">
-          <div class="flex items-center justify-between text-xs mb-2">
-            <span id="i18n-hydro-title" class="font-bold text-[#0d1f36]">💧 Hydration Intake (Goal: 2500 ml)</span>
-            <span id="waterGoalPercent" class="font-bold text-amber-800">0% Goal</span>
+        <!-- Hydration -->
+        <div class="sub-tracker">
+          <div class="sub-head">
+            <span>💧 Hydration Intake (Goal: 2500 ml)</span>
+            <span id="waterGoal">0% Goal</span>
           </div>
-          <div class="flex items-center justify-between gap-2">
-            <button onclick="updateWater(-250)" class="px-3 py-1.5 rounded-lg bg-white border border-amber-200 text-xs font-bold text-gray-700 tap-effect shadow-sm">- 250ml</button>
-            <span id="waterVolumeLabel" class="text-base font-extrabold text-[#0d1f36]">0 ml</span>
-            <button onclick="updateWater(+250)" class="px-3 py-1.5 rounded-lg bg-amber-500 text-slate-900 text-xs font-bold tap-effect shadow-sm">+ 250ml</button>
+          <div class="water-row">
+            <button class="step-btn" onclick="addWater(-250)">- 250ml</button>
+            <span id="waterLabel" style="font-size:1.1rem; font-weight:800; color:#0d1f36;">0 ml</span>
+            <button class="step-btn" style="background:#eab308;" onclick="addWater(+250)">+ 250ml</button>
           </div>
-          <div class="w-full bg-gray-200 h-1.5 rounded-full mt-2 overflow-hidden">
-            <div id="waterProgressFill" class="bg-teal-600 h-full w-0 transition-all duration-300"></div>
+          <div class="bar-shell">
+            <div id="waterBar" class="bar-fill"></div>
           </div>
         </div>
 
-        <!-- SLEEP & REST TRACKER -->
-        <div class="mt-3 p-3 rounded-xl bg-[#faf6ed] border border-[#ecd9b8]">
-          <div class="flex items-center justify-between text-xs mb-2">
-            <span id="i18n-sleep-title" class="font-bold text-[#0d1f36]">🌙 Sleep & Rest Schedule</span>
-            <span id="sleepDurationBadge" class="font-bold text-emerald-700">7h 30m Rest</span>
+        <!-- Sleep -->
+        <div class="sub-tracker">
+          <div class="sub-head">
+            <span>🌙 Sleep & Rest Schedule</span>
+            <span id="sleepDuration" style="color:#16a34a;">7h 30m Rest</span>
           </div>
-          <div class="grid grid-cols-2 gap-2 text-xs">
+          <div class="time-grid">
             <div>
-              <label id="i18n-bed-label" class="text-[10px] text-gray-500 font-semibold block mb-0.5">Bedtime:</label>
-              <input type="time" id="bedTimeInput" value="22:30" onchange="calculateSleepSchedule()" class="w-full bg-white border border-gray-300 rounded-lg p-1.5 text-xs font-bold text-gray-700">
+              <label style="font-size:0.65rem; color:#64748b; font-weight:700; display:block; margin-bottom:2px;">Bedtime:</label>
+              <input type="time" id="bedTimeInput" class="time-input" value="22:30" onchange="calculateSleep()">
             </div>
             <div>
-              <label id="i18n-wake-label" class="text-[10px] text-gray-500 font-semibold block mb-0.5">Wake-up:</label>
-              <input type="time" id="wakeTimeInput" value="06:00" onchange="calculateSleepSchedule()" class="w-full bg-white border border-gray-300 rounded-lg p-1.5 text-xs font-bold text-gray-700">
+              <label style="font-size:0.65rem; color:#64748b; font-weight:700; display:block; margin-bottom:2px;">Wake-up:</label>
+              <input type="time" id="wakeTimeInput" class="time-input" value="06:00" onchange="calculateSleep()">
             </div>
           </div>
         </div>
@@ -243,44 +584,36 @@
 
     </section>
 
-    <!-- TAB 2: BHAGAVAD GITA (ALL 700 VERSES) -->
-    <section id="tab-gita" class="tab-pane hidden space-y-3">
-      <div class="bg-white rounded-2xl p-4 border border-[#ecd9b8] shadow-sm">
-        <h2 id="i18n-gita-head" class="text-base font-extrabold text-[#0d1f36] mb-3">📖 Srimad Bhagavad Gita (All 700 Verses)</h2>
-        
-        <!-- Chapter & Verse Selectors -->
-        <div class="grid grid-cols-2 gap-2 mb-3">
-          <div>
-            <label id="i18n-ch-label" class="text-[10px] font-bold text-gray-400 uppercase">CHAPTER (अध्याय)</label>
-            <select id="gitaChapterSelect" onchange="onSelectGitaChapter(this.value)" class="w-full mt-1 bg-white border border-amber-300 rounded-xl p-2 text-xs font-bold text-gray-800 outline-none">
-              <!-- Filled 1 to 18 by JS -->
-            </select>
-          </div>
-          <div>
-            <label id="i18n-vr-label" class="text-[10px] font-bold text-gray-400 uppercase">VERSE (श्लोक)</label>
-            <select id="gitaVerseSelect" onchange="loadCurrentGitaVerse()" class="w-full mt-1 bg-white border border-amber-300 rounded-xl p-2 text-xs font-bold text-gray-800 outline-none">
-              <!-- Filled by JS -->
-            </select>
-          </div>
+    <!-- 2. GITA TAB -->
+    <section id="tab-gita" class="tab-view">
+      <div class="card">
+        <div class="card-head">
+          <span style="font-size:0.85rem; font-weight:800; color:#0d1f36;">📖 Srimad Bhagavad Gita (All 700 Verses)</span>
         </div>
-
-        <!-- Shloka Display Card -->
-        <div class="bg-[#fffaf0] rounded-2xl p-4 border border-[#e8d7b5] text-center my-3">
-          <div id="gitaVerseRefTag" class="text-xs font-extrabold text-[#b88523] mb-2 uppercase tracking-wide">CHAPTER 1 · VERSE 1</div>
-          <div id="gitaShlokaText" class="font-sanskrit text-sm md:text-base font-bold text-[#10243e] leading-relaxed my-2 whitespace-pre-line">
-            धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।&#10;मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥
-          </div>
-          <div id="gitaShlokaMeaning" class="text-xs text-gray-700 leading-relaxed mt-3 pt-3 border-t border-amber-200/60">
-            Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra, eager to fight, what did my sons and the sons of Pandu do?
-          </div>
+        <div style="display:flex; gap:8px; margin-bottom:10px;">
+          <select id="gitaChSelect" class="time-input" onchange="onGitaChapterChange(this.value)"></select>
+          <select id="gitaVrSelect" class="time-input" onchange="loadVerse()"></select>
         </div>
+        <div class="shloka-box">
+          <div id="gitaVerseTag" style="font-size:0.7rem; font-weight:800; color:#b45309; margin-bottom:6px;">CHAPTER 1 · VERSE 1</div>
+          <div id="gitaShloka" class="shloka-san">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।&#10;मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥</div>
+          <div id="gitaMeaning" class="shloka-mean">Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra, eager to fight, what did my sons and the sons of Pandu do?</div>
+        </div>
+        <div class="btn-row">
+          <button onclick="stepVerse(-1)" class="btn btn-light">❮ Prev</button>
+          <button onclick="playRecitation('gitaShloka')" class="btn btn-navy">🔊 Recite</button>
+          <button onclick="stopRecitation()" class="btn btn-light">⏹</button>
+          <button onclick="stepVerse(1)" class="btn btn-gold">Next ❯</button>
+        </div>
+      </div>
+    </section>
 
-        <!-- Navigation Buttons -->
-        <div class="flex gap-2">
-          <button onclick="stepGitaVerse(-1)" class="px-3 py-2 bg-gray-100 text-gray-700 font-bold text-xs rounded-xl tap-effect">❮ Prev</button>
-          <button id="btnGitaAudio" onclick="handleReciteGita()" class="flex-1 bg-[#10243e] text-amber-200 font-bold text-xs py-2 rounded-xl tap-effect flex items-center justify-center gap-1 shadow">
-            🔊 <span id="i18n-recite-verse-btn">Play Recitation</span>
-          </button>
-          <button onclick="stopRecitation()" class="px-3 py-2 bg-gray-100 text-gray-700 font-bold text-xs rounded-xl tap-effect">⏹</button>
-          <button onclick="stepGitaVerse(1)" class="px-3 py-2 bg-amber-500 text-slate-900 font-bold text-xs rounded-xl tap-effect">Next 
-```
+    <!-- 3. PANCHANG TAB -->
+    <section id="tab-panchang" class="tab-view">
+      <div class="card">
+        <div class="card-head">
+          <span style="font-size:0.85rem; font-weight:800; color:#0d1f36;">🗓️ Vedic Panchang & Muhurtas</span>
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:10px;">
+          <div class="sub-tracker"><small style="color:#64748b; font-size:0.65rem;">Tithi (तिथि)</small><b style="display:block; font-size:0.85rem;">Krishna Chaturdashi</b></div>
+          <div class="sub-tracker"><small style="c
