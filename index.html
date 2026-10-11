@@ -4,80 +4,43 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>MadhavPath · Devotion, Discipline & Wisdom</title>
-<link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#0a1931">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-body {
-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-background-color: #fcfaf3 !important;
-color: #1e293b !important;
-padding-bottom: 90px;
--webkit-font-smoothing: antialiased;
-}
-.header-box {
-background: linear-gradient(135deg, #0a1931 0%, #132b4f 100%) !important;
-color: #ffffff !important;
-padding: 14px 14px 16px;
-border-bottom: 3px solid #d4a345;
-border-radius: 0 0 18px 18px;
-box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
-}
-.header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-.brand-title { font-size: 1.15rem; font-weight: 800; color: #fef0cd; display: flex; align-items: center; gap: 6px; }
-.lang-select { background: rgba(255,255,255,0.18); border: 1px solid #d4a345; color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; outline: none; }
-.lang-select option { background: #0a1931; color: #fff; }
-.clock-container { background: rgba(0,0,0,0.45); border: 1px solid rgba(212,163,69,0.5); border-radius: 10px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
-.clock-display { font-weight: 800; font-family: monospace, -apple-system; color: #fef0cd; font-size: 1rem; letter-spacing: 0.5px; }
-.muhurta-pill { background: rgba(212,163,69,0.25); border: 1px solid #d4a345; color: #fae29c; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
-.app-wrap { max-width: 520px; margin: 0 auto; padding: 12px; }
-.card { background: #ffffff !important; border: 1px solid #edd59b; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
-.card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-.badge { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: #fef3d6; color: #8a6218; border: 1px solid #ecd59b; }
-.kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
-.kpi-item { background: #ffffff; border: 1px solid #edd59b; border-radius: 10px; padding: 9px 12px; }
-.kpi-tag { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
-.kpi-digit { font-size: 1.22rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
-.task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 11px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 9px; margin-bottom: 7px; cursor: pointer; touch-action: manipulation; }
-.task-item.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
-.task-item.checked .task-text { text-decoration: line-through; color: #64748b; }
-.task-check-mark { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; }
-.task-text { font-size: 0.83rem; font-weight: 700; color: #0a1931; }
-.btn-action { padding: 9px 8px; border-radius: 8px; border: none; font-size: 0.78rem; font-weight: 700; cursor: pointer; touch-action: manipulation; display: flex; align-items: center; justify-content: center; gap: 5px; }
-.btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0a1931; }
-.btn-navy { background: #0a1931; color: #fef0cd; }
-.btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
-.btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-.shloka-text { font-size: 1rem; font-weight: 700; color: #0a1931; line-height: 1.65; font-family: Georgia, serif; text-align: center; }
-.shloka-translit { font-size: 0.74rem; color: #64748b; font-style: italic; margin-top: 5px; text-align: center; line-height: 1.4; }
-.shloka-meaning { font-size: 0.8rem; color: #334155; margin-top: 8px; border-top: 1px dashed #edd59b; padding-top: 8px; line-height: 1.45; text-align: center; }
-.p-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
-.p-grid-item { background: #faf6ee; border: 1px solid #edd59b; border-radius: 8px; padding: 8px 10px; }
-.progress-bar-bg { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-.progress-bar-fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
-.nav-bar { position: fixed !important; bottom: 0 !important; left: 0 !important; right: 0 !important; width: 100% !important; max-width: 520px !important; margin: 0 auto !important; background: #ffffff !important; border-top: 2px solid #edd59b !important; display: flex !important; flex-direction: row !important; justify-content: space-around !important; align-items: center !important; height: 58px !important; z-index: 999999 !important; box-shadow: 0 -4px 16px rgba(0,0,0,0.08) !important; padding: 0 2px env(safe-area-inset-bottom) !important; }
-.nav-item { flex: 1 1 0 !important; min-width: 0 !important; background: none !important; border: none !important; display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important; padding: 4px 1px !important; cursor: pointer !important; color: #64748b !important; font-size: 10px !important; font-weight: 700 !important; touch-action: manipulation !important; }
-.nav-item.active { color: #b45309 !important; font-weight: 800 !important; }
-.nav-item span.icon { font-size: 19px !important; line-height: 1.1 !important; display: block !important; }
-</style>
-​<!-- HEAD FAIL-SAFE SCRIPT ENGINE -->
+​<!-- AUTOMATIC CACHE-PURGER & INSTANT ENGINE -->
 <script>
-function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
+try {
+if ('serviceWorker' in navigator) {
+navigator.serviceWorker.getRegistrations().then(function(regs) {
+for (var i = 0; i < regs.length; i++) regs[i].unregister();
+});
+}
+if ('caches' in window) {
+caches.keys().then(function(keys) {
+for (var i = 0; i < keys.length; i++) caches.delete(keys[i]);
+});
+}
+} catch(e) {}
+​function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
 function setStore(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
 ​window.tick = function() {
 try {
 var d = new Date();
+var h = d.getHours();
+var m = d.getMinutes();
+var s = d.getSeconds();
+var ampm = h >= 12 ? 'PM' : 'AM';
+var hh = h % 12; hh = hh ? hh : 12;
+var timeStr = (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + ' ' + ampm;
 var el = document.getElementById('liveClock');
-if (el) el.textContent = d.toLocaleTimeString('en-US');
-var m = d.getHours() * 60 + d.getMinutes();
+if (el) el.textContent = timeStr;
+​var mins = h * 60 + m;
 var mh = document.getElementById('liveMuhurta');
 if (mh) {
-if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta";
-else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya";
-else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta";
-else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
+if (mins >= 270 && mins <= 318) mh.textContent = "✨ Brahma Muhurta";
+else if (mins > 318 && mins <= 420) mh.textContent = "🌅 Pratah Sandhya";
+else if (mins >= 705 && mins <= 755) mh.textContent = "☀️ Abhijit Muhurta";
+else if (mins >= 1020 && mins <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
 else mh.textContent = "🕉️ Dhyana Vela";
 }
 } catch(e) {}
@@ -90,8 +53,13 @@ var p = document.getElementById('tab-' + tabs[i]);
 var b = document.getElementById('btn-' + tabs[i]);
 if (p) p.style.display = (tabs[i] === tabId) ? 'block' : 'none';
 if (b) {
-if (tabs[i] === tabId) b.classList.add('active');
-else b.classList.remove('active');
+if (tabs[i] === tabId) {
+b.style.color = '#b45309';
+b.style.fontWeight = '800';
+} else {
+b.style.color = '#64748b';
+b.style.fontWeight = '700';
+}
 }
 }
 window.stopRecite();
@@ -128,6 +96,56 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 };
 ​setInterval(window.tick, 1000);
 </script>
+​<style>
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+background-color: #fcfaf3 !important;
+color: #1e293b !important;
+padding-bottom: 95px;
+-webkit-font-smoothing: antialiased;
+}
+.header-box {
+background: linear-gradient(135deg, #0a1931 0%, #132b4f 100%) !important;
+color: #ffffff !important;
+padding: 14px 14px 16px;
+border-bottom: 3px solid #d4a345;
+border-radius: 0 0 18px 18px;
+box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
+}
+.header-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.brand-title { font-size: 1.15rem; font-weight: 800; color: #fef0cd; display: flex; align-items: center; gap: 6px; }
+.lang-select { background: rgba(255,255,255,0.18); border: 1px solid #d4a345; color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; outline: none; }
+.lang-select option { background: #0a1931; color: #fff; }
+.clock-container { background: rgba(0,0,0,0.45); border: 1px solid rgba(212,163,69,0.5); border-radius: 10px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
+.clock-display { font-weight: 800; font-family: monospace, -apple-system; color: #fef0cd; font-size: 1.05rem; letter-spacing: 0.5px; }
+.muhurta-pill { background: rgba(212,163,69,0.25); border: 1px solid #d4a345; color: #fae29c; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
+.app-wrap { max-width: 520px; margin: 0 auto; padding: 12px; }
+.card { background: #ffffff !important; border: 1px solid #edd59b; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
+.card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.badge { font-size: 0.65rem; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: #fef3d6; color: #8a6218; border: 1px solid #ecd59b; }
+.kpi-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.kpi-item { background: #ffffff; border: 1px solid #edd59b; border-radius: 10px; padding: 9px 12px; }
+.kpi-tag { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
+.kpi-digit { font-size: 1.22rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
+.task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 11px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 9px; margin-bottom: 7px; cursor: pointer; touch-action: manipulation; }
+.task-item.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
+.task-item.checked .task-text { text-decoration: line-through; color: #64748b; }
+.task-check-mark { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; }
+.task-text { font-size: 0.83rem; font-weight: 700; color: #0a1931; }
+.btn-action { padding: 9px 8px; border-radius: 8px; border: none; font-size: 0.78rem; font-weight: 700; cursor: pointer; touch-action: manipulation; display: flex; align-items: center; justify-content: center; gap: 5px; }
+.btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0a1931; }
+.btn-navy { background: #0a1931; color: #fef0cd; }
+.btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
+.btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+.shloka-text { font-size: 1rem; font-weight: 700; color: #0a1931; line-height: 1.65; font-family: Georgia, serif; text-align: center; }
+.shloka-translit { font-size: 0.74rem; color: #64748b; font-style: italic; margin-top: 5px; text-align: center; line-height: 1.4; }
+.shloka-meaning { font-size: 0.8rem; color: #334155; margin-top: 8px; border-top: 1px dashed #edd59b; padding-top: 8px; line-height: 1.45; text-align: center; }
+.p-grid-box { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; margin-top: 8px; }
+.p-grid-item { background: #faf6ee; border: 1px solid #edd59b; border-radius: 8px; padding: 8px 10px; }
+.progress-bar-bg { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
+.progress-bar-fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
+</style>
 </head>
 <body>
 ​<!-- HEADER -->
@@ -147,11 +165,11 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 <span id="liveClock" class="clock-display">--:--:--</span>
 <span id="liveMuhurta" class="muhurta-pill">✨ Brahma Muhurta</span>
 </div>
-<script>window.tick();</script>
 </header>
+<script>window.tick();</script>
 ​<main class="app-wrap">
 ​<!-- TAB 1: TODAY -->
-<section id="tab-today" class="tab-pane" style="display:block;">
+<section id="tab-today" style="display:block;">
 <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
 <div class="card-head">
 <span class="badge">🕉 PANCHANG GLANCE</span>
@@ -233,7 +251,7 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </div>
 </section>
 ​<!-- TAB 2: GITA -->
-<section id="tab-gita" class="tab-pane" style="display:none;">
+<section id="tab-gita" style="display:none;">
 <div class="card">
 <div class="card-head">
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📖 Srimad Bhagavad Gita</span>
@@ -264,7 +282,7 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </div>
 </section>
 ​<!-- TAB 3: PANCHANG -->
-<section id="tab-panchang" class="tab-pane" style="display:none;">
+<section id="tab-panchang" style="display:none;">
 <div class="card">
 <div class="card-head">
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🗓️ Comprehensive Vedic Panchang</span>
@@ -297,7 +315,7 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </div>
 </section>
 ​<!-- TAB 4: JAPA -->
-<section id="tab-japa" class="tab-pane" style="display:none;">
+<section id="tab-japa" style="display:none;">
 <div class="card" style="text-align:center;">
 <div class="card-head">
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📿 Digital Jaap Mala Counter</span>
@@ -325,7 +343,7 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </div>
 </section>
 ​<!-- TAB 5: GAME -->
-<section id="tab-game" class="tab-pane" style="display:none;">
+<section id="tab-game" style="display:none;">
 <div class="card" style="text-align:center;">
 <div class="card-head">
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">⏱️ Karma Yoga Focus Sprint</span>
@@ -357,7 +375,7 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </div>
 </section>
 ​<!-- TAB 6: DIARY -->
-<section id="tab-diary" class="tab-pane" style="display:none;">
+<section id="tab-diary" style="display:none;">
 <div class="card">
 <div class="card-head">
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📔 Spiritual Diary (दैनंदिनी)</span>
@@ -372,7 +390,7 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </div>
 </section>
 ​<!-- TAB 7: STATS -->
-<section id="tab-stats" class="tab-pane" style="display:none;">
+<section id="tab-stats" style="display:none;">
 <div class="card">
 <div class="card-head">
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📊 Comprehensive Sadhana Analytics</span>
@@ -413,14 +431,14 @@ try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(
 </section>
 ​</main>
 ​<!-- FAIL-SAFE HORIZONTAL BOTTOM NAVIGATION -->
-<nav class="nav-bar">
-<button class="nav-item active" id="btn-today" onclick="window.switchTab('today')"><span class="icon">🌅</span><span>Today</span></button>
-<button class="nav-item" id="btn-gita" onclick="window.switchTab('gita')"><span class="icon">📖</span><span>Gita</span></button>
-<button class="nav-item" id="btn-panchang" onclick="window.switchTab('panchang')"><span class="icon">🗓️</span><span>Panchang</span></button>
-<button class="nav-item" id="btn-japa" onclick="window.switchTab('japa')"><span class="icon">📿</span><span>Japa</span></button>
-<button class="nav-item" id="btn-game" onclick="window.switchTab('game')"><span class="icon">🎯</span><span>Game</span></button>
-<button class="nav-item" id="btn-diary" onclick="window.switchTab('diary')"><span class="icon">📔</span><span>Diary</span></button>
-<button class="nav-item" id="btn-stats" onclick="window.switchTab('stats')"><span class="icon">📊</span><span>Stats</span></button>
+<nav style="position:fixed !important; bottom:0 !important; left:0 !important; right:0 !important; width:100% !important; max-width:520px !important; margin:0 auto !important; background:#ffffff !important; border-top:2px solid #edd59b !important; display:flex !important; flex-direction:row !important; justify-content:space-around !important; align-items:center !important; height:58px !important; z-index:999999 !important; box-shadow:0 -4px 16px rgba(0,0,0,0.08) !important; padding:0 2px max(4px, env(safe-area-inset-bottom)) !important;">
+<button id="btn-today" onclick="window.switchTab('today')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#b45309; font-size:10px; font-weight:800; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">🌅</span><span>Today</span></button>
+<button id="btn-gita" onclick="window.switchTab('gita')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">📖</span><span>Gita</span></button>
+<button id="btn-panchang" onclick="window.switchTab('panchang')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">🗓️</span><span>Panchang</span></button>
+<button id="btn-japa" onclick="window.switchTab('japa')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">📿</span><span>Japa</span></button>
+<button id="btn-game" onclick="window.switchTab('game')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">🎯</span><span>Game</span></button>
+<button id="btn-diary" onclick="window.switchTab('diary')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">📔</span><span>Diary</span></button>
+<button id="btn-stats" onclick="window.switchTab('stats')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">📊</span><span>Stats</span></button>
 </nav>
 ​<!-- APP ENGINE DATA & ACTIONS -->
 <script>
