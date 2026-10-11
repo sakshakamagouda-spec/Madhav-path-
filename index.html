@@ -7,26 +7,24 @@
 <meta name="theme-color" content="#10243e">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="MadhavPath">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="description" content="Daily Vedic Sadhana, Bhagavad Gita, Panchang, Japa Mala, Routine & Multilingual AI Coach">
-<!-- EMBEDDED PWA WEB APP MANIFEST -->
-<link rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22MadhavPath%20%7C%20%E0%A4%AE%E0%A4%BE%E0%A4%A7%E0%A4%B5%E0%A4%AA%E0%A4%A5%22%2C%22short_name%22%3A%22MadhavPath%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2310243e%22%2C%22theme_color%22%3A%22%2310243e%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20width%3D'100'%20height%3D'100'%20rx%3D'24'%20fill%3D'%2310243e'%2F%3E%3Ccircle%20cx%3D'50'%20cy%3D'50'%20r%3D'34'%20fill%3D'%23c89332'%2F%3E%3Ctext%20x%3D'50'%20y%3D'62'%20font-size%3D'36'%20text-anchor%3D'middle'%20fill%3D'%23fff'%3E%F0%9F%A6%9A%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
 <style>
 :root {
---bg: #fcfaf2;
+--bg: #fdfbf7;
 --card-bg: #ffffff;
---header-bg: linear-gradient(135deg, #10243e 0%, #17375e 100%);
+--header-bg: linear-gradient(135deg, #0d1f36 0%, #17375e 100%);
 --accent-gold: #c89332;
 --accent-gold-light: #fef8eb;
---accent-gold-border: #ebd59d;
+--accent-gold-border: #edd7a3;
 --navy: #10243e;
---navy-light: #183c6c;
+--navy-light: #1b3d6b;
 --text: #2d3748;
 --muted: #718096;
 --border: #ebdcc4;
 --shadow: 0 4px 14px rgba(72, 48, 16, 0.06);
 --success: #2e7d32;
+--danger: #c53030;
 }
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
@@ -42,11 +40,11 @@ user-select: none;
 background: var(--header-bg);
 color: #fff;
 padding: max(16px, env(safe-area-inset-top)) 16px 18px;
-border-radius: 0 0 20px 20px;
+border-radius: 0 0 22px 22px;
 box-shadow: 0 6px 18px rgba(16, 36, 62, 0.25);
 }
 .banner-sub {
-font-size: 0.65rem;
+font-size: 0.68rem;
 letter-spacing: 2px;
 color: #dfb264;
 text-transform: uppercase;
@@ -56,19 +54,25 @@ font-weight: 700;
 display: flex;
 justify-content: space-between;
 align-items: center;
-margin-top: 4px;
-gap: 8px;
+margin-top: 5px;
+gap: 10px;
 }
-.app-title { font-size: 1.25rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
+.app-title {
+font-size: 1.25rem;
+font-weight: 800;
+color: #ffffff;
+display: flex;
+align-items: center;
+gap: 6px;
+}
 .app-title span { color: #f4c46d; }
-.banner-actions { display: flex; align-items: center; gap: 6px; }
 .lang-picker-select {
 background: rgba(255, 255, 255, 0.18);
 border: 1px solid #dfb264;
 color: #ffffff;
-padding: 5px 8px;
+padding: 6px 10px;
 border-radius: 10px;
-font-size: 0.78rem;
+font-size: 0.8rem;
 font-weight: 700;
 outline: none;
 cursor: pointer;
@@ -77,21 +81,7 @@ cursor: pointer;
 background: #10243e;
 color: #ffffff;
 }
-.install-pill {
-background: #dfb264;
-color: #10243e;
-border: none;
-padding: 5px 9px;
-border-radius: 10px;
-font-size: 0.72rem;
-font-weight: 800;
-cursor: pointer;
-display: flex;
-align-items: center;
-gap: 3px;
-box-shadow: 0 2px 8px rgba(223, 178, 100, 0.4);
-}
-/* REAL-TIME CLOCK & MUHURTA BAR */
+/* CLOCK & LIVE MUHURTA BAR */
 .clock-muhurta-bar {
 margin-top: 10px;
 padding: 8px 12px;
@@ -118,7 +108,7 @@ font-weight: 700;
 padding: 4px 8px;
 border-radius: 8px;
 }
-.container { max-width: 600px; margin: 0 auto; padding: 12px; }
+.container { max-width: 620px; margin: 0 auto; padding: 12px; }
 .tab-content { display: none; }
 .tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
 @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
@@ -174,27 +164,26 @@ gap: 6px;
 }
 /* WISDOM */
 .wisdom-label { color: #0d9488; font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-.sanskrit-text { font-size: 1.15rem; font-weight: 700; color: #1a365d; line-height: 1.75; white-space: pre-line; margin-bottom: 8px; }
+.sanskrit-text { font-size: 1.15rem; font-weight: 700; color: #1a365d; line-height: 1.75; white-space: pre-line; margin-bottom: 8px; font-family: Georgia, serif; }
 .translation-text { font-size: 0.88rem; color: #4a5568; line-height: 1.45; margin-bottom: 12px; }
 /* STATS GRID */
 .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
 .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); }
 .stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
 .stat-val { font-size: 1.35rem; font-weight: 800; color: #0f2744; margin-top: 3px; }
-/* ROUTINE */
+/* ROUTINE CHECKLIST */
 .routine-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
 .routine-title { font-size: 1rem; font-weight: 800; color: #1a202c; }
 .auto-reset-tag { font-size: 0.68rem; color: #2e7d32; font-weight: 700; }
 .progress-bar-bg { width: 100%; height: 8px; background: #f1ebd8; border-radius: 6px; overflow: hidden; margin: 8px 0; }
 .progress-bar-fill { height: 100%; width: 0%; background: #c89332; transition: width 0.3s ease; }
 .routine-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; font-style: italic; }
-/* ROUTINE CHECKLIST ITEMS */
 .routine-list { margin: 10px 0; display: flex; flex-direction: column; gap: 6px; }
 .routine-item {
 display: flex;
 align-items: center;
 gap: 12px;
-padding: 10px 10px;
+padding: 10px 12px;
 background: #faf7ef;
 border: 1px solid #f2e7d0;
 border-radius: 10px;
@@ -234,7 +223,7 @@ background: #fff;
 font-size: 0.85rem;
 flex: 1;
 }
-/* BUTTONS */
+/* BUTTONS & INPUTS */
 .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
 .btn {
 flex: 1;
@@ -262,6 +251,7 @@ color: var(--text);
 padding: 10px;
 border-radius: 10px;
 font-size: 0.9rem;
+outline: none;
 }
 textarea { min-height: 70px; resize: vertical; }
 /* JAPA MALA */
@@ -279,8 +269,9 @@ justify-content: center;
 margin: 16px auto;
 cursor: pointer;
 user-select: none;
+transition: transform 0.08s ease;
 }
-.japa-circle:active { transform: scale(0.95); }
+.japa-circle:active { transform: scale(0.94); }
 .japa-num { font-size: 2.5rem; font-weight: 900; color: #10243e; }
 .japa-sub { font-size: 0.72rem; color: var(--muted); font-weight: bold; }
 /* FOCUS SPRINT & MINI-GAME */
@@ -298,29 +289,30 @@ box-shadow: 0 6px 18px rgba(13, 34, 63, 0.35);
 background: rgba(255, 255, 255, 0.08);
 border: 1px dashed rgba(247, 225, 160, 0.4);
 border-radius: 14px;
-padding: 20px;
+padding: 24px;
 margin: 12px 0;
-min-height: 130px;
+min-height: 140px;
 display: flex;
 align-items: center;
 justify-content: center;
 }
 .focus-target-bubble {
-width: 68px;
-height: 68px;
+width: 72px;
+height: 72px;
 background: radial-gradient(circle, #f9d976 0%, #e8a838 100%);
 border-radius: 50%;
 display: flex;
 align-items: center;
 justify-content: center;
-font-size: 1.8rem;
+font-size: 2rem;
 cursor: pointer;
-box-shadow: 0 0 16px rgba(249, 217, 118, 0.8);
+box-shadow: 0 0 18px rgba(249, 217, 118, 0.8);
 transition: transform 0.12s ease;
+user-select: none;
 }
 /* CHAT */
 .chat-box {
-height: 270px;
+height: 280px;
 overflow-y: auto;
 display: flex;
 flex-direction: column;
@@ -369,7 +361,7 @@ max-width: 90%;
 text-align: center;
 }
 .toast-box.show { transform: translateX(-50%) translateY(0); }
-/* BOTTOM NAV BAR */
+/* FIXED BOTTOM NAVIGATION BAR */
 .nav-bar {
 position: fixed;
 bottom: 0;
@@ -396,11 +388,11 @@ align-items: center;
 gap: 2px;
 cursor: pointer;
 flex: 1;
-min-width: 46px;
+min-width: 48px;
 font-weight: 600;
 }
 .nav-item.active { color: #c89332; font-weight: 800; }
-.nav-icon { font-size: 1.2rem; }
+.nav-icon { font-size: 1.25rem; }
 </style>
 </head>
 <body>
@@ -411,7 +403,6 @@ font-weight: 600;
 <div class="banner-sub" id="i18n-sub">DEVOTION · DISCIPLINE · GROWTH</div>
 <div class="banner-row">
 <div class="app-title">🦚 <span>माधवपथ</span> · MadhavPath</div>
-<div class="banner-actions">
 <!-- REAL-TIME LANGUAGE DROPDOWN -->
 <select class="lang-picker-select" id="langSelectDropdown" onchange="handleLanguageChange(this.value)">
 <option value="en">English</option>
@@ -421,16 +412,14 @@ font-weight: 600;
 <option value="te">తెలుగు</option>
 <option value="ta">தமிழ்</option>
 </select>
-<button class="install-pill" id="btnInstallApp" onclick="triggerPWAInstall()">📲 <span id="i18n-install">Install App</span></button>
-</div>
 </div>
 <!-- LIVE CLOCK & MUHURTA -->
 <div class="clock-muhurta-bar">
 <div>
 <span>⏰ </span>
-<span class="live-clock-time" id="liveClockTime">06:00:00 AM</span>
+<span class="live-clock-time" id="liveClockTime">--:--:--</span>
 </div>
-<div class="live-muhurta-tag" id="liveMuhurtaTag">✨ Brahma Muhurta</div>
+<div class="live-muhurta-tag" id="liveMuhurtaTag">✨ Loading Muhurta...</div>
 </div>
 </header>
 <main class="container">
@@ -491,7 +480,7 @@ View Full Hindu Calendar & Muhurtas 🕉
 <div class="progress-bar-fill" id="routine-progress-fill"></div>
 </div>
 <div class="routine-desc" id="routine-desc-text">0% completed. Walk forward with quiet, steady discipline.</div>
-<!-- ROUTINE LIST -->
+<!-- ROUTINE LIST WITH INTERACTIVE CHECKBOXES -->
 <div class="routine-list" id="routineListItems"></div>
 <!-- HYDRATION TRACKER -->
 <div class="sub-box">
@@ -539,7 +528,8 @@ View Full Hindu Calendar & Muhurtas 🕉
 </div>
 <div style="background:#fefbf3; border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; margin-bottom:12px;">
 <div id="gita-ref" style="font-size:0.8rem; font-weight:800; color:#c89332; margin-bottom:8px;">CHAPTER 1 · VERSE 1</div>
-<div class="sanskrit-text" id="gita-sanskrit">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः...</div>
+<div class="sanskrit-text" id="gita-sanskrit">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।
+मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥</div>
 <div class="translation-text" id="gita-meaning">Loading translation...</div>
 </div>
 <div class="btn-row">
@@ -559,4 +549,14 @@ View Full Hindu Calendar & Muhurtas 🕉
 </div>
 <div style="font-size:0.8rem;font-weight:700;color:var(--muted);margin-bottom:6px" id="i18n-5angas">FIVE ANGAS (पञ्चाङ्ग)</div>
 <div class="stats-grid">
-<div class="stat-card"><div class="stat-label">Tithi (तिथि)</div><div c
+<div class="stat-card"><div class="stat-label">Tithi (तिथि)</div><div class="stat-val" style="font-size:1rem" id="panTithi">Chaturdashi</div></div>
+<div class="stat-card"><div class="stat-label">Vāra (वार)</div><div class="stat-val" style="font-size:1rem" id="panVara">Ravivara</div></div>
+<div class="stat-card"><div class="stat-label">Nakshatra (नक्षत्र)</div><div class="stat-val" style="font-size:1rem" id="panNakshatra">Purva</div></div>
+<div class="stat-card"><div class="stat-label">Yoga (योग)</div><div class="stat-val" style="font-size:1rem" id="panYoga">Shiva</div></div>
+</div>
+<div style="font-size:0.8rem;font-weight:700;color:var(--muted);margin:10px 0 6px" id="i18n-muh-head">MUHURTAS (शुभ-अशुभ मुहूर्त)</div>
+<div class="stats-grid">
+<div class="stat-card" style="border-left:4px solid #2e7d32"><div class="stat-label">Brahma Muhurta</div><div class="stat-val" style="font-size:0.95rem">04:30 - 05:18 AM</div></div>
+<div class="stat-card" style="border-left:4px solid #2e7d32"><div class="stat-label">Abhijit Muhurta</div><div class="stat-val" style="font-size:0.95rem">11:45 - 12:35 PM</div></div>
+<div class="stat-card" style="border-left:4px solid #c0392b"><div class="stat-label">Rahu Kaal (अशुभ)</div><div class="stat-val" style="font-size:0.95rem">04:30 - 06:00 PM</div></div>
+<div class="stat-card" style="border-left:4px solid #c0392b"><div class="stat-label">Yamaganda</div
