@@ -14,7 +14,7 @@ body {
 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 background-color: #fcfaf3 !important;
 color: #1e293b !important;
-padding-bottom: 85px;
+padding-bottom: 90px;
 -webkit-font-smoothing: antialiased;
 }
 .header-box {
@@ -30,7 +30,7 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 .lang-select { background: rgba(255,255,255,0.18); border: 1px solid #d4a345; color: #fff; padding: 4px 8px; border-radius: 8px; font-size: 0.75rem; font-weight: 700; outline: none; }
 .lang-select option { background: #0a1931; color: #fff; }
 .clock-container { background: rgba(0,0,0,0.45); border: 1px solid rgba(212,163,69,0.5); border-radius: 10px; padding: 8px 12px; display: flex; justify-content: space-between; align-items: center; }
-.clock-display { font-weight: 800; font-family: monospace; color: #fef0cd; font-size: 0.98rem; letter-spacing: 0.5px; }
+.clock-display { font-weight: 800; font-family: monospace, -apple-system; color: #fef0cd; font-size: 1rem; letter-spacing: 0.5px; }
 .muhurta-pill { background: rgba(212,163,69,0.25); border: 1px solid #d4a345; color: #fae29c; padding: 3px 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; }
 .app-wrap { max-width: 520px; margin: 0 auto; padding: 12px; }
 .card { background: #ffffff !important; border: 1px solid #edd59b; border-radius: 14px; padding: 14px; margin-bottom: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.03); }
@@ -62,13 +62,79 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 .nav-item.active { color: #b45309 !important; font-weight: 800 !important; }
 .nav-item span.icon { font-size: 19px !important; line-height: 1.1 !important; display: block !important; }
 </style>
+​<!-- HEAD FAIL-SAFE SCRIPT ENGINE -->
+<script>
+function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
+function setStore(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
+​window.tick = function() {
+try {
+var d = new Date();
+var el = document.getElementById('liveClock');
+if (el) el.textContent = d.toLocaleTimeString('en-US');
+var m = d.getHours() * 60 + d.getMinutes();
+var mh = document.getElementById('liveMuhurta');
+if (mh) {
+if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta";
+else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya";
+else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta";
+else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
+else mh.textContent = "🕉️ Dhyana Vela";
+}
+} catch(e) {}
+};
+​window.switchTab = function(tabId) {
+try {
+var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
+for (var i = 0; i < tabs.length; i++) {
+var p = document.getElementById('tab-' + tabs[i]);
+var b = document.getElementById('btn-' + tabs[i]);
+if (p) p.style.display = (tabs[i] === tabId) ? 'block' : 'none';
+if (b) {
+if (tabs[i] === tabId) b.classList.add('active');
+else b.classList.remove('active');
+}
+}
+window.stopRecite();
+window.scrollTo(0, 0);
+} catch(e) {}
+};
+​window.chime = function() {
+try {
+var C = window.AudioContext || window.webkitAudioContext;
+if (!C) return;
+var ctx = new C();
+if (ctx.state === 'suspended') ctx.resume();
+var o = ctx.createOscillator();
+var g = ctx.createGain();
+o.type = 'sine'; o.frequency.setValueAtTime(528, ctx.currentTime);
+g.gain.setValueAtTime(0.2, ctx.currentTime);
+g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
+o.connect(g); g.connect(ctx.destination);
+o.start(); o.stop(ctx.currentTime + 0.35);
+} catch(e) {}
+};
+​window.playRecite = function(id) {
+window.chime();
+if (!('speechSynthesis' in window)) return;
+window.speechSynthesis.cancel();
+var el = document.getElementById(id || 'vSanskrit');
+if (!el) return;
+var u = new SpeechSynthesisUtterance(el.textContent.replace(/[॥|।]/g, ' '));
+u.rate = 0.82;
+window.speechSynthesis.speak(u);
+};
+​window.stopRecite = function() {
+try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
+};
+​setInterval(window.tick, 1000);
+</script>
 </head>
 <body>
 ​<!-- HEADER -->
 <header class="header-box">
 <div class="header-row">
 <div class="brand-title">🦚 माधवपथ · MadhavPath</div>
-<select id="langSel" class="lang-select" onchange="window.changeLang(this.value)">
+<select id="langSel" class="lang-select">
 <option value="en">English</option>
 <option value="hi">हिन्दी</option>
 <option value="kn">ಕನ್ನಡ</option>
@@ -81,6 +147,7 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <span id="liveClock" class="clock-display">--:--:--</span>
 <span id="liveMuhurta" class="muhurta-pill">✨ Brahma Muhurta</span>
 </div>
+<script>window.tick();</script>
 </header>
 ​<main class="app-wrap">
 ​<!-- TAB 1: TODAY -->
@@ -122,7 +189,7 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-reset 00:00</span>
 </div>
 <div class="progress-bar-bg" style="margin-bottom:10px;"><div id="routineBar" class="progress-bar-fill" style="background:#eab308; width:0%;"></div></div>
-​<!-- 6 SACRED TASKS -->
+​<!-- 6 SACRED ROUTINE TASKS -->
 <div class="task-item" id="taskRow0" onclick="window.toggleTask(0)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk0">☐</span><span class="task-text">Brahma Muhurta wake-up (4:30 AM)</span></div><span class="badge">+25 XP</span></div>
 <div class="task-item" id="taskRow1" onclick="window.toggleTask(1)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk1">☐</span><span class="task-text">Snan & Surya Arghya</span></div><span class="badge">+15 XP</span></div>
 <div class="task-item" id="taskRow2" onclick="window.toggleTask(2)"><div style="display:flex; align-items:center;"><span class="task-check-mark" id="chk2">☐</span><span class="task-text">Sattvic Diet Resolution</span></div><span class="badge">+15 XP</span></div>
@@ -172,7 +239,7 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📖 Srimad Bhagavad Gita</span>
 <span class="badge" id="gitaChTitle">Chapter 1</span>
 </div>
-<p style="font-size:0.75rem; color:#64748b; margin-bottom:10px;">Select any Chapter and Verse from all 700 verses of the Gita.</p>
+<p style="font-size:0.75rem; color:#64748b; margin-bottom:10px;">Study all 18 Chapters and 700 verses of the Gita.</p>
 ​<div style="display:grid; grid-template-columns: 2fr 1fr; gap:6px; margin-bottom:10px;">
 <select id="gitaCh" class="btn-action btn-light" style="padding:9px; text-align:left; font-weight:700;" onchange="window.onChapter(this.value)"></select>
 <select id="gitaVr" class="btn-action btn-light" style="padding:9px; font-weight:700;" onchange="window.loadShloka()"></select>
@@ -284,7 +351,7 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🎯 Arjuna's Eye Challenge</span>
 <span class="badge">Score: <b id="gameScore">0</b></span>
 </div>
-<p style="font-size:0.75rem; color:#64748b; margin-bottom:8px;">Keep the wandering mind still. Tap the golden eye to center focus!</p>
+<p style="font-size:0.75rem; color:#64748b; margin-bottom:8px;">Center your focus and tap the target!</p>
 <div id="targetBtn" onclick="window.hitTarget()" style="width:90px; height:90px; border-radius:50%; border:4px dashed #e5b058; margin:14px auto; display:flex; align-items:center; justify-content:center; font-size:2.5rem; cursor:pointer; touch-action:manipulation;">🎯</div>
 <button onclick="window.claimGameXp()" class="btn-action btn-gold" style="width:100%;">Claim Focus XP (+50 Karma XP)</button>
 </div>
@@ -296,7 +363,7 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📔 Spiritual Diary (दैनंदिनी)</span>
 <span class="badge">Ratri Chintan</span>
 </div>
-<textarea id="diaryTxt" placeholder="Write your evening reflections, mistakes to avoid, and gratitude for today..." style="width:100%; height:90px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.8rem; margin-bottom:8px; font-family:inherit; outline:none;"></textarea>
+<textarea id="diaryTxt" placeholder="Write your evening reflections, lessons learned, and gratitude for today..." style="width:100%; height:90px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.8rem; margin-bottom:8px; font-family:inherit; outline:none;"></textarea>
 <button onclick="window.saveNote()" class="btn-action btn-navy" style="width:100%;">Save Reflection (+30 XP)</button>
 </div>
 <div class="card">
@@ -355,43 +422,9 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <button class="nav-item" id="btn-diary" onclick="window.switchTab('diary')"><span class="icon">📔</span><span>Diary</span></button>
 <button class="nav-item" id="btn-stats" onclick="window.switchTab('stats')"><span class="icon">📊</span><span>Stats</span></button>
 </nav>
-​<!-- CORE FAIL-SAFE SCRIPT -->
+​<!-- APP ENGINE DATA & ACTIONS -->
 <script>
-function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
-function setStore(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
-​function tick() {
-try {
-var d = new Date();
-var el = document.getElementById('liveClock');
-if (el) el.textContent = d.toLocaleTimeString('en-US');
-var m = d.getHours() * 60 + d.getMinutes();
-var mh = document.getElementById('liveMuhurta');
-if (mh) {
-if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta";
-else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya";
-else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta";
-else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
-else mh.textContent = "🕉️ Dhyana Vela";
-}
-} catch(e) {}
-}
-setInterval(tick, 1000);
-tick();
-​window.switchTab = function(tabId) {
-var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
-for (var i = 0; i < tabs.length; i++) {
-var p = document.getElementById('tab-' + tabs[i]);
-var b = document.getElementById('btn-' + tabs[i]);
-if (p) p.style.display = (tabs[i] === tabId) ? 'block' : 'none';
-if (b) {
-if (tabs[i] === tabId) b.classList.add('active');
-else b.classList.remove('active');
-}
-}
-window.stopRecite();
-window.scrollTo(0, 0);
-};
-​var coreTasks = [
+var coreTasks = [
 { name: "Brahma Muhurta wake-up (4:30 AM)", xp: 25, done: false },
 { name: "Snan & Surya Arghya", xp: 15, done: false },
 { name: "Sattvic Diet Resolution", xp: 15, done: false },
@@ -562,33 +595,6 @@ var rp = document.getElementById('statsRankPill');
 if (tn) tn.textContent = t;
 if (rp) rp.textContent = t;
 };
-​window.chime = function() {
-try {
-var C = window.AudioContext || window.webkitAudioContext;
-if (!C) return;
-var ctx = new C();
-if (ctx.state === 'suspended') ctx.resume();
-var o = ctx.createOscillator();
-var g = ctx.createGain();
-o.type = 'sine'; o.frequency.setValueAtTime(528, ctx.currentTime);
-g.gain.setValueAtTime(0.2, ctx.currentTime);
-g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
-o.connect(g); g.connect(ctx.destination);
-o.start(); o.stop(ctx.currentTime + 0.4);
-} catch(e) {}
-};
-​window.playRecite = function(id) {
-id = id || 'vSanskrit';
-window.chime();
-if (!('speechSynthesis' in window)) return;
-window.speechSynthesis.cancel();
-var el = document.getElementById(id);
-if (!el) return;
-var u = new SpeechSynthesisUtterance(el.textContent.replace(/[॥|।]/g, ' '));
-u.rate = 0.82;
-window.speechSynthesis.speak(u);
-};
-​window.stopRecite = function() { try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {} };
 ​var GITA_CHAPTERS = [
 { num: 1, name: "Arjuna Vishada", verses: 47, desc: "Despondency upon seeing revered elders arrayed for battle." },
 { num: 2, name: "Sankhya Yoga", verses: 72, desc: "The immortal Soul (Atman) and Nishkama Karma Yoga." },
@@ -693,7 +699,6 @@ window.loadShloka();
 }
 };
 ​window.markGitaRead = function() { window.addXp(20); window.chime(); };
-window.changeLang = function(l) {};
 ​// INITIALIZATION
 window.renderCustomTasks();
 window.updateRoutineStats();
