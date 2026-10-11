@@ -1,541 +1,562 @@
-```html
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>MadhavPath | Devotion · Discipline · Growth</title>
-  
-  <!-- NATIVE MOBILE APP META TAGS -->
-  <meta name="theme-color" content="#10243e">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="MadhavPath">
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="description" content="Daily Vedic Sadhana, Bhagavad Gita, Panchang, Japa Mala, Routine & AI Coach">
-
-  <!-- EMBEDDED WEB APP MANIFEST -->
-  <link rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22MadhavPath%22%2C%22short_name%22%3A%22MadhavPath%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2310243e%22%2C%22theme_color%22%3A%22%2310243e%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20width%3D'100'%20height%3D'100'%20rx%3D'24'%20fill%3D'%2310243e'%2F%3E%3Ccircle%20cx%3D'50'%20cy%3D'50'%20r%3D'34'%20fill%3D'%23c89332'%2F%3E%3Ctext%20x%3D'50'%20y%3D'62'%20font-size%3D'36'%20text-anchor%3D'middle'%20fill%3D'%23fff'%3E%F0%9F%A6%9A%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
-
-  <style>
-    :root {
-      --bg: #fcfaf2;
-      --card-bg: #ffffff;
-      --header-bg: linear-gradient(135deg, #10243e 0%, #17375e 100%);
-      --accent-gold: #c89332;
-      --accent-gold-light: #fef8eb;
-      --accent-gold-border: #ebd59d;
-      --navy: #10243e;
-      --navy-light: #183c6c;
-      --text: #2d3748;
-      --muted: #718096;
-      --border: #ebdcc4;
-      --shadow: 0 4px 14px rgba(72, 48, 16, 0.06);
-      --success: #2e7d32;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      padding-bottom: 96px;
-      user-select: none;
-    }
-
-    /* TOP BANNER */
-    .top-banner {
-      background: var(--header-bg);
-      color: #fff;
-      padding: max(16px, env(safe-area-inset-top)) 16px 18px;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 6px 18px rgba(16, 36, 62, 0.25);
-    }
-    .banner-sub {
-      font-size: 0.65rem;
-      letter-spacing: 2px;
-      color: #dfb264;
-      text-transform: uppercase;
-      font-weight: 700;
-    }
-    .banner-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-top: 4px;
-    }
-    .app-title { font-size: 1.35rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
-    .app-title span { color: #f4c46d; }
-    .banner-actions { display: flex; align-items: center; gap: 8px; }
-    
-    .install-pill {
-      background: #dfb264;
-      color: #10243e;
-      border: none;
-      padding: 5px 10px;
-      border-radius: 12px;
-      font-size: 0.75rem;
-      font-weight: 800;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      box-shadow: 0 2px 8px rgba(223, 178, 100, 0.4);
-    }
-
-    /* REAL-TIME CLOCK & MUHURTA BAR */
-    .clock-muhurta-bar {
-      margin-top: 10px;
-      padding: 8px 12px;
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(223, 178, 100, 0.4);
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .live-clock-time {
-      font-family: monospace, sans-serif;
-      font-weight: 800;
-      color: #f7e1a0;
-      font-size: 1.05rem;
-      letter-spacing: 1px;
-    }
-    .live-muhurta-tag {
-      background: rgba(223, 178, 100, 0.35);
-      border: 1px solid #dfb264;
-      color: #ffffff;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 4px 8px;
-      border-radius: 8px;
-    }
-
-    .container { max-width: 600px; margin: 0 auto; padding: 12px; }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
-    @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-    /* CARDS */
-    .card {
-      background: var(--card-bg);
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      padding: 15px;
-      margin-bottom: 12px;
-      box-shadow: var(--shadow);
-    }
-    .badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-    .panchang-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #fbf2db;
-      color: #8c5d11;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 8px;
-    }
-    .panchang-subbadge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      background: #fef3c7;
-      color: #92400e;
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 4px 9px;
-      border-radius: 8px;
-    }
-    .tithi-title { font-size: 1.25rem; font-weight: 800; color: #1a202c; margin: 8px 0 3px; }
-    .tithi-sub { font-size: 0.82rem; color: var(--muted); font-weight: normal; margin-left: 6px; }
-    .vikram-detail { font-size: 0.8rem; color: #4a5568; margin-bottom: 12px; }
-    .panchang-btn {
-      width: 100%;
-      background: #e8b958;
-      color: #382405;
-      font-weight: 700;
-      font-size: 0.88rem;
-      border: none;
-      border-radius: 12px;
-      padding: 11px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    /* WISDOM */
-    .wisdom-label { color: #0d9488; font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
-    .sanskrit-text { font-size: 1.15rem; font-weight: 700; color: #1a365d; line-height: 1.75; white-space: pre-line; margin-bottom: 8px; }
-    .translation-text { font-size: 0.88rem; color: #4a5568; line-height: 1.45; margin-bottom: 12px; }
-
-    /* STATS GRID */
-    .stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
-    .stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); }
-    .stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
-    .stat-val { font-size: 1.35rem; font-weight: 800; color: #0f2744; margin-top: 3px; }
-
-    /* ROUTINE */
-    .routine-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
-    .routine-title { font-size: 1rem; font-weight: 800; color: #1a202c; }
-    .auto-reset-tag { font-size: 0.68rem; color: #2e7d32; font-weight: 700; }
-    .progress-bar-bg { width: 100%; height: 8px; background: #f1ebd8; border-radius: 6px; overflow: hidden; margin: 8px 0; }
-    .progress-bar-fill { height: 100%; width: 0%; background: #c89332; transition: width 0.3s ease; }
-    .routine-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; font-style: italic; }
-    
-    /* ROUTINE CHECKLIST ITEMS */
-    .routine-list { margin: 10px 0; display: flex; flex-direction: column; gap: 6px; }
-    .routine-item {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 10px 10px;
-      background: #faf7ef;
-      border: 1px solid #f2e7d0;
-      border-radius: 10px;
-      cursor: pointer;
-      user-select: none;
-      transition: background 0.15s;
-    }
-    .routine-item.done { background: #f3f4f6; border-color: #e5e7eb; }
-    .routine-item.done span.task-name { text-decoration: line-through; color: var(--muted); }
-    .routine-item input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent-gold); cursor: pointer; }
-    .routine-item span.task-name { font-size: 0.9rem; font-weight: 600; color: #2d3748; flex: 1; }
-    .routine-item span.task-xp { font-size: 0.74rem; font-weight: 700; color: #b7811f; }
-
-    /* SUB-TRACKERS (HYDRATION & SLEEP) */
-    .sub-box {
-      background: #faf6ed;
-      border: 1px solid var(--accent-gold-border);
-      border-radius: 12px;
-      padding: 12px;
-      margin-top: 10px;
-    }
-    .sub-box-title {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.82rem;
-      font-weight: 800;
-      color: var(--navy);
-      margin-bottom: 8px;
-    }
-    .time-inputs { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-    .time-inputs label { font-size: 0.75rem; color: var(--muted); font-weight: 700; }
-    .time-inputs input[type="time"] {
-      padding: 6px 10px;
-      border-radius: 8px;
-      border: 1px solid var(--border);
-      background: #fff;
-      font-size: 0.85rem;
-      flex: 1;
-    }
-
-    /* BUTTONS */
-    .btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-    .btn {
-      flex: 1;
-      padding: 10px 12px;
-      border-radius: 10px;
-      font-size: 0.86rem;
-      font-weight: 700;
-      border: 1px solid var(--border);
-      background: #fcfaf4;
-      color: #2d3748;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 5px;
-      transition: all 0.15s ease;
-    }
-    .btn-gold { background: #e8b958; color: #382405; border: none; }
-    .btn-gold:active { transform: scale(0.97); }
-    select, input[type="text"], input[type="date"], textarea {
-      width: 100%;
-      background: #fff;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 10px;
-      border-radius: 10px;
-      font-size: 0.9rem;
-    }
-    textarea { min-height: 70px; resize: vertical; }
-
-    /* JAPA MALA */
-    .japa-circle {
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      border: 6px solid #c89332;
-      background: #fefbf3;
-      box-shadow: 0 0 20px rgba(200, 147, 50, 0.25);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      margin: 16px auto;
-      cursor: pointer;
-      user-select: none;
-    }
-    .japa-circle:active { transform: scale(0.95); }
-    .japa-num { font-size: 2.5rem; font-weight: 900; color: #10243e; }
-    .japa-sub { font-size: 0.72rem; color: var(--muted); font-weight: bold; }
-
-    /* FOCUS SPRINT & MINI-GAME */
-    .game-card-bg {
-      background: linear-gradient(145deg, #0d223f 0%, #173963 100%);
-      color: #ffffff;
-      border-radius: 16px;
-      padding: 18px 14px;
-      text-align: center;
-      margin-bottom: 12px;
-      box-shadow: 0 6px 18px rgba(13, 34, 63, 0.35);
-    }
-    .game-timer-display { font-size: 2.8rem; font-family: monospace, sans-serif; font-weight: 900; letter-spacing: 2px; color: #f7e1a0; margin: 8px 0; }
-    .game-interactive-arena {
-      background: rgba(255, 255, 255, 0.08);
-      border: 1px dashed rgba(247, 225, 160, 0.4);
-      border-radius: 14px;
-      padding: 20px;
-      margin: 12px 0;
-      min-height: 130px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .focus-target-bubble {
-      width: 68px;
-      height: 68px;
-      background: radial-gradient(circle, #f9d976 0%, #e8a838 100%);
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.8rem;
-      cursor: pointer;
-      box-shadow: 0 0 16px rgba(249, 217, 118, 0.8);
-      transition: transform 0.12s ease;
-    }
-
-    /* CHAT */
-    .chat-box {
-      height: 270px;
-      overflow-y: auto;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      padding: 12px;
-      background: #f9f6ed;
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      margin-bottom: 10px;
-    }
-    .chat-msg { padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; max-width: 88%; line-height: 1.45; }
-    .chat-msg.user { align-self: flex-end; background: #17375e; color: #ffffff; }
-    .chat-msg.bot { align-self: flex-start; background: #ffffff; color: #1a202c; border: 1px solid var(--border); }
-
-    /* DIARY */
-    .diary-card-item { background: #fffcf5; border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
-
-    /* ANALYTICS */
-    .chart-container {
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-      height: 120px;
-      padding: 10px 6px 4px;
-      border-bottom: 1.5px solid var(--border);
-      margin-top: 8px;
-    }
-    .chart-bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
-    .chart-bar-fill { width: 22px; background: linear-gradient(180deg, #e8b958, #17375e); border-radius: 6px 6px 0 0; min-height: 6px; }
-
-    /* TOAST */
-    .toast-box {
-      position: fixed;
-      top: 18px;
-      left: 50%;
-      transform: translateX(-50%) translateY(-80px);
-      background: #10243e;
-      color: #f7e1a0;
-      border: 1px solid #c89332;
-      padding: 10px 18px;
-      border-radius: 20px;
-      font-size: 0.85rem;
-      font-weight: 700;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-      z-index: 100000;
-      transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-      pointer-events: none;
-      max-width: 90%;
-      text-align: center;
-    }
-    .toast-box.show { transform: translateX(-50%) translateY(0); }
-
-    /* BOTTOM NAV BAR */
-    .nav-bar {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: #ffffff;
-      border-top: 1.5px solid var(--border);
-      display: flex;
-      overflow-x: auto;
-      padding: 6px 4px max(6px, env(safe-area-inset-bottom));
-      z-index: 99999;
-      box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.08);
-      scrollbar-width: none;
-    }
-    .nav-bar::-webkit-scrollbar { display: none; }
-    .nav-item {
-      background: none;
-      border: none;
-      color: var(--muted);
-      font-size: 0.65rem;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 2px;
-      cursor: pointer;
-      flex: 1;
-      min-width: 46px;
-      font-weight: 600;
-    }
-    .nav-item.active { color: #c89332; font-weight: 800; }
-    .nav-icon { font-size: 1.2rem; }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>MadhavPath | Devotion · Discipline · Growth</title>
+<meta name="theme-color" content="#10243e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="MadhavPath">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="description" content="Daily Vedic Sadhana, Bhagavad Gita, Panchang, Japa Mala, Routine & Multilingual AI Coach">
+<!-- EMBEDDED PWA WEB APP MANIFEST -->
+<link rel="manifest" href="data:application/manifest+json;utf8,%7B%22name%22%3A%22MadhavPath%20%7C%20%E0%A4%AE%E0%A4%BE%E0%A4%A7%E0%A4%B5%E0%A4%AA%E0%A4%A5%22%2C%22short_name%22%3A%22MadhavPath%22%2C%22start_url%22%3A%22.%2F%22%2C%22display%22%3A%22standalone%22%2C%22background_color%22%3A%22%2310243e%22%2C%22theme_color%22%3A%22%2310243e%22%2C%22orientation%22%3A%22portrait%22%2C%22icons%22%3A%5B%7B%22src%22%3A%22data%3Aimage%2Fsvg%2Bxml%2C%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20width%3D'100'%20height%3D'100'%20rx%3D'24'%20fill%3D'%2310243e'%2F%3E%3Ccircle%20cx%3D'50'%20cy%3D'50'%20r%3D'34'%20fill%3D'%23c89332'%2F%3E%3Ctext%20x%3D'50'%20y%3D'62'%20font-size%3D'36'%20text-anchor%3D'middle'%20fill%3D'%23fff'%3E%F0%9F%A6%9A%3C%2Ftext%3E%3C%2Fsvg%3E%22%2C%22sizes%22%3A%22192x192%20512x512%22%2C%22type%22%3A%22image%2Fsvg%2Bxml%22%7D%5D%7D">
+<style>
+:root {
+--bg: #fcfaf2;
+--card-bg: #ffffff;
+--header-bg: linear-gradient(135deg, #10243e 0%, #17375e 100%);
+--accent-gold: #c89332;
+--accent-gold-light: #fef8eb;
+--accent-gold-border: #ebd59d;
+--navy: #10243e;
+--navy-light: #183c6c;
+--text: #2d3748;
+--muted: #718096;
+--border: #ebdcc4;
+--shadow: 0 4px 14px rgba(72, 48, 16, 0.06);
+--success: #2e7d32;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+background: var(--bg);
+color: var(--text);
+min-height: 100vh;
+padding-bottom: 96px;
+user-select: none;
+}
+/* TOP BANNER */
+.top-banner {
+background: var(--header-bg);
+color: #fff;
+padding: max(16px, env(safe-area-inset-top)) 16px 18px;
+border-radius: 0 0 20px 20px;
+box-shadow: 0 6px 18px rgba(16, 36, 62, 0.25);
+}
+.banner-sub {
+font-size: 0.65rem;
+letter-spacing: 2px;
+color: #dfb264;
+text-transform: uppercase;
+font-weight: 700;
+}
+.banner-row {
+display: flex;
+justify-content: space-between;
+align-items: center;
+margin-top: 4px;
+gap: 8px;
+}
+.app-title { font-size: 1.25rem; font-weight: 800; color: #ffffff; display: flex; align-items: center; gap: 6px; }
+.app-title span { color: #f4c46d; }
+.banner-actions { display: flex; align-items: center; gap: 6px; }
+.lang-picker-select {
+background: rgba(255, 255, 255, 0.18);
+border: 1px solid #dfb264;
+color: #ffffff;
+padding: 5px 8px;
+border-radius: 10px;
+font-size: 0.78rem;
+font-weight: 700;
+outline: none;
+cursor: pointer;
+}
+.lang-picker-select option {
+background: #10243e;
+color: #ffffff;
+}
+.install-pill {
+background: #dfb264;
+color: #10243e;
+border: none;
+padding: 5px 9px;
+border-radius: 10px;
+font-size: 0.72rem;
+font-weight: 800;
+cursor: pointer;
+display: flex;
+align-items: center;
+gap: 3px;
+box-shadow: 0 2px 8px rgba(223, 178, 100, 0.4);
+}
+/* REAL-TIME CLOCK & MUHURTA BAR */
+.clock-muhurta-bar {
+margin-top: 10px;
+padding: 8px 12px;
+background: rgba(255, 255, 255, 0.12);
+border: 1px solid rgba(223, 178, 100, 0.4);
+border-radius: 12px;
+display: flex;
+align-items: center;
+justify-content: space-between;
+}
+.live-clock-time {
+font-family: monospace, sans-serif;
+font-weight: 800;
+color: #f7e1a0;
+font-size: 1.05rem;
+letter-spacing: 1px;
+}
+.live-muhurta-tag {
+background: rgba(223, 178, 100, 0.35);
+border: 1px solid #dfb264;
+color: #ffffff;
+font-size: 0.72rem;
+font-weight: 700;
+padding: 4px 8px;
+border-radius: 8px;
+}
+.container { max-width: 600px; margin: 0 auto; padding: 12px; }
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.2s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+/* CARDS */
+.card {
+background: var(--card-bg);
+border: 1px solid var(--border);
+border-radius: 18px;
+padding: 15px;
+margin-bottom: 12px;
+box-shadow: var(--shadow);
+}
+.badge-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+.panchang-badge {
+display: inline-flex;
+align-items: center;
+gap: 4px;
+background: #fbf2db;
+color: #8c5d11;
+font-size: 0.72rem;
+font-weight: 700;
+padding: 4px 9px;
+border-radius: 8px;
+}
+.panchang-subbadge {
+display: inline-flex;
+align-items: center;
+gap: 4px;
+background: #fef3c7;
+color: #92400e;
+font-size: 0.72rem;
+font-weight: 700;
+padding: 4px 9px;
+border-radius: 8px;
+}
+.tithi-title { font-size: 1.25rem; font-weight: 800; color: #1a202c; margin: 8px 0 3px; }
+.tithi-sub { font-size: 0.82rem; color: var(--muted); font-weight: normal; margin-left: 6px; }
+.vikram-detail { font-size: 0.8rem; color: #4a5568; margin-bottom: 12px; }
+.panchang-btn {
+width: 100%;
+background: #e8b958;
+color: #382405;
+font-weight: 700;
+font-size: 0.88rem;
+border: none;
+border-radius: 12px;
+padding: 11px;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+gap: 6px;
+}
+/* WISDOM */
+.wisdom-label { color: #0d9488; font-size: 0.72rem; font-weight: 800; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 6px; }
+.sanskrit-text { font-size: 1.15rem; font-weight: 700; color: #1a365d; line-height: 1.75; white-space: pre-line; margin-bottom: 8px; }
+.translation-text { font-size: 0.88rem; color: #4a5568; line-height: 1.45; margin-bottom: 12px; }
+/* STATS GRID */
+.stats-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+.stat-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 12px; box-shadow: var(--shadow); }
+.stat-label { font-size: 0.72rem; color: var(--muted); font-weight: 600; }
+.stat-val { font-size: 1.35rem; font-weight: 800; color: #0f2744; margin-top: 3px; }
+/* ROUTINE */
+.routine-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.routine-title { font-size: 1rem; font-weight: 800; color: #1a202c; }
+.auto-reset-tag { font-size: 0.68rem; color: #2e7d32; font-weight: 700; }
+.progress-bar-bg { width: 100%; height: 8px; background: #f1ebd8; border-radius: 6px; overflow: hidden; margin: 8px 0; }
+.progress-bar-fill { height: 100%; width: 0%; background: #c89332; transition: width 0.3s ease; }
+.routine-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 10px; font-style: italic; }
+/* ROUTINE CHECKLIST ITEMS */
+.routine-list { margin: 10px 0; display: flex; flex-direction: column; gap: 6px; }
+.routine-item {
+display: flex;
+align-items: center;
+gap: 12px;
+padding: 10px 10px;
+background: #faf7ef;
+border: 1px solid #f2e7d0;
+border-radius: 10px;
+cursor: pointer;
+user-select: none;
+transition: background 0.15s;
+}
+.routine-item.done { background: #f3f4f6; border-color: #e5e7eb; }
+.routine-item.done span.task-name { text-decoration: line-through; color: var(--muted); }
+.routine-item input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent-gold); cursor: pointer; }
+.routine-item span.task-name { font-size: 0.9rem; font-weight: 600; color: #2d3748; flex: 1; }
+.routine-item span.task-xp { font-size: 0.74rem; font-weight: 700; color: #b7811f; }
+/* SUB-TRACKERS (HYDRATION & SLEEP) */
+.sub-box {
+background: #faf6ed;
+border: 1px solid var(--accent-gold-border);
+border-radius: 12px;
+padding: 12px;
+margin-top: 10px;
+}
+.sub-box-title {
+display: flex;
+justify-content: space-between;
+align-items: center;
+font-size: 0.82rem;
+font-weight: 800;
+color: var(--navy);
+margin-bottom: 8px;
+}
+.time-inputs { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
+.time-inputs label { font-size: 0.75rem; color: var(--muted); font-weight: 700; }
+.time-inputs input[type="time"] {
+padding: 6px 10px;
+border-radius: 8px;
+border: 1px solid var(--border);
+background: #fff;
+font-size: 0.85rem;
+flex: 1;
+}
+/* BUTTONS */
+.btn-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.btn {
+flex: 1;
+padding: 10px 12px;
+border-radius: 10px;
+font-size: 0.86rem;
+font-weight: 700;
+border: 1px solid var(--border);
+background: #fcfaf4;
+color: #2d3748;
+cursor: pointer;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 5px;
+transition: all 0.15s ease;
+}
+.btn-gold { background: #e8b958; color: #382405; border: none; }
+.btn-gold:active { transform: scale(0.97); }
+select, input[type="text"], input[type="date"], textarea {
+width: 100%;
+background: #fff;
+border: 1px solid var(--border);
+color: var(--text);
+padding: 10px;
+border-radius: 10px;
+font-size: 0.9rem;
+}
+textarea { min-height: 70px; resize: vertical; }
+/* JAPA MALA */
+.japa-circle {
+width: 150px;
+height: 150px;
+border-radius: 50%;
+border: 6px solid #c89332;
+background: #fefbf3;
+box-shadow: 0 0 20px rgba(200, 147, 50, 0.25);
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin: 16px auto;
+cursor: pointer;
+user-select: none;
+}
+.japa-circle:active { transform: scale(0.95); }
+.japa-num { font-size: 2.5rem; font-weight: 900; color: #10243e; }
+.japa-sub { font-size: 0.72rem; color: var(--muted); font-weight: bold; }
+/* FOCUS SPRINT & MINI-GAME */
+.game-card-bg {
+background: linear-gradient(145deg, #0d223f 0%, #173963 100%);
+color: #ffffff;
+border-radius: 16px;
+padding: 18px 14px;
+text-align: center;
+margin-bottom: 12px;
+box-shadow: 0 6px 18px rgba(13, 34, 63, 0.35);
+}
+.game-timer-display { font-size: 2.8rem; font-family: monospace, sans-serif; font-weight: 900; letter-spacing: 2px; color: #f7e1a0; margin: 8px 0; }
+.game-interactive-arena {
+background: rgba(255, 255, 255, 0.08);
+border: 1px dashed rgba(247, 225, 160, 0.4);
+border-radius: 14px;
+padding: 20px;
+margin: 12px 0;
+min-height: 130px;
+display: flex;
+align-items: center;
+justify-content: center;
+}
+.focus-target-bubble {
+width: 68px;
+height: 68px;
+background: radial-gradient(circle, #f9d976 0%, #e8a838 100%);
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.8rem;
+cursor: pointer;
+box-shadow: 0 0 16px rgba(249, 217, 118, 0.8);
+transition: transform 0.12s ease;
+}
+/* CHAT */
+.chat-box {
+height: 270px;
+overflow-y: auto;
+display: flex;
+flex-direction: column;
+gap: 10px;
+padding: 12px;
+background: #f9f6ed;
+border-radius: 12px;
+border: 1px solid var(--border);
+margin-bottom: 10px;
+}
+.chat-msg { padding: 10px 14px; border-radius: 14px; font-size: 0.88rem; max-width: 88%; line-height: 1.45; }
+.chat-msg.user { align-self: flex-end; background: #17375e; color: #ffffff; }
+.chat-msg.bot { align-self: flex-start; background: #ffffff; color: #1a202c; border: 1px solid var(--border); }
+/* DIARY */
+.diary-card-item { background: #fffcf5; border: 1px solid var(--border); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+/* ANALYTICS */
+.chart-container {
+display: flex;
+align-items: flex-end;
+justify-content: space-between;
+height: 120px;
+padding: 10px 6px 4px;
+border-bottom: 1.5px solid var(--border);
+margin-top: 8px;
+}
+.chart-bar-col { display: flex; flex-direction: column; align-items: center; gap: 4px; flex: 1; }
+.chart-bar-fill { width: 22px; background: linear-gradient(180deg, #e8b958, #17375e); border-radius: 6px 6px 0 0; min-height: 6px; }
+/* TOAST */
+.toast-box {
+position: fixed;
+top: 18px;
+left: 50%;
+transform: translateX(-50%) translateY(-80px);
+background: #10243e;
+color: #f7e1a0;
+border: 1px solid #c89332;
+padding: 10px 18px;
+border-radius: 20px;
+font-size: 0.85rem;
+font-weight: 700;
+box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+z-index: 100000;
+transition: transform 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+pointer-events: none;
+max-width: 90%;
+text-align: center;
+}
+.toast-box.show { transform: translateX(-50%) translateY(0); }
+/* BOTTOM NAV BAR */
+.nav-bar {
+position: fixed;
+bottom: 0;
+left: 0;
+right: 0;
+background: #ffffff;
+border-top: 1.5px solid var(--border);
+display: flex;
+overflow-x: auto;
+padding: 6px 4px max(6px, env(safe-area-inset-bottom));
+z-index: 99999;
+box-shadow: 0 -3px 12px rgba(0, 0, 0, 0.08);
+scrollbar-width: none;
+}
+.nav-bar::-webkit-scrollbar { display: none; }
+.nav-item {
+background: none;
+border: none;
+color: var(--muted);
+font-size: 0.65rem;
+display: flex;
+flex-direction: column;
+align-items: center;
+gap: 2px;
+cursor: pointer;
+flex: 1;
+min-width: 46px;
+font-weight: 600;
+}
+.nav-item.active { color: #c89332; font-weight: 800; }
+.nav-icon { font-size: 1.2rem; }
+</style>
 </head>
 <body>
-
-  <!-- TOAST -->
-  <div class="toast-box" id="appToast">✨ Radhe Radhe!</div>
-
-  <!-- TOP BANNER -->
-  <header class="top-banner">
-    <div class="banner-sub">DEVOTION · DISCIPLINE · GROWTH</div>
-    <div class="banner-row">
-      <div class="app-title">🦚 माधवपथ · <span>MadhavPath</span></div>
-      <div class="banner-actions">
-        <button class="install-pill" id="btnInstallApp" onclick="triggerPWAInstall()">📲 Install App</button>
-      </div>
-    </div>
-
-    <!-- LIVE CLOCK & MUHURTA -->
-    <div class="clock-muhurta-bar">
-      <div>
-        <span>⏰ </span>
-        <span class="live-clock-time" id="liveClockTime">--:--:--</span>
-      </div>
-      <div class="live-muhurta-tag" id="liveMuhurtaTag">✨ Calculating Muhurta...</div>
-    </div>
-  </header>
-
-  <main class="container">
-    
-    <!-- 1. TODAY TAB -->
-    <section id="tab-home" class="tab-content active">
-      <div class="card">
-        <div class="badge-row">
-          <span class="panchang-badge">🕉 TODAY'S PANCHANG</span>
-          <span class="panchang-subbadge" id="panchangVratTag">🕉 मासिक शिवरात्रि व्रत</span>
-        </div>
-        <div class="tithi-title">
-          <span id="hTithi">कृष्ण Chaturdashi</span>
-          <span class="tithi-sub" id="hNakshatra">Purva नक्षत्र · रविवार</span>
-        </div>
-        <div class="vikram-detail" id="hMasaEra">विक्रम 2083 · Phalguna मास · दक्षिणायन</div>
-        <button class="panchang-btn" onclick="switchNav('tab-panchang', document.getElementById('nav-panchang'))">
-          View Full Hindu Calendar & Muhurtas 🕉
-        </button>
-      </div>
-
-      <!-- DAILY WISDOM SHLOKA -->
-      <div class="card">
-        <div class="wisdom-label">DAILY WISDOM · नित्य उपदेश</div>
-        <div class="sanskrit-text" id="daily-sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
+<!-- TOAST NOTIFICATION -->
+<div class="toast-box" id="appToast">✨ Radhe Radhe!</div>
+<!-- TOP BANNER -->
+<header class="top-banner">
+<div class="banner-sub" id="i18n-sub">DEVOTION · DISCIPLINE · GROWTH</div>
+<div class="banner-row">
+<div class="app-title">🦚 <span>माधवपथ</span> · MadhavPath</div>
+<div class="banner-actions">
+<!-- REAL-TIME LANGUAGE DROPDOWN -->
+<select class="lang-picker-select" id="langSelectDropdown" onchange="handleLanguageChange(this.value)">
+<option value="en">English</option>
+<option value="hi">हिन्दी</option>
+<option value="kn">ಕನ್ನಡ</option>
+<option value="mr">मराठी</option>
+<option value="te">తెలుగు</option>
+<option value="ta">தமிழ்</option>
+</select>
+<button class="install-pill" id="btnInstallApp" onclick="triggerPWAInstall()">📲 <span id="i18n-install">Install App</span></button>
+</div>
+</div>
+<!-- LIVE CLOCK & MUHURTA -->
+<div class="clock-muhurta-bar">
+<div>
+<span>⏰ </span>
+<span class="live-clock-time" id="liveClockTime">06:00:00 AM</span>
+</div>
+<div class="live-muhurta-tag" id="liveMuhurtaTag">✨ Brahma Muhurta</div>
+</div>
+</header>
+<main class="container">
+<!-- 1. TODAY TAB -->
+<section id="tab-home" class="tab-content active">
+<div class="card">
+<div class="badge-row">
+<span class="panchang-badge" id="i18n-panchang-badge">🕉 TODAY'S PANCHANG</span>
+<span class="panchang-subbadge" id="panchangVratTag">🕉 मासिक शिवरात्रि व्रत</span>
+</div>
+<div class="tithi-title">
+<span id="hTithi">कृष्ण Chaturdashi</span>
+<span class="tithi-sub" id="hNakshatra">Purva नक्षत्र · रविवार</span>
+</div>
+<div class="vikram-detail" id="hMasaEra">विक्रम 2083 · Phalguna मास · दक्षिणायन</div>
+<button class="panchang-btn" id="i18n-btn-fullpanchang" onclick="switchNav('tab-panchang', document.getElementById('nav-panchang'))">
+View Full Hindu Calendar & Muhurtas 🕉
+</button>
+</div>
+<!-- DAILY WISDOM SHLOKA -->
+<div class="card">
+<div class="wisdom-label" id="i18n-wisdom-label">DAILY WISDOM · नित्य उपदेश</div>
+<div class="sanskrit-text" id="daily-sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।
 मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
-        <div class="translation-text" id="daily-meaning">You have a right to perform your prescribed duty, but never to the fruits of action.</div>
-        <div class="btn-row">
-          <button class="btn btn-gold" id="btnAudioDaily" onclick="playAudioText('daily-sanskrit', this)">🔊 Play Audio</button>
-          <button class="btn" onclick="stopAudio()">⏹ Stop</button>
-          <button class="btn" onclick="switchNav('tab-gita', document.getElementById('nav-gita'))">All 18 Chapters →</button>
-        </div>
-      </div>
-
-      <!-- STATS GRID -->
-      <div class="stats-grid">
-        <div class="stat-card">
-          <div class="stat-label">Habits Completed</div>
-          <div class="stat-val" id="habits-stat">0/6</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Daily Routine</div>
-          <div class="stat-val" id="routine-stat">0%</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Malas Chanted</div>
-          <div class="stat-val" id="malas-stat">0 Malas</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-label">Karma Points</div>
-          <div class="stat-val" id="xp-stat">0 XP</div>
-        </div>
-      </div>
-
-      <!-- SANKALP ROUTINE CHECKLIST -->
-      <div class="card">
-        <div class="routine-header">
-          <div class="routine-title">🌅 Today's Sankalp (Routine)</div>
-          <span class="auto-reset-tag">● Daily Auto-reset 00:00</span>
-        </div>
-        <div class="progress-bar-bg">
-          <div class="progress-bar-fill" id="routine-progress-fill"></div>
-        </div>
-        <div class="routine-desc" id="routine-desc-text">0% completed. Walk forward with quiet, steady discipline.</div>
-        
-        <!-- ROUTINE LIST -->
-        <div class="routine-list" id="routineListItems"></div>
-
-        <!-- HYDRATION TRACKER -->
-        <div class="sub-box">
-          <div class="sub-box-title">
-            <span>💧 Hydration Intake (Goal: 2500 ml)</span>
-            <span id="waterGoalBadge" style="color:var(--navy);font-weight:700">0% Goal</span>
-          </div>
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <button class="btn" style="flex:0 0 85px" onclick="changeWater(-250)">- 250ml</button>
-            <span style="font-size:1.25rem;font-weight:800;color:var(--navy)" id="waterTotal">0 ml</span>
-            <button class="btn" style="flex:0 0 85px" onclick="changeWater(250)">+ 250ml</button>
-          </div>
-          <div class="progress-bar-bg" style="margin-top:8px">
-            <div class="progress-bar-fill" id="water-progress-fill" style="background:#2b7a78"></div>
-          </div>
-        </div>
-
-        <!-- SLEEP TRACKER -->
-        <div class="sub-box">
-          <div class="sub-box-title">
-            <span>🌙 Sleep & Rest Schedule</span>
-            <span id="sleepDurationText" style="color:#2e7d32">7h 30m Rest</span>
-          </div>
-          <div class="time-inputs">
-            <label>Bedtime:</label>
-            <input type="time" id="sleepBedTime" value="22:30" onchange="calculateSleep()">
-            <label>Wake-up:</label>
-            <input type="time" id="sleepWakeTime" value="06:00" onchange="calculateSleep()">
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- 2. GITA (ALL 700 VERSES) -->
-    <section id="tab-gita" class="tab-content">
-      <div class="card">
-        <h2 style="font-size:1.1rem; color:#1a202c; margin-bottom:12px;">📖 Srimad Bhagavad Gita (All 700 Shlokas)</h2>
-        <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
- 
+<div class="translation-text" id="daily-meaning">You have a right to perform your prescribed duty, but never to the fruits of action.</div>
+<div class="btn-row">
+<button class="btn btn-gold" id="btnAudioDaily" onclick="playAudioText('daily-sanskrit', this)">🔊 <span id="i18n-playaudio">Play Audio</span></button>
+<button class="btn" onclick="stopAudio()">⏹ <span id="i18n-stopaudio">Stop</span></button>
+<button class="btn" id="i18n-btn-allgita" onclick="switchNav('tab-gita', document.getElementById('nav-gita'))">All 18 Chapters →</button>
+</div>
+</div>
+<!-- STATS GRID -->
+<div class="stats-grid">
+<div class="stat-card">
+<div class="stat-label" id="i18n-stat-habits">Habits Completed</div>
+<div class="stat-val" id="habits-stat">0/6</div>
+</div>
+<div class="stat-card">
+<div class="stat-label" id="i18n-stat-routine">Daily Routine</div>
+<div class="stat-val" id="routine-stat">0%</div>
+</div>
+<div class="stat-card">
+<div class="stat-label" id="i18n-stat-malas">Malas Chanted</div>
+<div class="stat-val" id="malas-stat">0 Malas</div>
+</div>
+<div class="stat-card">
+<div class="stat-label" id="i18n-stat-xp">Karma Points</div>
+<div class="stat-val" id="xp-stat">0 XP</div>
+</div>
+</div>
+<!-- SANKALP ROUTINE CHECKLIST -->
+<div class="card">
+<div class="routine-header">
+<div class="routine-title" id="i18n-routine-title">🌅 Today's Sankalp (Routine)</div>
+<span class="auto-reset-tag" id="i18n-autoreset">● Daily Auto-reset 00:00</span>
+</div>
+<div class="progress-bar-bg">
+<div class="progress-bar-fill" id="routine-progress-fill"></div>
+</div>
+<div class="routine-desc" id="routine-desc-text">0% completed. Walk forward with quiet, steady discipline.</div>
+<!-- ROUTINE LIST -->
+<div class="routine-list" id="routineListItems"></div>
+<!-- HYDRATION TRACKER -->
+<div class="sub-box">
+<div class="sub-box-title">
+<span id="i18n-hydro-title">💧 Hydration Intake (Goal: 2500 ml)</span>
+<span id="waterGoalBadge" style="color:var(--navy);font-weight:700">0% Goal</span>
+</div>
+<div style="display:flex;align-items:center;justify-content:space-between">
+<button class="btn" style="flex:0 0 85px" onclick="changeWater(-250)">- 250ml</button>
+<span style="font-size:1.25rem;font-weight:800;color:var(--navy)" id="waterTotal">0 ml</span>
+<button class="btn" style="flex:0 0 85px" onclick="changeWater(250)">+ 250ml</button>
+</div>
+<div class="progress-bar-bg" style="margin-top:8px">
+<div class="progress-bar-fill" id="water-progress-fill" style="background:#2b7a78"></div>
+</div>
+</div>
+<!-- SLEEP TRACKER -->
+<div class="sub-box">
+<div class="sub-box-title">
+<span id="i18n-sleep-title">🌙 Sleep & Rest Schedule</span>
+<span id="sleepDurationText" style="color:#2e7d32">7h 30m Rest</span>
+</div>
+<div class="time-inputs">
+<label id="i18n-bedlabel">Bedtime:</label>
+<input type="time" id="sleepBedTime" value="22:30" onchange="calculateSleep()">
+<label id="i18n-wakelabel">Wake-up:</label>
+<input type="time" id="sleepWakeTime" value="06:00" onchange="calculateSleep()">
+</div>
+</div>
+</div>
+</section>
+<!-- 2. GITA (ALL 700 VERSES) -->
+<section id="tab-gita" class="tab-content">
+<div class="card">
+<h2 style="font-size:1.1rem; color:#1a202c; margin-bottom:12px;" id="i18n-gita-header">📖 Srimad Bhagavad Gita (All 700 Shlokas)</h2>
+<div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:12px;">
+<div>
+<label style="font-size:0.75rem; color:var(--muted); font-weight:700;" id="i18n-ch-label">CHAPTER (अध्याय)</label>
+<select id="ch-select" onchange="populateVerses()"></select>
+</div>
+<div>
+<label style="font-size:0.75rem; color:var(--muted); font-weight:700;" id="i18n-vr-label">VERSE (श्लोक)</label>
+<select id="v-select" onchange="loadGitaVerse()"></select>
+</div>
+</div>
+<div style="background:#fefbf3; border:1px solid var(--border); border-radius:12px; padding:16px; text-align:center; margin-bottom:12px;">
+<div id="gita-ref" style="font-size:0.8rem; font-weight:800; color:#c89332; margin-bottom:8px;">CHAPTER 1 · VERSE 1</div>
+<div class="sanskrit-text" id="gita-sanskrit">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः...</div>
+<div class="translation-text" id="gita-meaning">Loading translation...</div>
+</div>
+<div class="btn-row">
+<button class="btn btn-gold" id="btnAudioGita" onclick="playAudioText('gita-sanskrit', this)">🔊 Play Audio</button>
+<button class="btn" onclick="stopAudio()">⏹ Stop</button>
+<button class="btn" onclick="stepGitaVerse(1)">Next ❯</button>
+</div>
+</div>
+</section>
+<!-- 3. PANCHANG & CALENDAR -->
+<section id="tab-panchang" class="tab-content">
+<div class="card">
+<h2 style="font-size:1.1rem; color:#1a202c; margin-bottom:10px;" id="i18n-panchang-h2">🗓️ Vedic Panchang & Muhurta</h2>
+<div style="display:flex;gap:8px;margin-bottom:12px">
+<input type="date" id="pDatePick" onchange="calcPanchang(this.value)">
+<button class="btn btn-gold" style="flex:0 0 75px" id="i18n-btntoday" onclick="setTodayPanchang()">Today</button>
+</div>
+<div style="font-size:0.8rem;font-weight:700;color:var(--muted);margin-bottom:6px" id="i18n-5angas">FIVE ANGAS (पञ्चाङ्ग)</div>
+<div class="stats-grid">
+<div class="stat-card"><div class="stat-label">Tithi (तिथि)</div><div c
