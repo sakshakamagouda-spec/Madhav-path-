@@ -3,1245 +3,1043 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-  <title>MadhavPath · Devotion, Discipline & Wisdom</title>
-
-  <!-- PWA & APP INSTALLATION TAGS -->
+  <title>MadhavPath · Devotion · Discipline · Growth</title>
   <link rel="manifest" href="manifest.json">
   <meta name="theme-color" content="#0a1931">
-  <meta name="mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="MadhavPath">
-
   <style>
+    :root {
+      --bg: #f8f6f0;
+      --card: #ffffff;
+      --navy: #0a1931;
+      --navy-light: #152a4d;
+      --gold: #b38027;
+      --gold-light: #fef7e6;
+      --gold-border: #e6cb91;
+      --text: #2d3748;
+      --muted: #718096;
+      --border: #eedfc7;
+      --success: #2e7d32;
+      --danger: #c62828;
+    }
     * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
     body {
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      background: #fcfaf3;
-      color: #1e293b;
-      padding-bottom: 95px;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: 92px;
     }
-    
-    /* HEADER */
-    .header {
-      background: linear-gradient(135deg, #0a1931, #132b4f);
+    .top-banner {
+      background: linear-gradient(135deg, #0a1931 0%, #17375e 100%);
       color: #fff;
-      padding: 14px 14px 16px;
-      border-bottom: 3px solid #d4a345;
-      border-radius: 0 0 18px 18px;
-      box-shadow: 0 4px 14px rgba(10, 25, 49, 0.25);
+      padding: 16px 16px 20px;
+      border-radius: 0 0 22px 22px;
+      box-shadow: 0 4px 16px rgba(10,25,49,0.2);
     }
-    .header-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-    }
-    .brand {
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: #fef0cd;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
+    .sub-head { font-size: 0.68rem; letter-spacing: 2px; color: #dfb264; text-transform: uppercase; font-weight: 700; }
+    .brand-row { display: flex; justify-content: space-between; align-items: center; margin-top: 4px; }
+    .app-title { font-size: 1.35rem; font-weight: 800; display: flex; align-items: center; gap: 8px; }
+    .app-title span { color: #f4c46d; }
     .lang-drop {
       background: rgba(255,255,255,0.18);
-      border: 1px solid #d4a345;
+      border: 1px solid rgba(255,255,255,0.3);
       color: #fff;
       padding: 5px 10px;
-      border-radius: 8px;
-      font-size: 0.75rem;
-      font-weight: 700;
+      border-radius: 12px;
+      font-size: 0.78rem;
       outline: none;
     }
-    .lang-drop option { background: #0a1931; color: #fff; }
-    .clock-bar {
-      background: rgba(0,0,0,0.38);
-      border: 1px solid rgba(212,163,69,0.4);
-      border-radius: 10px;
-      padding: 7px 12px;
+    .lang-drop option { color: #000; }
+    .clock-strip {
       display: flex;
       justify-content: space-between;
       align-items: center;
-    }
-    .clock-val {
-      font-weight: 800;
-      font-family: monospace;
-      color: #fef0cd;
-      font-size: 0.95rem;
-      letter-spacing: 0.5px;
-    }
-    .muhurta-val {
-      background: rgba(212,163,69,0.25);
-      border: 1px solid #d4a345;
-      color: #fae29c;
-      padding: 3px 8px;
-      border-radius: 6px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    /* INSTALL APP BANNER */
-    #installBanner {
-      display: none;
-      background: linear-gradient(135deg, #e5b058, #c69332);
-      color: #0d1f36;
-      padding: 10px 14px;
+      background: rgba(0,0,0,0.3);
+      border: 1px solid rgba(255,255,255,0.12);
       border-radius: 12px;
-      margin: 10px 0;
-      align-items: center;
-      justify-content: space-between;
-      font-weight: 800;
-      font-size: 0.85rem;
-      box-shadow: 0 4px 12px rgba(229,176,88,0.35);
+      padding: 8px 12px;
+      margin-top: 12px;
     }
-    #installBanner button {
-      background: #0d1f36;
-      color: #fff;
-      border: none;
-      padding: 6px 14px;
-      border-radius: 8px;
-      font-weight: 800;
-      font-size: 0.75rem;
-      cursor: pointer;
-    }
+    .clock-text { font-size: 0.95rem; font-weight: 800; color: #fff; letter-spacing: 0.5px; }
+    .muhurta-tag { background: #edd59b; color: #0a1931; font-weight: 800; font-size: 0.72rem; padding: 3px 8px; border-radius: 14px; }
+    
+    .container { max-width: 600px; margin: 0 auto; padding: 12px; }
+    .tab-view { display: none; }
+    .tab-view.active { display: block; animation: fade 0.2s ease-in; }
+    @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
-    /* CONTAINER & TABS */
-    .wrap { max-width: 500px; margin: 0 auto; padding: 10px; }
-    .tab { display: none; }
-    .tab.active { display: block; animation: fadeIn 0.18s ease-out; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(3px); } to { opacity: 1; transform: translateY(0); } }
-
-    /* CARDS */
     .card {
-      background: #ffffff;
-      border: 1px solid #ebdcc4;
-      border-radius: 14px;
-      padding: 13px;
-      margin-bottom: 11px;
-      box-shadow: 0 2px 7px rgba(0,0,0,0.03);
-    }
-    .card-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 14px;
+      margin-bottom: 12px;
+      box-shadow: 0 3px 12px rgba(60,40,10,0.04);
     }
     .card-title {
-      font-size: 0.92rem;
+      font-size: 0.85rem;
+      text-transform: uppercase;
       font-weight: 800;
-      color: #0d1f36;
+      color: var(--gold);
       display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .kpi-box {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 10px 12px;
+    }
+    .kpi-lbl { font-size: 0.68rem; font-weight: 700; color: var(--muted); text-transform: uppercase; }
+    .kpi-val { font-size: 1.25rem; font-weight: 800; color: var(--navy); margin-top: 3px; }
+
+    .btn {
+      padding: 9px 12px;
+      border-radius: 10px;
+      border: none;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .btn-gold { background: #d4a044; color: #0a1931; }
+    .btn-navy { background: var(--navy); color: #fff; }
+    .btn-outline { background: #fff; border: 1px solid var(--border); color: var(--navy); }
+    .btn-sm { padding: 4px 8px; font-size: 0.72rem; border-radius: 6px; }
+
+    /* HABIT LIST */
+    .task-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 4px;
+      border-bottom: 1px dashed #f0e2cc;
+    }
+    .task-row:last-child { border-bottom: none; }
+    .task-check { width: 20px; height: 20px; accent-color: var(--gold); cursor: pointer; }
+    .task-title { flex: 1; font-size: 0.88rem; font-weight: 600; color: var(--navy); }
+    .task-done { text-decoration: line-through; color: var(--muted); }
+    .task-xp { font-size: 0.75rem; font-weight: 800; color: #9c6c1d; }
+    .del-btn { background: none; border: none; color: #a0aec0; cursor: pointer; font-size: 0.95rem; padding: 2px 4px; }
+    .del-btn:hover { color: var(--danger); }
+
+    /* ADD HABIT DRAWER */
+    .add-habit-box {
+      display: none;
+      background: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 10px;
+      margin-top: 10px;
+    }
+    .input-row { display: flex; gap: 6px; margin-top: 6px; }
+    .txt-input {
+      flex: 1;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      font-size: 0.84rem;
+      outline: none;
+    }
+
+    /* TRACKERS */
+    .sub-box {
+      background: #faf6ee;
+      border: 1px solid var(--gold-border);
+      border-radius: 12px;
+      padding: 10px 12px;
+      margin-top: 10px;
+    }
+    .sub-bar-bg { background: #e3d5be; height: 7px; border-radius: 8px; margin-top: 8px; overflow: hidden; }
+    .sub-bar-fill { background: #1c7a65; height: 100%; width: 0%; border-radius: 8px; transition: width 0.3s; }
+
+    /* ENLARGED STATISTICS DASHBOARD */
+    .stats-card-lg {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+    .chart-container {
+      display: flex;
+      align-items: flex-end;
+      height: 160px;
+      gap: 10px;
+      padding-top: 12px;
+      margin-top: 12px;
+      border-bottom: 2px solid #ecd8bb;
+    }
+    .chart-bar-wrap {
+      flex: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
       align-items: center;
       gap: 6px;
     }
-    .badge {
-      font-size: 0.65rem;
-      font-weight: 700;
-      padding: 3px 8px;
-      border-radius: 6px;
-      background: #fef3d6;
-      color: #8a6218;
-      border: 1px solid #ecd59b;
+    .chart-bar-fill {
+      width: 100%;
+      background: linear-gradient(180deg, #d4a044 0%, #b38027 100%);
+      border-radius: 6px 6px 0 0;
+      min-height: 6px;
+      transition: height 0.5s ease;
     }
+    .chart-day { font-size: 0.7rem; font-weight: 700; color: var(--muted); }
 
-    /* KPIS */
-    .kpis {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
+    .stat-metric-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px dashed #ebd9c0;
+    }
+    .stat-metric-row:last-child { border-bottom: none; }
+    .stat-metric-title { font-size: 0.84rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px; }
+    .stat-metric-val { font-size: 1.05rem; font-weight: 800; color: #9c6c1d; }
+
+    /* SHLOKA & GITA */
+    .shloka-box {
+      background: #fbf8f0;
+      border-left: 4px solid var(--gold);
+      padding: 12px;
+      border-radius: 0 12px 12px 0;
       margin-bottom: 10px;
     }
-    .kpi {
-      background: #fff;
-      border: 1px solid #ebdcc4;
-      border-radius: 10px;
-      padding: 9px 11px;
-    }
-    .kpi-lbl { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
-    .kpi-num { font-size: 1.2rem; font-weight: 800; color: #0d1f36; margin-top: 2px; }
+    .sanskrit { font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.6; font-family: 'Georgia', serif; }
+    .translit { font-size: 0.8rem; color: #825b1b; font-style: italic; margin-top: 4px; }
+    .meaning { font-size: 0.88rem; color: var(--text); line-height: 1.45; margin-top: 6px; }
 
-    /* TASKS */
-    .task {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 10px 10px;
-      background: #fdfbf7;
-      border: 1px solid #edd59b;
-      border-radius: 8px;
-      margin-bottom: 7px;
-      cursor: pointer;
-      touch-action: manipulation;
-      transition: background 0.15s;
-    }
-    .task:active { background: #f5eedf; }
-    .task.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
-    .task.checked .task-name { text-decoration: line-through; color: #64748b; }
-    .task-check { font-size: 1.15rem; margin-right: 8px; color: #b45309; font-weight: 800; }
-    .task-name { font-size: 0.82rem; font-weight: 700; color: #0d1f36; display: flex; align-items: center; }
-
-    /* SUB BOXES */
-    .sub-box {
-      background: #faf6ee;
-      border: 1px solid #edd59b;
-      border-radius: 8px;
-      padding: 10px;
-      margin-top: 8px;
-    }
-    .bar { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
-    .fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
-
-    /* SHLOKA DISPLAY */
-    .shloka-box {
-      background: #fcf9ee;
-      border: 1px solid #edd59b;
-      border-radius: 10px;
-      padding: 12px;
-      text-align: center;
-      margin: 8px 0;
-    }
-    .shloka-san {
-      font-size: 0.98rem;
-      font-weight: 700;
-      color: #0d1f36;
-      line-height: 1.65;
-      font-family: Georgia, serif;
-      white-space: pre-line;
-    }
-    .shloka-translit {
-      font-size: 0.72rem;
-      color: #64748b;
-      font-style: italic;
-      margin-top: 4px;
-      line-height: 1.4;
-      white-space: pre-line;
-    }
-    .shloka-mean {
-      font-size: 0.78rem;
-      color: #334155;
-      margin-top: 8px;
-      border-top: 1px dashed #edd59b;
-      padding-top: 8px;
-      line-height: 1.45;
-    }
-
-    /* BUTTONS */
-    .btns { display: flex; gap: 6px; }
-    .btn {
-      flex: 1;
-      padding: 9px 8px;
-      border-radius: 8px;
-      border: none;
-      font-size: 0.75rem;
-      font-weight: 700;
-      cursor: pointer;
-      touch-action: manipulation;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 4px;
-    }
-    .btn:active { opacity: 0.85; transform: scale(0.98); }
-    .btn-gold { background: linear-gradient(135deg, #e5b058, #c69332); color: #0d1f36; }
-    .btn-navy { background: #0d1f36; color: #fef0cd; }
-    .btn-light { background: #f1f5f9; color: #334155; border: 1px solid #cbd5e1; }
-    .btn-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
-
-    /* PANCHANG SPECIFICS */
-    .p-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 7px;
-      margin-top: 8px;
-    }
-    .p-item {
-      background: #faf6ee;
-      border: 1px solid #edd59b;
-      border-radius: 8px;
-      padding: 8px 10px;
-    }
-    .p-lbl { font-size: 0.65rem; color: #64748b; font-weight: 700; text-transform: uppercase; }
-    .p-val { font-size: 0.82rem; font-weight: 800; color: #0d1f36; margin-top: 2px; }
-
-    /* GAME ARENA */
-    .game-arena {
-      background: linear-gradient(135deg, #0d1f36, #16365c);
-      color: #fff;
-      border-radius: 12px;
-      padding: 16px;
-      text-align: center;
-      margin: 10px 0;
-      position: relative;
-    }
-    .target-ring {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      border: 4px dashed #e5b058;
-      margin: 14px auto;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2.4rem;
-      cursor: pointer;
-      touch-action: manipulation;
-      transition: transform 0.1s;
-    }
-    .target-ring:active { transform: scale(0.92); }
-
-    /* BOTTOM NAV BAR */
-    .b-nav {
+    /* BOTTOM NAV */
+    .nav-bar {
       position: fixed;
       bottom: 0;
       left: 0;
       right: 0;
-      max-width: 500px;
-      margin: 0 auto;
       background: #ffffff;
-      border-top: 1px solid #ebdcc4;
+      border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-around;
-      padding: 6px 0 max(8px, env(safe-area-inset-bottom));
-      z-index: 999999;
-      box-shadow: 0 -3px 12px rgba(0,0,0,0.08);
-      user-select: none;
+      padding: 6px 4px 8px;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.05);
+      z-index: 999;
     }
-    .b-btn {
+    .nav-btn {
       background: none;
       border: none;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: center;
+      gap: 2px;
+      color: #718096;
       font-size: 0.68rem;
       font-weight: 700;
-      color: #64748b;
       cursor: pointer;
-      touch-action: manipulation;
-      flex: 1;
-      padding: 4px 0;
-      -webkit-appearance: none;
-      outline: none;
+      min-width: 48px;
     }
-    .b-btn span:first-child { font-size: 1.3rem; margin-bottom: 2px; }
-    .b-btn.active { color: #b45309; font-weight: 800; }
-    .b-btn.active span:first-child { transform: scale(1.1); transition: transform 0.15s; }
+    .nav-btn.active { color: #b38027; }
+    .nav-btn span:first-child { font-size: 1.25rem; }
+
+    .toast {
+      position: fixed;
+      bottom: 74px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--navy);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
   </style>
 </head>
 <body>
 
-  <!-- HEADER WITH LIVE CLOCK -->
-  <header class="header">
-    <div class="header-top">
-      <div class="brand">🦚 माधवपथ · MadhavPath</div>
-      <select id="langSel" class="lang-drop" onchange="window.changeLang(this.value)">
+  <!-- HEADER -->
+  <header class="top-banner">
+    <div class="sub-head">Devotion · Discipline · Growth</div>
+    <div class="brand-row">
+      <div class="app-title">🦚 <span>माधवपथ</span> · MadhavPath</div>
+      <select id="langSelect" class="lang-drop" onchange="switchLanguage(this.value)">
         <option value="en">English</option>
-        <option value="hi">हिन्दी</option>
+        <option value="hi">हिंदी</option>
         <option value="kn">ಕನ್ನಡ</option>
         <option value="mr">मराठी</option>
         <option value="te">తెలుగు</option>
         <option value="ta">தமிழ்</option>
       </select>
     </div>
-    <div class="clock-bar">
-      <span id="liveClock" class="clock-val">--:--:--</span>
-      <span id="liveMuhurta" class="muhurta-val">✨ Brahma Muhurta</span>
+    <div class="clock-strip">
+      <div id="liveClock" class="clock-text">⏰ 00:00:00</div>
+      <div id="liveMuhurta" class="muhurta-tag">Brahma Muhurta</div>
     </div>
   </header>
 
-  <main class="wrap">
+  <main class="container">
 
-    <!-- IN-APP INSTALL BUTTON -->
-    <div id="installBanner">
-      <span>📲 Install MadhavPath on Phone</span>
-      <button onclick="window.triggerAppInstall()">Install</button>
-    </div>
-
-    <!-- 1. TODAY TAB -->
-    <section id="tab-today" class="tab active">
-      <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
-        <div class="card-top">
-          <span class="badge">🕉 PANCHANG GLANCE</span>
-          <span class="badge" style="background:#fff3e0; color:#b45309;">🔱 Masik Shivaratri</span>
+    <!-- TAB 1: TODAY -->
+    <section id="tab-today" class="tab-view active">
+      <!-- Panchang Glance -->
+      <div class="card">
+        <div class="card-title">
+          <span>🕉️ Today's Panchang</span>
+          <span style="font-size:0.75rem; color:#87621c;">Masik Shivaratri</span>
         </div>
-        <h3 id="pTithiToday" style="font-size:1.05rem; color:#0d1f36;">कृष्ण Chaturdashi (Krishna Paksha)</h3>
-        <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Purva Ashadha Nakshatra · रविवारीय Ravivara · Vikram Samvat 2083</p>
+        <h3 id="panchangTitle" style="color:var(--navy); font-size:1.15rem; margin-bottom:3px;">Krishna Chaturdashi (कृष्ण चतुर्दशी)</h3>
+        <p id="panchangSub" style="font-size:0.8rem; color:var(--muted);">Purva Ashadha · Vikram Samvat 2083 · Phalguna</p>
       </div>
 
+      <!-- Shloka of the Day -->
       <div class="card">
-        <div class="card-top">
-          <span style="font-size:0.72rem; font-weight:800; color:#0f766e;">DAILY WISDOM</span>
-          <span class="badge" id="vRef">Gita 2.47</span>
+        <div class="card-title">
+          <span>Daily Wisdom · Gita 2.47</span>
+          <button class="btn btn-outline btn-sm" onclick="playVerseAudio('Karmanye vadhi karaste, Ma Phaleshu Kadachana. Ma Karma Phala Hetur Bhur, Ma Te Sango Stva Karmani.')">🔊 Recite</button>
         </div>
         <div class="shloka-box">
-          <div id="vSanskrit" class="shloka-san">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
-          <div id="vTranslit" class="shloka-translit">karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||</div>
-          <div id="vMeaning" class="shloka-mean">You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction.</div>
-        </div>
-        <div class="btns">
-          <button onclick="window.playRecite('vSanskrit')" class="btn btn-navy">🔊 Recite</button>
-          <button onclick="window.stopRecite()" class="btn btn-light">⏹ Stop</button>
-          <button onclick="window.switchTab('gita')" class="btn btn-gold">18 Chapters →</button>
+          <div class="sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
+          <div class="translit">karmaṇy-evādhikāras te mā phaleṣhu kadāchana...</div>
+          <div class="meaning">You have a right to perform your prescribed duty, but never to the fruits of action.</div>
         </div>
       </div>
 
-      <div class="kpis">
-        <div class="kpi"><div class="kpi-lbl">Tasks Done</div><div id="kpiTasks" class="kpi-num">0/6</div></div>
-        <div class="kpi"><div class="kpi-lbl">Adherence</div><div id="kpiPct" class="kpi-num">0%</div></div>
-        <div class="kpi"><div class="kpi-lbl">Japa Malas</div><div id="kpiMalas" class="kpi-num">0</div></div>
-        <div class="kpi"><div class="kpi-lbl">Karma XP</div><div id="kpiXp" class="kpi-num">0 XP</div></div>
+      <!-- KPI Summary -->
+      <div class="kpi-grid">
+        <div class="kpi-box">
+          <div class="kpi-lbl">Tasks Completed</div>
+          <div id="kpiTasks" class="kpi-val">0/6</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-lbl">Daily Adherence</div>
+          <div id="kpiAdherence" class="kpi-val">0%</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-lbl">Malas Chanted</div>
+          <div id="kpiMalas" class="kpi-val">0</div>
+        </div>
+        <div class="kpi-box">
+          <div class="kpi-lbl">Karma Points</div>
+          <div id="kpiXp" class="kpi-val">0 XP</div>
+        </div>
       </div>
 
+      <!-- SANKALP / CUSTOMIZABLE ROUTINE -->
       <div class="card">
-        <div class="card-top">
-          <span class="card-title">🌅 Today's Sankalp (Routine)</span>
-          <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-reset 00:00</span>
+        <div class="card-title">
+          <span>🌅 Today's Sankalp (Routine)</span>
+          <button class="btn btn-gold btn-sm" onclick="toggleAddHabitDrawer()">➕ Add Habit</button>
         </div>
-        <div class="bar" style="margin-bottom:10px;"><div id="routineBar" class="fill" style="background:#eab308;"></div></div>
 
-        <div id="taskList">
-          <div id="task-0" class="task" onclick="window.toggleTask(0)">
-            <span class="task-name"><span class="task-check" id="chk-0">☐</span> <span id="tname-0">Brahma Muhurta wake-up (4:30 AM)</span></span>
-            <span class="badge">+25 XP</span>
-          </div>
-          <div id="task-1" class="task" onclick="window.toggleTask(1)">
-            <span class="task-name"><span class="task-check" id="chk-1">☐</span> <span id="tname-1">Snan & Surya Arghya</span></span>
-            <span class="badge">+15 XP</span>
-          </div>
-          <div id="task-2" class="task" onclick="window.toggleTask(2)">
-            <span class="task-name"><span class="task-check" id="chk-2">☐</span> <span id="tname-2">Sattvic Diet Resolution</span></span>
-            <span class="badge">+15 XP</span>
-          </div>
-          <div id="task-3" class="task" onclick="window.toggleTask(3)">
-            <span class="task-name"><span class="task-check" id="chk-3">☐</span> <span id="tname-3">1 Round Nama Japa</span></span>
-            <span class="badge">+20 XP</span>
-          </div>
-          <div id="task-4" class="task" onclick="window.toggleTask(4)">
-            <span class="task-name"><span class="task-check" id="chk-4">☐</span> <span id="tname-4">Srimad Bhagavad Gita Study</span></span>
-            <span class="badge">+20 XP</span>
-          </div>
-          <div id="task-5" class="task" onclick="window.toggleTask(5)">
-            <span class="task-name"><span class="task-check" id="chk-5">☐</span> <span id="tname-5">Evening Reflection (Ratri Chintan)</span></span>
-            <span class="badge">+15 XP</span>
+        <!-- Add Custom Habit Drawer -->
+        <div id="addHabitDrawer" class="add-habit-box">
+          <div style="font-size:0.8rem; font-weight:700; color:var(--navy);">New Sacred Discipline:</div>
+          <div class="input-row">
+            <input type="text" id="newHabitTitle" class="txt-input" placeholder="e.g. 15-min Pranayama, Study...">
+            <input type="number" id="newHabitXp" class="txt-input" style="max-width:70px;" value="15" placeholder="XP">
+            <button class="btn btn-navy btn-sm" onclick="addNewHabit()">Save</button>
           </div>
         </div>
 
+        <div id="habitsListContainer" style="margin-top:8px;">
+          <!-- Dynamically populated & interactive -->
+        </div>
+
+        <!-- Hydration Tracker -->
         <div class="sub-box">
-          <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700;">
-            <span>💧 Hydration Intake Tracker</span>
+          <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; color:var(--navy);">
+            <span>💧 Hydration Intake</span>
             <span id="waterGoal">0 / 2500 ml</span>
           </div>
-          <div style="display:flex; align-items:center; justify-content:space-between; margin-top:8px;">
-            <button class="btn btn-light" style="flex:0; padding:7px 14px;" onclick="window.addWater(-250)">-250 ml</button>
-            <b id="waterLbl" style="font-size:1.15rem; color:#0d1f36;">0 ml</b>
-            <button class="btn btn-gold" style="flex:0; padding:7px 14px;" onclick="window.addWater(250)">+250 ml</button>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+            <button class="btn btn-outline btn-sm" onclick="adjustWater(-250)">- 250ml</button>
+            <span id="waterAmount" style="font-size:1.15rem; font-weight:800; color:var(--navy);">0 ml</span>
+            <button class="btn btn-gold btn-sm" onclick="adjustWater(+250)">+ 250ml</button>
           </div>
-          <div class="bar"><div id="waterBar" class="fill"></div></div>
+          <div class="sub-bar-bg"><div id="waterBar" class="sub-bar-fill"></div></div>
         </div>
 
+        <!-- Sleep Schedule -->
         <div class="sub-box">
-          <div style="display:flex; justify-content:space-between; font-size:0.78rem; font-weight:700; margin-bottom:6px;">
+          <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; color:var(--navy);">
             <span>🌙 Sleep & Rest Schedule</span>
-            <span id="sleepLbl" style="color:#16a34a;">Duration: 7h 30m</span>
+            <span id="sleepDuration" style="color:var(--success);">7h 30m Rest</span>
           </div>
-          <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
-            <div>
-              <small style="color:#64748b; font-size:0.65rem; font-weight:700;">Bedtime</small>
-              <input type="time" id="bedTime" value="22:30" class="btn btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()">
-            </div>
-            <div>
-              <small style="color:#64748b; font-size:0.65rem; font-weight:700;">Wake-up</small>
-              <input type="time" id="wakeTime" value="06:00" class="btn btn-light" style="width:100%; padding:6px;" onchange="window.calcSleep()">
-            </div>
+          <div style="display:flex; align-items:center; gap:8px; margin-top:6px;">
+            <label style="font-size:0.75rem; color:var(--muted);">Bed:</label>
+            <input type="time" id="bedTime" class="txt-input" value="22:30" onchange="recordSleep()">
+            <label style="font-size:0.75rem; color:var(--muted);">Wake:</label>
+            <input type="time" id="wakeTime" class="txt-input" value="06:00" onchange="recordSleep()">
           </div>
         </div>
       </div>
     </section>
 
-    <!-- 2. GITA TAB -->
-    <section id="tab-gita" class="tab">
+    <!-- TAB 2: GITA -->
+    <section id="tab-gita" class="tab-view">
       <div class="card">
-        <div class="card-top">
-          <span class="card-title">📖 Srimad Bhagavad Gita</span>
-          <span class="badge" id="gitaChTitle">Chapter 1 · Arjuna Vishada Yoga</span>
+        <div class="card-title">
+          <span>📖 Srimad Bhagavad Gita</span>
+          <span id="gitaChLabel" style="font-size:0.75rem; color:#87621c;">Chapter 2 · Verse 47</span>
         </div>
-        <p style="font-size:0.75rem; color:#64748b; margin-bottom:10px;">Select any of the 18 Chapters to study authentic Sanskrit Shlokas.</p>
-        
-        <div style="display:grid; grid-template-columns: 2fr 1fr; gap:6px; margin-bottom:10px;">
-          <select id="gitaCh" class="btn btn-light" style="padding:8px;" onchange="window.onChapter(this.value)"></select>
-          <select id="gitaVr" class="btn btn-light" style="padding:8px;" onchange="window.loadShloka()"></select>
-        </div>
-
+        <select id="gitaChapterSelect" class="txt-input" style="width:100%; margin-bottom:12px;" onchange="loadChapter(this.value)">
+          <option value="1">Chapter 1: Arjuna Vishada Yoga (47 Verses)</option>
+          <option value="2" selected>Chapter 2: Sankhya Yoga (72 Verses)</option>
+          <option value="3">Chapter 3: Karma Yoga (43 Verses)</option>
+          <option value="4">Chapter 4: Jnana Karma Sanyasa Yoga (42 Verses)</option>
+          <option value="5">Chapter 5: Karma Sanyasa Yoga (29 Verses)</option>
+          <option value="6">Chapter 6: Dhyana Yoga (47 Verses)</option>
+          <option value="7">Chapter 7: Jnana Vijnana Yoga (30 Verses)</option>
+          <option value="8">Chapter 8: Akshara Brahma Yoga (28 Verses)</option>
+          <option value="9">Chapter 9: Raja Vidya Raja Guhya Yoga (34 Verses)</option>
+          <option value="10">Chapter 10: Vibhuti Yoga (42 Verses)</option>
+          <option value="11">Chapter 11: Vishwarupa Darshana Yoga (55 Verses)</option>
+          <option value="12">Chapter 12: Bhakti Yoga (20 Verses)</option>
+          <option value="13">Chapter 13: Kshetra Kshetragya Vibhaga (34 Verses)</option>
+          <option value="14">Chapter 14: Gunatraya Vibhaga (27 Verses)</option>
+          <option value="15">Chapter 15: Purushottama Yoga (20 Verses)</option>
+          <option value="16">Chapter 16: Daivasura Sampad Vibhaga (24 Verses)</option>
+          <option value="17">Chapter 17: Shraddhatraya Vibhaga (28 Verses)</option>
+          <option value="18">Chapter 18: Moksha Sanyasa Yoga (78 Verses)</option>
+        </select>
         <div class="shloka-box">
-          <div id="gitaTag" style="font-size:0.75rem; font-weight:800; color:#b45309; margin-bottom:4px;">CHAPTER 1 · VERSE 1</div>
-          <div id="gitaShloka" class="shloka-san">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।<br>मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥</div>
-          <div id="gitaTranslit" class="shloka-translit">dharmakṣetre kurukṣetre samavetā yuyutsavaḥ | māmakāḥ pāṇḍavāścaiva kimakurvata sañjaya ||</div>
-          <div id="gitaMean" class="shloka-mean">Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra and eager for battle, what did my sons and the sons of Pandu do?</div>
+          <div id="gitaSanskrit" class="sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
+          <div id="gitaTranslit" class="translit">karmaṇy-evādhikāras te mā phaleṣhu kadāchana...</div>
+          <div id="gitaMeaning" class="meaning">Thy right is to work only, but never with its fruits; let not the fruits of action be thy motive, nor let thy attachment be to inaction.</div>
         </div>
-
-        <div class="btns">
-          <button onclick="window.stepVr(-1)" class="btn btn-light">❮ Prev</button>
-          <button onclick="window.playRecite('gitaShloka')" class="btn btn-navy">🔊 Recite Shloka</button>
-          <button onclick="window.stepVr(1)" class="btn btn-gold">Next ❯</button>
-        </div>
-        <button onclick="window.markGitaRead()" class="btn btn-gold" style="width:100%; margin-top:8px;">✓ Mark Shloka Read (+20 XP)</button>
-      </div>
-
-      <div class="card">
-        <h4 style="font-size:0.85rem; color:#0d1f36; margin-bottom:6px;">Chapter Essence</h4>
-        <p id="gitaChDesc" style="font-size:0.78rem; color:#475569; line-height:1.5;">Arjuna's despondency upon seeing relatives, teachers, and friends arrayed for battle.</p>
-      </div>
-    </section>
-
-    <!-- 3. PANCHANG TAB -->
-    <section id="tab-panchang" class="tab">
-      <div class="card">
-        <div class="card-top">
-          <span class="card-title">🗓️ Comprehensive Vedic Panchang</span>
-          <span class="badge" style="background:#e0f2fe; color:#0369a1;">Vikram 2083</span>
-        </div>
-        
-        <div style="display:flex; gap:6px; margin-bottom:10px;">
-          <input type="date" id="pDatePick" class="btn btn-light" style="flex:1;" onchange="window.calcPanchang(this.value)">
-          <button onclick="window.resetPanchangToday()" class="btn btn-gold" style="flex:0; padding:6px 14px;">Today</button>
-        </div>
-
-        <div class="sub-box" style="margin-top:0;">
-          <b id="pMonthTitle" style="color:#0d1f36; font-size:0.92rem;">Phalguna Masa · Krishna Paksha</b>
-          <p id="pAyanaTitle" style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Shishira Ritu (Winter-Spring)</p>
-        </div>
-
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 4px;">Pancha Angas (पञ्चाङ्ग)</h4>
-        <div class="p-grid">
-          <div class="p-item"><div class="p-lbl">Tithi (तिथि)</div><div id="pTithi" class="p-val">Krishna Chaturdashi</div></div>
-          <div class="p-item"><div class="p-lbl">Vara (वार)</div><div id="pVara" class="p-val">Ravivara (Sunday)</div></div>
-          <div class="p-item"><div class="p-lbl">Nakshatra (नक्षत्र)</div><div id="pNakshatra" class="p-val">Purva Ashadha</div></div>
-          <div class="p-item"><div class="p-lbl">Yoga (योग)</div><div id="pYoga" class="p-val">Shiva Yoga</div></div>
-          <div class="p-item" style="grid-column:span 2;"><div class="p-lbl">Karana (करण)</div><div id="pKarana" class="p-val">Garaja Karana</div></div>
-        </div>
-
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Auspicious Muhurtas (शुभ मुहूर्त)</h4>
-        <div class="p-grid">
-          <div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Brahma Muhurta</div><div class="p-val">04:30 AM – 05:18 AM</div></div>
-          <div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Abhijit Muhurta</div><div class="p-val">11:48 AM – 12:36 PM</div></div>
-          <div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Amrita Kalam</div><div class="p-val">02:15 PM – 03:45 PM</div></div>
-          <div class="p-item" style="border-left:3px solid #16a34a;"><div class="p-lbl">Pratah Sandhya</div><div class="p-val">05:18 AM – 06:15 AM</div></div>
-        </div>
-
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Inauspicious Timings (अशुभ काल)</h4>
-        <div class="p-grid">
-          <div class="p-item" style="border-left:3px solid #dc2626;"><div class="p-lbl">Rahu Kaal</div><div class="p-val">04:30 PM – 06:00 PM</div></div>
-          <div class="p-item" style="border-left:3px solid #dc2626;"><div class="p-lbl">Yamaganda</div><div class="p-val">12:00 PM – 01:30 PM</div></div>
-        </div>
-
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Sacred Observance (व्रत)</h4>
-        <div class="sub-box">
-          <b style="color:#b45309; font-size:0.85rem;">🔱 Masik Shivaratri Vrata</b>
-          <p style="font-size:0.75rem; color:#475569; margin-top:3px;">Favorable for intense Lord Shiva dhyana, fasting, and bilva patra offering.</p>
+        <div style="display:flex; gap:8px;">
+          <button class="btn btn-gold" style="flex:1;" onclick="reciteGitaChapter()">🔊 Play Recitation</button>
+          <button class="btn btn-navy" style="flex:1;" onclick="claimGitaStudyXp()">Mark as Studied (+25 XP)</button>
         </div>
       </div>
     </section>
 
-    <!-- 4. JAPA TAB -->
-    <section id="tab-japa" class="tab">
-      <div class="card" style="text-align:center;">
-        <div class="card-top">
-          <span class="card-title">📿 Digital Jaap Mala Counter</span>
-          <span class="badge">108 BEADS</span>
-        </div>
-        
-        <div style="margin-bottom:10px;">
-          <small style="color:#64748b; font-size:0.68rem; font-weight:700;">Mantra</small>
-          <select id="japaMantraSel" class="btn btn-light" style="width:100%; margin-top:2px;">
-            <option>Hare Krishna Hare Krishna Krishna Krishna Hare Hare, Hare Rama Hare Rama Rama Rama Hare Hare</option>
-            <option>Om Namo Bhagavate Vasudevaya</option>
-            <option>Om Namah Shivaya</option>
-            <option>Gayatri Mantra</option>
-            <option>Sri Rama Jaya Rama Jaya Jaya Rama</option>
-          </select>
-        </div>
+    <!-- TAB 3: PANCHANG -->
+    <section id="tab-panchang" class="tab-view">
+      <div class="card">
+        <div class="card-title"><span>🗓️ Complete Vedic Panchang</span></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">Tithi (तिथि)</div><div class="stat-metric-val">Krishna Chaturdashi</div></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">Nakshatra (नक्षत्र)</div><div class="stat-metric-val">Purva Ashadha</div></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">Yoga (योग)</div><div class="stat-metric-val">Shubha Yoga</div></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">Karana (करण)</div><div class="stat-metric-val">Shakuni</div></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">Samvat & Masa</div><div class="stat-metric-val">Vikram 2083 · Phalguna</div></div>
+      </div>
+      <div class="card">
+        <div class="card-title"><span>Auspicious Timings (शुभ मुहूर्त)</span></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">✨ Brahma Muhurta</div><div class="stat-metric-val" style="color:var(--success);">04:36 AM - 05:24 AM</div></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">☀️ Abhijit Muhurta</div><div class="stat-metric-val" style="color:var(--success);">11:48 AM - 12:36 PM</div></div>
+        <div class="stat-metric-row"><div class="stat-metric-title">⚠️ Rahu Kaal</div><div class="stat-metric-val" style="color:var(--danger);">04:30 PM - 06:00 PM</div></div>
+      </div>
+    </section>
 
-        <div onclick="window.tapBead()" style="width:140px; height:140px; border-radius:50%; background:radial-gradient(circle, #fff, #faf4e6); border:8px solid #d4a345; margin:16px auto; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; touch-action:manipulation; box-shadow:0 6px 18px rgba(212,163,69,0.25);">
-          <span id="beadNum" style="font-size:3rem; font-weight:900; color:#0d1f36;">0</span>
-          <span style="font-size:0.68rem; font-weight:800; color:#8a6218;">/ 108 BEADS</span>
+    <!-- TAB 4: JAPA -->
+    <section id="tab-japa" class="tab-view">
+      <div class="card" style="text-align:center; padding:22px 14px;">
+        <div class="card-title"><span>📿 Sacred Nama Japa</span><span id="japaMalaCount">Mala: 0</span></div>
+        <div onclick="countBead()" style="width:160px; height:160px; border-radius:50%; background:radial-gradient(circle,#fbf6eb 0%,#ebd4a5 100%); border:6px solid #dca94d; margin:16px auto; display:flex; flex-direction:column; justify-content:center; align-items:center; cursor:pointer; box-shadow:0 6px 20px rgba(212,160,68,0.25);">
+          <div id="japaBeads" style="font-size:2.8rem; font-weight:900; color:var(--navy);">0</div>
+          <div style="font-size:0.75rem; font-weight:700; color:#87621c;">BEADS / 108</div>
         </div>
-        
-        <p style="font-size:0.95rem; font-weight:800; color:#b45309; margin-bottom:12px;">Total Malas: <span id="malaNum">0</span></p>
-        
-        <div class="btns" style="max-width:280px; margin:0 auto;">
-          <button onclick="window.resetBead()" class="btn btn-light">Reset Beads</button>
-          <button onclick="window.resetAllJapa()" class="btn btn-danger">Reset All</button>
+        <p style="font-size:0.8rem; color:var(--muted); margin-bottom:12px;">Chant with continuous awareness. 108 beads completes 1 Mala (+50 XP).</p>
+        <div style="display:flex; gap:8px; max-width:280px; margin:0 auto;">
+          <button class="btn btn-outline" style="flex:1;" onclick="resetBeads()">Reset Bead</button>
+          <button class="btn btn-gold" style="flex:1;" onclick="finishMala()">Complete Mala</button>
         </div>
       </div>
     </section>
 
-    <!-- 5. GAME TAB -->
-    <section id="tab-game" class="tab">
-      <div class="card" style="text-align:center;">
-        <div class="card-top">
-          <span class="card-title">⏱️ Karma Yoga Focus Sprint</span>
-          <span class="badge">+50 XP</span>
-        </div>
-        <p style="font-size:0.75rem; color:#64748b; margin-bottom:8px;">Deep work sprint to master distractions.</p>
-        
-        <div class="game-arena">
-          <div style="font-size:0.72rem; color:#fae29c; text-transform:uppercase; font-weight:700;">Focus Timer</div>
-          <div id="sprintTimerDisp" style="font-size:2.8rem; font-weight:900; letter-spacing:1px; margin:6px 0; font-family:monospace;">15:00</div>
-          <div class="btns" style="max-width:240px; margin:0 auto;">
-            <button id="sprintToggleBtn" onclick="window.toggleSprint()" class="btn btn-gold">Start Sprint</button>
-            <button onclick="window.resetSprint()" class="btn btn-light">Reset</button>
-          </div>
-        </div>
-
-        <div class="btns" style="margin-top:8px;">
-          <button onclick="window.setSprintDuration(5)" class="btn btn-light">5m Quick</button>
-          <button onclick="window.setSprintDuration(15)" class="btn btn-light">15m Deep</button>
-          <button onclick="window.setSprintDuration(25)" class="btn btn-light">25m Pomodoro</button>
-        </div>
-      </div>
-
-      <div class="card" style="text-align:center;">
-        <div class="card-top">
-          <span class="card-title">🎯 Arjuna's Eye Challenge</span>
-          <span class="badge">Score: <b id="gameScore">0</b></span>
-        </div>
-        <p style="font-size:0.75rem; color:#64748b; margin-bottom:8px;">Keep the wandering mind still. Tap the golden eye to center focus!</p>
-        
-        <div class="target-ring" id="targetBtn" onclick="window.hitTarget()">🎯</div>
-        <button onclick="window.claimGameXp()" class="btn btn-gold" style="width:100%;">Claim Focus XP (+50 Karma XP)</button>
+    <!-- TAB 5: GAME -->
+    <section id="tab-game" class="tab-view">
+      <div class="card" style="text-align:center; padding:18px;">
+        <div class="card-title"><span>🎯 Arjuna's Focus Sprint</span><span>+25 XP</span></div>
+        <p style="font-size:0.8rem; color:var(--muted);">Fix your gaze on the center eye. Remain motionless until the timer elapses.</p>
+        <div onclick="tapGameEye()" style="width:130px; height:130px; border-radius:50%; border:6px dashed #d4a044; margin:18px auto; display:flex; align-items:center; justify-content:center; font-size:2.5rem; cursor:pointer;">👁️</div>
+        <div id="sprintCountdown" style="font-size:1.4rem; font-weight:800; color:var(--navy); margin-bottom:10px;">30s Focus</div>
+        <button id="sprintBtn" class="btn btn-gold" style="max-width:200px; margin:0 auto;" onclick="startFocusSprint()">Start Sprint</button>
       </div>
     </section>
 
-    <!-- 6. DIARY TAB -->
-    <section id="tab-diary" class="tab">
+    <!-- TAB 6: DIARY -->
+    <section id="tab-diary" class="tab-view">
       <div class="card">
-        <div class="card-top">
-          <span class="card-title">📔 Spiritual Diary (दैनंदिनी)</span>
-          <span class="badge">Ratri Chintan</span>
-        </div>
-        <p style="font-size:0.75rem; color:#64748b; margin-bottom:6px;">Daily evening reflection, detachment check, and sincere gratitudes.</p>
-        <textarea id="diaryTxt" placeholder="Write your evening reflections, mistakes to avoid, and gratitude for today..." style="width:100%; height:90px; padding:10px; border:1px solid #cbd5e1; border-radius:8px; font-size:0.8rem; margin-bottom:8px; font-family:inherit; outline:none;"></textarea>
-        <button onclick="window.saveNote()" class="btn btn-navy" style="width:100%;">Save Reflection (+30 XP)</button>
+        <div class="card-title"><span>📔 Spiritual Diary (Dainandini)</span></div>
+        <textarea id="diaryInput" class="txt-input" style="width:100%; height:90px; margin-bottom:8px;" placeholder="Record your evening reflections, selfless actions, and gratitude..."></textarea>
+        <button class="btn btn-gold" style="width:100%;" onclick="saveDiary()">Save Ratri Chintan (+15 XP)</button>
       </div>
-      
       <div class="card">
-        <h4 style="font-size:0.85rem; color:#0d1f36; margin-bottom:6px;">Reflection History</h4>
-        <div id="diaryFeed"></div>
+        <div class="card-title"><span>Recent Reflections</span></div>
+        <div id="diaryLogs"></div>
       </div>
     </section>
 
-    <!-- 7. STATS TAB -->
-    <section id="tab-stats" class="tab">
-      <div class="card">
-        <div class="card-top">
-          <span class="card-title">📊 Sadhana Analytics</span>
-          <span class="badge" id="statsRankPill">Sadhaka I</span>
+    <!-- TAB 7: ENLARGED STATS & ANALYTICS -->
+    <section id="tab-stats" class="tab-view">
+      <div class="stats-card-lg">
+        <div class="card-title">
+          <span>📊 Weekly Sadhana Adherence</span>
+          <span style="font-size:0.72rem; color:var(--navy);">Past 7 Days</span>
         </div>
-
-        <div class="kpis">
-          <div class="kpi"><div class="kpi-lbl">Current Streak</div><div id="streakDays" class="kpi-num">7 Days</div></div>
-          <div class="kpi"><div class="kpi-lbl">Avg Adherence</div><div id="avgAdherence" class="kpi-num">84%</div></div>
-          <div class="kpi"><div class="kpi-lbl">Total Malas</div><div id="statsTotalMalas" class="kpi-num">0</div></div>
-          <div class="kpi"><div class="kpi-lbl">Spiritual Tier</div><div id="tierName" class="kpi-num" style="font-size:0.95rem;">Sadhaka I</div></div>
+        <div class="chart-container" id="statsChartBars">
+          <!-- 7 Dynamic Day Bars -->
         </div>
+      </div>
 
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 6px;">7-Day Adherence Trend</h4>
-        <div style="display:flex; align-items:flex-end; gap:8px; height:80px; border-bottom:1px solid #cbd5e1; padding-top:6px; margin-bottom:6px;">
-          <div style="flex:1; text-align:center;"><div style="background:#eab308; height:50px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#64748b;">Mon</small></div>
-          <div style="flex:1; text-align:center;"><div style="background:#eab308; height:65px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#64748b;">Tue</small></div>
-          <div style="flex:1; text-align:center;"><div style="background:#eab308; height:70px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#64748b;">Wed</small></div>
-          <div style="flex:1; text-align:center;"><div style="background:#eab308; height:55px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#64748b;">Thu</small></div>
-          <div style="flex:1; text-align:center;"><div style="background:#eab308; height:75px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#64748b;">Fri</small></div>
-          <div style="flex:1; text-align:center;"><div style="background:#eab308; height:80px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#64748b;">Sat</small></div>
-          <div style="flex:1; text-align:center;"><div id="todayChartBar" style="background:#d97706; height:20px; border-radius:4px 4px 0 0;"></div><small style="font-size:0.6rem; color:#0d1f36; font-weight:700;">Today</small></div>
+      <div class="stats-card-lg">
+        <div class="card-title"><span>📈 Wellness & Discipline Records</span></div>
+        <div class="stat-metric-row">
+          <div class="stat-metric-title">🌙 Weekly Avg Sleep</div>
+          <div id="statAvgSleep" class="stat-metric-val">7h 30m / night</div>
         </div>
-
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 6px;">Habits Consistency Breakdown</h4>
-        <div style="font-size:0.75rem;">
-          <div style="display:flex; justify-content:space-between; margin-top:5px;"><span>🌅 Brahma Muhurta</span><b>85%</b></div>
-          <div class="bar"><div class="fill" style="width:85%; background:#d97706;"></div></div>
-          <div style="display:flex; justify-content:space-between; margin-top:5px;"><span>📿 Nama Japa</span><b>90%</b></div>
-          <div class="bar"><div class="fill" style="width:90%; background:#2563eb;"></div></div>
-          <div style="display:flex; justify-content:space-between; margin-top:5px;"><span>📖 Gita Swadhyaya</span><b>80%</b></div>
-          <div class="bar"><div class="fill" style="width:80%; background:#16a34a;"></div></div>
-          <div style="display:flex; justify-content:space-between; margin-top:5px;"><span>💧 Hydration Consistency</span><b id="statsHydrationVal">0%</b></div>
-          <div class="bar"><div id="statsHydrationBar" class="fill" style="width:0%; background:#0891b2;"></div></div>
+        <div class="stat-metric-row">
+          <div class="stat-metric-title">💧 Weekly Avg Hydration</div>
+          <div id="statAvgWater" class="stat-metric-val">2250 ml / day</div>
+        </div>
+        <div class="stat-metric-row">
+          <div class="stat-metric-title">📿 Total Malas Chanted</div>
+          <div id="statTotalMalas" class="stat-metric-val">0</div>
+        </div>
+        <div class="stat-metric-row">
+          <div class="stat-metric-title">🏆 Sadhana Rank Tier</div>
+          <div id="statTier" class="stat-metric-val">Sadhaka I</div>
         </div>
       </div>
     </section>
 
   </main>
 
-  <!-- NAVIGATION BAR -->
-  <nav class="b-nav" id="bottomNav">
-    <button class="b-btn active" data-tab="today"><span>🌅</span><span>Today</span></button>
-    <button class="b-btn" data-tab="gita"><span>📖</span><span>Gita</span></button>
-    <button class="b-btn" data-tab="panchang"><span>🗓️</span><span>Panchang</span></button>
-    <button class="b-btn" data-tab="japa"><span>📿</span><span>Japa</span></button>
-    <button class="b-btn" data-tab="game"><span>🎯</span><span>Game</span></button>
-    <button class="b-btn" data-tab="diary"><span>📔</span><span>Diary</span></button>
-    <button class="b-btn" data-tab="stats"><span>📊</span><span>Stats</span></button>
+  <!-- BOTTOM BAR (7 TABS) -->
+  <nav class="nav-bar">
+    <button class="nav-btn active" onclick="navigate('today')"><span>🌅</span><span>Today</span></button>
+    <button class="nav-btn" onclick="navigate('gita')"><span>📖</span><span>Gita</span></button>
+    <button class="nav-btn" onclick="navigate('panchang')"><span>🗓️</span><span>Panchang</span></button>
+    <button class="nav-btn" onclick="navigate('japa')"><span>📿</span><span>Japa</span></button>
+    <button class="nav-btn" onclick="navigate('game')"><span>🎯</span><span>Game</span></button>
+    <button class="nav-btn" onclick="navigate('diary')"><span>📔</span><span>Diary</span></button>
+    <button class="nav-btn" onclick="navigate('stats')"><span>📊</span><span>Stats</span></button>
   </nav>
 
-  <!-- SCRIPT ENGINE -->
+  <div id="toastBox" class="toast">Action Saved</div>
+
   <script>
-    // Storage Safety Helpers
-    function safeGet(key, def) {
-      try { return localStorage.getItem(key) || def; } catch(e) { return def; }
-    }
-    function safeSet(key, val) {
-      try { localStorage.setItem(key, val); } catch(e) {}
-    }
+    /* =====================================================================
+       MADHAVPATH JAVASCRIPT CORE ENGINE (CUSTOMIZABLE ROUTINE & EXPANDED STATS)
+       ===================================================================== */
 
-    // MULTI-LANGUAGE DICTIONARY
-    var I18N = {
-      en: {
-        tasks: ["Brahma Muhurta wake-up (4:30 AM)", "Snan & Surya Arghya", "Sattvic Diet Resolution", "1 Round Nama Japa", "Srimad Bhagavad Gita Study", "Evening Reflection (Ratri Chintan)"],
-        mean: "You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction.",
-        translit: "karmaṇyevādhikāraste mā phaleṣu kadācana | mā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||"
-      },
-      hi: {
-        tasks: ["ब्रह्म मुहूर्त जागरण (4:30 AM)", "स्नान एवं सूर्य अर्घ्य", "सात्विक आहार संकल्प", "१ माला नाम जप", "श्रीमद्भगवद्गीता स्वाध्याय", "संध्या चिंतन एवं कृतज्ञता"],
-        mean: "कर्म करने में ही तुम्हारा अधिकार है, उसके फलों में कभी नहीं। न तुम कर्मफल के हेतु बनो और न ही कर्म न करने में तुम्हारी आसक्ति हो।",
-        translit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन। मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥"
-      },
-      kn: {
-        tasks: ["ಬ್ರಾಹ್ಮೀ ಮುಹೂರ್ತ ಜಾಗರಣ (4:30 AM)", "ಸ್ನಾನ ಮತ್ತು ಸೂರ್ಯಾರ್ಘ್ಯ", "ಸಾತ್ವಿಕ ಆಹಾರ ಸಂಕಲ್ಪ", "೧ ಮಾಲೆ ನಾಮ ಜಪ", "ಭಗವದ್ಗೀತಾ ಅಧ್ಯಯನ", "ರಾತ್ರಿ ಚಿಂತನೆ ಮತ್ತು ಕೃತಜ್ಞತೆ"],
-        mean: "ಕರ್ಮದಲ್ಲೇ ನಿನಗೆ ಅಧಿಕಾರ, ಫಲಗಳಲ್ಲಿ ಎಂದಿಗೂ ಬೇಡ. ನೀನು ಕರ್ಮಫಲಕ್ಕೆ ಕಾರಣನಾಗಬೇಡ, ಹಾಗೆಯೇ ಕರ್ಮ ಮಾಡದಿರುವುದರಲ್ಲಿ ನಿನಗೆ ಆಸಕ್ತಿಯೂ ಇರದಿರಲಿ.",
-        translit: "ಕರ್ಮಣ್ಯೇವಾಧಿಕಾರಸ್ತೇ ಮಾ ಫಲೇಷು ಕದಾಚನ"
-      },
-      mr: {
-        tasks: ["ब्राह्म मुहूर्त जागरण (4:30 AM)", "स्नान आणि सूर्य अर्घ्य", "सात्त्विक आहार संकल्प", "१ माळ नामजप", "श्रीमद्भगवद्गीता स्वाध्याय", "रात्रीचे आत्मचिंतन"],
-        mean: "कर्म करण्यातच तुझा अधिकार आहे, फळांवर कधीही नाही. तू कर्मफळाचे कारण होऊ नकोस आणि कर्म न करण्यातही तुझी आसक्ती नसावी.",
-        translit: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन"
-      },
-      te: {
-        tasks: ["బ్రాహ్మీ ముహూర్త జాగరణ (4:30 AM)", "స్నానం మరియు సూర్యార్ఘ్యం", "సాత్విక ఆహార సంకల్పం", "౧ మాల నామ జపం", "శ్రీమద్భగవద్గీత పఠనం", "రాత్రి ఆత్మపరిశీలన"],
-        mean: "కర్మలందు మాత్రమే నీకు అధికారము కలదు, ఫలములందు ఎన్నడూ లేదు. కర్మఫలమునకు నీవు కారణము కాకూడదు.",
-        translit: "కర్మణ్యేవాధికారస్తే మా ఫలేషు కదాచన"
-      },
-      ta: {
-        tasks: ["பிரம்ம முகூர்த்த விழிப்பு (4:30 AM)", "நீராடல் & சூரிய அர்க்கியம்", "சாத்வீக உணவு சங்கல்பம்", "1 மாலை நாம ஜபம்", "பகவத் கீதை பாராயணம்", "இரவு சிந்தனை மற்றும் நன்றி"],
-        mean: "கடமையைச் செய்யவே உனக்கு உரிமை உண்டு, அதன் பலனில் ஒருபோதும் இல்லை. பலனுக்கு நீ காரணமாகி விடாதே.",
-        translit: "கர்மண்யேவாதிகாரஸ்தே மா பலேஷு கதாசன"
-      }
-    };
-
-    var GITA_CHAPTERS = [
-      { num: 1, name: "Arjuna Vishada Yoga", verses: 47, desc: "Arjuna's despondency upon seeing relatives, teachers, and friends arrayed for battle." },
-      { num: 2, name: "Sankhya Yoga", verses: 72, desc: "The immortal Soul (Atman), Nishkama Karma Yoga (selfless action), and the steady intellect (Sthitaprajna)." },
-      { num: 3, name: "Karma Yoga", verses: 43, desc: "The performance of duty without selfish desires as a consecrated offering." },
-      { num: 4, name: "Jnana Karma Sanyasa Yoga", verses: 42, desc: "Divine incarnation, the lineage of sacred wisdom, and knowledge as a purifying fire." },
-      { num: 5, name: "Karma Sanyasa Yoga", verses: 29, desc: "True renunciation through action performed with dedicated detachment." },
-      { num: 6, name: "Dhyana Yoga", verses: 47, desc: "Meditation, stillness of mind, and the mastery of the wandering senses." },
-      { num: 7, name: "Jnana Vijnana Yoga", verses: 30, desc: "Knowledge of Ultimate Reality and loving refuge in the Supreme." },
-      { num: 8, name: "Akshara Brahma Yoga", verses: 28, desc: "Attaining the Supreme Divine Person through steady remembrance at departure." },
-      { num: 9, name: "Raja Vidya Raja Guhya Yoga", verses: 34, desc: "The sovereign secret, sovereign science, and the unfailing shelter of devotion." },
-      { num: 10, name: "Vibhuti Yoga", verses: 42, desc: "The divine opulences and cosmic manifestations of Bhagavan Sri Krishna." },
-      { num: 11, name: "Vishwarupa Darshana Yoga", verses: 55, desc: "The awe-inspiring revelation of the Universal Cosmic Form to Arjuna." },
-      { num: 12, name: "Bhakti Yoga", verses: 20, desc: "The direct path of loving surrender and virtues dearest to Sri Krishna." },
-      { num: 13, name: "Kshetra Kshetragya Vibhaga Yoga", verses: 35, desc: "The field of the body and the Supreme Knower of the Field (Consciousness)." },
-      { num: 14, name: "Gunatraya Vibhaga Yoga", verses: 27, desc: "The three modes of material nature: Sattva, Rajas, and Tamas." },
-      { num: 15, name: "Purushottama Yoga", verses: 20, desc: "The upside-down sacred tree and the Supreme Person beyond creation." },
-      { num: 16, name: "Daivasura Sampad Vibhaga Yoga", verses: 24, desc: "The divine virtues versus harmful, egoistic, and demoniac tendencies." },
-      { num: 17, name: "Shraddhatraya Vibhaga Yoga", verses: 28, desc: "The threefold division of faith, food, sacrifice, and penance." },
-      { num: 18, name: "Moksha Sanyasa Yoga", verses: 78, desc: "The culmination of wisdom: total surrender, liberation, and ultimate peace." }
+    var DEFAULT_HABITS = [
+      { id: 'h1', title: 'Brahma Muhurta wake-up (4:30 AM)', xp: 25, done: false, isCustom: false },
+      { id: 'h2', title: 'Snan & Surya Arghya', xp: 15, done: false, isCustom: false },
+      { id: 'h3', title: 'Sattvic Diet Resolution', xp: 15, done: false, isCustom: false },
+      { id: 'h4', title: '1 Round Sacred Nama Japa', xp: 20, done: false, isCustom: false },
+      { id: 'h5', title: 'Srimad Bhagavad Gita Study', xp: 20, done: false, isCustom: false },
+      { id: 'h6', title: 'Evening Reflection (Ratri Chintan)', xp: 15, done: false, isCustom: false }
     ];
 
-    var ALL_CHAPTER_VERSES = {
-      "1_1": {
-        san: "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥",
-        translit: "dharmakṣetre kurukṣetre samavetā yuyutsavaḥ |\nmāmakāḥ pāṇḍavāścaiva kimakurvata sañjaya ||",
-        mean: "Dhritarashtra said: O Sanjaya, assembled on the holy land of Kurukshetra, desiring to fight, what did my sons and the sons of Pandu do?"
-      },
-      "2_1": {
-        san: "तं तथा कृपयाविष्टमश्रुपूर्णाकुलेक्षणम्।\nविषीदन्तमिदं वाक्यमुवाच मधुसूदनः॥",
-        translit: "taṁ tathā kṛpayāviṣṭam aśru-pūrṇākulekṣaṇam |\nviṣīdantam idaṁ vākyam uvāca madhusūdanaḥ ||",
-        mean: "Sanjaya said: Seeing Arjuna full of compassion, his mind depressed, and eyes full of tears, Sri Krishna spoke these words."
-      },
-      "2_47": {
-        san: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
-        translit: "karmaṇyevādhikāraste mā phaleṣu kadācana |\nmā karmaphalaheturbhūrmā te saṅgo'stvakarmaṇi ||",
-        mean: "You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction."
-      },
-      "3_1": {
-        san: "ज्यायसी चेत्कर्मणस्ते मता बुद्धिर्जनार्दन।\nतत्किं कर्मणि घोरे मां नियोजयसि केशव॥",
-        translit: "jyāyasī cet karmaṇas te matā buddhir janārdana |\ntat kiṁ karmaṇi ghore māṁ niyojayasi keśava ||",
-        mean: "Arjuna said: If You consider intellect superior to action, O Janardana, why do You urge me into this terrible battle, O Keshava?"
-      },
-      "3_19": {
-        san: "तस्मादसक्तः सततं कार्यं कर्म समाचर।\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः॥",
-        translit: "tasmād asaktaḥ satataṁ kāryaṁ karma samācara |\nasakto hy ācaran karma param āpnoti pūruṣaḥ ||",
-        mean: "Therefore, without attachment to personal gain, constantly perform your prescribed duties. Working without attachment leads one to the Supreme."
-      },
-      "4_1": {
-        san: "इमं विवस्वते योगं प्रोक्तवानहमव्ययम्।\nविवस्वान्मनवे प्राह मनुरिक्ष्वाकवेऽब्रवीत्॥",
-        translit: "imaṁ vivasvate yogaṁ proktavān aham avyayam |\nvivasvān manave prāha manur ikṣvākave'bravīt ||",
-        mean: "The Supreme Lord said: I taught this immortal science of Yoga to Vivasvan (Sun-god); Vivasvan taught it to Manu, and Manu taught it to Ikshvaku."
-      },
-      "4_7": {
-        san: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥",
-        translit: "yadā yadā hi dharmasya glānir bhavati bhārata |\nabhyutthānam adharmasya tadātmānaṁ sṛjāmy aham ||",
-        mean: "Whenever there is a decline in righteousness, O Bharata, and a rise of unrighteousness, at that time I manifest Myself."
-      },
-      "5_1": {
-        san: "संन्यासं कर्मणां कृष्ण पुनर्योगं च शंससि।\nयच्छ्रेय एतयोरेकं तन्मे ब्रूहि सुनिश्चितम्॥",
-        translit: "sannyāsaṁ karmaṇāṁ kṛṣṇa punar yogaṁ ca śaṁsasi |\nyac chreya etayor ekaṁ tan me brūhi su-niścitam ||",
-        mean: "Arjuna said: O Krishna, You praise the renunciation of actions, and also Yoga of dedicated action. Tell me conclusively which of the two is better."
-      },
-      "6_1": {
-        san: "अनाश्रितः कर्मफलं कार्यं कर्म करोति यः।\nस संन्यासी च योगी च न निरग्निर्न चाक्रियः॥",
-        translit: "anāśritaḥ karma-phalaṁ kāryaṁ karma karoti yaḥ |\nsa sannyāsī ca yogī ca na niragnir na cākriyaḥ ||",
-        mean: "One who performs dutiful action without relying on fruits is a true sannyasi and a true yogi."
-      },
-      "18_66": {
-        san: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥",
-        translit: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja |\nahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ ||",
-        mean: "Surrender all varieties of external rituals and take refuge in Me alone. I shall deliver you from all bondage and distress; do not grieve."
-      }
+    var app = {
+      date: new Date().toISOString().slice(0, 10),
+      habits: DEFAULT_HABITS.slice(),
+      waterMl: 0,
+      bedTime: '22:30',
+      wakeTime: '06:00',
+      sleepHistory: [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5], // in hours
+      waterHistory: [2000, 2500, 2250, 2500, 1750, 2500, 0], // in ml
+      weeklyAdherence: [60, 80, 50, 100, 75, 85, 0], // in %
+      malas: 0,
+      beads: 0,
+      xp: 0,
+      diary: []
     };
 
-    var curLang = safeGet('mp_lang', 'en');
-    var tasks = [false, false, false, false, false, false];
-    try {
-      var savedT = JSON.parse(safeGet('mp_tasks', '[]'));
-      if (savedT && savedT.length === 6) {
-        for (var k = 0; k < 6; k++) tasks[k] = Boolean(savedT[k]);
-      }
-    } catch(e) {}
+    function loadState() {
+      try {
+        var saved = localStorage.getItem('MADHAV_APP_V3');
+        if (saved) {
+          var parsed = JSON.parse(saved);
+          var today = new Date().toISOString().slice(0, 10);
+          if (parsed.date !== today) {
+            // Midnight Auto-Reset
+            var doneCount = 0;
+            for (var i = 0; i < parsed.habits.length; i++) {
+              if (parsed.habits[i].done) doneCount++;
+            }
+            var pct = Math.round((doneCount / (parsed.habits.length || 1)) * 100);
 
-    var water = parseInt(safeGet('mp_water', '0'), 10) || 0;
-    var beads = parseInt(safeGet('mp_beads', '0'), 10) || 0;
-    var malas = parseInt(safeGet('mp_malas', '0'), 10) || 0;
-    var xp = parseInt(safeGet('mp_xp', '0'), 10) || 0;
-    var gameScore = 0;
+            var week = parsed.weeklyAdherence || [60, 80, 50, 100, 75, 85, 0];
+            week.shift();
+            week.push(pct);
 
-    var sprintTimer = null;
-    var sprintSeconds = 15 * 60;
-    var isSprintActive = false;
+            var waterHist = parsed.waterHistory || [2000, 2500, 2250, 2500, 1750, 2500, 0];
+            waterHist.shift();
+            waterHist.push(parsed.waterMl || 0);
 
-    // NAVIGATION
-    window.switchTab = function(id) {
-      var tabs = document.querySelectorAll('.tab');
-      for (var i = 0; i < tabs.length; i++) tabs[i].classList.remove('active');
-      var btns = document.querySelectorAll('.b-btn');
-      for (var j = 0; j < btns.length; j++) btns[j].classList.remove('active');
-      
-      var target = document.getElementById('tab-' + id);
-      if (target) target.classList.add('active');
-      
-      for (var m = 0; m < btns.length; m++) {
-        if (btns[m].getAttribute('data-tab') === id) {
-          btns[m].classList.add('active');
-          break;
-        }
-      }
-      window.stopRecite();
-      window.scrollTo(0, 0);
-    };
+            // Reset done flags for custom and default habits
+            var resetHabits = parsed.habits.map(function(h) {
+              return { id: h.id, title: h.title, xp: h.xp, done: false, isCustom: !!h.isCustom };
+            });
 
-    function bindNavButtons() {
-      var bBtns = document.querySelectorAll('.b-btn');
-      for (var b = 0; b < bBtns.length; b++) {
-        bBtns[b].addEventListener('click', function() {
-          var tabId = this.getAttribute('data-tab');
-          if (tabId) window.switchTab(tabId);
-        });
-      }
-    }
-
-    // MULTI-LANGUAGE
-    window.changeLang = function(l) {
-      curLang = l;
-      safeSet('mp_lang', l);
-      var m = document.getElementById('vMeaning');
-      if (m) m.textContent = I18N[l] ? I18N[l].mean : I18N.en.mean;
-      var t = document.getElementById('vTranslit');
-      if (t) t.textContent = I18N[l] ? I18N[l].translit : I18N.en.translit;
-      window.renderTasks();
-    };
-
-    window.renderTasks = function() {
-      var names = I18N[curLang] ? I18N[curLang].tasks : I18N.en.tasks;
-      var done = 0;
-      for (var i = 0; i < 6; i++) {
-        var el = document.getElementById('task-' + i);
-        var chk = document.getElementById('chk-' + i);
-        var tn = document.getElementById('tname-' + i);
-        if (tn) tn.textContent = names[i];
-        if (tasks[i]) {
-          done++;
-          if (el) el.classList.add('checked');
-          if (chk) chk.textContent = '☑';
-        } else {
-          if (el) el.classList.remove('checked');
-          if (chk) chk.textContent = '☐';
-        }
-      }
-      var pct = Math.round((done / 6) * 100);
-      var kt = document.getElementById('kpiTasks');
-      var kp = document.getElementById('kpiPct');
-      var rb = document.getElementById('routineBar');
-      var tb = document.getElementById('todayChartBar');
-      if (kt) kt.textContent = done + '/6';
-      if (kp) kp.textContent = pct + '%';
-      if (rb) rb.style.width = pct + '%';
-      if (tb) tb.style.height = Math.max(15, pct) + '%';
-    };
-
-    window.toggleTask = function(i) {
-      tasks[i] = !tasks[i];
-      safeSet('mp_tasks', JSON.stringify(tasks));
-      if (tasks[i]) {
-        window.chime();
-        window.addXp([25, 15, 15, 20, 20, 15][i]);
-      }
-      window.renderTasks();
-    };
-
-    window.addWater = function(v) {
-      water = Math.max(0, water + v);
-      safeSet('mp_water', water);
-      var wl = document.getElementById('waterLbl');
-      var wg = document.getElementById('waterGoal');
-      var wb = document.getElementById('waterBar');
-      var sw = document.getElementById('statsHydrationVal');
-      var sb = document.getElementById('statsHydrationBar');
-      var pct = Math.min(100, Math.round((water / 2500) * 100));
-      if (wl) wl.textContent = water + ' ml';
-      if (wg) wg.textContent = water + ' / 2500 ml';
-      if (wb) wb.style.width = pct + '%';
-      if (sw) sw.textContent = pct + '%';
-      if (sb) sb.style.width = pct + '%';
-    };
-
-    window.calcSleep = function() {
-      var b = document.getElementById('bedTime');
-      var w = document.getElementById('wakeTime');
-      if (!b || !w) return;
-      var bp = b.value.split(':');
-      var wp = w.value.split(':');
-      var diff = (parseInt(wp[0], 10) * 60 + parseInt(wp[1], 10)) - (parseInt(bp[0], 10) * 60 + parseInt(bp[1], 10));
-      if (diff < 0) diff += 1440;
-      var sl = document.getElementById('sleepLbl');
-      if (sl) sl.textContent = 'Duration: ' + Math.floor(diff / 60) + 'h ' + (diff % 60) + 'm';
-    };
-
-    window.tapBead = function() {
-      beads++;
-      window.chime();
-      if (beads >= 108) {
-        beads = 0;
-        malas++;
-        window.addXp(108);
-      }
-      safeSet('mp_beads', beads);
-      safeSet('mp_malas', malas);
-      window.renderJapa();
-    };
-
-    window.resetBead = function() {
-      beads = 0;
-      safeSet('mp_beads', 0);
-      window.renderJapa();
-    };
-
-    window.resetAllJapa = function() {
-      beads = 0;
-      malas = 0;
-      safeSet('mp_beads', 0);
-      safeSet('mp_malas', 0);
-      window.renderJapa();
-    };
-
-    window.renderJapa = function() {
-      var bn = document.getElementById('beadNum');
-      var mn = document.getElementById('malaNum');
-      var km = document.getElementById('kpiMalas');
-      var sm = document.getElementById('statsTotalMalas');
-      if (bn) bn.textContent = beads;
-      if (mn) mn.textContent = malas;
-      if (km) km.textContent = malas;
-      if (sm) sm.textContent = malas;
-    };
-
-    // SPRINT & GAME
-    window.setSprintDuration = function(m) {
-      window.resetSprint();
-      sprintSeconds = m * 60;
-      window.renderSprintDisplay();
-    };
-
-    window.toggleSprint = function() {
-      var btn = document.getElementById('sprintToggleBtn');
-      if (isSprintActive) {
-        clearInterval(sprintTimer);
-        isSprintActive = false;
-        if (btn) btn.textContent = 'Resume Sprint';
-      } else {
-        isSprintActive = true;
-        if (btn) btn.textContent = 'Pause';
-        sprintTimer = setInterval(function() {
-          if (sprintSeconds > 0) {
-            sprintSeconds--;
-            window.renderSprintDisplay();
+            app = {
+              date: today,
+              habits: resetHabits,
+              waterMl: 0,
+              bedTime: parsed.bedTime || '22:30',
+              wakeTime: parsed.wakeTime || '06:00',
+              sleepHistory: parsed.sleepHistory || [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5],
+              waterHistory: waterHist,
+              weeklyAdherence: week,
+              malas: parsed.malas || 0,
+              beads: 0,
+              xp: parsed.xp || 0,
+              diary: parsed.diary || []
+            };
+            saveState();
           } else {
-            clearInterval(sprintTimer);
-            isSprintActive = false;
-            if (btn) btn.textContent = 'Start Sprint';
-            window.chime();
-            window.addXp(50);
+            app = parsed;
           }
-        }, 1000);
-      }
-    };
-
-    window.resetSprint = function() {
-      clearInterval(sprintTimer);
-      isSprintActive = false;
-      sprintSeconds = 15 * 60;
-      var btn = document.getElementById('sprintToggleBtn');
-      if (btn) btn.textContent = 'Start Sprint';
-      window.renderSprintDisplay();
-    };
-
-    window.renderSprintDisplay = function() {
-      var m = Math.floor(sprintSeconds / 60);
-      var s = sprintSeconds % 60;
-      var d = document.getElementById('sprintTimerDisp');
-      if (d) d.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s;
-    };
-
-    window.hitTarget = function() {
-      gameScore++;
-      var gs = document.getElementById('gameScore');
-      if (gs) gs.textContent = gameScore;
-      window.chime();
-    };
-
-    window.claimGameXp = function() {
-      window.addXp(50);
-      window.chime();
-    };
-
-    window.saveNote = function() {
-      var dt = document.getElementById('diaryTxt');
-      if (!dt) return;
-      var v = dt.value.trim();
-      if (!v) return;
-      var df = document.getElementById('diaryFeed');
-      if (df) {
-        df.innerHTML = '<div style="background:#f1f5f9; border-left:3px solid #d4a345; padding:8px 10px; border-radius:6px; margin-bottom:6px; font-size:0.75rem;"><b>' + new Date().toLocaleDateString() + '</b>: ' + v + '</div>' + df.innerHTML;
-      }
-      dt.value = '';
-      window.addXp(30);
-    };
-
-    // AUDIO CHIME & SPEECH
-    window.chime = function() {
-      try {
-        var C = window.AudioContext || window.webkitAudioContext;
-        if (!C) return;
-        var ctx = new C();
-        if (ctx.state === 'suspended') ctx.resume();
-        var o = ctx.createOscillator();
-        var g = ctx.createGain();
-        o.type = 'sine';
-        o.frequency.setValueAtTime(528, ctx.currentTime);
-        g.gain.setValueAtTime(0.25, ctx.currentTime);
-        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
-        o.connect(g);
-        g.connect(ctx.destination);
-        o.start();
-        o.stop(ctx.currentTime + 0.6);
-      } catch(e) {}
-    };
-
-    window.playRecite = function(id) {
-      id = id || 'vSanskrit';
-      window.chime();
-      if (!('speechSynthesis' in window)) return;
-      window.speechSynthesis.cancel();
-      var el = document.getElementById(id);
-      if (!el) return;
-      var txt = el.textContent.replace(/[॥|।]/g, ' ');
-      var u = new SpeechSynthesisUtterance(txt);
-      u.rate = 0.82;
-      u.pitch = 1.0;
-      var voices = window.speechSynthesis.getVoices();
-      for (var i = 0; i < voices.length; i++) {
-        if (voices[i].lang.indexOf('hi') !== -1 || voices[i].lang.indexOf('sa') !== -1 || voices[i].lang.indexOf('IN') !== -1) {
-          u.voice = voices[i];
-          break;
         }
-      }
-      window.speechSynthesis.speak(u);
-    };
-
-    window.stopRecite = function() {
-      try {
-        if ('speechSynthesis' in window) window.speechSynthesis.cancel();
       } catch(e) {}
-    };
+    }
 
-    window.addXp = function(p) {
-      xp += p;
-      safeSet('mp_xp', xp);
-      var kx = document.getElementById('kpiXp');
-      if (kx) kx.textContent = xp + ' XP';
-      var t = "Sadhaka I";
-      if (xp > 500) t = "Paramahamsa 🦚";
-      else if (xp > 200) t = "Karma Yogi 🎯";
-      var tn = document.getElementById('tierName');
-      var rp = document.getElementById('statsRankPill');
-      if (tn) tn.textContent = t;
-      if (rp) rp.textContent = t;
-    };
+    function saveState() {
+      try {
+        localStorage.setItem('MADHAV_APP_V3', JSON.stringify(app));
+      } catch(e) {}
+    }
 
-    // GITA ENGINE
-    window.initGita = function() {
-      var ch = document.getElementById('gitaCh');
-      if (!ch) return;
-      ch.innerHTML = '';
-      for (var i = 0; i < GITA_CHAPTERS.length; i++) {
-        ch.innerHTML += '<option value="' + GITA_CHAPTERS[i].num + '">Chapter ' + GITA_CHAPTERS[i].num + ': ' + GITA_CHAPTERS[i].name + '</option>';
-      }
-      ch.value = "1";
-      window.onChapter(1);
-    };
-
-    window.onChapter = function(c) {
-      c = parseInt(c, 10);
-      var vr = document.getElementById('gitaVr');
-      var cd = document.getElementById('gitaChDesc');
-      var ct = document.getElementById('gitaChTitle');
-      var chObj = GITA_CHAPTERS[c - 1];
-      if (cd && chObj) cd.textContent = chObj.desc;
-      if (ct && chObj) ct.textContent = 'Chapter ' + chObj.num + ' · ' + chObj.name;
-      if (!vr || !chObj) return;
-      vr.innerHTML = '';
-      for (var i = 1; i <= chObj.verses; i++) {
-        vr.innerHTML += '<option value="' + i + '">Verse ' + i + '</option>';
-      }
-      vr.value = "1";
-      window.loadShloka();
-    };
-
-    window.loadShloka = function() {
-      var ch = document.getElementById('gitaCh');
-      var vr = document.getElementById('gitaVr');
-      if (!ch || !vr) return;
-      var c = ch.value;
-      var v = vr.value;
-      var key = c + "_" + v;
-      var defaultChKey = c + "_1";
-      var gt = document.getElementById('gitaTag');
-      var gs = document.getElementById('gitaShloka');
-      var gtr = document.getElementById('gitaTranslit');
-      var gm = document.getElementById('gitaMean');
-      if (gt) gt.textContent = 'CHAPTER ' + c + ' · VERSE ' + v;
-
-      if (ALL_CHAPTER_VERSES[key]) {
-        if (gs) gs.textContent = ALL_CHAPTER_VERSES[key].san;
-        if (gtr) gtr.textContent = ALL_CHAPTER_VERSES[key].translit;
-        if (gm) gm.textContent = ALL_CHAPTER_VERSES[key].mean;
-      } else if (ALL_CHAPTER_VERSES[defaultChKey]) {
-        if (gs) gs.textContent = ALL_CHAPTER_VERSES[defaultChKey].san;
-        if (gtr) gtr.textContent = ALL_CHAPTER_VERSES[defaultChKey].translit;
-        if (gm) gm.textContent = ALL_CHAPTER_VERSES[defaultChKey].mean;
-      } else {
-        if (gs) gs.textContent = "अध्याय " + c + " · श्लोक " + v + "\n(श्रीमद्भगवद्गीता स्वाध्याय)";
-        if (gtr) gtr.textContent = "Chapter " + c + ", Verse " + v;
-        if (gm) gm.textContent = "Meditate upon the divine wisdom of Bhagavan Sri Krishna.";
-      }
-    };
-
-    window.stepVr = function(d) {
-      var vr = document.getElementById('gitaVr');
-      if (!vr) return;
-      var idx = vr.selectedIndex + d;
-      if (idx >= 0 && idx < vr.options.length) {
-        vr.selectedIndex = idx;
-        window.loadShloka();
-      }
-    };
-
-    window.markGitaRead = function() {
-      window.addXp(20);
-      window.chime();
-    };
-
-    window.resetPanchangToday = function() {
-      var p = document.getElementById('pDatePick');
-      if (p) p.value = new Date().toISOString().slice(0, 10);
-      window.calcPanchang();
-    };
-
-    window.calcPanchang = function() {
-      var pt = document.getElementById('pTithiToday');
-      if (pt) pt.textContent = "कृष्ण Chaturdashi (Krishna Paksha)";
-    };
-
-    function updateClockImmediate() {
+    /* 1. CLOCK & MUHURTA */
+    function updateClock() {
       var d = new Date();
-      var c = document.getElementById('liveClock');
-      if (c) c.textContent = d.toLocaleTimeString('en-US');
-      var m = d.getHours() * 60 + d.getMinutes();
-      var mh = document.getElementById('liveMuhurta');
-      if (mh) {
-        if (m >= 270 && m <= 318) mh.textContent = "✨ Brahma Muhurta (ब्रह्म मुहूर्त)";
-        else if (m > 318 && m <= 420) mh.textContent = "🌅 Pratah Sandhya (प्रातः सन्ध्या)";
-        else if (m >= 705 && m <= 755) mh.textContent = "☀️ Abhijit Muhurta (अभिजित)";
-        else if (m >= 1020 && m <= 1110) mh.textContent = "🌆 Sayahna Sandhya (सायं सन्ध्या)";
-        else mh.textContent = "🕉️ Dhyana Vela (ध्यान वेला)";
-      }
+      var h = d.getHours();
+      var m = d.getMinutes();
+      var s = d.getSeconds();
+      var ampm = h >= 12 ? 'PM' : 'AM';
+      var hh = h % 12; hh = hh ? hh : 12;
+      document.getElementById('liveClock').textContent = 
+        '⏰ ' + String(hh).padStart(2,'0') + ':' + String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0') + ' ' + ampm;
+
+      var total = h * 60 + m;
+      var tag = document.getElementById('liveMuhurta');
+      if (total >= 270 && total < 330) tag.textContent = '✨ Brahma Muhurta';
+      else if (total >= 330 && total < 420) tag.textContent = '🌅 Pratah Sandhya';
+      else if (total >= 700 && total < 780) tag.textContent = '☀️ Abhijit Muhurta';
+      else if (total >= 1020 && total < 1110) tag.textContent = '🌄 Sayahna Sandhya';
+      else tag.textContent = '🌸 Shubha Vela';
     }
 
-    // PWA INSTALLATION TRIGGER
-    var deferredPrompt;
-    window.addEventListener('beforeinstallprompt', function(e) {
-      e.preventDefault();
-      deferredPrompt = e;
-      var b = document.getElementById('installBanner');
-      if (b) b.style.display = 'flex';
-    });
+    /* 2. TAB NAVIGATION */
+    function navigate(tabId) {
+      var views = document.querySelectorAll('.tab-view');
+      for (var i = 0; i < views.length; i++) views[i].classList.remove('active');
 
-    window.triggerAppInstall = function() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(function(choiceResult) {
-          if (choiceResult.outcome === 'accepted') {
-            var b = document.getElementById('installBanner');
-            if (b) b.style.display = 'none';
+      var btns = document.querySelectorAll('.nav-btn');
+      for (var j = 0; j < btns.length; j++) btns[j].classList.remove('active');
+
+      var target = document.getElementById('tab-' + tabId);
+      if (target) target.classList.add('active');
+
+      var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
+      var idx = tabs.indexOf(tabId);
+      if (idx !== -1 && btns[idx]) btns[idx].classList.add('active');
+
+      if (tabId === 'stats') renderStatsDashboard();
+    }
+
+    /* 3. CUSTOMIZABLE HABIT LOGIC */
+    function renderHabits() {
+      var container = document.getElementById('habitsListContainer');
+      container.innerHTML = '';
+
+      var completed = 0;
+      for (var i = 0; i < app.habits.length; i++) {
+        (function(index) {
+          var h = app.habits[index];
+          if (h.done) completed++;
+
+          var row = document.createElement('div');
+          row.className = 'task-row';
+
+          var check = document.createElement('input');
+          check.type = 'checkbox';
+          check.className = 'task-check';
+          check.checked = h.done;
+          check.onchange = function() { toggleHabit(index); };
+
+          var text = document.createElement('span');
+          text.className = 'task-title' + (h.done ? ' task-done' : '');
+          text.textContent = h.title;
+
+          var xp = document.createElement('span');
+          xp.className = 'task-xp';
+          xp.textContent = '+' + h.xp + ' XP';
+
+          row.appendChild(check);
+          row.appendChild(text);
+          row.appendChild(xp);
+
+          if (h.isCustom) {
+            var del = document.createElement('button');
+            del.className = 'del-btn';
+            del.innerHTML = '🗑️';
+            del.onclick = function() { deleteCustomHabit(index); };
+            row.appendChild(del);
           }
-          deferredPrompt = null;
-        });
+
+          container.appendChild(row);
+        })(i);
       }
+
+      var total = app.habits.length;
+      var pct = Math.round((completed / (total || 1)) * 100);
+
+      document.getElementById('kpiTasks').textContent = completed + '/' + total;
+      document.getElementById('kpiAdherence').textContent = pct + '%';
+      document.getElementById('kpiMalas').textContent = app.malas;
+      document.getElementById('kpiXp').textContent = app.xp + ' XP';
+    }
+
+    function toggleHabit(idx) {
+      app.habits[idx].done = !app.habits[idx].done;
+      if (app.habits[idx].done) {
+        app.xp += app.habits[idx].xp;
+        playTone();
+        showToast('+' + app.habits[idx].xp + ' Karma XP Earned!');
+      } else {
+        app.xp = Math.max(0, app.xp - app.habits[idx].xp);
+      }
+      saveState();
+      renderHabits();
+    }
+
+    function toggleAddHabitDrawer() {
+      var d = document.getElementById('addHabitDrawer');
+      d.style.display = d.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function addNewHabit() {
+      var titleInput = document.getElementById('newHabitTitle');
+      var xpInput = document.getElementById('newHabitXp');
+      var title = titleInput.value.trim();
+      var xp = parseInt(xpInput.value) || 15;
+
+      if (!title) {
+        showToast('Please enter a habit title');
+        return;
+      }
+
+      app.habits.push({
+        id: 'cust_' + Date.now(),
+        title: title,
+        xp: xp,
+        done: false,
+        isCustom: true
+      });
+
+      titleInput.value = '';
+      document.getElementById('addHabitDrawer').style.display = 'none';
+      saveState();
+      renderHabits();
+      showToast('Custom Habit Added!');
+    }
+
+    function deleteCustomHabit(idx) {
+      app.habits.splice(idx, 1);
+      saveState();
+      renderHabits();
+      showToast('Habit removed');
+    }
+
+    /* 4. HYDRATION & SLEEP */
+    function adjustWater(amount) {
+      app.waterMl = Math.max(0, (app.waterMl || 0) + amount);
+      if (amount > 0) app.xp += 5;
+      saveState();
+      renderWater();
+    }
+
+    function renderWater() {
+      var ml = app.waterMl || 0;
+      document.getElementById('waterAmount').textContent = ml + ' ml';
+      document.getElementById('waterGoal').textContent = ml + ' / 2500 ml';
+      var pct = Math.min(100, Math.round((ml / 2500) * 100));
+      document.getElementById('waterBar').style.width = pct + '%';
+    }
+
+    function recordSleep() {
+      app.bedTime = document.getElementById('bedTime').value;
+      app.wakeTime = document.getElementById('wakeTime').value;
+
+      var b = app.bedTime.split(':');
+      var w = app.wakeTime.split(':');
+      var diffMins = (parseInt(w[0])*60 + parseInt(w[1])) - (parseInt(b[0])*60 + parseInt(b[1]));
+      if (diffMins < 0) diffMins += 24 * 60;
+
+      var hours = Math.floor(diffMins / 60);
+      var mins = diffMins % 60;
+      document.getElementById('sleepDuration').textContent = hours + 'h ' + mins + 'm Rest';
+
+      var exactHours = parseFloat((diffMins / 60).toFixed(1));
+      if (!app.sleepHistory) app.sleepHistory = [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5];
+      app.sleepHistory[app.sleepHistory.length - 1] = exactHours;
+
+      saveState();
+    }
+
+    /* 5. GITA CHAPTER ENGINE */
+    var CHAPTER_VERSES = {
+      1: { s: "धृतराष्ट्र उवाच |\nधर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः |\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय || १ ||", t: "dhṛtarāṣhṭra uvācha | dharma-kṣhetre kuru-kṣhetre...", m: "Dhritarashtra said: O Sanjaya, assembled on the sacred field of Kurukshetra, desirous of fighting, what did my sons and the Pandavas do?" },
+      2: { s: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि || ४७ ||", t: "karmaṇy-evādhikāras te mā phaleṣhu kadāchana...", m: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. Never consider yourself the cause of results." },
+      3: { s: "तस्मादसक्तः सततं कार्यं कर्म समाचर |\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः || १९ ||", t: "tasmād asaktaḥ satataṁ kāryaṁ karma samāchara...", m: "Therefore, unattached, continually perform the duty that should be done; for performing work without attachment, man reaches the Supreme." },
+      4: { s: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत |\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम् || ७ ||", t: "yadā yadā hi dharmasya glānir bhavati bhārata...", m: "Whenever there is a decline of righteousness, O Bharata, and an increase of unrighteousness, then I manifest Myself." },
+      6: { s: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत् |\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः || ५ ||", t: "uddhared ātmanātmānaṁ nātmānam avasādayet...", m: "Let a man lift himself by his own self; let him not degrade himself. For the self alone is the friend of oneself, and the self alone is the enemy of oneself." },
+      18: { s: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज |\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः || ६६ ||", t: "sarva-dharmān parityajya mām ekaṁ śharaṇaṁ vraja...", m: "Abandon all varieties of dharmas and simply surrender unto Me alone. I shall liberate you from all sinful reactions; do not grieve." }
     };
 
-    // SERVICE WORKER REGISTRATION
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js').catch(function() {});
-      });
+    function loadChapter(num) {
+      var n = parseInt(num);
+      var verse = CHAPTER_VERSES[n] || CHAPTER_VERSES[2];
+      document.getElementById('gitaSanskrit').textContent = verse.s;
+      document.getElementById('gitaTranslit').textContent = verse.t;
+      document.getElementById('gitaMeaning').textContent = verse.m;
+      document.getElementById('gitaChLabel').textContent = 'Chapter ' + n;
     }
 
-    // INITIALIZATION RUNNER
-    updateClockImmediate();
-    setInterval(updateClockImmediate, 1000);
+    function claimGitaStudyXp() {
+      app.xp += 25;
+      saveState();
+      playTone();
+      showToast('+25 XP: Chapter Studied');
+      renderHabits();
+    }
 
-    var ls = document.getElementById('langSel');
-    if (ls) ls.value = curLang;
-    window.renderTasks();
-    window.addWater(0);
-    window.calcSleep();
-    window.renderJapa();
-    window.addXp(0);
-    window.initGita();
-    window.resetPanchangToday();
-    bindNavButtons();
+    /* 6. JAPA */
+    function countBead() {
+      app.beads = (app.beads || 0) + 1;
+      playBeadClick();
+      if (app.beads >= 108) {
+        app.beads = 0;
+        app.malas = (app.malas || 0) + 1;
+        app.xp += 50;
+        playTone();
+        showToast('📿 1 Mala Complete! (+50 XP)');
+      }
+      saveState();
+      renderJapa();
+      renderHabits();
+    }
+
+    function resetBeads() {
+      app.beads = 0;
+      saveState();
+      renderJapa();
+    }
+
+    function finishMala() {
+      app.beads = 0;
+      app.malas = (app.malas || 0) + 1;
+      app.xp += 50;
+      playTone();
+      saveState();
+      renderJapa();
+      renderHabits();
+      showToast('📿 Mala Completed (+50 XP)');
+    }
+
+    function renderJapa() {
+      document.getElementById('japaBeads').textContent = app.beads || 0;
+      document.getElementById('japaMalaCount').textContent = 'Mala: ' + (app.malas || 0);
+    }
+
+    /* 7. FOCUS GAME */
+    var sprintTimer = null;
+    function startFocusSprint() {
+      var sec = 30;
+      var el = document.getElementById('sprintCountdown');
+      var btn = document.getElementById('sprintBtn');
+      btn.style.display = 'none';
+
+      sprintTimer = setInterval(function() {
+        sec--;
+        el.textContent = sec + 's Focus';
+        if (sec <= 0) {
+          clearInterval(sprintTimer);
+          el.textContent = 'Sprint Complete! 🎯';
+          btn.style.display = 'inline-flex';
+          app.xp += 25;
+          saveState();
+          playTone();
+          renderHabits();
+          showToast('+25 XP: Focus Sprint Mastered');
+        }
+      }, 1000);
+    }
+
+    function tapGameEye() {
+      playBeadClick();
+      showToast('Mind Centered 🎯');
+    }
+
+    /* 8. DIARY */
+    function saveDiary() {
+      var txt = document.getElementById('diaryInput').value.trim();
+      if (!txt) return;
+      if (!app.diary) app.diary = [];
+      app.diary.unshift({ date: new Date().toLocaleDateString(), text: txt });
+      app.xp += 15;
+      saveState();
+      document.getElementById('diaryInput').value = '';
+      renderDiary();
+      showToast('Reflections Saved (+15 XP)');
+      renderHabits();
+    }
+
+    function renderDiary() {
+      var container = document.getElementById('diaryLogs');
+      container.innerHTML = '';
+      if (!app.diary || app.diary.length === 0) {
+        container.innerHTML = '<p style="font-size:0.8rem; color:var(--muted);">No reflection entries yet.</p>';
+        return;
+      }
+      for (var i = 0; i < Math.min(4, app.diary.length); i++) {
+        var d = document.createElement('div');
+        d.style.cssText = 'background:#faf6ee; border-left:3px solid var(--gold); padding:8px 10px; margin-bottom:6px; border-radius:0 8px 8px 0; font-size:0.82rem;';
+        d.innerHTML = '<strong>' + app.diary[i].date + '</strong>: ' + app.diary[i].text;
+        container.appendChild(d);
+      }
+    }
+
+    /* 9. EXPANDED STATISTICS DASHBOARD */
+    function renderStatsDashboard() {
+      var chart = document.getElementById('statsChartBars');
+      chart.innerHTML = '';
+      var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+      var adherence = app.weeklyAdherence || [60, 80, 50, 100, 75, 85, 0];
+
+      for (var i = 0; i < 7; i++) {
+        var wrap = document.createElement('div');
+        wrap.className = 'chart-bar-wrap';
+
+        var val = adherence[i] || 0;
+        var fill = document.createElement('div');
+        fill.className = 'chart-bar-fill';
+        fill.style.height = Math.max(6, val) + '%';
+
+        var lbl = document.createElement('div');
+        lbl.className = 'chart-day';
+        lbl.textContent = days[i];
+
+        wrap.appendChild(fill);
+        wrap.appendChild(lbl);
+        chart.appendChild(wrap);
+      }
+
+      // Calculate Weekly Avg Sleep
+      var sleepArr = app.sleepHistory || [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5];
+      var sleepSum = 0;
+      for (var s = 0; s < sleepArr.length; s++) sleepSum += sleepArr[s];
+      var avgSleep = (sleepSum / sleepArr.length).toFixed(1);
+      document.getElementById('statAvgSleep').textContent = avgSleep + ' hrs / night';
+
+      // Calculate Weekly Avg Hydration
+      var waterArr = app.waterHistory || [2000, 2500, 2250, 2500, 1750, 2500, app.waterMl || 0];
+      var waterSum = 0;
+      for (var w = 0; w < waterArr.length; w++) waterSum += waterArr[w];
+      var avgWater = Math.round(waterSum / waterArr.length);
+      document.getElementById('statAvgWater').textContent = avgWater + ' ml / day';
+
+      document.getElementById('statTotalMalas').textContent = app.malas || 0;
+
+      var tier = (app.xp > 600) ? 'Paramahamsa (परमहंस)' : (app.xp > 250) ? 'Karma Yogi (योगी)' : 'Sadhaka I';
+      document.getElementById('statTier').textContent = tier;
+    }
+
+    /* 10. AUDIO SOUNDS */
+    var actx = null;
+    function getAudio() {
+      if (!actx) actx = new (window.AudioContext || window.webkitAudioContext)();
+      return actx;
+    }
+
+    function playTone() {
+      try {
+        var ctx = getAudio();
+        if (ctx.state === 'suspended') ctx.resume();
+        var osc = ctx.createOscillator();
+        var g = ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.6);
+        g.gain.setValueAtTime(0.3, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.9);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.9);
+      } catch(e) {}
+    }
+
+    function playBeadClick() {
+      try {
+        var ctx = getAudio();
+        if (ctx.state === 'suspended') ctx.resume();
+        var osc = ctx.createOscillator();
+        var g = ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(340, ctx.currentTime);
+        g.gain.setValueAtTime(0.12, ctx.currentTime);
+        g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+        osc.connect(g);
+        g.connect(ctx.destination);
+        osc.start();
+        osc.stop(ctx.currentTime + 0.08);
+      } catch(e) {}
+    }
+
+    function playVerseAudio(text) {
+      playTone();
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel();
+        var u = new SpeechSynthesisUtterance(text);
+        u.rate = 0.85;
+        window.speechSynthesis.speak(u);
+        showToast('Reciting...');
+      }
+    }
+
+    function reciteGitaChapter() {
+      var s = document.getElementById('gitaSanskrit').textContent;
+      playVerseAudio(s);
+    }
+
+    function showToast(msg) {
+      var t = document.getElementById('toastBox');
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(function() { t.style.display = 'none'; }, 2200);
+    }
+
+    function switchLanguage(lang) {
+      showToast('Language set to ' + lang.toUpperCase());
+    }
+
+    /* INITIALIZATION */
+    window.onload = function() {
+      loadState();
+      updateClock();
+      setInterval(updateClock, 1000);
+      renderHabits();
+      renderWater();
+      renderDiary();
+      recordSleep();
+    };
   </script>
 </body>
 </html>
