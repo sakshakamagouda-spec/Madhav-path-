@@ -7,95 +7,6 @@
 <meta name="theme-color" content="#0a1931">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-​<!-- AUTOMATIC CACHE-PURGER & INSTANT ENGINE -->
-<script>
-try {
-if ('serviceWorker' in navigator) {
-navigator.serviceWorker.getRegistrations().then(function(regs) {
-for (var i = 0; i < regs.length; i++) regs[i].unregister();
-});
-}
-if ('caches' in window) {
-caches.keys().then(function(keys) {
-for (var i = 0; i < keys.length; i++) caches.delete(keys[i]);
-});
-}
-} catch(e) {}
-​function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
-function setStore(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
-​window.tick = function() {
-try {
-var d = new Date();
-var h = d.getHours();
-var m = d.getMinutes();
-var s = d.getSeconds();
-var ampm = h >= 12 ? 'PM' : 'AM';
-var hh = h % 12; hh = hh ? hh : 12;
-var timeStr = (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + ' ' + ampm;
-var el = document.getElementById('liveClock');
-if (el) el.textContent = timeStr;
-​var mins = h * 60 + m;
-var mh = document.getElementById('liveMuhurta');
-if (mh) {
-if (mins >= 270 && mins <= 318) mh.textContent = "✨ Brahma Muhurta";
-else if (mins > 318 && mins <= 420) mh.textContent = "🌅 Pratah Sandhya";
-else if (mins >= 705 && mins <= 755) mh.textContent = "☀️ Abhijit Muhurta";
-else if (mins >= 1020 && mins <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
-else mh.textContent = "🕉️ Dhyana Vela";
-}
-} catch(e) {}
-};
-​window.switchTab = function(tabId) {
-try {
-var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
-for (var i = 0; i < tabs.length; i++) {
-var p = document.getElementById('tab-' + tabs[i]);
-var b = document.getElementById('btn-' + tabs[i]);
-if (p) p.style.display = (tabs[i] === tabId) ? 'block' : 'none';
-if (b) {
-if (tabs[i] === tabId) {
-b.style.color = '#b45309';
-b.style.fontWeight = '800';
-} else {
-b.style.color = '#64748b';
-b.style.fontWeight = '700';
-}
-}
-}
-window.stopRecite();
-window.scrollTo(0, 0);
-} catch(e) {}
-};
-​window.chime = function() {
-try {
-var C = window.AudioContext || window.webkitAudioContext;
-if (!C) return;
-var ctx = new C();
-if (ctx.state === 'suspended') ctx.resume();
-var o = ctx.createOscillator();
-var g = ctx.createGain();
-o.type = 'sine'; o.frequency.setValueAtTime(528, ctx.currentTime);
-g.gain.setValueAtTime(0.2, ctx.currentTime);
-g.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.35);
-o.connect(g); g.connect(ctx.destination);
-o.start(); o.stop(ctx.currentTime + 0.35);
-} catch(e) {}
-};
-​window.playRecite = function(id) {
-window.chime();
-if (!('speechSynthesis' in window)) return;
-window.speechSynthesis.cancel();
-var el = document.getElementById(id || 'vSanskrit');
-if (!el) return;
-var u = new SpeechSynthesisUtterance(el.textContent.replace(/[॥|।]/g, ' '));
-u.rate = 0.82;
-window.speechSynthesis.speak(u);
-};
-​window.stopRecite = function() {
-try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
-};
-​setInterval(window.tick, 1000);
-</script>
 ​<style>
 * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
 body {
@@ -146,6 +57,46 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 .progress-bar-bg { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
 .progress-bar-fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
 </style>
+​<script>
+// GLOBAL FAIL-SAFE ENGINE (CANNOT FREEZE)
+window.switchTab = function(tabId) {
+var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
+for (var i = 0; i < tabs.length; i++) {
+var p = document.getElementById('tab-' + tabs[i]);
+var b = document.getElementById('btn-' + tabs[i]);
+if (p) p.style.display = (tabs[i] === tabId) ? 'block' : 'none';
+if (b) {
+b.style.color = (tabs[i] === tabId) ? '#b45309' : '#64748b';
+b.style.fontWeight = (tabs[i] === tabId) ? '800' : '600';
+}
+}
+try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e) {}
+window.scrollTo(0, 0);
+};
+​window.tick = function() {
+try {
+var d = new Date();
+var h = d.getHours();
+var m = d.getMinutes();
+var s = d.getSeconds();
+var ampm = h >= 12 ? 'PM' : 'AM';
+var hh = h % 12; hh = hh ? hh : 12;
+var timeStr = (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s + ' ' + ampm;
+var el = document.getElementById('liveClock');
+if (el) el.textContent = timeStr;
+​var mins = h * 60 + m;
+var mh = document.getElementById('liveMuhurta');
+if (mh) {
+if (mins >= 270 && mins <= 318) mh.textContent = "✨ Brahma Muhurta";
+else if (mins > 318 && mins <= 420) mh.textContent = "🌅 Pratah Sandhya";
+else if (mins >= 705 && mins <= 755) mh.textContent = "☀️ Abhijit Muhurta";
+else if (mins >= 1020 && mins <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
+else mh.textContent = "🕉️ Dhyana Vela";
+}
+} catch(e) {}
+};
+​setInterval(window.tick, 1000);
+</script>
 </head>
 <body>
 ​<!-- HEADER -->
@@ -162,8 +113,8 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 </select>
 </div>
 <div class="clock-container">
-<span id="liveClock" class="clock-display">--:--:--</span>
-<span id="liveMuhurta" class="muhurta-pill">✨ Brahma Muhurta</span>
+<span id="liveClock" class="clock-display">12:00:00 PM</span>
+<span id="liveMuhurta" class="muhurta-pill">🕉️ Dhyana Vela</span>
 </div>
 </header>
 <script>window.tick();</script>
@@ -440,9 +391,11 @@ box-shadow: 0 4px 16px rgba(10, 25, 49, 0.35);
 <button id="btn-diary" onclick="window.switchTab('diary')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">📔</span><span>Diary</span></button>
 <button id="btn-stats" onclick="window.switchTab('stats')" style="flex:1; background:none; border:none; display:flex; flex-direction:column; align-items:center; justify-content:center; padding:4px 1px; cursor:pointer; color:#64748b; font-size:10px; font-weight:700; touch-action:manipulation;"><span style="font-size:19px; line-height:1.1; display:block;">📊</span><span>Stats</span></button>
 </nav>
-​<!-- APP ENGINE DATA & ACTIONS -->
+​<!-- APP ENGINE SCRIPT -->
 <script>
-var coreTasks = [
+function getStore(k, d) { try { var v = localStorage.getItem(k); return v !== null ? v : d; } catch(e) { return d; } }
+function setStore(k, v) { try { localStorage.setItem(k, v); } catch(e) {} }
+​var coreTasks = [
 { name: "Brahma Muhurta wake-up (4:30 AM)", xp: 25, done: false },
 { name: "Snan & Surya Arghya", xp: 15, done: false },
 { name: "Sattvic Diet Resolution", xp: 15, done: false },
@@ -470,14 +423,14 @@ if (row) {
 if (coreTasks[idx].done) row.classList.add('checked');
 else row.classList.remove('checked');
 }
-if (coreTasks[idx].done) { window.chime(); window.addXp(coreTasks[idx].xp); }
+if (coreTasks[idx].done) { window.addXp(coreTasks[idx].xp); }
 window.updateRoutineStats();
 };
 ​window.toggleCustomTask = function(cIdx) {
 if (!customTasks[cIdx]) return;
 customTasks[cIdx].done = !customTasks[cIdx].done;
 setStore('mp_custom_tasks', JSON.stringify(customTasks));
-if (customTasks[cIdx].done) { window.chime(); window.addXp(20); }
+if (customTasks[cIdx].done) { window.addXp(20); }
 window.renderCustomTasks();
 window.updateRoutineStats();
 };
@@ -489,7 +442,6 @@ if (!title) return;
 customTasks.push({ id: Date.now(), name: title, done: false });
 setStore('mp_custom_tasks', JSON.stringify(customTasks));
 inp.value = '';
-window.chime();
 window.renderCustomTasks();
 window.updateRoutineStats();
 };
@@ -558,7 +510,6 @@ if (sl) sl.textContent = 'Duration: ' + hrs + 'h ' + mins + 'm';
 };
 ​window.tapBead = function() {
 beads++;
-window.chime();
 if (beads >= 108) { beads = 0; malas++; window.addXp(108); }
 setStore('mp_beads', beads); setStore('mp_malas', malas);
 window.renderJapa();
@@ -586,14 +537,14 @@ isSprintActive = true;
 if (btn) btn.textContent = 'Pause';
 sprintTimer = setInterval(function() {
 if (sprintSeconds > 0) { sprintSeconds--; window.renderSprintDisplay(); }
-else { clearInterval(sprintTimer); isSprintActive = false; if (btn) btn.textContent = 'Start Sprint'; window.chime(); window.addXp(50); }
+else { clearInterval(sprintTimer); isSprintActive = false; if (btn) btn.textContent = 'Start Sprint'; window.addXp(50); }
 }, 1000);
 }
 };
 window.resetSprint = function() { clearInterval(sprintTimer); isSprintActive = false; sprintSeconds = 15 * 60; var btn = document.getElementById('sprintToggleBtn'); if (btn) btn.textContent = 'Start Sprint'; window.renderSprintDisplay(); };
 window.renderSprintDisplay = function() { var m = Math.floor(sprintSeconds / 60); var s = sprintSeconds % 60; var d = document.getElementById('sprintTimerDisp'); if (d) d.textContent = (m < 10 ? '0' : '') + m + ':' + (s < 10 ? '0' : '') + s; };
-​window.hitTarget = function() { gameScore++; var gs = document.getElementById('gameScore'); if (gs) gs.textContent = gameScore; window.chime(); };
-window.claimGameXp = function() { window.addXp(50); window.chime(); };
+​window.hitTarget = function() { gameScore++; var gs = document.getElementById('gameScore'); if (gs) gs.textContent = gameScore; };
+window.claimGameXp = function() { window.addXp(50); };
 ​window.saveNote = function() {
 var dt = document.getElementById('diaryTxt');
 if (!dt) return;
@@ -612,6 +563,20 @@ var tn = document.getElementById('tierName');
 var rp = document.getElementById('statsRankPill');
 if (tn) tn.textContent = t;
 if (rp) rp.textContent = t;
+};
+​window.playRecite = function(id) {
+try {
+if (!('speechSynthesis' in window)) return;
+window.speechSynthesis.cancel();
+var el = document.getElementById(id || 'vSanskrit');
+if (!el) return;
+var u = new SpeechSynthesisUtterance(el.textContent.replace(/[॥|।]/g, ' '));
+u.rate = 0.82;
+window.speechSynthesis.speak(u);
+} catch(e) {}
+};
+​window.stopRecite = function() {
+try { if ('speechSynthesis' in window) window.speechSynthesis.cancel(); } catch(e) {}
 };
 ​var GITA_CHAPTERS = [
 { num: 1, name: "Arjuna Vishada", verses: 47, desc: "Despondency upon seeing revered elders arrayed for battle." },
@@ -716,8 +681,8 @@ vr.selectedIndex = idx;
 window.loadShloka();
 }
 };
-​window.markGitaRead = function() { window.addXp(20); window.chime(); };
-​// INITIALIZATION
+​window.markGitaRead = function() { window.addXp(20); };
+​// INITIALIZE ALL
 window.renderCustomTasks();
 window.updateRoutineStats();
 window.renderJapa();
