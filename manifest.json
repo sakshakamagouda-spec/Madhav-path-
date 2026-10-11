@@ -1,17 +1,24 @@
 {
-  "name": "MadhavPath · Devotion & Discipline",
+  "name": "MadhavPath · Devotion, Discipline & Wisdom",
   "short_name": "MadhavPath",
   "description": "Daily Devotion, Discipline & Vedic Wisdom",
   "start_url": "./index.html",
+  "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "orientation": "portrait-primary",
   "background_color": "#0a1931",
   "theme_color": "#0a1931",
   "icons": [
     {
-      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='50' fill='%230a1931'/><text x='50' y='65' font-size='50' text-anchor='middle'>🦚</text></svg>",
-      "sizes": "192x192 512x512",
-      "type": "image/svg+xml",
+      "src": "https://img.icons8.com/color/192/peacock.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://img.icons8.com/color/512/peacock.png",
+      "sizes": "512x512",
+      "type": "image/png",
       "purpose": "any maskable"
     }
   ]
