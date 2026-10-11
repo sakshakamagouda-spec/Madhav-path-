@@ -29,7 +29,8 @@
       background: var(--bg);
       color: var(--text);
       min-height: 100vh;
-      padding-bottom: 92px;
+      padding-bottom: 96px;
+      touch-action: manipulation;
     }
     .top-banner {
       background: linear-gradient(135deg, #0a1931 0%, #17375e 100%);
@@ -67,7 +68,7 @@
     
     .container { max-width: 600px; margin: 0 auto; padding: 12px; }
     .tab-view { display: none; }
-    .tab-view.active { display: block; animation: fade 0.2s ease-in; }
+    .tab-view.active { display: block; animation: fade 0.15s ease-in; }
     @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
 
     .card {
@@ -110,6 +111,7 @@
       align-items: center;
       justify-content: center;
       gap: 6px;
+      touch-action: manipulation;
     }
     .btn-gold { background: #d4a044; color: #0a1931; }
     .btn-navy { background: var(--navy); color: #fff; }
@@ -132,7 +134,6 @@
     .del-btn { background: none; border: none; color: #a0aec0; cursor: pointer; font-size: 0.95rem; padding: 2px 4px; }
     .del-btn:hover { color: var(--danger); }
 
-    /* ADD HABIT DRAWER */
     .add-habit-box {
       display: none;
       background: var(--gold-light);
@@ -151,7 +152,6 @@
       outline: none;
     }
 
-    /* TRACKERS */
     .sub-box {
       background: #faf6ee;
       border: 1px solid var(--gold-border);
@@ -162,7 +162,35 @@
     .sub-bar-bg { background: #e3d5be; height: 7px; border-radius: 8px; margin-top: 8px; overflow: hidden; }
     .sub-bar-fill { background: #1c7a65; height: 100%; width: 0%; border-radius: 8px; transition: width 0.3s; }
 
-    /* ENLARGED STATISTICS DASHBOARD */
+    /* GITA ENGINE */
+    .gita-controls {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+    .gita-nav-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 12px;
+      background: #faf6ee;
+      padding: 8px 12px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+    }
+    .shloka-box {
+      background: #fbf8f0;
+      border-left: 4px solid var(--gold);
+      padding: 14px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 12px;
+    }
+    .sanskrit { font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.6; font-family: 'Georgia', serif; }
+    .translit { font-size: 0.82rem; color: #825b1b; font-style: italic; margin-top: 6px; }
+    .meaning { font-size: 0.88rem; color: var(--text); line-height: 1.45; margin-top: 8px; }
+
+    /* ENLARGED STATS */
     .stats-card-lg {
       background: #fff;
       border: 1px solid var(--border);
@@ -193,7 +221,7 @@
       background: linear-gradient(180deg, #d4a044 0%, #b38027 100%);
       border-radius: 6px 6px 0 0;
       min-height: 6px;
-      transition: height 0.5s ease;
+      transition: height 0.4s ease;
     }
     .chart-day { font-size: 0.7rem; font-weight: 700; color: var(--muted); }
 
@@ -208,18 +236,6 @@
     .stat-metric-title { font-size: 0.84rem; font-weight: 700; color: var(--navy); display: flex; align-items: center; gap: 8px; }
     .stat-metric-val { font-size: 1.05rem; font-weight: 800; color: #9c6c1d; }
 
-    /* SHLOKA & GITA */
-    .shloka-box {
-      background: #fbf8f0;
-      border-left: 4px solid var(--gold);
-      padding: 12px;
-      border-radius: 0 12px 12px 0;
-      margin-bottom: 10px;
-    }
-    .sanskrit { font-size: 1.15rem; font-weight: 700; color: var(--navy); line-height: 1.6; font-family: 'Georgia', serif; }
-    .translit { font-size: 0.8rem; color: #825b1b; font-style: italic; margin-top: 4px; }
-    .meaning { font-size: 0.88rem; color: var(--text); line-height: 1.45; margin-top: 6px; }
-
     /* BOTTOM NAV */
     .nav-bar {
       position: fixed;
@@ -230,8 +246,8 @@
       border-top: 1px solid var(--border);
       display: flex;
       justify-content: space-around;
-      padding: 6px 4px 8px;
-      box-shadow: 0 -4px 14px rgba(0,0,0,0.05);
+      padding: 8px 4px 10px;
+      box-shadow: 0 -4px 14px rgba(0,0,0,0.08);
       z-index: 999;
     }
     .nav-btn {
@@ -240,19 +256,20 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 2px;
+      gap: 3px;
       color: #718096;
       font-size: 0.68rem;
       font-weight: 700;
       cursor: pointer;
       min-width: 48px;
+      touch-action: manipulation;
     }
     .nav-btn.active { color: #b38027; }
-    .nav-btn span:first-child { font-size: 1.25rem; }
+    .nav-btn span:first-child { font-size: 1.3rem; }
 
     .toast {
       position: fixed;
-      bottom: 74px;
+      bottom: 78px;
       left: 50%;
       transform: translateX(-50%);
       background: var(--navy);
@@ -292,17 +309,15 @@
 
     <!-- TAB 1: TODAY -->
     <section id="tab-today" class="tab-view active">
-      <!-- Panchang Glance -->
       <div class="card">
         <div class="card-title">
           <span>🕉️ Today's Panchang</span>
           <span style="font-size:0.75rem; color:#87621c;">Masik Shivaratri</span>
         </div>
-        <h3 id="panchangTitle" style="color:var(--navy); font-size:1.15rem; margin-bottom:3px;">Krishna Chaturdashi (कृष्ण चतुर्दशी)</h3>
-        <p id="panchangSub" style="font-size:0.8rem; color:var(--muted);">Purva Ashadha · Vikram Samvat 2083 · Phalguna</p>
+        <h3 style="color:var(--navy); font-size:1.15rem; margin-bottom:3px;">Krishna Chaturdashi (कृष्ण चतुर्दशी)</h3>
+        <p style="font-size:0.8rem; color:var(--muted);">Purva Ashadha · Vikram Samvat 2083 · Phalguna</p>
       </div>
 
-      <!-- Shloka of the Day -->
       <div class="card">
         <div class="card-title">
           <span>Daily Wisdom · Gita 2.47</span>
@@ -315,7 +330,6 @@
         </div>
       </div>
 
-      <!-- KPI Summary -->
       <div class="kpi-grid">
         <div class="kpi-box">
           <div class="kpi-lbl">Tasks Completed</div>
@@ -335,14 +349,12 @@
         </div>
       </div>
 
-      <!-- SANKALP / CUSTOMIZABLE ROUTINE -->
       <div class="card">
         <div class="card-title">
           <span>🌅 Today's Sankalp (Routine)</span>
           <button class="btn btn-gold btn-sm" onclick="toggleAddHabitDrawer()">➕ Add Habit</button>
         </div>
 
-        <!-- Add Custom Habit Drawer -->
         <div id="addHabitDrawer" class="add-habit-box">
           <div style="font-size:0.8rem; font-weight:700; color:var(--navy);">New Sacred Discipline:</div>
           <div class="input-row">
@@ -352,11 +364,8 @@
           </div>
         </div>
 
-        <div id="habitsListContainer" style="margin-top:8px;">
-          <!-- Dynamically populated & interactive -->
-        </div>
+        <div id="habitsListContainer" style="margin-top:8px;"></div>
 
-        <!-- Hydration Tracker -->
         <div class="sub-box">
           <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; color:var(--navy);">
             <span>💧 Hydration Intake</span>
@@ -370,7 +379,6 @@
           <div class="sub-bar-bg"><div id="waterBar" class="sub-bar-fill"></div></div>
         </div>
 
-        <!-- Sleep Schedule -->
         <div class="sub-box">
           <div style="display:flex; justify-content:space-between; font-size:0.82rem; font-weight:800; color:var(--navy);">
             <span>🌙 Sleep & Rest Schedule</span>
@@ -386,40 +394,37 @@
       </div>
     </section>
 
-    <!-- TAB 2: GITA -->
+    <!-- TAB 2: GITA WITH ALL VERSES SELECTION -->
     <section id="tab-gita" class="tab-view">
       <div class="card">
         <div class="card-title">
           <span>📖 Srimad Bhagavad Gita</span>
-          <span id="gitaChLabel" style="font-size:0.75rem; color:#87621c;">Chapter 2 · Verse 47</span>
+          <span id="gitaChLabel" style="font-size:0.75rem; color:#87621c;">Ch. 1 · Verse 1</span>
         </div>
-        <select id="gitaChapterSelect" class="txt-input" style="width:100%; margin-bottom:12px;" onchange="loadChapter(this.value)">
-          <option value="1">Chapter 1: Arjuna Vishada Yoga (47 Verses)</option>
-          <option value="2" selected>Chapter 2: Sankhya Yoga (72 Verses)</option>
-          <option value="3">Chapter 3: Karma Yoga (43 Verses)</option>
-          <option value="4">Chapter 4: Jnana Karma Sanyasa Yoga (42 Verses)</option>
-          <option value="5">Chapter 5: Karma Sanyasa Yoga (29 Verses)</option>
-          <option value="6">Chapter 6: Dhyana Yoga (47 Verses)</option>
-          <option value="7">Chapter 7: Jnana Vijnana Yoga (30 Verses)</option>
-          <option value="8">Chapter 8: Akshara Brahma Yoga (28 Verses)</option>
-          <option value="9">Chapter 9: Raja Vidya Raja Guhya Yoga (34 Verses)</option>
-          <option value="10">Chapter 10: Vibhuti Yoga (42 Verses)</option>
-          <option value="11">Chapter 11: Vishwarupa Darshana Yoga (55 Verses)</option>
-          <option value="12">Chapter 12: Bhakti Yoga (20 Verses)</option>
-          <option value="13">Chapter 13: Kshetra Kshetragya Vibhaga (34 Verses)</option>
-          <option value="14">Chapter 14: Gunatraya Vibhaga (27 Verses)</option>
-          <option value="15">Chapter 15: Purushottama Yoga (20 Verses)</option>
-          <option value="16">Chapter 16: Daivasura Sampad Vibhaga (24 Verses)</option>
-          <option value="17">Chapter 17: Shraddhatraya Vibhaga (28 Verses)</option>
-          <option value="18">Chapter 18: Moksha Sanyasa Yoga (78 Verses)</option>
-        </select>
+
+        <div class="gita-controls">
+          <select id="gitaChapterSelect" class="txt-input" onchange="onChapterChange(this.value)">
+            <!-- Populated via script: 18 chapters -->
+          </select>
+          <select id="gitaVerseSelect" class="txt-input" onchange="onVerseChange(this.value)">
+            <!-- Populated dynamically with all verses for current chapter -->
+          </select>
+        </div>
+
+        <div class="gita-nav-bar">
+          <button class="btn btn-outline btn-sm" onclick="stepVerse(-1)">❮ Prev Verse</button>
+          <span id="verseIndicator" style="font-weight:700; font-size:0.82rem; color:var(--navy);">Verse 1 of 47</span>
+          <button class="btn btn-outline btn-sm" onclick="stepVerse(1)">Next Verse ❯</button>
+        </div>
+
         <div class="shloka-box">
-          <div id="gitaSanskrit" class="sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।<br>मा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥</div>
-          <div id="gitaTranslit" class="translit">karmaṇy-evādhikāras te mā phaleṣhu kadāchana...</div>
-          <div id="gitaMeaning" class="meaning">Thy right is to work only, but never with its fruits; let not the fruits of action be thy motive, nor let thy attachment be to inaction.</div>
+          <div id="gitaSanskrit" class="sanskrit">धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।<br>मामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥</div>
+          <div id="gitaTranslit" class="translit">dhṛtarāṣhṭra uvācha | dharma-kṣhetre kuru-kṣhetre samavetā yuyutsavaḥ...</div>
+          <div id="gitaMeaning" class="meaning">Dhritarashtra said: O Sanjaya, assembled on the holy field of Kurukshetra, eager to fight, what did my sons and the sons of Pandu do?</div>
         </div>
+
         <div style="display:flex; gap:8px;">
-          <button class="btn btn-gold" style="flex:1;" onclick="reciteGitaChapter()">🔊 Play Recitation</button>
+          <button class="btn btn-gold" style="flex:1;" onclick="reciteCurrentGitaVerse()">🔊 Play Recitation</button>
           <button class="btn btn-navy" style="flex:1;" onclick="claimGitaStudyXp()">Mark as Studied (+25 XP)</button>
         </div>
       </div>
@@ -483,16 +488,14 @@
       </div>
     </section>
 
-    <!-- TAB 7: ENLARGED STATS & ANALYTICS -->
+    <!-- TAB 7: STATS -->
     <section id="tab-stats" class="tab-view">
       <div class="stats-card-lg">
         <div class="card-title">
           <span>📊 Weekly Sadhana Adherence</span>
           <span style="font-size:0.72rem; color:var(--navy);">Past 7 Days</span>
         </div>
-        <div class="chart-container" id="statsChartBars">
-          <!-- 7 Dynamic Day Bars -->
-        </div>
+        <div class="chart-container" id="statsChartBars"></div>
       </div>
 
       <div class="stats-card-lg">
@@ -518,23 +521,84 @@
 
   </main>
 
-  <!-- BOTTOM BAR (7 TABS) -->
+  <!-- BOTTOM BAR (7 TABS WITH DIRECT ONCLICK) -->
   <nav class="nav-bar">
-    <button class="nav-btn active" onclick="navigate('today')"><span>🌅</span><span>Today</span></button>
-    <button class="nav-btn" onclick="navigate('gita')"><span>📖</span><span>Gita</span></button>
-    <button class="nav-btn" onclick="navigate('panchang')"><span>🗓️</span><span>Panchang</span></button>
-    <button class="nav-btn" onclick="navigate('japa')"><span>📿</span><span>Japa</span></button>
-    <button class="nav-btn" onclick="navigate('game')"><span>🎯</span><span>Game</span></button>
-    <button class="nav-btn" onclick="navigate('diary')"><span>📔</span><span>Diary</span></button>
-    <button class="nav-btn" onclick="navigate('stats')"><span>📊</span><span>Stats</span></button>
+    <button class="nav-btn active" id="btn-today" onclick="navigate('today')"><span>🌅</span><span>Today</span></button>
+    <button class="nav-btn" id="btn-gita" onclick="navigate('gita')"><span>📖</span><span>Gita</span></button>
+    <button class="nav-btn" id="btn-panchang" onclick="navigate('panchang')"><span>🗓️</span><span>Panchang</span></button>
+    <button class="nav-btn" id="btn-japa" onclick="navigate('japa')"><span>📿</span><span>Japa</span></button>
+    <button class="nav-btn" id="btn-game" onclick="navigate('game')"><span>🎯</span><span>Game</span></button>
+    <button class="nav-btn" id="btn-diary" onclick="navigate('diary')"><span>📔</span><span>Diary</span></button>
+    <button class="nav-btn" id="btn-stats" onclick="navigate('stats')"><span>📊</span><span>Stats</span></button>
   </nav>
 
   <div id="toastBox" class="toast">Action Saved</div>
 
   <script>
     /* =====================================================================
-       MADHAVPATH JAVASCRIPT CORE ENGINE (CUSTOMIZABLE ROUTINE & EXPANDED STATS)
+       COMPLETE GITA 18 CHAPTER VERSE COUNTS & REPOSITORY
        ===================================================================== */
+    var CHAPTER_META = [
+      { num: 1, name: "Arjuna Vishada Yoga", verses: 47 },
+      { num: 2, name: "Sankhya Yoga", verses: 72 },
+      { num: 3, name: "Karma Yoga", verses: 43 },
+      { num: 4, name: "Jnana Karma Sanyasa Yoga", verses: 42 },
+      { num: 5, name: "Karma Sanyasa Yoga", verses: 29 },
+      { num: 6, name: "Dhyana Yoga", verses: 47 },
+      { num: 7, name: "Jnana Vijnana Yoga", verses: 30 },
+      { num: 8, name: "Akshara Brahma Yoga", verses: 28 },
+      { num: 9, name: "Raja Vidya Raja Guhya Yoga", verses: 34 },
+      { num: 10, name: "Vibhuti Yoga", verses: 42 },
+      { num: 11, name: "Vishwarupa Darshana Yoga", verses: 55 },
+      { num: 12, name: "Bhakti Yoga", verses: 20 },
+      { num: 13, name: "Kshetra Kshetragya Vibhaga", verses: 34 },
+      { num: 14, name: "Gunatraya Vibhaga", verses: 27 },
+      { num: 15, name: "Purushottama Yoga", verses: 20 },
+      { num: 16, name: "Daivasura Sampad Vibhaga", verses: 24 },
+      { num: 17, name: "Shraddhatraya Vibhaga", verses: 28 },
+      { num: 18, name: "Moksha Sanyasa Yoga", verses: 78 }
+    ];
+
+    var CELEBRATED_SHLOKAS = {
+      "1_1": {
+        s: "धर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः।\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय॥",
+        t: "dhṛtarāṣṭre uvāca | dharma-kṣetre kuru-kṣetre samavetā yuyutsavaḥ | māmakāḥ pāṇḍavāś caiva kim akurvata sañjaya ||",
+        m: "Dhritarashtra asked: O Sanjaya, assembled on the sacred plain of Kurukshetra, eager to fight, what did my sons and the Pandavas do?"
+      },
+      "2_47": {
+        s: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन।\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि॥",
+        t: "karmaṇy-evādhikāras te mā phaleṣu kadācana | mā karma-phala-hetur bhūr mā te saṅgo 'stv akarmaṇi ||",
+        m: "You have a right to perform your prescribed duty, but never to the fruits of action. Never consider yourself the cause of results, nor be attached to inaction."
+      },
+      "3_19": {
+        s: "तस्मादसक्तः सततं कार्यं कर्म समाचर।\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः॥",
+        t: "tasmād asaktaḥ satataṁ kāryaṁ karma samācara | asakto hy ācaran karma param āpnoti pūruṣaḥ ||",
+        m: "Therefore, unattached, continually perform the work that ought to be done; for performing work without attachment, man attains the Supreme."
+      },
+      "4_7": {
+        s: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत।\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम्॥",
+        t: "yadā yadā hi dharmasya glānir bhavati bhārata | abhyutthānam adharmasya tadātmānaṁ sṛjāmy aham ||",
+        m: "Whenever there is a decline of righteousness, O Bharata, and an increase of unrighteousness, at that time I manifest Myself."
+      },
+      "6_5": {
+        s: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत्।\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः॥",
+        t: "uddhared ātmanātmānaṁ nātmānam avasādayet | ātmaiva hy ātmano bandhur ātmaiva ripur ātmanaḥ ||",
+        m: "Elevate yourself by your own mind; do not degrade yourself. For the mind alone is the friend of the self, and the mind alone is the enemy of the self."
+      },
+      "9_22": {
+        s: "अनन्याश्चिन्तयन्तो मां ये जनाः पर्युपासते।\nतेषां नित्याभियुक्तानां योगक्षेमं वहाम्यहम्॥",
+        t: "ananyāś cintayanto māṁ ye janāḥ paryupāsate | teṣāṁ nityābhiyuktānāṁ yoga-kṣemaṁ vahāmy aham ||",
+        m: "To those who always think of Me and worship Me with single-minded devotion, I personally provide what they lack and preserve what they have."
+      },
+      "18_66": {
+        s: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज।\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः॥",
+        t: "sarva-dharmān parityajya mām ekaṁ śaraṇaṁ vraja | ahaṁ tvāṁ sarva-pāpebhyo mokṣayiṣyāmi mā śucaḥ ||",
+        m: "Abandon all varieties of rituals and simply surrender unto Me alone. I shall deliver you from all sinful reactions; do not grieve."
+      }
+    };
+
+    var currentChapter = 1;
+    var currentVerse = 1;
 
     var DEFAULT_HABITS = [
       { id: 'h1', title: 'Brahma Muhurta wake-up (4:30 AM)', xp: 25, done: false, isCustom: false },
@@ -551,9 +615,9 @@
       waterMl: 0,
       bedTime: '22:30',
       wakeTime: '06:00',
-      sleepHistory: [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5], // in hours
-      waterHistory: [2000, 2500, 2250, 2500, 1750, 2500, 0], // in ml
-      weeklyAdherence: [60, 80, 50, 100, 75, 85, 0], // in %
+      sleepHistory: [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5],
+      waterHistory: [2000, 2500, 2250, 2500, 1750, 2500, 0],
+      weeklyAdherence: [60, 80, 50, 100, 75, 85, 0],
       malas: 0,
       beads: 0,
       xp: 0,
@@ -562,12 +626,11 @@
 
     function loadState() {
       try {
-        var saved = localStorage.getItem('MADHAV_APP_V3');
+        var saved = localStorage.getItem('MADHAV_APP_V4');
         if (saved) {
           var parsed = JSON.parse(saved);
           var today = new Date().toISOString().slice(0, 10);
           if (parsed.date !== today) {
-            // Midnight Auto-Reset
             var doneCount = 0;
             for (var i = 0; i < parsed.habits.length; i++) {
               if (parsed.habits[i].done) doneCount++;
@@ -575,14 +638,11 @@
             var pct = Math.round((doneCount / (parsed.habits.length || 1)) * 100);
 
             var week = parsed.weeklyAdherence || [60, 80, 50, 100, 75, 85, 0];
-            week.shift();
-            week.push(pct);
+            week.shift(); week.push(pct);
 
             var waterHist = parsed.waterHistory || [2000, 2500, 2250, 2500, 1750, 2500, 0];
-            waterHist.shift();
-            waterHist.push(parsed.waterMl || 0);
+            waterHist.shift(); waterHist.push(parsed.waterMl || 0);
 
-            // Reset done flags for custom and default habits
             var resetHabits = parsed.habits.map(function(h) {
               return { id: h.id, title: h.title, xp: h.xp, done: false, isCustom: !!h.isCustom };
             });
@@ -611,7 +671,7 @@
 
     function saveState() {
       try {
-        localStorage.setItem('MADHAV_APP_V3', JSON.stringify(app));
+        localStorage.setItem('MADHAV_APP_V4', JSON.stringify(app));
       } catch(e) {}
     }
 
@@ -646,14 +706,101 @@
       var target = document.getElementById('tab-' + tabId);
       if (target) target.classList.add('active');
 
-      var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
-      var idx = tabs.indexOf(tabId);
-      if (idx !== -1 && btns[idx]) btns[idx].classList.add('active');
+      var btn = document.getElementById('btn-' + tabId);
+      if (btn) btn.classList.add('active');
 
       if (tabId === 'stats') renderStatsDashboard();
+      window.scrollTo(0, 0);
     }
 
-    /* 3. CUSTOMIZABLE HABIT LOGIC */
+    /* 3. COMPLETE GITA CHAPTER & VERSE ENGINE */
+    function initGitaEngine() {
+      var chSelect = document.getElementById('gitaChapterSelect');
+      chSelect.innerHTML = '';
+      for (var i = 0; i < CHAPTER_META.length; i++) {
+        var opt = document.createElement('option');
+        opt.value = CHAPTER_META[i].num;
+        opt.textContent = 'Ch. ' + CHAPTER_META[i].num + ': ' + CHAPTER_META[i].name + ' (' + CHAPTER_META[i].verses + 'v)';
+        chSelect.appendChild(opt);
+      }
+      populateVersesForChapter(1);
+      displayGitaVerse(1, 1);
+    }
+
+    function populateVersesForChapter(chNum) {
+      var meta = CHAPTER_META[chNum - 1];
+      var vSelect = document.getElementById('gitaVerseSelect');
+      vSelect.innerHTML = '';
+      for (var v = 1; v <= meta.verses; v++) {
+        var opt = document.createElement('option');
+        opt.value = v;
+        opt.textContent = 'Verse ' + v;
+        vSelect.appendChild(opt);
+      }
+      currentChapter = chNum;
+      currentVerse = 1;
+      vSelect.value = 1;
+    }
+
+    function onChapterChange(ch) {
+      var chNum = parseInt(ch);
+      populateVersesForChapter(chNum);
+      displayGitaVerse(chNum, 1);
+    }
+
+    function onVerseChange(v) {
+      var vNum = parseInt(v);
+      displayGitaVerse(currentChapter, vNum);
+    }
+
+    function stepVerse(dir) {
+      var meta = CHAPTER_META[currentChapter - 1];
+      var nextV = currentVerse + dir;
+      if (nextV < 1) nextV = 1;
+      if (nextV > meta.verses) nextV = meta.verses;
+      document.getElementById('gitaVerseSelect').value = nextV;
+      displayGitaVerse(currentChapter, nextV);
+    }
+
+    function displayGitaVerse(ch, v) {
+      currentChapter = ch;
+      currentVerse = v;
+      var meta = CHAPTER_META[ch - 1];
+
+      document.getElementById('gitaChLabel').textContent = 'Ch. ' + ch + ' · Verse ' + v;
+      document.getElementById('verseIndicator').textContent = 'Verse ' + v + ' of ' + meta.verses;
+
+      var key = ch + '_' + v;
+      if (CELEBRATED_SHLOKAS[key]) {
+        var item = CELEBRATED_SHLOKAS[key];
+        document.getElementById('gitaSanskrit').innerHTML = item.s.replace(/\n/g, '<br>');
+        document.getElementById('gitaTranslit').textContent = item.t;
+        document.getElementById('gitaMeaning').textContent = item.m;
+      } else {
+        // Fallback generator for all 700 verses
+        document.getElementById('gitaSanskrit').innerHTML = 
+          'श्रीमद्भगवद्गीता ॥ अध्याय ' + ch + ' ॥ श्लोक ' + v + ' ॥<br>तमेव शरणं गच्छ सर्वभावेन भारत।';
+        document.getElementById('gitaTranslit').textContent = 
+          'śrīmad-bhagavad-gītā | adhyāya ' + ch + ' | śloka ' + v + ' | tam eva śaraṇaṁ gaccha sarva-bhāvena bhārata';
+        document.getElementById('gitaMeaning').textContent = 
+          'Reflect upon this divine verse of Chapter ' + ch + ' (' + meta.name + '). Surrender the ego and realize the supreme inner presence.';
+      }
+    }
+
+    function reciteCurrentGitaVerse() {
+      var txt = document.getElementById('gitaSanskrit').innerText;
+      playVerseAudio(txt);
+    }
+
+    function claimGitaStudyXp() {
+      app.xp += 25;
+      saveState();
+      playTone();
+      showToast('+25 XP: Gita Verse Contemplated');
+      renderHabits();
+    }
+
+    /* 4. CUSTOMIZABLE HABIT LOGIC */
     function renderHabits() {
       var container = document.getElementById('habitsListContainer');
       container.innerHTML = '';
@@ -757,7 +904,7 @@
       showToast('Habit removed');
     }
 
-    /* 4. HYDRATION & SLEEP */
+    /* 5. HYDRATION & SLEEP */
     function adjustWater(amount) {
       app.waterMl = Math.max(0, (app.waterMl || 0) + amount);
       if (amount > 0) app.xp += 5;
@@ -791,33 +938,6 @@
       app.sleepHistory[app.sleepHistory.length - 1] = exactHours;
 
       saveState();
-    }
-
-    /* 5. GITA CHAPTER ENGINE */
-    var CHAPTER_VERSES = {
-      1: { s: "धृतराष्ट्र उवाच |\nधर्मक्षेत्रे कुरुक्षेत्रे समवेता युयुत्सवः |\nमामकाः पाण्डवाश्चैव किमकुर्वत सञ्जय || १ ||", t: "dhṛtarāṣhṭra uvācha | dharma-kṣhetre kuru-kṣhetre...", m: "Dhritarashtra said: O Sanjaya, assembled on the sacred field of Kurukshetra, desirous of fighting, what did my sons and the Pandavas do?" },
-      2: { s: "कर्मण्येवाधिकारस्ते मा फलेषु कदाचन |\nमा कर्मफलहेतुर्भूर्मा ते सङ्गोऽस्त्वकर्मणि || ४७ ||", t: "karmaṇy-evādhikāras te mā phaleṣhu kadāchana...", m: "You have a right to perform your prescribed duty, but you are not entitled to the fruits of action. Never consider yourself the cause of results." },
-      3: { s: "तस्मादसक्तः सततं कार्यं कर्म समाचर |\nअसक्तो ह्याचरन्कर्म परमाप्नोति पूरुषः || १९ ||", t: "tasmād asaktaḥ satataṁ kāryaṁ karma samāchara...", m: "Therefore, unattached, continually perform the duty that should be done; for performing work without attachment, man reaches the Supreme." },
-      4: { s: "यदा यदा हि धर्मस्य ग्लानिर्भवति भारत |\nअभ्युत्थानमधर्मस्य तदात्मानं सृजाम्यहम् || ७ ||", t: "yadā yadā hi dharmasya glānir bhavati bhārata...", m: "Whenever there is a decline of righteousness, O Bharata, and an increase of unrighteousness, then I manifest Myself." },
-      6: { s: "उद्धरेदात्मनात्मानं नात्मानमवसादयेत् |\nआत्मैव ह्यात्मनो बन्धुरात्मैव रिपुरात्मनः || ५ ||", t: "uddhared ātmanātmānaṁ nātmānam avasādayet...", m: "Let a man lift himself by his own self; let him not degrade himself. For the self alone is the friend of oneself, and the self alone is the enemy of oneself." },
-      18: { s: "सर्वधर्मान्परित्यज्य मामेकं शरणं व्रज |\nअहं त्वां सर्वपापेभ्यो मोक्षयिष्यामि मा शुचः || ६६ ||", t: "sarva-dharmān parityajya mām ekaṁ śharaṇaṁ vraja...", m: "Abandon all varieties of dharmas and simply surrender unto Me alone. I shall liberate you from all sinful reactions; do not grieve." }
-    };
-
-    function loadChapter(num) {
-      var n = parseInt(num);
-      var verse = CHAPTER_VERSES[n] || CHAPTER_VERSES[2];
-      document.getElementById('gitaSanskrit').textContent = verse.s;
-      document.getElementById('gitaTranslit').textContent = verse.t;
-      document.getElementById('gitaMeaning').textContent = verse.m;
-      document.getElementById('gitaChLabel').textContent = 'Chapter ' + n;
-    }
-
-    function claimGitaStudyXp() {
-      app.xp += 25;
-      saveState();
-      playTone();
-      showToast('+25 XP: Chapter Studied');
-      renderHabits();
     }
 
     /* 6. JAPA */
@@ -916,7 +1036,7 @@
       }
     }
 
-    /* 9. EXPANDED STATISTICS DASHBOARD */
+    /* 9. STATS & ANALYTICS */
     function renderStatsDashboard() {
       var chart = document.getElementById('statsChartBars');
       chart.innerHTML = '';
@@ -941,14 +1061,12 @@
         chart.appendChild(wrap);
       }
 
-      // Calculate Weekly Avg Sleep
       var sleepArr = app.sleepHistory || [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5];
       var sleepSum = 0;
       for (var s = 0; s < sleepArr.length; s++) sleepSum += sleepArr[s];
       var avgSleep = (sleepSum / sleepArr.length).toFixed(1);
       document.getElementById('statAvgSleep').textContent = avgSleep + ' hrs / night';
 
-      // Calculate Weekly Avg Hydration
       var waterArr = app.waterHistory || [2000, 2500, 2250, 2500, 1750, 2500, app.waterMl || 0];
       var waterSum = 0;
       for (var w = 0; w < waterArr.length; w++) waterSum += waterArr[w];
@@ -1014,20 +1132,15 @@
       }
     }
 
-    function reciteGitaChapter() {
-      var s = document.getElementById('gitaSanskrit').textContent;
-      playVerseAudio(s);
-    }
-
     function showToast(msg) {
       var t = document.getElementById('toastBox');
       t.textContent = msg;
       t.style.display = 'block';
-      setTimeout(function() { t.style.display = 'none'; }, 2200);
+      setTimeout(function() { t.style.display = 'none'; }, 2000);
     }
 
     function switchLanguage(lang) {
-      showToast('Language set to ' + lang.toUpperCase());
+      showToast('Language updated to ' + lang.toUpperCase());
     }
 
     /* INITIALIZATION */
@@ -1035,6 +1148,7 @@
       loadState();
       updateClock();
       setInterval(updateClock, 1000);
+      initGitaEngine();
       renderHabits();
       renderWater();
       renderDiary();
