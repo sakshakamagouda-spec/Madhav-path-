@@ -64,6 +64,25 @@
     .progress-bar-bg { height: 7px; background: #e2d7c5; border-radius: 6px; overflow: hidden; margin-top: 6px; }
     .progress-bar-fill { height: 100%; background: #2b7a78; width: 0%; transition: width 0.3s; }
 
+    .chart-box {
+      background: #faf6ee;
+      border: 1px solid #edd59b;
+      border-radius: 12px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+    .chart-legend {
+      display: flex;
+      justify-content: flex-end;
+      gap: 14px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .legend-item { display: flex; align-items: center; gap: 5px; }
+    .dot-blue { width: 10px; height: 10px; border-radius: 50%; background: #0284c7; }
+    .dot-green { width: 10px; height: 10px; border-radius: 50%; background: #16a34a; }
+
     .toast-pill {
       position: fixed;
       bottom: 74px;
@@ -153,8 +172,8 @@
       <div class="kpi-row">
         <div class="kpi-item"><div class="kpi-tag">Tasks Done</div><div id="kpiTasks" class="kpi-digit">0/6</div></div>
         <div class="kpi-item"><div class="kpi-tag">Adherence</div><div id="kpiPct" class="kpi-digit">0%</div></div>
-        <div class="kpi-item"><div class="kpi-tag">Japa Malas</div><div id="kpiMalas" class="kpi-digit">0</div></div>
-        <div class="kpi-item"><div class="kpi-tag">Karma XP</div><div id="kpiXp" class="kpi-digit">0 XP</div></div>
+        <div class="kpi-item"><div class="kpi-tag">Japa Malas</div><div id="kpiMalas" class="kpi-digit">1</div></div>
+        <div class="kpi-item"><div class="kpi-tag">Karma XP</div><div id="kpiXp" class="kpi-digit">108 XP</div></div>
       </div>
 
       <!-- ROUTINE CARD -->
@@ -335,7 +354,7 @@
           <span id="beadNum" style="font-size:3rem; font-weight:900; color:#0d1f36;">0</span>
           <span style="font-size:0.68rem; font-weight:800; color:#8a6218;">/ 108 BEADS</span>
         </div>
-        <p style="font-size:0.95rem; font-weight:800; color:#b45309; margin-bottom:12px;">Total Malas: <span id="malaNum">0</span></p>
+        <p style="font-size:0.95rem; font-weight:800; color:#b45309; margin-bottom:12px;">Total Malas: <span id="malaNum">1</span></p>
         <div style="display:flex; gap:6px; max-width:280px; margin:0 auto;">
           <button onclick="window.resetBead()" class="btn-action btn-light" style="flex:1;">Reset Beads</button>
           <button onclick="window.resetAllJapa()" class="btn-action btn-danger" style="flex:1;">Reset All</button>
@@ -400,33 +419,70 @@
       <div class="card">
         <div class="card-head">
           <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">📊 Comprehensive Sadhana Analytics</span>
-          <span class="badge" id="statsRankPill">Sadhaka I</span>
+          <span class="badge" id="statsRankPill">Paramahamsa 🦚</span>
         </div>
         <div class="kpi-row">
-          <div class="kpi-item"><div class="kpi-tag">Current Streak</div><div class="kpi-digit">7 Days</div></div>
-          <div class="kpi-item"><div class="kpi-tag">Avg Adherence</div><div id="statsAvgAdherence" class="kpi-digit">84%</div></div>
-          <div class="kpi-item"><div class="kpi-tag">Total Malas</div><div id="statsTotalMalas" class="kpi-digit">0</div></div>
-          <div class="kpi-item"><div class="kpi-tag">Spiritual Tier</div><div id="tierName" class="kpi-digit" style="font-size:0.95rem;">Sadhaka I</div></div>
+          <div class="kpi-item"><div class="kpi-tag">Current Streak</div><div id="statStreakDays" class="kpi-digit">2 Days</div></div>
+          <div class="kpi-item"><div class="kpi-tag">Avg Adherence</div><div id="statsAvgAdherence" class="kpi-digit">85%</div></div>
+          <div class="kpi-item"><div class="kpi-tag">Total Malas</div><div id="statsTotalMalas" class="kpi-digit">1</div></div>
+          <div class="kpi-item"><div class="kpi-tag">Spiritual Tier</div><div id="tierName" class="kpi-digit" style="font-size:0.95rem;">Paramahamsa 🦚</div></div>
         </div>
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 6px;">📈 Weekly Wellness & Recovery Records</h4>
-        <div style="background:#faf6ee; border:1px solid #edd59b; border-radius:10px; padding:12px; margin-bottom:8px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <span style="font-size:0.8rem; font-weight:700; color:#0a1931;">🌙 Weekly Avg Sleep Record</span>
-            <span id="statWeeklySleep" style="font-size:1.15rem; font-weight:800; color:#b45309;">7h 30m / night</span>
+
+        <h4 style="font-size:0.84rem; color:#0d1f36; margin:14px 0 6px;">📈 Weekly Wellness: Water & Sleep Line Graph</h4>
+        <div class="chart-box">
+          <div class="chart-legend">
+            <div class="legend-item"><span class="dot-blue"></span><span>Water (ml)</span></div>
+            <div class="legend-item"><span class="dot-green"></span><span>Sleep (hrs)</span></div>
           </div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:94%; background:#16a34a;"></div></div>
-        </div>
-        <div style="background:#faf6ee; border:1px solid #edd59b; border-radius:10px; padding:12px; margin-bottom:8px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-            <span style="font-size:0.8rem; font-weight:700; color:#0a1931;">💧 Weekly Avg Hydration Record</span>
-            <span id="statWeeklyWater" style="font-size:1.15rem; font-weight:800; color:#b45309;">2250 ml / day</span>
+          
+          <!-- Unified SVG Dual-Line Graph -->
+          <svg id="wellnessDualChart" viewBox="0 0 340 170" style="width:100%; height:170px; overflow:visible;">
+            <!-- Grid Lines -->
+            <line x1="35" y1="20" x2="330" y2="20" stroke="#e2d7c5" stroke-dasharray="2,2"/>
+            <line x1="35" y1="55" x2="330" y2="55" stroke="#e2d7c5" stroke-dasharray="2,2"/>
+            <line x1="35" y1="90" x2="330" y2="90" stroke="#e2d7c5" stroke-dasharray="2,2"/>
+            <line x1="35" y1="125" x2="330" y2="125" stroke="#cbd5e1" stroke-width="1.5"/>
+
+            <!-- Y Axis Labels -->
+            <!-- Water (Left Axis) -->
+            <text x="5" y="24" fill="#0284c7" font-size="8" font-weight="700">3000m</text>
+            <text x="5" y="59" fill="#0284c7" font-size="8" font-weight="700">2000m</text>
+            <text x="5" y="94" fill="#0284c7" font-size="8" font-weight="700">1000m</text>
+            <text x="14" y="128" fill="#0284c7" font-size="8" font-weight="700">0m</text>
+
+            <!-- Sleep (Right Axis) -->
+            <text x="333" y="24" fill="#16a34a" font-size="8" font-weight="700">10h</text>
+            <text x="333" y="59" fill="#16a34a" font-size="8" font-weight="700">7h</text>
+            <text x="333" y="94" fill="#16a34a" font-size="8" font-weight="700">3.5h</text>
+            <text x="333" y="128" fill="#16a34a" font-size="8" font-weight="700">0h</text>
+
+            <!-- Water Intake Path (Blue) -->
+            <path id="waterLinePath" d="" fill="none" stroke="#0284c7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Sleep Path (Green) -->
+            <path id="sleepLinePath" d="" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Group for Circles and Points -->
+            <g id="chartPointsGroup"></g>
+
+            <!-- X-Axis Labels (7 Days) -->
+            <g id="chartDayLabelsGroup" font-size="8.5" font-weight="700" fill="#64748b" text-anchor="middle"></g>
+          </svg>
+
+          <!-- Current Averages Summary Strip -->
+          <div style="display:flex; justify-content:space-around; background:#ffffff; border-radius:8px; padding:7px; margin-top:8px; border:1px solid #edd59b;">
+            <div style="text-align:center;">
+              <small style="font-size:0.65rem; color:#64748b; font-weight:700;">AVG HYDRATION</small>
+              <div id="statWeeklyWater" style="font-size:0.88rem; font-weight:800; color:#0284c7;">2250 ml / day</div>
+            </div>
+            <div style="width:1px; background:#edd59b;"></div>
+            <div style="text-align:center;">
+              <small style="font-size:0.65rem; color:#64748b; font-weight:700;">AVG SLEEP</small>
+              <div id="statWeeklySleep" style="font-size:0.88rem; font-weight:800; color:#16a34a;">7h 30m / night</div>
+            </div>
           </div>
-          <div class="progress-bar-bg"><div class="progress-bar-fill" style="width:90%; background:#0284c7;"></div></div>
         </div>
-        <h4 style="font-size:0.82rem; color:#0d1f36; margin:14px 0 6px;">7-Day Adherence Trend</h4>
-        <div id="trendChartWrap" style="display:flex; align-items:flex-end; gap:8px; height:120px; border-bottom:2px solid #cbd5e1; padding-top:10px; margin-top:10px; margin-bottom:8px;">
-          <!-- 7 Bars rendered dynamically -->
-        </div>
+
       </div>
     </section>
 
@@ -450,11 +506,22 @@
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     }
 
-    var STORAGE_KEY = 'MADHAVPATH_STATE_V1';
+    var STORAGE_KEY = 'MADHAVPATH_STATE_V3';
     function loadLocalState() {
       try {
         var str = localStorage.getItem(STORAGE_KEY);
         if (str) return JSON.parse(str);
+        
+        // Migrate from V2 if exists and clamp streak to actual 2 days
+        var old = localStorage.getItem('MADHAVPATH_STATE_V2');
+        if (old) {
+          var parsed = JSON.parse(old);
+          parsed.streak = 2;
+          parsed.weeklyAdherence = [0, 0, 0, 0, 0, 85, 0];
+          parsed.sleepHistory = [0, 0, 0, 0, 0, 7.5, 7.5];
+          parsed.waterHistory = [0, 0, 0, 0, 0, 2250, 0];
+          return parsed;
+        }
       } catch(e) {}
       return null;
     }
@@ -473,21 +540,24 @@
       { id: 5, name: "Evening Reflection (Ratri Chintan)", xp: 15, done: false }
     ];
 
+    // Accurate 2-Day active record starting from your actual commencement
     var appState = loadLocalState() || {
       date: getTodayKey(),
+      streak: 2,
       coreTasks: DEFAULT_CORE_TASKS,
       customTasks: [],
       water: 0,
       bedTime: "22:30",
       wakeTime: "06:00",
       beads: 0,
-      malas: 0,
-      xp: 0,
+      malas: 1,
+      xp: 108,
       diaryNotes: [],
       lang: "en",
-      weeklyAdherence: [60, 75, 80, 65, 85, 90, 0],
-      sleepHistory: [7.5, 8.0, 7.0, 6.5, 7.5, 8.0, 7.5],
-      waterHistory: [2000, 2500, 2250, 2500, 1750, 2500, 0],
+      // Previous 5 days at 0, with Day 1 & Today populated
+      weeklyAdherence: [0, 0, 0, 0, 0, 85, 0],
+      sleepHistory: [0, 0, 0, 0, 0, 7.5, 7.5],
+      waterHistory: [0, 0, 0, 0, 0, 2250, 0],
       timestamp: Date.now()
     };
 
@@ -499,7 +569,6 @@
     // Dynamic Panchang Offset (0 = Today, -1 = Yesterday, +1 = Tomorrow, etc.)
     var panchangDayOffset = 0;
 
-    // ASTRONOMICAL DATA TABLES FOR PANCHA ANGAS
     var TITHIS = [
       "शुक्ल Pratipada (Shukla Paksha)", "शुक्ल Dwitiya", "शुक्ल Tritiya", "शुक्ल Chaturthi", "शुक्ल Panchami",
       "शुक्ल Shashthi", "शुक्ल Saptami", "शुक्ल Ashtami (Durgashtami)", "शुक्ल Navami (Maha Navami)", "शुक्ल Dashami (Vijayadashami)",
@@ -526,7 +595,6 @@
       "Bava / Balava", "Balava / Kaulava", "Kaulava / Taitila", "Taitila / Gara", "Gara / Vanija", "Vanija / Vishti", "Vishti / Bava"
     ];
 
-    // SHARDIYA NAVRATRI 2026 MAPPING
     var NAVRATRI_2026_DAYS = {
       "2026-10-11": { day: 1, devi: "Maa Shailputri (मां शैलपुत्री)", tithi: "शुक्ल Pratipada (Shukla Paksha)", nakshatra: "Chitra Nakshatra (चित्रा)", yoga: "Vaidhriti Yoga", karana: "Kimstughna" },
       "2026-10-12": { day: 2, devi: "Maa Brahmacharini (मां ब्रह्मचारिणी)", tithi: "शुक्ल Dwitiya (Shukla Paksha)", nakshatra: "Swati Nakshatra (स्वाति)", yoga: "Vishkambha Yoga", karana: "Balava / Kaulava" },
@@ -540,12 +608,11 @@
       "2026-10-20": { day: 10, devi: "Vijayadashami / Dussehra (विजयादशमी)", tithi: "शुक्ल Dashami (Shukla Paksha)", nakshatra: "Dhanishtha Nakshatra (धनिष्ठा)", yoga: "Shula Yoga (शूल)", karana: "Taitila / Gara" }
     };
 
-    // DYNAMIC PANCHANG CALCULATION ENGINE
     window.calculateDynamicPanchang = function(targetDate) {
       try {
         var d = targetDate || new Date();
         var dateKey = getTodayKey(d);
-        var dayOfWeek = d.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
+        var dayOfWeek = d.getDay();
         var dayNamesVara = [
           "Ravivara (Sunday)", "Somavara (Monday)", "Mangalavara (Tuesday)",
           "Budhavara (Wednesday)", "Guruvara (Thursday)", "Shukravara (Friday)", "Shanivara (Saturday)"
@@ -557,34 +624,22 @@
         var currentVara = dayNamesVara[dayOfWeek];
         var currentVaraSan = dayNamesVaraSan[dayOfWeek];
 
-        // Specific Rahu Kaal and Yamaganda by Day of Week
         var rahuTimings = [
-          "04:30 PM – 06:00 PM", // Sun
-          "07:38 AM – 09:07 AM", // Mon
-          "03:00 PM – 04:30 PM", // Tue
-          "12:00 PM – 01:30 PM", // Wed
-          "01:30 PM – 03:00 PM", // Thu
-          "10:30 AM – 12:00 PM", // Fri
-          "09:00 AM – 10:30 AM"  // Sat
+          "04:30 PM – 06:00 PM", "07:38 AM – 09:07 AM", "03:00 PM – 04:30 PM",
+          "12:00 PM – 01:30 PM", "01:30 PM – 03:00 PM", "10:30 AM – 12:00 PM", "09:00 AM – 10:30 AM"
         ];
         var yamaTimings = [
-          "12:00 PM – 01:30 PM", // Sun
-          "10:35 AM – 12:05 PM", // Mon
-          "09:00 AM – 10:30 AM", // Tue
-          "07:30 AM – 09:00 AM", // Wed
-          "06:00 AM – 07:30 AM", // Thu
-          "03:00 PM – 04:30 PM", // Fri
-          "01:30 PM – 03:00 PM"  // Sat
+          "12:00 PM – 01:30 PM", "10:35 AM – 12:05 PM", "09:00 AM – 10:30 AM",
+          "07:30 AM – 09:00 AM", "06:00 AM – 07:30 AM", "03:00 PM – 04:30 PM", "01:30 PM – 03:00 PM"
         ];
 
-        // Solar sunrise/sunset dynamic calculation around autumn / October (Bengaluru / IST)
         var start = new Date(d.getFullYear(), 0, 0);
         var diff = d - start;
         var oneDay = 1000 * 60 * 60 * 24;
         var dayOfYear = Math.floor(diff / oneDay);
         var solarOffsetMinutes = Math.sin((dayOfYear - 80) * (2 * Math.PI / 365)) * 16;
-        var sunriseMinute = 369 - Math.round(solarOffsetMinutes); // Base ~06:09 AM in Oct
-        var sunsetMinute = 1080 + Math.round(solarOffsetMinutes);  // Base ~06:00 PM in Oct
+        var sunriseMinute = 369 - Math.round(solarOffsetMinutes);
+        var sunsetMinute = 1080 + Math.round(solarOffsetMinutes);
 
         function formatTime(totalMins) {
           var h = Math.floor(totalMins / 60);
@@ -599,14 +654,12 @@
         var dinamanMins = sunsetMinute - sunriseMinute;
         var dinamanStr = Math.floor(dinamanMins / 60) + 'h ' + (dinamanMins % 60) + 'm';
 
-        // Check if Navratri Info is present for this date
         var navratriInfo = NAVRATRI_2026_DAYS[dateKey];
         var tithiVal = navratriInfo ? navratriInfo.tithi : TITHIS[(dayOfYear + 2) % 30];
         var nakshatraVal = navratriInfo ? navratriInfo.nakshatra : NAKSHATRAS[(dayOfYear + 15) % 27];
         var yogaVal = navratriInfo ? navratriInfo.yoga : YOGAS[(dayOfYear + 1) % 27];
         var karanaVal = navratriInfo ? navratriInfo.karana : KARANAS[(dayOfYear) % 7];
 
-        // Update Today Glance Card Elements (if looking at today)
         var isToday = (getTodayKey(d) === getTodayKey(new Date()));
         if (isToday) {
           var gs = document.getElementById('glanceSunrise');
@@ -631,7 +684,6 @@
           }
         }
 
-        // Update Full Panchang Tab Elements
         var dateLabel = document.getElementById('panchangCurrentDateLabel');
         if (dateLabel) {
           var options = { day: 'numeric', month: 'short', year: 'numeric' };
@@ -688,12 +740,9 @@
             pdev.style.display = "none";
           }
         }
-      } catch(e) {
-        console.error("Panchang Error:", e);
-      }
+      } catch(e) {}
     };
 
-    // Panchang Date Navigation Helpers
     window.shiftPanchangDate = function(days) {
       panchangDayOffset += days;
       var d = new Date();
@@ -706,7 +755,6 @@
       window.calculateDynamicPanchang(new Date());
     };
 
-    // Auto day-reset checker
     window.checkMidnightReset = function() {
       try {
         var today = getTodayKey();
@@ -717,13 +765,20 @@
           for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) doneCount++;
           var yesterdayPct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
-          if (!appState.weeklyAdherence) appState.weeklyAdherence = [60, 75, 80, 65, 85, 90, 0];
+          // Increment streak based on practice
+          appState.streak = (appState.streak || 2) + 1;
+
+          if (!appState.weeklyAdherence) appState.weeklyAdherence = [0, 0, 0, 0, 0, 85, 0];
           appState.weeklyAdherence.shift();
           appState.weeklyAdherence.push(yesterdayPct);
 
-          if (!appState.waterHistory) appState.waterHistory = [2000, 2500, 2250, 2500, 1750, 2500, 0];
+          if (!appState.waterHistory) appState.waterHistory = [0, 0, 0, 0, 0, 2250, 0];
           appState.waterHistory.shift();
           appState.waterHistory.push(appState.water || 0);
+
+          if (!appState.sleepHistory) appState.sleepHistory = [0, 0, 0, 0, 0, 7.5, 7.5];
+          appState.sleepHistory.shift();
+          appState.sleepHistory.push(7.5);
 
           // Reset checkmarks for new morning
           for (var k = 0; k < appState.coreTasks.length; k++) appState.coreTasks[k].done = false;
@@ -773,7 +828,6 @@
       setTimeout(function() { t.style.display = 'none'; }, 2000);
     };
 
-    // LIVE TICKING CLOCK
     (function runClock() {
       function tick() {
         try {
@@ -797,7 +851,6 @@
             else mh.textContent = "🕉️ Dhyana Vela";
           }
 
-          // Check if midnight struck while app is open
           if (h === 0 && m === 0 && s === 0) {
             window.checkMidnightReset();
           }
@@ -901,10 +954,17 @@
       if (kt) kt.textContent = done + '/' + total;
       if (kp) kp.textContent = pct + '%';
       if (rb) rb.style.width = pct + '%';
+
+      if (appState.weeklyAdherence && appState.weeklyAdherence.length >= 7) {
+        appState.weeklyAdherence[6] = pct;
+      }
     };
 
     window.addWater = function(amt) {
       appState.water = Math.max(0, (appState.water || 0) + amt);
+      if (appState.waterHistory && appState.waterHistory.length >= 7) {
+        appState.waterHistory[6] = appState.water;
+      }
       persist();
       window.renderWater();
     };
@@ -944,6 +1004,11 @@
       var mins = diff % 60;
       var sl = document.getElementById('sleepLbl');
       if (sl) sl.textContent = 'Duration: ' + hrs + 'h ' + mins + 'm';
+
+      var curSleepHours = parseFloat((diff / 60).toFixed(1));
+      if (appState.sleepHistory && appState.sleepHistory.length >= 7) {
+        appState.sleepHistory[6] = curSleepHours;
+      }
     };
 
     window.tapBead = function() {
@@ -984,7 +1049,7 @@
       var val = appState.xp || 0;
       var kx = document.getElementById('kpiXp');
       if (kx) kx.textContent = val + ' XP';
-      var t = val > 500 ? "Paramahamsa 🦚" : (val > 200 ? "Karma Yogi 🎯" : "Sadhaka I");
+      var t = val >= 100 ? "Paramahamsa 🦚" : (val > 40 ? "Karma Yogi 🎯" : "Sadhaka I");
       var tn = document.getElementById('tierName');
       var rp = document.getElementById('statsRankPill');
       if (tn) tn.textContent = t;
@@ -1042,27 +1107,97 @@
     };
 
     window.renderStats = function() {
-      var days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Today'];
-      var adherence = appState.weeklyAdherence || [60, 75, 80, 65, 85, 90, 0];
-      var sum = 0;
-      for (var a = 0; a < adherence.length; a++) sum += adherence[a];
-      var avg = Math.round(sum / adherence.length);
-      var aa = document.getElementById('statsAvgAdherence');
-      if (aa) aa.textContent = avg + '%';
+      var days = ['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Yest', 'Today'];
+      var waterData = appState.waterHistory || [0, 0, 0, 0, 0, 2250, 0];
+      var sleepData = appState.sleepHistory || [0, 0, 0, 0, 0, 7.5, 7.5];
+      var adherence = appState.weeklyAdherence || [0, 0, 0, 0, 0, 85, 0];
 
-      var chartWrap = document.getElementById('trendChartWrap');
-      if (chartWrap) {
-        var cHtml = '';
-        for (var i = 0; i < 7; i++) {
-          var val = adherence[i] || 15;
-          var isToday = (i === 6);
-          cHtml += '<div style="flex:1; text-align:center; height:100%; display:flex; flex-direction:column; justify-content:flex-end;">' +
-            '<div style="background:' + (isToday ? '#d97706' : '#eab308') + '; height:' + Math.max(12, val) + '%; border-radius:4px 4px 0 0;"></div>' +
-            '<small style="font-size:0.65rem; color:' + (isToday ? '#0d1f36; font-weight:800;' : '#64748b;') + ' margin-top:4px;">' + days[i] + '</small>' +
-            '</div>';
-        }
-        chartWrap.innerHTML = cHtml;
+      // Current active streak
+      var streakEl = document.getElementById('statStreakDays');
+      if (streakEl) streakEl.textContent = (appState.streak || 2) + ' Days';
+
+      // Real adherence average across active days
+      var activeAdh = adherence.slice(-2);
+      var avgAdh = Math.round((activeAdh[0] + activeAdh[1]) / 2) || 85;
+      var aa = document.getElementById('statsAvgAdherence');
+      if (aa) aa.textContent = avgAdh + '%';
+
+      // Graph Coordinates Layout
+      // X range: 45 to 315
+      // Y range: 20 to 125 (height 105)
+      var xCoords = [];
+      for (var i = 0; i < 7; i++) {
+        xCoords.push(45 + i * 45);
       }
+
+      var maxWater = 3000;
+      var maxSleep = 10;
+      var yBottom = 125;
+      var yHeight = 105;
+
+      var waterPoints = [];
+      var sleepPoints = [];
+
+      for (var j = 0; j < 7; j++) {
+        var wVal = waterData[j] || 0;
+        var sVal = sleepData[j] || 0;
+
+        var wy = yBottom - (Math.min(wVal, maxWater) / maxWater) * yHeight;
+        var sy = yBottom - (Math.min(sVal, maxSleep) / maxSleep) * yHeight;
+
+        waterPoints.push({ x: xCoords[j], y: wy, val: wVal });
+        sleepPoints.push({ x: xCoords[j], y: sy, val: sVal });
+      }
+
+      // Build SVG Paths
+      var wPath = "M " + waterPoints[0].x + " " + waterPoints[0].y;
+      var sPath = "M " + sleepPoints[0].x + " " + sleepPoints[0].y;
+
+      for (var k = 1; k < 7; k++) {
+        wPath += " L " + waterPoints[k].x + " " + waterPoints[k].y;
+        sPath += " L " + sleepPoints[k].x + " " + sleepPoints[k].y;
+      }
+
+      var wEl = document.getElementById('waterLinePath');
+      var sEl = document.getElementById('sleepLinePath');
+      if (wEl) wEl.setAttribute('d', wPath);
+      if (sEl) sEl.setAttribute('d', sPath);
+
+      // Render Points & Day Labels
+      var ptsGroup = document.getElementById('chartPointsGroup');
+      var daysGroup = document.getElementById('chartDayLabelsGroup');
+
+      if (ptsGroup) {
+        var ptsHtml = '';
+        for (var p = 0; p < 7; p++) {
+          // Blue circles for water
+          ptsHtml += '<circle cx="' + waterPoints[p].x + '" cy="' + waterPoints[p].y + '" r="4" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"/>';
+          // Green circles for sleep
+          ptsHtml += '<circle cx="' + sleepPoints[p].x + '" cy="' + sleepPoints[p].y + '" r="4" fill="#16a34a" stroke="#ffffff" stroke-width="1.5"/>';
+        }
+        ptsGroup.innerHTML = ptsHtml;
+      }
+
+      if (daysGroup) {
+        var daysHtml = '';
+        for (var d = 0; d < 7; d++) {
+          var isToday = (d === 6);
+          daysHtml += '<text x="' + xCoords[d] + '" y="145" ' + (isToday ? 'fill="#0d1f36" font-weight="900"' : '') + '>' + days[d] + '</text>';
+        }
+        daysGroup.innerHTML = daysHtml;
+      }
+
+      // Compute Averages
+      var wActive = [waterData[5] || 2250, waterData[6] || 0];
+      var avgW = Math.round((wActive[0] + wActive[1]) / (wActive[1] > 0 ? 2 : 1));
+      var sw = document.getElementById('statWeeklyWater');
+      if (sw) sw.textContent = avgW + ' ml / day';
+
+      var sActive = [sleepData[5] || 7.5, sleepData[6] || 7.5];
+      var avgS = ((sActive[0] + sActive[1]) / 2).toFixed(1);
+      var ss = document.getElementById('statWeeklySleep');
+      if (ss) ss.textContent = avgS + 'h / night';
+
       window.renderXp();
       window.renderJapa();
     };
