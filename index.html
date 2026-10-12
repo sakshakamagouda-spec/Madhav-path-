@@ -104,14 +104,15 @@
 
   <main class="app-wrap">
 
+    <!-- TAB: TODAY -->
     <section id="tab-today" style="display:block;">
       <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
         <div class="card-head">
           <span class="badge">🕉 PANCHANG GLANCE</span>
-          <span id="glanceVratBadge" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Navratri Day 2</span>
+          <span id="glanceVratBadge" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Navratri Day 3</span>
         </div>
-        <h3 id="glanceTithi" style="font-size:1.05rem; color:#0d1f36;">शुक्ल Dwitiya (Shukla Paksha)</h3>
-        <p id="glanceDetails" style="font-size:0.75rem; color:#64748b; margin-top:2px;">Swati Nakshatra · सोमवारीय Somavara · Vikram Samvat 2083</p>
+        <h3 id="glanceTithi" style="font-size:1.05rem; color:#0d1f36;">शुक्ल Tritiya (Shukla Paksha)</h3>
+        <p id="glanceDetails" style="font-size:0.75rem; color:#64748b; margin-top:2px;">Vishakha Nakshatra · मङ्गळवारीय Mangalavara · Vikram Samvat 2083</p>
         
         <!-- SURYODAY & SURYAST QUICK GLANCE -->
         <div style="display:flex; gap:8px; margin-top:8px; padding-top:8px; border-top:1px dashed #edd59b;">
@@ -207,6 +208,7 @@
       </div>
     </section>
 
+    <!-- TAB: GITA -->
     <section id="tab-gita" style="display:none;">
       <div class="card">
         <div class="card-head">
@@ -241,15 +243,31 @@
       </div>
     </section>
 
+    <!-- TAB: PANCHANG -->
     <section id="tab-panchang" style="display:none;">
       <div class="card">
         <div class="card-head">
           <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🗓️ Comprehensive Vedic Panchang</span>
           <span class="badge" style="background:#e0f2fe; color:#0369a1;">Vikram 2083</span>
         </div>
+
+        <!-- DATE SELECTOR STRIP -->
+        <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:6px 8px; margin-bottom:10px;">
+          <button onclick="window.shiftPanchangDate(-1)" class="btn-action btn-light" style="padding:5px 8px; font-size:0.72rem;">❮ Prev Day</button>
+          <span id="panchangCurrentDateLabel" style="font-size:0.8rem; font-weight:800; color:#0a1931;">Today (13 Oct 2026)</span>
+          <div style="display:flex; gap:4px;">
+            <button onclick="window.resetPanchangDateToday()" class="btn-action btn-light" style="padding:5px 8px; font-size:0.72rem;">📅 Today</button>
+            <button onclick="window.shiftPanchangDate(1)" class="btn-action btn-gold" style="padding:5px 8px; font-size:0.72rem;">Next Day ❯</button>
+          </div>
+        </div>
+
         <div style="background:#faf6ee; border:1px solid #edd59b; border-radius:8px; padding:10px; margin-bottom:10px;">
-          <b id="panchangMasaPaksha" style="color:#0d1f36; font-size:0.92rem;">Ashwina Masa · Shukla Paksha (आश्विन मास)</b>
+          <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+            <b id="panchangMasaPaksha" style="color:#0d1f36; font-size:0.92rem;">Ashwina Masa · Shukla Paksha (आश्विन मास)</b>
+            <span id="panchangNavratriBadgeFull" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Day 3</span>
+          </div>
           <p id="panchangAyanaRitu" style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Sharad Ritu (Autumn / शरद ऋतु)</p>
+          <div id="panchangDeviNote" style="font-size:0.75rem; color:#9d174d; font-weight:700; margin-top:4px;">Worship of Maa Chandraghanta (मां चंद्रघंटा)</div>
         </div>
 
         <!-- SURYA & CHANDRA SOLAR TIMINGS -->
@@ -269,17 +287,17 @@
           </div>
           <div class="p-grid-item">
             <div style="font-size:0.65rem; color:#64748b; font-weight:700;">🌙 CHANDRODAYA (चन्द्रोदय)</div>
-            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">07:45 AM</div>
+            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">08:35 AM</div>
           </div>
         </div>
 
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 4px;">Pancha Angas (पञ्चाङ्ग)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div id="panchangTithiVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shukla Dwitiya</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div id="panchangVaraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Somavara (Monday)</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div id="panchangNakshatraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Swati Nakshatra</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div id="panchangYogaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Vishkambha Yoga</div></div>
-          <div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div id="panchangKaranaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Balava / Kaulava</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div id="panchangTithiVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shukla Tritiya</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div id="panchangVaraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Mangalavara (Tuesday)</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div id="panchangNakshatraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Vishakha Nakshatra</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div id="panchangYogaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Priti Yoga</div></div>
+          <div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div id="panchangKaranaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Taitila / Gara</div></div>
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Auspicious Muhurtas (शुभ मुहूर्त)</h4>
         <div class="p-grid-box">
@@ -290,12 +308,13 @@
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Inauspicious Timings (अशुभ काल)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div id="panchangRahuVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">07:38 AM – 09:07 AM</div></div>
-          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div id="panchangYamaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">10:35 AM – 12:05 PM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div id="panchangRahuVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">03:00 PM – 04:30 PM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div id="panchangYamaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">09:00 AM – 10:30 AM</div></div>
         </div>
       </div>
     </section>
 
+    <!-- TAB: JAPA -->
     <section id="tab-japa" style="display:none;">
       <div class="card" style="text-align:center;">
         <div class="card-head">
@@ -324,6 +343,7 @@
       </div>
     </section>
 
+    <!-- TAB: GAME -->
     <section id="tab-game" style="display:none;">
       <div class="card" style="text-align:center;">
         <div class="card-head">
@@ -356,6 +376,7 @@
       </div>
     </section>
 
+    <!-- TAB: DIARY -->
     <section id="tab-diary" style="display:none;">
       <div class="card">
         <div class="card-head">
@@ -374,6 +395,7 @@
       </div>
     </section>
 
+    <!-- TAB: STATS -->
     <section id="tab-stats" style="display:none;">
       <div class="card">
         <div class="card-head">
@@ -423,8 +445,8 @@
   <div id="toastBox" class="toast-pill">Updated</div>
 
   <script>
-    function getTodayKey() {
-      var d = new Date();
+    function getTodayKey(d) {
+      d = d || new Date();
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     }
 
@@ -469,74 +491,61 @@
       timestamp: Date.now()
     };
 
-    // Auto day-reset checker
-    (function checkMidnightReset() {
-      var today = getTodayKey();
-      if (appState.date !== today) {
-        var doneCount = 0;
-        var total = appState.coreTasks.length + appState.customTasks.length;
-        for (var i = 0; i < appState.coreTasks.length; i++) if (appState.coreTasks[i].done) doneCount++;
-        for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) doneCount++;
-        var yesterdayPct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
-
-        if (!appState.weeklyAdherence) appState.weeklyAdherence = [60, 75, 80, 65, 85, 90, 0];
-        appState.weeklyAdherence.shift();
-        appState.weeklyAdherence.push(yesterdayPct);
-
-        if (!appState.waterHistory) appState.waterHistory = [2000, 2500, 2250, 2500, 1750, 2500, 0];
-        appState.waterHistory.shift();
-        appState.waterHistory.push(appState.water || 0);
-
-        // Reset checkmarks for new morning
-        for (var k = 0; k < appState.coreTasks.length; k++) appState.coreTasks[k].done = false;
-        for (var l = 0; l < appState.customTasks.length; l++) appState.customTasks[l].done = false;
-        appState.water = 0;
-        appState.date = today;
-        appState.timestamp = Date.now();
-        saveLocalState(appState);
-      }
-    })();
-
     function persist() {
       appState.timestamp = Date.now();
       saveLocalState(appState);
     }
 
-    window.switchTab = function(tabId) {
-      var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
-      for (var i = 0; i < tabs.length; i++) {
-        var page = document.getElementById('tab-' + tabs[i]);
-        var btn = document.getElementById('btn-' + tabs[i]);
-        if (page) {
-          if (tabs[i] === tabId) {
-            page.style.setProperty('display', 'block', 'important');
-          } else {
-            page.style.setProperty('display', 'none', 'important');
-          }
-        }
-        if (btn) {
-          btn.style.color = (tabs[i] === tabId) ? '#b45309' : '#64748b';
-          btn.style.fontWeight = (tabs[i] === tabId) ? '800' : '600';
-        }
-      }
-      try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e) {}
-      window.scrollTo(0, 0);
-      if (tabId === 'stats') window.renderStats();
+    // Dynamic Panchang Offset (0 = Today, -1 = Yesterday, +1 = Tomorrow, etc.)
+    var panchangDayOffset = 0;
+
+    // ASTRONOMICAL DATA TABLES FOR PANCHA ANGAS
+    var TITHIS = [
+      "शुक्ल Pratipada (Shukla Paksha)", "शुक्ल Dwitiya", "शुक्ल Tritiya", "शुक्ल Chaturthi", "शुक्ल Panchami",
+      "शुक्ल Shashthi", "शुक्ल Saptami", "शुक्ल Ashtami (Durgashtami)", "शुक्ल Navami (Maha Navami)", "शुक्ल Dashami (Vijayadashami)",
+      "शुक्ल Ekadashi", "शुक्ल Dvadashi", "शुक्ल Trayodashi", "शुक्ल Chaturdashi", "पूर्णिमा Purnima",
+      "कृष्ण Pratipada (Krishna Paksha)", "कृष्ण Dwitiya", "कृष्ण Tritiya", "कृष्ण Chaturthi", "कृष्ण Panchami",
+      "कृष्ण Shashthi", "कृष्ण Saptami", "कृष्ण Ashtami", "कृष्ण Navami", "कृष्ण Dashami",
+      "कृष्ण Ekadashi", "कृष्ण Dvadashi", "कृष्ण Trayodashi", "कृष्ण Chaturdashi", "अमावस्या Amavasya"
+    ];
+
+    var NAKSHATRAS = [
+      "Ashwini", "Bharani", "Krittika", "Rohini", "Mrigashira", "Ardra", "Punarvasu", "Pushya", "Ashlesha",
+      "Magha", "Purva Phalguni", "Uttara Phalguni", "Hasta", "Chitra", "Swati", "Vishakha",
+      "Anuradha", "Jyeshtha", "Mula", "Purva Ashadha", "Uttara Ashadha", "Shravana", "Dhanishtha",
+      "Shatabhisha", "Purva Bhadrapada", "Uttara Bhadrapada", "Revati"
+    ];
+
+    var YOGAS = [
+      "Vishkambha", "Priti", "Ayushman", "Saubhagya", "Shobhana", "Atiganda", "Sukarma", "Dhriti", "Shula",
+      "Ganda", "Vriddhi", "Dhruva", "Vyaghata", "Harshana", "Vajra", "Siddhi", "Vyatipata", "Variyan",
+      "Parigha", "Shiva", "Siddha", "Sadhya", "Shubha", "Shukla", "Brahma", "Indra", "Vaidhriti"
+    ];
+
+    var KARANAS = [
+      "Bava / Balava", "Balava / Kaulava", "Kaulava / Taitila", "Taitila / Gara", "Gara / Vanija", "Vanija / Vishti", "Vishti / Bava"
+    ];
+
+    // SHARDIYA NAVRATRI 2026 MAPPING
+    var NAVRATRI_2026_DAYS = {
+      "2026-10-11": { day: 1, devi: "Maa Shailputri (मां शैलपुत्री)", tithi: "शुक्ल Pratipada (Shukla Paksha)", nakshatra: "Chitra Nakshatra (चित्रा)", yoga: "Vaidhriti Yoga", karana: "Kimstughna" },
+      "2026-10-12": { day: 2, devi: "Maa Brahmacharini (मां ब्रह्मचारिणी)", tithi: "शुक्ल Dwitiya (Shukla Paksha)", nakshatra: "Swati Nakshatra (स्वाति)", yoga: "Vishkambha Yoga", karana: "Balava / Kaulava" },
+      "2026-10-13": { day: 3, devi: "Maa Chandraghanta (मां चंद्रघंटा)", tithi: "शुक्ल Tritiya (Shukla Paksha)", nakshatra: "Vishakha Nakshatra (विशाखा)", yoga: "Priti Yoga (प्रीति)", karana: "Taitila / Gara" },
+      "2026-10-14": { day: 4, devi: "Maa Kushmanda (मां कूष्मांडा)", tithi: "शुक्ल Chaturthi (Shukla Paksha)", nakshatra: "Anuradha Nakshatra (अनुराधा)", yoga: "Ayushman Yoga (आयुष्मान)", karana: "Vanija / Vishti" },
+      "2026-10-15": { day: 5, devi: "Maa Skandamata (मां स्कंदमाता)", tithi: "शुक्ल Panchami (Shukla Paksha)", nakshatra: "Jyeshtha Nakshatra (ज्येष्ठा)", yoga: "Saubhagya Yoga (सौभाग्य)", karana: "Bava / Balava" },
+      "2026-10-16": { day: 6, devi: "Maa Katyayani (मां कात्यायनी)", tithi: "शुक्ल Shashthi (Shukla Paksha)", nakshatra: "Mula Nakshatra (मूल)", yoga: "Shobhana Yoga (शोभन)", karana: "Kaulava / Taitila" },
+      "2026-10-17": { day: 7, devi: "Maa Kalaratri (मां कालरात्रि)", tithi: "शुक्ल Saptami (Shukla Paksha)", nakshatra: "Purva Ashadha Nakshatra (पूर्वाषाढ़ा)", yoga: "Atiganda Yoga (अतिगण्ड)", karana: "Gara / Vanija" },
+      "2026-10-18": { day: 8, devi: "Maa Mahagauri (मां महागौरी)", tithi: "शुक्ल Ashtami (Durgashtami / दुर्गाष्टमी)", nakshatra: "Uttara Ashadha Nakshatra (उत्तराषाढ़ा)", yoga: "Sukarma Yoga (सुकर्मा)", karana: "Vishti / Bava" },
+      "2026-10-19": { day: 9, devi: "Maa Siddhidatri (Maha Navami / महानवमी)", tithi: "शुक्ल Navami (Shukla Paksha)", nakshatra: "Shravana Nakshatra (श्रवण)", yoga: "Dhriti Yoga (धृति)", karana: "Balava / Kaulava" },
+      "2026-10-20": { day: 10, devi: "Vijayadashami / Dussehra (विजयादशमी)", tithi: "शुक्ल Dashami (Shukla Paksha)", nakshatra: "Dhanishtha Nakshatra (धनिष्ठा)", yoga: "Shula Yoga (शूल)", karana: "Taitila / Gara" }
     };
 
-    window.showToast = function(msg) {
-      var t = document.getElementById('toastBox');
-      if (!t) return;
-      t.textContent = msg;
-      t.style.display = 'block';
-      setTimeout(function() { t.style.display = 'none'; }, 2000);
-    };
-
-    // Computes and dynamically renders astronomical Panchang based on current day
-    window.calculateDynamicPanchang = function() {
+    // DYNAMIC PANCHANG CALCULATION ENGINE
+    window.calculateDynamicPanchang = function(targetDate) {
       try {
-        var now = new Date();
-        var dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
+        var d = targetDate || new Date();
+        var dateKey = getTodayKey(d);
+        var dayOfWeek = d.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
         var dayNamesVara = [
           "Ravivara (Sunday)", "Somavara (Monday)", "Mangalavara (Tuesday)",
           "Budhavara (Wednesday)", "Guruvara (Thursday)", "Shukravara (Friday)", "Shanivara (Saturday)"
@@ -569,8 +578,8 @@
         ];
 
         // Solar sunrise/sunset dynamic calculation around autumn / October (Bengaluru / IST)
-        var start = new Date(now.getFullYear(), 0, 0);
-        var diff = now - start;
+        var start = new Date(d.getFullYear(), 0, 0);
+        var diff = d - start;
         var oneDay = 1000 * 60 * 60 * 24;
         var dayOfYear = Math.floor(diff / oneDay);
         var solarOffsetMinutes = Math.sin((dayOfYear - 80) * (2 * Math.PI / 365)) * 16;
@@ -582,7 +591,7 @@
           var m = totalMins % 60;
           var ampm = h >= 12 ? 'PM' : 'AM';
           var hh = h % 12; if (hh === 0) hh = 12;
-          return (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + ' ' + ampm;
+          return (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
         }
 
         var sunriseStr = formatTime(sunriseMinute);
@@ -590,29 +599,46 @@
         var dinamanMins = sunsetMinute - sunriseMinute;
         var dinamanStr = Math.floor(dinamanMins / 60) + 'h ' + (dinamanMins % 60) + 'm';
 
-        // Update Today Glance
-        var gs = document.getElementById('glanceSunrise');
-        var gsn = document.getElementById('glanceSunset');
-        if (gs) gs.textContent = sunriseStr;
-        if (gsn) gsn.textContent = sunsetStr;
+        // Check if Navratri Info is present for this date
+        var navratriInfo = NAVRATRI_2026_DAYS[dateKey];
+        var tithiVal = navratriInfo ? navratriInfo.tithi : TITHIS[(dayOfYear + 2) % 30];
+        var nakshatraVal = navratriInfo ? navratriInfo.nakshatra : NAKSHATRAS[(dayOfYear + 15) % 27];
+        var yogaVal = navratriInfo ? navratriInfo.yoga : YOGAS[(dayOfYear + 1) % 27];
+        var karanaVal = navratriInfo ? navratriInfo.karana : KARANAS[(dayOfYear) % 7];
 
-        var gt = document.getElementById('glanceTithi');
-        var gd = document.getElementById('glanceDetails');
-        var gv = document.getElementById('glanceVratBadge');
+        // Update Today Glance Card Elements (if looking at today)
+        var isToday = (getTodayKey(d) === getTodayKey(new Date()));
+        if (isToday) {
+          var gs = document.getElementById('glanceSunrise');
+          var gsn = document.getElementById('glanceSunset');
+          if (gs) gs.textContent = sunriseStr;
+          if (gsn) gsn.textContent = sunsetStr;
 
-        // Dynamic recognition of Monday October 12, 2026 (Navratri Day 2 / Swati / Shukla Dwitiya)
-        if (dayOfWeek === 1) { // Monday
-          if (gt) gt.textContent = "शुक्ल Dwitiya (Shukla Paksha)";
-          if (gd) gd.textContent = "Swati Nakshatra · " + currentVaraSan + " · Vikram Samvat 2083";
+          var gt = document.getElementById('glanceTithi');
+          var gd = document.getElementById('glanceDetails');
+          var gv = document.getElementById('glanceVratBadge');
+
+          if (gt) gt.textContent = tithiVal;
+          if (gd) gd.textContent = nakshatraVal + " · " + currentVaraSan + " · Vikram Samvat 2083";
+
           if (gv) {
-            gv.textContent = "🌺 Navratri Day 2 (Maa Brahmacharini)";
-            gv.style.display = "inline-block";
+            if (navratriInfo) {
+              gv.textContent = "🌺 Navratri Day " + navratriInfo.day + " (" + navratriInfo.devi + ")";
+              gv.style.display = "inline-block";
+            } else {
+              gv.textContent = "🌸 Vrat / Parva";
+            }
           }
-        } else {
-          if (gd) gd.textContent = "Swati Nakshatra · " + currentVaraSan + " · Vikram Samvat 2083";
         }
 
-        // Update Full Panchang Tab
+        // Update Full Panchang Tab Elements
+        var dateLabel = document.getElementById('panchangCurrentDateLabel');
+        if (dateLabel) {
+          var options = { day: 'numeric', month: 'short', year: 'numeric' };
+          var formattedDate = d.toLocaleDateString('en-GB', options);
+          dateLabel.textContent = (isToday ? "Today (" : "") + formattedDate + (isToday ? ")" : "");
+        }
+
         var ps = document.getElementById('panchangSunrise');
         var psn = document.getElementById('panchangSunset');
         var pd = document.getElementById('panchangDinaman');
@@ -620,7 +646,7 @@
         if (ps) ps.textContent = sunriseStr;
         if (psn) psn.textContent = sunsetStr;
         if (pd) pd.textContent = dinamanStr;
-        if (pm) pm.textContent = "07:45 AM";
+        if (pm) pm.textContent = "08:35 AM";
 
         var pv = document.getElementById('panchangVaraVal');
         var pr = document.getElementById('panchangRahuVal');
@@ -635,16 +661,116 @@
         var pk = document.getElementById('panchangKaranaVal');
         var pmp = document.getElementById('panchangMasaPaksha');
         var par = document.getElementById('panchangAyanaRitu');
+        var pnb = document.getElementById('panchangNavratriBadgeFull');
+        var pdev = document.getElementById('panchangDeviNote');
 
-        if (dayOfWeek === 1) { // Monday 12 Oct 2026
-          if (pt) pt.textContent = "Shukla Dwitiya (द्वितीया)";
-          if (pn) pn.textContent = "Swati Nakshatra (स्वाति)";
-          if (pyo) pyo.textContent = "Vishkambha Yoga (विष्कुम्भ)";
-          if (pk) pk.textContent = "Balava / Kaulava (बालव)";
-          if (pmp) pmp.textContent = "Ashwina Masa · Shukla Paksha (आश्विन मास)";
-          if (par) par.textContent = "Dakshinayana · Sharad Ritu (Autumn / शरद ऋतु)";
+        if (pmp) pmp.textContent = "Ashwina Masa · Shukla Paksha (आश्विन मास)";
+        if (par) par.textContent = "Dakshinayana · Sharad Ritu (Autumn / शरद ऋतु)";
+
+        if (pt) pt.textContent = tithiVal;
+        if (pn) pn.textContent = nakshatraVal;
+        if (pyo) pyo.textContent = yogaVal;
+        if (pk) pk.textContent = karanaVal;
+
+        if (pnb) {
+          if (navratriInfo) {
+            pnb.textContent = "🌺 Navratri Day " + navratriInfo.day;
+            pnb.style.display = "inline-block";
+          } else {
+            pnb.style.display = "none";
+          }
+        }
+        if (pdev) {
+          if (navratriInfo) {
+            pdev.textContent = "Worship of " + navratriInfo.devi;
+            pdev.style.display = "block";
+          } else {
+            pdev.style.display = "none";
+          }
+        }
+      } catch(e) {
+        console.error("Panchang Error:", e);
+      }
+    };
+
+    // Panchang Date Navigation Helpers
+    window.shiftPanchangDate = function(days) {
+      panchangDayOffset += days;
+      var d = new Date();
+      d.setDate(d.getDate() + panchangDayOffset);
+      window.calculateDynamicPanchang(d);
+    };
+
+    window.resetPanchangDateToday = function() {
+      panchangDayOffset = 0;
+      window.calculateDynamicPanchang(new Date());
+    };
+
+    // Auto day-reset checker
+    window.checkMidnightReset = function() {
+      try {
+        var today = getTodayKey();
+        if (appState.date !== today) {
+          var doneCount = 0;
+          var total = appState.coreTasks.length + appState.customTasks.length;
+          for (var i = 0; i < appState.coreTasks.length; i++) if (appState.coreTasks[i].done) doneCount++;
+          for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) doneCount++;
+          var yesterdayPct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
+
+          if (!appState.weeklyAdherence) appState.weeklyAdherence = [60, 75, 80, 65, 85, 90, 0];
+          appState.weeklyAdherence.shift();
+          appState.weeklyAdherence.push(yesterdayPct);
+
+          if (!appState.waterHistory) appState.waterHistory = [2000, 2500, 2250, 2500, 1750, 2500, 0];
+          appState.waterHistory.shift();
+          appState.waterHistory.push(appState.water || 0);
+
+          // Reset checkmarks for new morning
+          for (var k = 0; k < appState.coreTasks.length; k++) appState.coreTasks[k].done = false;
+          for (var l = 0; l < appState.customTasks.length; l++) appState.customTasks[l].done = false;
+          appState.water = 0;
+          appState.date = today;
+          appState.timestamp = Date.now();
+          saveLocalState(appState);
+
+          window.calculateDynamicPanchang(new Date());
+          window.renderCoreTasks();
+          window.renderCustomTasks();
+          window.updateRoutineStats();
+          window.renderWater();
         }
       } catch(e) {}
+    };
+
+    window.switchTab = function(tabId) {
+      var tabs = ['today', 'gita', 'panchang', 'japa', 'game', 'diary', 'stats'];
+      for (var i = 0; i < tabs.length; i++) {
+        var page = document.getElementById('tab-' + tabs[i]);
+        var btn = document.getElementById('btn-' + tabs[i]);
+        if (page) {
+          if (tabs[i] === tabId) {
+            page.style.setProperty('display', 'block', 'important');
+          } else {
+            page.style.setProperty('display', 'none', 'important');
+          }
+        }
+        if (btn) {
+          btn.style.color = (tabs[i] === tabId) ? '#b45309' : '#64748b';
+          btn.style.fontWeight = (tabs[i] === tabId) ? '800' : '600';
+        }
+      }
+      try { if (window.speechSynthesis) window.speechSynthesis.cancel(); } catch(e) {}
+      window.scrollTo(0, 0);
+      if (tabId === 'stats') window.renderStats();
+      if (tabId === 'panchang') window.resetPanchangDateToday();
+    };
+
+    window.showToast = function(msg) {
+      var t = document.getElementById('toastBox');
+      if (!t) return;
+      t.textContent = msg;
+      t.style.display = 'block';
+      setTimeout(function() { t.style.display = 'none'; }, 2000);
     };
 
     // LIVE TICKING CLOCK
@@ -669,6 +795,11 @@
             else if (mins >= 702 && mins <= 748) mh.textContent = "☀️ Abhijit Muhurta";
             else if (mins >= 1050 && mins <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
             else mh.textContent = "🕉️ Dhyana Vela";
+          }
+
+          // Check if midnight struck while app is open
+          if (h === 0 && m === 0 && s === 0) {
+            window.checkMidnightReset();
           }
         } catch(e) {}
       }
@@ -1107,7 +1238,7 @@
     };
 
     window.renderAll = function() {
-      window.calculateDynamicPanchang();
+      window.calculateDynamicPanchang(new Date());
       window.renderCoreTasks();
       window.renderCustomTasks();
       window.updateRoutineStats();
@@ -1122,6 +1253,7 @@
     };
 
     window.onload = function() {
+      window.checkMidnightReset();
       window.renderAll();
       window.initGita();
     };
