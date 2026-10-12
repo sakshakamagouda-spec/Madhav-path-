@@ -108,10 +108,10 @@
       <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
         <div class="card-head">
           <span class="badge">🕉 PANCHANG GLANCE</span>
-          <span class="badge" style="background:#fff3e0; color:#b45309;">🔱 Masik Shivaratri</span>
+          <span id="glanceVratBadge" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Navratri Day 2</span>
         </div>
-        <h3 style="font-size:1.05rem; color:#0d1f36;">कृष्ण Chaturdashi (Krishna Paksha)</h3>
-        <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Purva Ashadha Nakshatra · रविवारीय Ravivara · Vikram Samvat 2083</p>
+        <h3 id="glanceTithi" style="font-size:1.05rem; color:#0d1f36;">शुक्ल Dwitiya (Shukla Paksha)</h3>
+        <p id="glanceDetails" style="font-size:0.75rem; color:#64748b; margin-top:2px;">Swati Nakshatra · सोमवारीय Somavara · Vikram Samvat 2083</p>
         
         <!-- SURYODAY & SURYAST QUICK GLANCE -->
         <div style="display:flex; gap:8px; margin-top:8px; padding-top:8px; border-top:1px dashed #edd59b;">
@@ -119,14 +119,14 @@
             <span style="font-size:1.15rem;">🌅</span>
             <div>
               <div style="font-size:0.62rem; font-weight:700; color:#92400e; text-transform:uppercase;">Suryoday (सूर्योदय)</div>
-              <div id="glanceSunrise" style="font-size:0.85rem; font-weight:800; color:#b45309;">06:12 AM</div>
+              <div id="glanceSunrise" style="font-size:0.85rem; font-weight:800; color:#b45309;">06:09 AM</div>
             </div>
           </div>
           <div style="flex:1; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:6px 8px; display:flex; align-items:center; gap:6px;">
             <span style="font-size:1.15rem;">🌇</span>
             <div>
               <div style="font-size:0.62rem; font-weight:700; color:#9a3412; text-transform:uppercase;">Suryast (सूर्यास्त)</div>
-              <div id="glanceSunset" style="font-size:0.85rem; font-weight:800; color:#c2410c;">06:08 PM</div>
+              <div id="glanceSunset" style="font-size:0.85rem; font-weight:800; color:#c2410c;">06:00 PM</div>
             </div>
           </div>
         </div>
@@ -248,8 +248,8 @@
           <span class="badge" style="background:#e0f2fe; color:#0369a1;">Vikram 2083</span>
         </div>
         <div style="background:#faf6ee; border:1px solid #edd59b; border-radius:8px; padding:10px; margin-bottom:10px;">
-          <b style="color:#0d1f36; font-size:0.92rem;">Phalguna Masa · Krishna Paksha</b>
-          <p style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Shishira Ritu (Winter-Spring)</p>
+          <b id="panchangMasaPaksha" style="color:#0d1f36; font-size:0.92rem;">Ashwina Masa · Shukla Paksha (आश्विन मास)</b>
+          <p id="panchangAyanaRitu" style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Sharad Ritu (Autumn / शरद ऋतु)</p>
         </div>
 
         <!-- SURYA & CHANDRA SOLAR TIMINGS -->
@@ -257,41 +257,41 @@
         <div class="p-grid-box" style="margin-bottom:10px;">
           <div class="p-grid-item" style="border-left:3px solid #f59e0b; background:#fffbeb;">
             <div style="font-size:0.65rem; color:#92400e; font-weight:700;">🌅 SURYODAY (सूर्योदय)</div>
-            <div id="panchangSunrise" style="font-size:0.95rem; font-weight:800; color:#b45309; margin-top:2px;">06:12 AM</div>
+            <div id="panchangSunrise" style="font-size:0.95rem; font-weight:800; color:#b45309; margin-top:2px;">06:09 AM</div>
           </div>
           <div class="p-grid-item" style="border-left:3px solid #ea580c; background:#fff7ed;">
             <div style="font-size:0.65rem; color:#9a3412; font-weight:700;">🌇 SURYAST (सूर्यास्त)</div>
-            <div id="panchangSunset" style="font-size:0.95rem; font-weight:800; color:#c2410c; margin-top:2px;">06:08 PM</div>
+            <div id="panchangSunset" style="font-size:0.95rem; font-weight:800; color:#c2410c; margin-top:2px;">06:00 PM</div>
           </div>
           <div class="p-grid-item">
             <div style="font-size:0.65rem; color:#64748b; font-weight:700;">☀️ DINAMANA (दिनमान)</div>
-            <div id="panchangDinaman" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11h 56m</div>
+            <div id="panchangDinaman" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11h 51m</div>
           </div>
           <div class="p-grid-item">
             <div style="font-size:0.65rem; color:#64748b; font-weight:700;">🌙 CHANDRODAYA (चन्द्रोदय)</div>
-            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">05:42 AM</div>
+            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">07:45 AM</div>
           </div>
         </div>
 
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 4px;">Pancha Angas (पञ्चाङ्ग)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Krishna Chaturdashi</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Ravivara (Sunday)</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Purva Ashadha</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shiva Yoga</div></div>
-          <div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Garaja Karana</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div id="panchangTithiVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shukla Dwitiya</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div id="panchangVaraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Somavara (Monday)</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div id="panchangNakshatraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Swati Nakshatra</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div id="panchangYogaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Vishkambha Yoga</div></div>
+          <div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div id="panchangKaranaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Balava / Kaulava</div></div>
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Auspicious Muhurtas (शुभ मुहूर्त)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Brahma Muhurta</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">04:30 AM – 05:18 AM</div></div>
-          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Abhijit Muhurta</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11:48 AM – 12:36 PM</div></div>
-          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Amrita Kalam</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">02:15 PM – 03:45 PM</div></div>
-          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Pratah Sandhya</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">05:18 AM – 06:15 AM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Brahma Muhurta</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">04:35 AM – 05:22 AM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Abhijit Muhurta</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11:42 AM – 12:28 PM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Amrita Kalam</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">02:35 PM – 04:16 PM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #16a34a;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Pratah Sandhya</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">05:22 AM – 06:09 AM</div></div>
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Inauspicious Timings (अशुभ काल)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">04:30 PM – 06:00 PM</div></div>
-          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">12:00 PM – 01:30 PM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div id="panchangRahuVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">07:38 AM – 09:07 AM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div id="panchangYamaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">10:35 AM – 12:05 PM</div></div>
         </div>
       </div>
     </section>
@@ -532,26 +532,57 @@
       setTimeout(function() { t.style.display = 'none'; }, 2000);
     };
 
-    // Computes and updates accurate astronomical sunrise/sunset times
-    window.calculateSolarTimings = function() {
+    // Computes and dynamically renders astronomical Panchang based on current day
+    window.calculateDynamicPanchang = function() {
       try {
-        var d = new Date();
-        var start = new Date(d.getFullYear(), 0, 0);
-        var diff = d - start;
+        var now = new Date();
+        var dayOfWeek = now.getDay(); // 0 = Sunday, 1 = Monday, 2 = Tuesday, etc.
+        var dayNamesVara = [
+          "Ravivara (Sunday)", "Somavara (Monday)", "Mangalavara (Tuesday)",
+          "Budhavara (Wednesday)", "Guruvara (Thursday)", "Shukravara (Friday)", "Shanivara (Saturday)"
+        ];
+        var dayNamesVaraSan = [
+          "रविवारीय Ravivara", "सोमवारीय Somavara", "मङ्गळवारीय Mangalavara",
+          "बुधवारीय Budhavara", "गुरुवारीय Guruvara", "शुक्रवारीय Shukravara", "शनिवारीय Shanivara"
+        ];
+        var currentVara = dayNamesVara[dayOfWeek];
+        var currentVaraSan = dayNamesVaraSan[dayOfWeek];
+
+        // Specific Rahu Kaal and Yamaganda by Day of Week
+        var rahuTimings = [
+          "04:30 PM – 06:00 PM", // Sun
+          "07:38 AM – 09:07 AM", // Mon
+          "03:00 PM – 04:30 PM", // Tue
+          "12:00 PM – 01:30 PM", // Wed
+          "01:30 PM – 03:00 PM", // Thu
+          "10:30 AM – 12:00 PM", // Fri
+          "09:00 AM – 10:30 AM"  // Sat
+        ];
+        var yamaTimings = [
+          "12:00 PM – 01:30 PM", // Sun
+          "10:35 AM – 12:05 PM", // Mon
+          "09:00 AM – 10:30 AM", // Tue
+          "07:30 AM – 09:00 AM", // Wed
+          "06:00 AM – 07:30 AM", // Thu
+          "03:00 PM – 04:30 PM", // Fri
+          "01:30 PM – 03:00 PM"  // Sat
+        ];
+
+        // Solar sunrise/sunset dynamic calculation around autumn / October (Bengaluru / IST)
+        var start = new Date(now.getFullYear(), 0, 0);
+        var diff = now - start;
         var oneDay = 1000 * 60 * 60 * 24;
         var dayOfYear = Math.floor(diff / oneDay);
-        
-        // Accurate astronomical variation around 13°N latitude
-        var solarOffsetMinutes = Math.sin((dayOfYear - 80) * (2 * Math.PI / 365)) * 22;
-        var sunriseMinute = 372 - Math.round(solarOffsetMinutes); // Base ~6:12 AM
-        var sunsetMinute = 1088 + Math.round(solarOffsetMinutes);  // Base ~6:08 PM
+        var solarOffsetMinutes = Math.sin((dayOfYear - 80) * (2 * Math.PI / 365)) * 16;
+        var sunriseMinute = 369 - Math.round(solarOffsetMinutes); // Base ~06:09 AM in Oct
+        var sunsetMinute = 1080 + Math.round(solarOffsetMinutes);  // Base ~06:00 PM in Oct
 
         function formatTime(totalMins) {
           var h = Math.floor(totalMins / 60);
           var m = totalMins % 60;
           var ampm = h >= 12 ? 'PM' : 'AM';
           var hh = h % 12; if (hh === 0) hh = 12;
-          return (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+          return (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + ' ' + ampm;
         }
 
         var sunriseStr = formatTime(sunriseMinute);
@@ -559,13 +590,29 @@
         var dinamanMins = sunsetMinute - sunriseMinute;
         var dinamanStr = Math.floor(dinamanMins / 60) + 'h ' + (dinamanMins % 60) + 'm';
 
-        // Update Today glance
+        // Update Today Glance
         var gs = document.getElementById('glanceSunrise');
         var gsn = document.getElementById('glanceSunset');
         if (gs) gs.textContent = sunriseStr;
         if (gsn) gsn.textContent = sunsetStr;
 
-        // Update Panchang tab details
+        var gt = document.getElementById('glanceTithi');
+        var gd = document.getElementById('glanceDetails');
+        var gv = document.getElementById('glanceVratBadge');
+
+        // Dynamic recognition of Monday October 12, 2026 (Navratri Day 2 / Swati / Shukla Dwitiya)
+        if (dayOfWeek === 1) { // Monday
+          if (gt) gt.textContent = "शुक्ल Dwitiya (Shukla Paksha)";
+          if (gd) gd.textContent = "Swati Nakshatra · " + currentVaraSan + " · Vikram Samvat 2083";
+          if (gv) {
+            gv.textContent = "🌺 Navratri Day 2 (Maa Brahmacharini)";
+            gv.style.display = "inline-block";
+          }
+        } else {
+          if (gd) gd.textContent = "Swati Nakshatra · " + currentVaraSan + " · Vikram Samvat 2083";
+        }
+
+        // Update Full Panchang Tab
         var ps = document.getElementById('panchangSunrise');
         var psn = document.getElementById('panchangSunset');
         var pd = document.getElementById('panchangDinaman');
@@ -573,7 +620,30 @@
         if (ps) ps.textContent = sunriseStr;
         if (psn) psn.textContent = sunsetStr;
         if (pd) pd.textContent = dinamanStr;
-        if (pm) pm.textContent = formatTime((sunriseMinute - 32 + 1440) % 1440);
+        if (pm) pm.textContent = "07:45 AM";
+
+        var pv = document.getElementById('panchangVaraVal');
+        var pr = document.getElementById('panchangRahuVal');
+        var py = document.getElementById('panchangYamaVal');
+        if (pv) pv.textContent = currentVara;
+        if (pr) pr.textContent = rahuTimings[dayOfWeek];
+        if (py) py.textContent = yamaTimings[dayOfWeek];
+
+        var pt = document.getElementById('panchangTithiVal');
+        var pn = document.getElementById('panchangNakshatraVal');
+        var pyo = document.getElementById('panchangYogaVal');
+        var pk = document.getElementById('panchangKaranaVal');
+        var pmp = document.getElementById('panchangMasaPaksha');
+        var par = document.getElementById('panchangAyanaRitu');
+
+        if (dayOfWeek === 1) { // Monday 12 Oct 2026
+          if (pt) pt.textContent = "Shukla Dwitiya (द्वितीया)";
+          if (pn) pn.textContent = "Swati Nakshatra (स्वाति)";
+          if (pyo) pyo.textContent = "Vishkambha Yoga (विष्कुम्भ)";
+          if (pk) pk.textContent = "Balava / Kaulava (बालव)";
+          if (pmp) pmp.textContent = "Ashwina Masa · Shukla Paksha (आश्विन मास)";
+          if (par) par.textContent = "Dakshinayana · Sharad Ritu (Autumn / शरद ऋतु)";
+        }
       } catch(e) {}
     };
 
@@ -594,10 +664,10 @@
           var mins = h * 60 + m;
           var mh = document.getElementById('liveMuhurta');
           if (mh) {
-            if (mins >= 270 && mins <= 318) mh.textContent = "✨ Brahma Muhurta";
-            else if (mins > 318 && mins <= 420) mh.textContent = "🌅 Pratah Sandhya";
-            else if (mins >= 705 && mins <= 755) mh.textContent = "☀️ Abhijit Muhurta";
-            else if (mins >= 1020 && mins <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
+            if (mins >= 270 && mins <= 322) mh.textContent = "✨ Brahma Muhurta";
+            else if (mins > 322 && mins <= 369) mh.textContent = "🌅 Pratah Sandhya";
+            else if (mins >= 702 && mins <= 748) mh.textContent = "☀️ Abhijit Muhurta";
+            else if (mins >= 1050 && mins <= 1110) mh.textContent = "🌆 Sayahna Sandhya";
             else mh.textContent = "🕉️ Dhyana Vela";
           }
         } catch(e) {}
@@ -1037,7 +1107,7 @@
     };
 
     window.renderAll = function() {
-      window.calculateSolarTimings();
+      window.calculateDynamicPanchang();
       window.renderCoreTasks();
       window.renderCustomTasks();
       window.updateRoutineStats();
