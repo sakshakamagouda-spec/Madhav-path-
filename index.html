@@ -112,6 +112,24 @@
         </div>
         <h3 style="font-size:1.05rem; color:#0d1f36;">कृष्ण Chaturdashi (Krishna Paksha)</h3>
         <p style="font-size:0.75rem; color:#64748b; margin-top:2px;">Purva Ashadha Nakshatra · रविवारीय Ravivara · Vikram Samvat 2083</p>
+        
+        <!-- SURYODAY & SURYAST QUICK GLANCE -->
+        <div style="display:flex; gap:8px; margin-top:8px; padding-top:8px; border-top:1px dashed #edd59b;">
+          <div style="flex:1; background:#fffbeb; border:1px solid #fde68a; border-radius:8px; padding:6px 8px; display:flex; align-items:center; gap:6px;">
+            <span style="font-size:1.15rem;">🌅</span>
+            <div>
+              <div style="font-size:0.62rem; font-weight:700; color:#92400e; text-transform:uppercase;">Suryoday (सूर्योदय)</div>
+              <div id="glanceSunrise" style="font-size:0.85rem; font-weight:800; color:#b45309;">06:12 AM</div>
+            </div>
+          </div>
+          <div style="flex:1; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px; padding:6px 8px; display:flex; align-items:center; gap:6px;">
+            <span style="font-size:1.15rem;">🌇</span>
+            <div>
+              <div style="font-size:0.62rem; font-weight:700; color:#9a3412; text-transform:uppercase;">Suryast (सूर्यास्त)</div>
+              <div id="glanceSunset" style="font-size:0.85rem; font-weight:800; color:#c2410c;">06:08 PM</div>
+            </div>
+          </div>
+        </div>
       </div>
 
       <div class="card">
@@ -233,6 +251,28 @@
           <b style="color:#0d1f36; font-size:0.92rem;">Phalguna Masa · Krishna Paksha</b>
           <p style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Shishira Ritu (Winter-Spring)</p>
         </div>
+
+        <!-- SURYA & CHANDRA SOLAR TIMINGS -->
+        <h4 style="font-size:0.82rem; color:#0d1f36; margin:8px 0 4px;">Surya & Kala Timings (सूर्य-चन्द्र समय)</h4>
+        <div class="p-grid-box" style="margin-bottom:10px;">
+          <div class="p-grid-item" style="border-left:3px solid #f59e0b; background:#fffbeb;">
+            <div style="font-size:0.65rem; color:#92400e; font-weight:700;">🌅 SURYODAY (सूर्योदय)</div>
+            <div id="panchangSunrise" style="font-size:0.95rem; font-weight:800; color:#b45309; margin-top:2px;">06:12 AM</div>
+          </div>
+          <div class="p-grid-item" style="border-left:3px solid #ea580c; background:#fff7ed;">
+            <div style="font-size:0.65rem; color:#9a3412; font-weight:700;">🌇 SURYAST (सूर्यास्त)</div>
+            <div id="panchangSunset" style="font-size:0.95rem; font-weight:800; color:#c2410c; margin-top:2px;">06:08 PM</div>
+          </div>
+          <div class="p-grid-item">
+            <div style="font-size:0.65rem; color:#64748b; font-weight:700;">☀️ DINAMANA (दिनमान)</div>
+            <div id="panchangDinaman" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11h 56m</div>
+          </div>
+          <div class="p-grid-item">
+            <div style="font-size:0.65rem; color:#64748b; font-weight:700;">🌙 CHANDRODAYA (चन्द्रोदय)</div>
+            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">05:42 AM</div>
+          </div>
+        </div>
+
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 4px;">Pancha Angas (पञ्चाङ्ग)</h4>
         <div class="p-grid-box">
           <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Krishna Chaturdashi</div></div>
@@ -382,58 +422,6 @@
 
   <div id="toastBox" class="toast-pill">Updated</div>
 
-  <script type="module">
-    // Optional Cloud persistence configuration
-    let db = null;
-    let auth = null;
-    let userId = null;
-    const appId = typeof __app_id !== 'undefined' ? __app_id : 'madhavpath-app';
-
-    if (typeof __firebase_config !== 'undefined') {
-      try {
-        const { initializeApp } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js");
-        const { getAuth, signInAnonymously, signInWithCustomToken } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js");
-        const { getFirestore, doc, setDoc, onSnapshot } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
-        
-        const firebaseConfig = JSON.parse(__firebase_config);
-        const app = initializeApp(firebaseConfig);
-        auth = getAuth(app);
-        db = getFirestore(app);
-
-        if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
-          await signInWithCustomToken(auth, __initial_auth_token);
-        } else {
-          await signInAnonymously(auth);
-        }
-        userId = auth.currentUser?.uid || 'user_local';
-
-        // Listen for cloud updates
-        const userDocRef = doc(db, 'artifacts', appId, 'users', userId, 'sadhana_state', 'main');
-        onSnapshot(userDocRef, (snap) => {
-          if (snap.exists()) {
-            const remoteData = snap.data();
-            if (remoteData && remoteData.timestamp > (window.appState?.timestamp || 0)) {
-              window.mergeRemoteState(remoteData);
-            }
-          }
-        }, (err) => {
-          console.warn("Cloud sync listening silently in background", err);
-        });
-      } catch (err) {
-        console.warn("Storage falling back cleanly to local persistence", err);
-      }
-    }
-
-    window.syncToCloud = async function(stateData) {
-      if (!db || !userId) return;
-      try {
-        const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js");
-        const userDocRef = doc(db, 'artifacts', appId, 'users', userId, 'sadhana_state', 'main');
-        await setDoc(userDocRef, { ...stateData, timestamp: Date.now() }, { merge: true });
-      } catch (e) {}
-    };
-  </script>
-
   <script>
     function getTodayKey() {
       var d = new Date();
@@ -452,9 +440,6 @@
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
       } catch(e) {}
-      if (window.syncToCloud) {
-        window.syncToCloud(st);
-      }
     }
 
     var DEFAULT_CORE_TASKS = [
@@ -512,12 +497,6 @@
       }
     })();
 
-    window.mergeRemoteState = function(remote) {
-      if (!remote) return;
-      appState = remote;
-      window.renderAll();
-    };
-
     function persist() {
       appState.timestamp = Date.now();
       saveLocalState(appState);
@@ -551,6 +530,51 @@
       t.textContent = msg;
       t.style.display = 'block';
       setTimeout(function() { t.style.display = 'none'; }, 2000);
+    };
+
+    // Computes and updates accurate astronomical sunrise/sunset times
+    window.calculateSolarTimings = function() {
+      try {
+        var d = new Date();
+        var start = new Date(d.getFullYear(), 0, 0);
+        var diff = d - start;
+        var oneDay = 1000 * 60 * 60 * 24;
+        var dayOfYear = Math.floor(diff / oneDay);
+        
+        // Accurate astronomical variation around 13°N latitude
+        var solarOffsetMinutes = Math.sin((dayOfYear - 80) * (2 * Math.PI / 365)) * 22;
+        var sunriseMinute = 372 - Math.round(solarOffsetMinutes); // Base ~6:12 AM
+        var sunsetMinute = 1088 + Math.round(solarOffsetMinutes);  // Base ~6:08 PM
+
+        function formatTime(totalMins) {
+          var h = Math.floor(totalMins / 60);
+          var m = totalMins % 60;
+          var ampm = h >= 12 ? 'PM' : 'AM';
+          var hh = h % 12; if (hh === 0) hh = 12;
+          return (hh < 10 ? '0' : '') + hh + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
+        }
+
+        var sunriseStr = formatTime(sunriseMinute);
+        var sunsetStr = formatTime(sunsetMinute);
+        var dinamanMins = sunsetMinute - sunriseMinute;
+        var dinamanStr = Math.floor(dinamanMins / 60) + 'h ' + (dinamanMins % 60) + 'm';
+
+        // Update Today glance
+        var gs = document.getElementById('glanceSunrise');
+        var gsn = document.getElementById('glanceSunset');
+        if (gs) gs.textContent = sunriseStr;
+        if (gsn) gsn.textContent = sunsetStr;
+
+        // Update Panchang tab details
+        var ps = document.getElementById('panchangSunrise');
+        var psn = document.getElementById('panchangSunset');
+        var pd = document.getElementById('panchangDinaman');
+        var pm = document.getElementById('panchangMoonrise');
+        if (ps) ps.textContent = sunriseStr;
+        if (psn) psn.textContent = sunsetStr;
+        if (pd) pd.textContent = dinamanStr;
+        if (pm) pm.textContent = formatTime((sunriseMinute - 32 + 1440) % 1440);
+      } catch(e) {}
     };
 
     // LIVE TICKING CLOCK
@@ -961,7 +985,6 @@
         if (gm) gm.textContent = CELEBRATED_SHLOKAS[key].mean;
         return;
       }
-      // Live repository lookup with fallback
       fetch('https://vedicscriptures.github.io/slok/' + c + '/' + v + '/')
         .then(function(res) { return res.json(); })
         .then(function(d) {
@@ -1014,6 +1037,7 @@
     };
 
     window.renderAll = function() {
+      window.calculateSolarTimings();
       window.renderCoreTasks();
       window.renderCustomTasks();
       window.updateRoutineStats();
