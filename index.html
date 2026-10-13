@@ -44,8 +44,8 @@
     .kpi-tag { font-size: 0.65rem; font-weight: 700; color: #8a96a3; text-transform: uppercase; }
     .kpi-digit { font-size: 1.22rem; font-weight: 800; color: #0a1931; margin-top: 2px; }
     
-    .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 11px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 9px; margin-bottom: 7px; cursor: pointer; touch-action: manipulation; transition: all 0.15s ease; }
-    .task-item.checked { background: #f1f5f9; border-color: #cbd5e1; opacity: 0.85; }
+    .task-item { display: flex; align-items: center; justify-content: space-between; padding: 10px 11px; background: #fdfbf7; border: 1px solid #edd59b; border-radius: 9px; margin-bottom: 7px; cursor: pointer; touch-action: manipulation; transition: all 0.15s ease; user-select: none; }
+    .task-item.checked { background: #eef2f6; border-color: #cbd5e1; opacity: 0.92; }
     .task-item.checked .task-text { text-decoration: line-through; color: #64748b; }
     .task-check-mark { font-size: 1.25rem; margin-right: 9px; color: #b45309; font-weight: 800; width: 22px; display: inline-block; text-align: center; }
     .task-text { font-size: 0.83rem; font-weight: 700; color: #0a1931; flex: 1; }
@@ -192,7 +192,7 @@
       <div class="card">
         <div class="card-head">
           <span style="font-size:0.94rem; font-weight:800; color:#0a1931;">🌅 Today's Sankalp (Routine)</span>
-          <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-save active</span>
+          <span style="color:#16a34a; font-size:0.7rem; font-weight:700;">● Auto-save persistent</span>
         </div>
         <div class="progress-bar-bg" style="margin-bottom:10px;"><div id="routineBar" class="progress-bar-fill" style="background:#eab308; width:0%;"></div></div>
 
@@ -548,6 +548,13 @@
 
     function loadLocalState() {
       try {
+        var today = getTodayKey();
+        var primaryRaw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('MADHAV_APP_V4');
+        var parsedPrimary = null;
+        if (primaryRaw) {
+          try { parsedPrimary = JSON.parse(primaryRaw); } catch(e) {}
+        }
+
         var mergedNotes = [];
         var customTasks = [];
         var malas = 1;
@@ -556,40 +563,78 @@
         var bedTime = "22:30";
         var wakeTime = "06:00";
         var coreTasks = JSON.parse(JSON.stringify(DEFAULT_CORE_TASKS));
+        var streak = 2;
+        var weeklyAdherence = [0, 0, 0, 0, 0, 85, 0];
+        var sleepHistory = [0, 0, 0, 0, 0, 7.5, 7.5];
+        var waterHistory = [0, 0, 0, 0, 0, 2250, 0];
 
-        // Scan all storage keys in browser to salvage any previous user notes
+        // 1. Recover across all storage keys
         for (var k = 0; k < localStorage.length; k++) {
           try {
             var keyName = localStorage.key(k);
             var raw = localStorage.getItem(keyName);
             if (!raw) continue;
-            var parsed = JSON.parse(raw);
-            if (parsed) {
-              if (parsed.diary && Array.isArray(parsed.diary)) {
-                for (var d = 0; d < parsed.diary.length; d++) mergedNotes.push(parsed.diary[d]);
+            var p = JSON.parse(raw);
+            if (p) {
+              if (p.diary && Array.isArray(p.diary)) {
+                for (var d = 0; d < p.diary.length; d++) mergedNotes.push(p.diary[d]);
               }
-              if (parsed.diaryNotes && Array.isArray(parsed.diaryNotes)) {
-                for (var dn = 0; dn < parsed.diaryNotes.length; dn++) mergedNotes.push(parsed.diaryNotes[dn]);
+              if (p.diaryNotes && Array.isArray(p.diaryNotes)) {
+                for (var dn = 0; dn < p.diaryNotes.length; dn++) mergedNotes.push(p.diaryNotes[dn]);
               }
-              if (parsed.customTasks && Array.isArray(parsed.customTasks) && parsed.customTasks.length > 0) {
-                customTasks = parsed.customTasks;
+              if (p.customTasks && Array.isArray(p.customTasks) && p.customTasks.length > 0 && customTasks.length === 0) {
+                customTasks = p.customTasks;
               }
-              if (parsed.malas && parsed.malas > malas) malas = parsed.malas;
-              if (parsed.xp && parsed.xp > xp) xp = parsed.xp;
-              if (parsed.bedTime) bedTime = parsed.bedTime;
-              if (parsed.wakeTime) wakeTime = parsed.wakeTime;
+              if (p.malas && p.malas > malas) malas = p.malas;
+              if (p.xp && p.xp > xp) xp = p.xp;
+              if (p.bedTime) bedTime = p.bedTime;
+              if (p.wakeTime) wakeTime = p.wakeTime;
+              if (p.streak && p.streak > streak) streak = p.streak;
             }
           } catch(e) {}
         }
 
-        // Deduplicate merged notes
+        // 2. Restore exact task ticks and daily values if stored on the same date
+        if (parsedPrimary) {
+          if (parsedPrimary.date === today) {
+            if (Array.isArray(parsedPrimary.coreTasks) && parsedPrimary.coreTasks.length === DEFAULT_CORE_TASKS.length) {
+              for (var i = 0; i < coreTasks.length; i++) {
+                if (typeof parsedPrimary.coreTasks[i].done === 'boolean') {
+                  coreTasks[i].done = parsedPrimary.coreTasks[i].done;
+                }
+                if (parsedPrimary.coreTasks[i].name) {
+                  coreTasks[i].name = parsedPrimary.coreTasks[i].name;
+                }
+              }
+            }
+            if (Array.isArray(parsedPrimary.customTasks)) {
+              customTasks = parsedPrimary.customTasks;
+            }
+            if (typeof parsedPrimary.water === 'number') {
+              water = parsedPrimary.water;
+            }
+          }
+          if (typeof parsedPrimary.malas === 'number') malas = parsedPrimary.malas;
+          if (typeof parsedPrimary.xp === 'number') xp = parsedPrimary.xp;
+          if (parsedPrimary.bedTime) bedTime = parsedPrimary.bedTime;
+          if (parsedPrimary.wakeTime) wakeTime = parsedPrimary.wakeTime;
+          if (parsedPrimary.streak) streak = parsedPrimary.streak;
+          if (Array.isArray(parsedPrimary.weeklyAdherence)) weeklyAdherence = parsedPrimary.weeklyAdherence;
+          if (Array.isArray(parsedPrimary.sleepHistory)) sleepHistory = parsedPrimary.sleepHistory;
+          if (Array.isArray(parsedPrimary.waterHistory)) waterHistory = parsedPrimary.waterHistory;
+          if (Array.isArray(parsedPrimary.diaryNotes) && parsedPrimary.diaryNotes.length > 0) {
+            for (var m = 0; m < parsedPrimary.diaryNotes.length; m++) mergedNotes.push(parsedPrimary.diaryNotes[m]);
+          }
+        }
+
+        // Deduplicate merged diary notes
         var uniqueNotes = [];
         var seenNotes = {};
         for (var n = 0; n < mergedNotes.length; n++) {
           var item = mergedNotes[n];
-          var key = (item.text || '') + (item.date || '');
-          if (!seenNotes[key] && item.text) {
-            seenNotes[key] = true;
+          var itemKey = (item.text || '') + (item.date || '');
+          if (!seenNotes[itemKey] && item.text) {
+            seenNotes[itemKey] = true;
             uniqueNotes.push({
               id: item.id || (Date.now() - n),
               date: item.date || new Date().toLocaleDateString('en-GB'),
@@ -599,7 +644,6 @@
           }
         }
 
-        // Ensure both Day 1 and Day 2 diary notes are permanently preserved
         if (uniqueNotes.length === 0) {
           uniqueNotes = DEFAULT_2DAY_DIARY.slice();
         } else if (uniqueNotes.length === 1) {
@@ -607,21 +651,21 @@
         }
 
         return {
-          date: getTodayKey(),
-          streak: 2,
+          date: today,
+          streak: streak || 2,
           coreTasks: coreTasks,
           customTasks: customTasks,
           water: water || 0,
           bedTime: bedTime || "22:30",
           wakeTime: wakeTime || "06:00",
-          beads: 0,
+          beads: (parsedPrimary && typeof parsedPrimary.beads === 'number') ? parsedPrimary.beads : 0,
           malas: malas || 1,
           xp: xp || 108,
           diaryNotes: uniqueNotes,
-          lang: "en",
-          weeklyAdherence: [0, 0, 0, 0, 0, 85, 0],
-          sleepHistory: [0, 0, 0, 0, 0, 7.5, 7.5],
-          waterHistory: [0, 0, 0, 0, 0, 2250, water || 0],
+          lang: (parsedPrimary && parsedPrimary.lang) ? parsedPrimary.lang : "en",
+          weeklyAdherence: weeklyAdherence,
+          sleepHistory: sleepHistory,
+          waterHistory: waterHistory,
           timestamp: Date.now()
         };
       } catch(e) {}
@@ -833,14 +877,13 @@
     window.checkMidnightReset = function() {
       try {
         var today = getTodayKey();
-        if (appState.date !== today) {
+        if (appState.date && appState.date !== today) {
           var doneCount = 0;
           var total = appState.coreTasks.length + appState.customTasks.length;
           for (var i = 0; i < appState.coreTasks.length; i++) if (appState.coreTasks[i].done) doneCount++;
           for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) doneCount++;
           var yesterdayPct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
-          // Increment streak
           appState.streak = (appState.streak || 2) + 1;
 
           if (!appState.weeklyAdherence) appState.weeklyAdherence = [0, 0, 0, 0, 0, 85, 0];
@@ -855,13 +898,12 @@
           appState.sleepHistory.shift();
           appState.sleepHistory.push(7.5);
 
-          // Reset checkmarks for new morning
+          // Reset checkmarks only when rolling over to a new morning
           for (var k = 0; k < appState.coreTasks.length; k++) appState.coreTasks[k].done = false;
           for (var l = 0; l < appState.customTasks.length; l++) appState.customTasks[l].done = false;
           appState.water = 0;
           appState.date = today;
-          appState.timestamp = Date.now();
-          saveLocalState(appState);
+          persist();
 
           window.calculateDynamicPanchang(new Date());
           window.renderCoreTasks();
@@ -903,6 +945,7 @@
       setTimeout(function() { t.style.display = 'none'; }, 2000);
     };
 
+    // Live Clock Runner
     (function runClock() {
       function tick() {
         try {
@@ -954,11 +997,14 @@
     };
 
     window.toggleTask = function(idx) {
-      if (!appState.coreTasks[idx]) return;
+      if (!appState.coreTasks || !appState.coreTasks[idx]) return;
       appState.coreTasks[idx].done = !appState.coreTasks[idx].done;
       if (appState.coreTasks[idx].done) {
         window.addXp(appState.coreTasks[idx].xp);
         window.showToast("Completed: " + appState.coreTasks[idx].name);
+      } else {
+        appState.xp = Math.max(0, (appState.xp || 0) - appState.coreTasks[idx].xp);
+        window.renderXp();
       }
       persist();
       window.renderCoreTasks();
@@ -985,11 +1031,14 @@
     };
 
     window.toggleCustomTask = function(cIdx) {
-      if (!appState.customTasks[cIdx]) return;
+      if (!appState.customTasks || !appState.customTasks[cIdx]) return;
       appState.customTasks[cIdx].done = !appState.customTasks[cIdx].done;
       if (appState.customTasks[cIdx].done) {
         window.addXp(20);
         window.showToast("Completed: " + appState.customTasks[cIdx].name);
+      } else {
+        appState.xp = Math.max(0, (appState.xp || 0) - 20);
+        window.renderXp();
       }
       persist();
       window.renderCustomTasks();
@@ -1155,9 +1204,30 @@
       if (!appState.diaryNotes) return;
       var note = appState.diaryNotes.find(function(n) { return n.id === noteId; });
       if (!note) return;
-      var updated = prompt("Edit your spiritual reflection:", note.text);
-      if (updated !== null && updated.trim() !== "") {
-        note.text = updated.trim();
+      
+      // Inline edit box using a friendly custom prompt
+      var box = document.getElementById('editBox' + noteId);
+      if (box) return; // already editing
+      var itemDiv = document.getElementById('diaryItem' + noteId);
+      if (!itemDiv) return;
+
+      var currentText = note.text;
+      itemDiv.innerHTML = '<div style="width:100%;">' +
+        '<textarea id="editText' + noteId + '" style="width:100%; height:75px; padding:6px; font-size:0.8rem; border:1px solid #d4a345; border-radius:6px; outline:none;">' + currentText + '</textarea>' +
+        '<div style="display:flex; gap:6px; justify-content:flex-end; margin-top:6px;">' +
+        '<button onclick="window.renderDiary()" class="btn-action btn-light" style="padding:4px 8px; font-size:0.72rem;">Cancel</button>' +
+        '<button onclick="window.confirmEditNote(' + noteId + ')" class="btn-action btn-gold" style="padding:4px 10px; font-size:0.72rem;">Save</button>' +
+        '</div></div>';
+    };
+
+    window.confirmEditNote = function(noteId) {
+      var txtEl = document.getElementById('editText' + noteId);
+      if (!txtEl) return;
+      var updated = txtEl.value.trim();
+      if (!updated) return;
+      var note = appState.diaryNotes.find(function(n) { return n.id === noteId; });
+      if (note) {
+        note.text = updated;
         persist();
         window.renderDiary();
         window.showToast("Reflection Updated");
@@ -1166,8 +1236,6 @@
 
     window.deleteNote = function(noteId) {
       if (!appState.diaryNotes) return;
-      var note = appState.diaryNotes.find(function(n) { return n.id === noteId; });
-      if (!note) return;
       appState.diaryNotes = appState.diaryNotes.filter(function(n) { return n.id !== noteId; });
       persist();
       window.renderDiary();
@@ -1187,7 +1255,7 @@
       var html = '';
       for (var i = 0; i < notes.length; i++) {
         var n = notes[i];
-        html += '<div style="background:#f1f5f9; border-left:3px solid #d4a345; padding:9px 11px; border-radius:6px; margin-bottom:8px; font-size:0.78rem; display:flex; justify-content:space-between; align-items:flex-start;">' +
+        html += '<div id="diaryItem' + n.id + '" style="background:#f1f5f9; border-left:3px solid #d4a345; padding:9px 11px; border-radius:6px; margin-bottom:8px; font-size:0.78rem; display:flex; justify-content:space-between; align-items:flex-start;">' +
           '<div style="flex:1; padding-right:8px;"><div style="font-size:0.68rem; color:#64748b; margin-bottom:3px;">📅 <b>' + n.date + '</b> at ' + n.time + '</div>' +
           '<div style="color:#0f172a; line-height:1.45; font-size:0.8rem;">' + n.text + '</div></div>' +
           '<div style="display:flex; gap:6px;">' +
@@ -1204,17 +1272,14 @@
       var sleepData = appState.sleepHistory || [0, 0, 0, 0, 0, 7.5, 7.5];
       var adherence = appState.weeklyAdherence || [0, 0, 0, 0, 0, 85, 0];
 
-      // Exact 2 Days Streak with flame indicator
       var streakEl = document.getElementById('statStreakDays');
       if (streakEl) streakEl.textContent = (appState.streak || 2) + ' Days 🔥';
 
-      // Real adherence average across your active days
       var activeAdh = adherence.slice(-2);
       var avgAdh = Math.round((activeAdh[0] + activeAdh[1]) / (activeAdh[1] > 0 ? 2 : 1)) || 85;
       var aa = document.getElementById('statsAvgAdherence');
       if (aa) aa.textContent = avgAdh + '%';
 
-      // Graph Coordinates Layout
       var xCoords = [];
       for (var i = 0; i < 7; i++) {
         xCoords.push(42 + i * 44);
@@ -1239,7 +1304,6 @@
         sleepPoints.push({ x: xCoords[j], y: sy, val: sVal });
       }
 
-      // Draw continuous dual line from Day 1 to Day 2
       var wPath = "M " + waterPoints[5].x + " " + waterPoints[5].y + " L " + waterPoints[6].x + " " + waterPoints[6].y;
       var sPath = "M " + sleepPoints[5].x + " " + sleepPoints[5].y + " L " + sleepPoints[6].x + " " + sleepPoints[6].y;
 
@@ -1248,17 +1312,14 @@
       if (wEl) wEl.setAttribute('d', wPath);
       if (sEl) sEl.setAttribute('d', sPath);
 
-      // Render Points & Day Labels
       var ptsGroup = document.getElementById('chartPointsGroup');
       var daysGroup = document.getElementById('chartDayLabelsGroup');
 
       if (ptsGroup) {
         var ptsHtml = '';
-        // Highlight active Day 1 and Day 2 points
         for (var p = 5; p <= 6; p++) {
           ptsHtml += '<circle cx="' + waterPoints[p].x + '" cy="' + waterPoints[p].y + '" r="5" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>';
           ptsHtml += '<circle cx="' + sleepPoints[p].x + '" cy="' + sleepPoints[p].y + '" r="5" fill="#16a34a" stroke="#ffffff" stroke-width="2"/>';
-          // Annotations on Day 1
           if (p === 5) {
             ptsHtml += '<text x="' + waterPoints[p].x + '" y="' + (waterPoints[p].y - 8) + '" font-size="7.5" font-weight="800" fill="#0284c7" text-anchor="middle">2250m</text>';
             ptsHtml += '<text x="' + sleepPoints[p].x + '" y="' + (sleepPoints[p].y - 8) + '" font-size="7.5" font-weight="800" fill="#16a34a" text-anchor="middle">7.5h</text>';
@@ -1278,7 +1339,6 @@
         daysGroup.innerHTML = daysHtml;
       }
 
-      // Compute Averages strictly from active days
       var wActive = [waterData[5] || 2250, waterData[6] || 0];
       var avgW = Math.round((wActive[0] + wActive[1]) / (wActive[1] > 0 ? 2 : 1));
       var sw = document.getElementById('statWeeklyWater');
