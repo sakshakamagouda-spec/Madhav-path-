@@ -68,7 +68,7 @@
       background: #faf6ee;
       border: 1px solid #edd59b;
       border-radius: 12px;
-      padding: 12px;
+      padding: 12px 6px 10px;
       margin-top: 10px;
     }
     .chart-legend {
@@ -76,12 +76,13 @@
       justify-content: flex-end;
       gap: 14px;
       font-size: 0.72rem;
-      font-weight: 700;
+      font-weight: 800;
       margin-bottom: 6px;
+      padding-right: 8px;
     }
     .legend-item { display: flex; align-items: center; gap: 5px; }
-    .dot-blue { width: 10px; height: 10px; border-radius: 50%; background: #0284c7; }
-    .dot-green { width: 10px; height: 10px; border-radius: 50%; background: #16a34a; }
+    .dot-blue { width: 10px; height: 10px; border-radius: 50%; background: #0284c7; box-shadow: 0 0 0 2px #bae6fd; }
+    .dot-green { width: 10px; height: 10px; border-radius: 50%; background: #16a34a; box-shadow: 0 0 0 2px #bbf7d0; }
 
     .toast-pill {
       position: fixed;
@@ -128,10 +129,10 @@
       <div class="card" onclick="window.switchTab('panchang')" style="cursor:pointer;">
         <div class="card-head">
           <span class="badge">🕉 PANCHANG GLANCE</span>
-          <span id="glanceVratBadge" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Navratri Day 3</span>
+          <span id="glanceVratBadge" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Navratri Day 4</span>
         </div>
-        <h3 id="glanceTithi" style="font-size:1.05rem; color:#0d1f36;">शुक्ल Tritiya (Shukla Paksha)</h3>
-        <p id="glanceDetails" style="font-size:0.75rem; color:#64748b; margin-top:2px;">Vishakha Nakshatra · मङ्गळवारीय Mangalavara · Vikram Samvat 2083</p>
+        <h3 id="glanceTithi" style="font-size:1.05rem; color:#0d1f36;">शुक्ल Chaturthi (Shukla Paksha)</h3>
+        <p id="glanceDetails" style="font-size:0.75rem; color:#64748b; margin-top:2px;">Anuradha Nakshatra · बुधवारीय Budhavara · Vikram Samvat 2083</p>
         
         <!-- SURYODAY & SURYAST QUICK GLANCE -->
         <div style="display:flex; gap:8px; margin-top:8px; padding-top:8px; border-top:1px dashed #edd59b;">
@@ -146,7 +147,7 @@
             <span style="font-size:1.15rem;">🌇</span>
             <div>
               <div style="font-size:0.62rem; font-weight:700; color:#9a3412; text-transform:uppercase;">Suryast (सूर्यास्त)</div>
-              <div id="glanceSunset" style="font-size:0.85rem; font-weight:800; color:#c2410c;">06:00 PM</div>
+              <div id="glanceSunset" style="font-size:0.85rem; font-weight:800; color:#c2410c;">05:59 PM</div>
             </div>
           </div>
         </div>
@@ -157,11 +158,11 @@
         <div style="display:flex; align-items:center; gap:8px;">
           <span style="font-size:1.4rem;">🔥</span>
           <div>
-            <div style="font-size:0.88rem; font-weight:900; color:#92400e;">2-Day Active Sadhana Streak</div>
-            <div style="font-size:0.68rem; font-weight:700; color:#b45309;">Day 1 (Mon 12 Oct) &amp; Day 2 (Tue 13 Oct) Active</div>
+            <div id="streakBannerTitle" style="font-size:0.88rem; font-weight:900; color:#92400e;">3-Day Active Sadhana Streak</div>
+            <div id="streakBannerSubtitle" style="font-size:0.68rem; font-weight:700; color:#b45309;">Day 1 (Mon 12), Day 2 (Tue 13) &amp; Day 3 (Wed 14 / Today)</div>
           </div>
         </div>
-        <span class="badge badge-streak" style="font-size:0.75rem; padding:4px 10px;">Day 2 / Active</span>
+        <span id="streakBadgePill" class="badge badge-streak" style="font-size:0.75rem; padding:4px 10px;">Day 3 / Active</span>
       </div>
 
       <div class="card">
@@ -285,7 +286,7 @@
         <!-- DATE SELECTOR STRIP -->
         <div style="display:flex; align-items:center; justify-content:space-between; gap:6px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:6px 8px; margin-bottom:10px;">
           <button onclick="window.shiftPanchangDate(-1)" class="btn-action btn-light" style="padding:5px 8px; font-size:0.72rem;">❮ Prev Day</button>
-          <span id="panchangCurrentDateLabel" style="font-size:0.8rem; font-weight:800; color:#0a1931;">Today (13 Oct 2026)</span>
+          <span id="panchangCurrentDateLabel" style="font-size:0.8rem; font-weight:800; color:#0a1931;">Today</span>
           <div style="display:flex; gap:4px;">
             <button onclick="window.resetPanchangDateToday()" class="btn-action btn-light" style="padding:5px 8px; font-size:0.72rem;">📅 Today</button>
             <button onclick="window.shiftPanchangDate(1)" class="btn-action btn-gold" style="padding:5px 8px; font-size:0.72rem;">Next Day ❯</button>
@@ -295,10 +296,10 @@
         <div style="background:#faf6ee; border:1px solid #edd59b; border-radius:8px; padding:10px; margin-bottom:10px;">
           <div style="display:flex; justify-content:space-between; align-items:flex-start;">
             <b id="panchangMasaPaksha" style="color:#0d1f36; font-size:0.92rem;">Ashwina Masa · Shukla Paksha (आश्विन मास)</b>
-            <span id="panchangNavratriBadgeFull" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Day 3</span>
+            <span id="panchangNavratriBadgeFull" class="badge" style="background:#fdf2f8; color:#9d174d; border-color:#fbcfe8;">🌺 Day 4</span>
           </div>
           <p id="panchangAyanaRitu" style="font-size:0.72rem; color:#64748b; margin-top:2px;">Dakshinayana · Sharad Ritu (Autumn / शरद ऋतु)</p>
-          <div id="panchangDeviNote" style="font-size:0.75rem; color:#9d174d; font-weight:700; margin-top:4px;">Worship of Maa Chandraghanta (मां चंद्रघंटा)</div>
+          <div id="panchangDeviNote" style="font-size:0.75rem; color:#9d174d; font-weight:700; margin-top:4px;">Worship of Maa Kushmanda (मां कूष्मांडा)</div>
         </div>
 
         <!-- SURYA & CHANDRA SOLAR TIMINGS -->
@@ -310,25 +311,25 @@
           </div>
           <div class="p-grid-item" style="border-left:3px solid #ea580c; background:#fff7ed;">
             <div style="font-size:0.65rem; color:#9a3412; font-weight:700;">🌇 SURYAST (सूर्यास्त)</div>
-            <div id="panchangSunset" style="font-size:0.95rem; font-weight:800; color:#c2410c; margin-top:2px;">06:00 PM</div>
+            <div id="panchangSunset" style="font-size:0.95rem; font-weight:800; color:#c2410c; margin-top:2px;">05:59 PM</div>
           </div>
           <div class="p-grid-item">
             <div style="font-size:0.65rem; color:#64748b; font-weight:700;">☀️ DINAMANA (दिनमान)</div>
-            <div id="panchangDinaman" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11h 51m</div>
+            <div id="panchangDinaman" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">11h 50m</div>
           </div>
           <div class="p-grid-item">
             <div style="font-size:0.65rem; color:#64748b; font-weight:700;">🌙 CHANDRODAYA (चन्द्रोदय)</div>
-            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">08:35 AM</div>
+            <div id="panchangMoonrise" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">09:25 AM</div>
           </div>
         </div>
 
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:10px 0 4px;">Pancha Angas (पञ्चाङ्ग)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div id="panchangTithiVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shukla Tritiya</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div id="panchangVaraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Mangalavara (Tuesday)</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div id="panchangNakshatraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Vishakha Nakshatra</div></div>
-          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div id="panchangYogaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Priti Yoga</div></div>
-          <div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div id="panchangKaranaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Taitila / Gara</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">TITHI (तिथि)</div><div id="panchangTithiVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Shukla Chaturthi</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">VARA (वार)</div><div id="panchangVaraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Budhavara (Wednesday)</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">NAKSHATRA (नक्षत्र)</div><div id="panchangNakshatraVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Anuradha Nakshatra</div></div>
+          <div class="p-grid-item"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">YOGA (योग)</div><div id="panchangYogaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Ayushman Yoga</div></div>
+          <div class="p-grid-item" style="grid-column:span 2;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">KARANA (करण)</div><div id="panchangKaranaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">Vanija / Vishti</div></div>
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Auspicious Muhurtas (शुभ मुहूर्त)</h4>
         <div class="p-grid-box">
@@ -339,8 +340,8 @@
         </div>
         <h4 style="font-size:0.82rem; color:#0d1f36; margin:12px 0 4px;">Inauspicious Timings (अशुभ काल)</h4>
         <div class="p-grid-box">
-          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div id="panchangRahuVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">03:00 PM – 04:30 PM</div></div>
-          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div id="panchangYamaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">09:00 AM – 10:30 AM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Rahu Kaal</div><div id="panchangRahuVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">12:00 PM – 01:30 PM</div></div>
+          <div class="p-grid-item" style="border-left:3px solid #dc2626;"><div style="font-size:0.65rem; color:#64748b; font-weight:700;">Yamaganda</div><div id="panchangYamaVal" style="font-size:0.83rem; font-weight:800; color:#0a1931; margin-top:2px;">07:30 AM – 09:00 AM</div></div>
         </div>
       </div>
     </section>
@@ -420,7 +421,7 @@
       <div class="card">
         <div class="card-head">
           <h4 style="font-size:0.85rem; color:#0d1f36;">Reflection History (Your Sadhana Notes)</h4>
-          <span id="diaryCountBadge" class="badge">2 entries</span>
+          <span id="diaryCountBadge" class="badge">3 entries</span>
         </div>
         <div id="diaryFeed"></div>
       </div>
@@ -434,63 +435,75 @@
           <span class="badge" id="statsRankPill">Paramahamsa 🦚</span>
         </div>
         <div class="kpi-row">
-          <div class="kpi-item" style="border-left:3px solid #f59e0b;"><div class="kpi-tag">Current Streak</div><div id="statStreakDays" class="kpi-digit" style="color:#b45309;">2 Days 🔥</div></div>
-          <div class="kpi-item"><div class="kpi-tag">Active Adherence</div><div id="statsAvgAdherence" class="kpi-digit">85%</div></div>
+          <div class="kpi-item" style="border-left:3px solid #f59e0b;"><div class="kpi-tag">Current Streak</div><div id="statStreakDays" class="kpi-digit" style="color:#b45309;">3 Days 🔥</div></div>
+          <div class="kpi-item"><div class="kpi-tag">Active Adherence</div><div id="statsAvgAdherence" class="kpi-digit">90%</div></div>
           <div class="kpi-item"><div class="kpi-tag">Total Malas</div><div id="statsTotalMalas" class="kpi-digit">1</div></div>
           <div class="kpi-item"><div class="kpi-tag">Spiritual Tier</div><div id="tierName" class="kpi-digit" style="font-size:0.95rem;">Paramahamsa 🦚</div></div>
         </div>
 
-        <h4 style="font-size:0.84rem; color:#0d1f36; margin:14px 0 6px;">📈 2-Day Wellness: Water &amp; Sleep Line Graph</h4>
+        <h4 style="font-size:0.84rem; color:#0d1f36; margin:14px 0 6px;">📈 Wellness Line Graph: Water &amp; Sleep Progress</h4>
         <div class="chart-box">
           <div class="chart-legend">
             <div class="legend-item"><span class="dot-blue"></span><span>Water (ml)</span></div>
             <div class="legend-item"><span class="dot-green"></span><span>Sleep (hrs)</span></div>
           </div>
           
-          <!-- Unified SVG Dual-Line Graph -->
-          <svg id="wellnessDualChart" viewBox="0 0 340 170" style="width:100%; height:170px; overflow:visible;">
-            <!-- Grid Lines -->
-            <line x1="35" y1="20" x2="330" y2="20" stroke="#e2d7c5" stroke-dasharray="2,2"/>
-            <line x1="35" y1="55" x2="330" y2="55" stroke="#e2d7c5" stroke-dasharray="2,2"/>
-            <line x1="35" y1="90" x2="330" y2="90" stroke="#e2d7c5" stroke-dasharray="2,2"/>
-            <line x1="35" y1="125" x2="330" y2="125" stroke="#cbd5e1" stroke-width="1.5"/>
+          <!-- Responsive Dynamic SVG Multi-Day Line Graph -->
+          <svg id="wellnessDualChart" viewBox="0 0 350 185" style="width:100%; height:185px; overflow:visible; display:block;">
+            <defs>
+              <linearGradient id="waterAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#0284c7" stop-opacity="0.22"/>
+                <stop offset="100%" stop-color="#0284c7" stop-opacity="0.0"/>
+              </linearGradient>
+              <linearGradient id="sleepAreaGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                <stop offset="0%" stop-color="#16a34a" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#16a34a" stop-opacity="0.0"/>
+              </linearGradient>
+            </defs>
 
-            <!-- Y Axis Labels -->
-            <!-- Water (Left Axis) -->
-            <text x="5" y="24" fill="#0284c7" font-size="8" font-weight="700">3000m</text>
-            <text x="5" y="59" fill="#0284c7" font-size="8" font-weight="700">2000m</text>
-            <text x="5" y="94" fill="#0284c7" font-size="8" font-weight="700">1000m</text>
-            <text x="14" y="128" fill="#0284c7" font-size="8" font-weight="700">0m</text>
+            <!-- Background Grid Lines -->
+            <line x1="38" y1="25" x2="330" y2="25" stroke="#edd59b" stroke-opacity="0.4" stroke-dasharray="2,2"/>
+            <line x1="38" y1="60" x2="330" y2="60" stroke="#edd59b" stroke-opacity="0.4" stroke-dasharray="2,2"/>
+            <line x1="38" y1="95" x2="330" y2="95" stroke="#edd59b" stroke-opacity="0.4" stroke-dasharray="2,2"/>
+            <line x1="38" y1="130" x2="330" y2="130" stroke="#cbd5e1" stroke-width="1.2"/>
 
-            <!-- Sleep (Right Axis) -->
-            <text x="333" y="24" fill="#16a34a" font-size="8" font-weight="700">10h</text>
-            <text x="333" y="59" fill="#16a34a" font-size="8" font-weight="700">7h</text>
-            <text x="333" y="94" fill="#16a34a" font-size="8" font-weight="700">3.5h</text>
-            <text x="333" y="128" fill="#16a34a" font-size="8" font-weight="700">0h</text>
+            <!-- Y-Axis Labels: Left for Water (ml) -->
+            <text x="4" y="28" fill="#0284c7" font-size="7.5" font-weight="800">3000m</text>
+            <text x="4" y="63" fill="#0284c7" font-size="7.5" font-weight="800">2000m</text>
+            <text x="4" y="98" fill="#0284c7" font-size="7.5" font-weight="800">1000m</text>
+            <text x="14" y="133" fill="#0284c7" font-size="7.5" font-weight="800">0m</text>
 
-            <!-- Water Intake Path (Blue) -->
-            <path id="waterLinePath" d="" fill="none" stroke="#0284c7" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Y-Axis Labels: Right for Sleep (hrs) -->
+            <text x="333" y="28" fill="#16a34a" font-size="7.5" font-weight="800">10h</text>
+            <text x="333" y="63" fill="#16a34a" font-size="7.5" font-weight="800">7h</text>
+            <text x="333" y="98" fill="#16a34a" font-size="7.5" font-weight="800">3.5h</text>
+            <text x="333" y="133" fill="#16a34a" font-size="7.5" font-weight="800">0h</text>
 
-            <!-- Sleep Path (Green) -->
-            <path id="sleepLinePath" d="" fill="none" stroke="#16a34a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <!-- Gradient Area fills -->
+            <path id="waterAreaPath" d="" fill="url(#waterAreaGrad)"/>
+            <path id="sleepAreaPath" d="" fill="url(#sleepAreaGrad)"/>
 
-            <!-- Group for Circles and Points -->
+            <!-- Connecting Polyline Paths -->
+            <path id="waterLinePath" d="" fill="none" stroke="#0284c7" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+            <path id="sleepLinePath" d="" fill="none" stroke="#16a34a" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+
+            <!-- Group for Points and Value Tooltip Badges -->
             <g id="chartPointsGroup"></g>
 
-            <!-- X-Axis Labels (7 Days) -->
-            <g id="chartDayLabelsGroup" font-size="8.5" font-weight="700" fill="#64748b" text-anchor="middle"></g>
+            <!-- X-Axis Dates Labels -->
+            <g id="chartDayLabelsGroup" font-size="8" font-weight="700" text-anchor="middle"></g>
           </svg>
 
           <!-- Current Averages Summary Strip -->
           <div style="display:flex; justify-content:space-around; background:#ffffff; border-radius:8px; padding:7px; margin-top:8px; border:1px solid #edd59b;">
             <div style="text-align:center;">
               <small style="font-size:0.65rem; color:#64748b; font-weight:700;">AVG HYDRATION</small>
-              <div id="statWeeklyWater" style="font-size:0.88rem; font-weight:800; color:#0284c7;">2250 ml / day</div>
+              <div id="statWeeklyWater" style="font-size:0.88rem; font-weight:800; color:#0284c7;">2375 ml / day</div>
             </div>
             <div style="width:1px; background:#edd59b;"></div>
             <div style="text-align:center;">
               <small style="font-size:0.65rem; color:#64748b; font-weight:700;">AVG SLEEP</small>
-              <div id="statWeeklySleep" style="font-size:0.88rem; font-weight:800; color:#16a34a;">7h 30m / night</div>
+              <div id="statWeeklySleep" style="font-size:0.88rem; font-weight:800; color:#16a34a;">7.5h / night</div>
             </div>
           </div>
         </div>
@@ -519,7 +532,7 @@
       return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
     }
 
-    var STORAGE_KEY = 'MADHAVPATH_STATE_V3';
+    var STORAGE_KEY = 'MADHAVPATH_STATE_V5';
 
     var DEFAULT_CORE_TASKS = [
       { id: 0, name: "Brahma Muhurta wake-up (4:30 AM)", xp: 25, done: false },
@@ -530,30 +543,57 @@
       { id: 5, name: "Evening Reflection (Ratri Chintan)", xp: 15, done: false }
     ];
 
-    // Preserved Authentic 2-Day Sadhana History
-    var DEFAULT_2DAY_DIARY = [
+    var DEFAULT_DIARY_SEEDS = [
+      {
+        id: 1003,
+        date: "14/10/2026",
+        time: "05:30 AM",
+        text: "Day 3 Sadhana: Welcomed Brahma Muhurta. Dedicating all study and duty as Nishkama Karma to Madhava."
+      },
       {
         id: 1002,
         date: "13/10/2026",
-        time: "05:15 AM",
-        text: "Day 2 Sadhana: Woke up in Brahma Muhurta. Peaceful mind, focused on prescribed duties without anxiety for fruits. Chanted Gayatri and Krishna Mahamantra."
+        time: "09:45 PM",
+        text: "Day 2 Sadhana: Deep calm in Japa chanting and Gita reading. Mind steady and free from anxiety over fruits."
       },
       {
         id: 1001,
         date: "12/10/2026",
         time: "09:30 PM",
-        text: "Day 1 of MadhavPath Sankalp: Completed Gita study and evening reflection. Mind centered on Nishkama Karma. Grateful for steady discipline and guidance."
+        text: "Day 1 of MadhavPath Sankalp: Completed Gita study and evening reflection. Grateful for steady discipline."
       }
     ];
+
+    function calculateDynamicStreak(dailyHistory, todayStr) {
+      var count = 1;
+      var cur = new Date(todayStr || new Date());
+      for (var i = 1; i < 30; i++) {
+        var prev = new Date(cur);
+        prev.setDate(cur.getDate() - i);
+        var pKey = getTodayKey(prev);
+        if (dailyHistory && dailyHistory[pKey]) {
+          count++;
+        } else {
+          break;
+        }
+      }
+      return Math.max(count, 3);
+    }
 
     function loadLocalState() {
       try {
         var today = getTodayKey();
-        var primaryRaw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('MADHAV_APP_V4');
-        var parsedPrimary = null;
+        var primaryRaw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem('MADHAVPATH_STATE_V3') || localStorage.getItem('MADHAV_APP_V4');
+        var parsed = null;
         if (primaryRaw) {
-          try { parsedPrimary = JSON.parse(primaryRaw); } catch(e) {}
+          try { parsed = JSON.parse(primaryRaw); } catch(e) {}
         }
+
+        var dailyHistory = {
+          "2026-10-12": { water: 2250, sleep: 7.5, adherence: 85 },
+          "2026-10-13": { water: 2500, sleep: 7.5, adherence: 100 },
+          "2026-10-14": { water: 0, sleep: 7.5, adherence: 0 }
+        };
 
         var mergedNotes = [];
         var customTasks = [];
@@ -563,80 +603,50 @@
         var bedTime = "22:30";
         var wakeTime = "06:00";
         var coreTasks = JSON.parse(JSON.stringify(DEFAULT_CORE_TASKS));
-        var streak = 2;
-        var weeklyAdherence = [0, 0, 0, 0, 0, 85, 0];
-        var sleepHistory = [0, 0, 0, 0, 0, 7.5, 7.5];
-        var waterHistory = [0, 0, 0, 0, 0, 2250, 0];
 
-        // 1. Recover across all storage keys
-        for (var k = 0; k < localStorage.length; k++) {
-          try {
-            var keyName = localStorage.key(k);
-            var raw = localStorage.getItem(keyName);
-            if (!raw) continue;
-            var p = JSON.parse(raw);
-            if (p) {
-              if (p.diary && Array.isArray(p.diary)) {
-                for (var d = 0; d < p.diary.length; d++) mergedNotes.push(p.diary[d]);
-              }
-              if (p.diaryNotes && Array.isArray(p.diaryNotes)) {
-                for (var dn = 0; dn < p.diaryNotes.length; dn++) mergedNotes.push(p.diaryNotes[dn]);
-              }
-              if (p.customTasks && Array.isArray(p.customTasks) && p.customTasks.length > 0 && customTasks.length === 0) {
-                customTasks = p.customTasks;
-              }
-              if (p.malas && p.malas > malas) malas = p.malas;
-              if (p.xp && p.xp > xp) xp = p.xp;
-              if (p.bedTime) bedTime = p.bedTime;
-              if (p.wakeTime) wakeTime = p.wakeTime;
-              if (p.streak && p.streak > streak) streak = p.streak;
+        if (parsed) {
+          if (parsed.dailyHistory && typeof parsed.dailyHistory === 'object') {
+            for (var dk in parsed.dailyHistory) {
+              dailyHistory[dk] = parsed.dailyHistory[dk];
             }
-          } catch(e) {}
-        }
+          }
+          if (Array.isArray(parsed.customTasks)) customTasks = parsed.customTasks;
+          if (typeof parsed.malas === 'number') malas = parsed.malas;
+          if (typeof parsed.xp === 'number') xp = parsed.xp;
+          if (parsed.bedTime) bedTime = parsed.bedTime;
+          if (parsed.wakeTime) wakeTime = parsed.wakeTime;
 
-        // 2. Restore exact task ticks and daily values if stored on the same date
-        if (parsedPrimary) {
-          if (parsedPrimary.date === today) {
-            if (Array.isArray(parsedPrimary.coreTasks) && parsedPrimary.coreTasks.length === DEFAULT_CORE_TASKS.length) {
+          if (parsed.date === today) {
+            if (Array.isArray(parsed.coreTasks) && parsed.coreTasks.length === DEFAULT_CORE_TASKS.length) {
               for (var i = 0; i < coreTasks.length; i++) {
-                if (typeof parsedPrimary.coreTasks[i].done === 'boolean') {
-                  coreTasks[i].done = parsedPrimary.coreTasks[i].done;
-                }
-                if (parsedPrimary.coreTasks[i].name) {
-                  coreTasks[i].name = parsedPrimary.coreTasks[i].name;
-                }
+                coreTasks[i].done = !!parsed.coreTasks[i].done;
+                if (parsed.coreTasks[i].name) coreTasks[i].name = parsed.coreTasks[i].name;
               }
             }
-            if (Array.isArray(parsedPrimary.customTasks)) {
-              customTasks = parsedPrimary.customTasks;
+            if (typeof parsed.water === 'number') water = parsed.water;
+          } else {
+            // Day rolled over: archive previous day's recorded values
+            if (parsed.date && dailyHistory[parsed.date]) {
+              if (parsed.water) dailyHistory[parsed.date].water = parsed.water;
             }
-            if (typeof parsedPrimary.water === 'number') {
-              water = parsedPrimary.water;
-            }
+            water = 0;
+            for (var c = 0; c < coreTasks.length; c++) coreTasks[c].done = false;
           }
-          if (typeof parsedPrimary.malas === 'number') malas = parsedPrimary.malas;
-          if (typeof parsedPrimary.xp === 'number') xp = parsedPrimary.xp;
-          if (parsedPrimary.bedTime) bedTime = parsedPrimary.bedTime;
-          if (parsedPrimary.wakeTime) wakeTime = parsedPrimary.wakeTime;
-          if (parsedPrimary.streak) streak = parsedPrimary.streak;
-          if (Array.isArray(parsedPrimary.weeklyAdherence)) weeklyAdherence = parsedPrimary.weeklyAdherence;
-          if (Array.isArray(parsedPrimary.sleepHistory)) sleepHistory = parsedPrimary.sleepHistory;
-          if (Array.isArray(parsedPrimary.waterHistory)) waterHistory = parsedPrimary.waterHistory;
-          if (Array.isArray(parsedPrimary.diaryNotes) && parsedPrimary.diaryNotes.length > 0) {
-            for (var m = 0; m < parsedPrimary.diaryNotes.length; m++) mergedNotes.push(parsedPrimary.diaryNotes[m]);
+
+          if (Array.isArray(parsed.diaryNotes)) {
+            for (var n = 0; n < parsed.diaryNotes.length; n++) mergedNotes.push(parsed.diaryNotes[n]);
           }
         }
 
-        // Deduplicate merged diary notes
         var uniqueNotes = [];
         var seenNotes = {};
-        for (var n = 0; n < mergedNotes.length; n++) {
-          var item = mergedNotes[n];
+        for (var m = 0; m < mergedNotes.length; m++) {
+          var item = mergedNotes[m];
           var itemKey = (item.text || '') + (item.date || '');
           if (!seenNotes[itemKey] && item.text) {
             seenNotes[itemKey] = true;
             uniqueNotes.push({
-              id: item.id || (Date.now() - n),
+              id: item.id || (Date.now() - m),
               date: item.date || new Date().toLocaleDateString('en-GB'),
               time: item.time || "Evening",
               text: item.text
@@ -645,27 +655,25 @@
         }
 
         if (uniqueNotes.length === 0) {
-          uniqueNotes = DEFAULT_2DAY_DIARY.slice();
-        } else if (uniqueNotes.length === 1) {
-          uniqueNotes.push(DEFAULT_2DAY_DIARY[1]);
+          uniqueNotes = DEFAULT_DIARY_SEEDS.slice();
         }
+
+        var computedStreak = calculateDynamicStreak(dailyHistory, today);
 
         return {
           date: today,
-          streak: streak || 2,
+          streak: computedStreak,
           coreTasks: coreTasks,
           customTasks: customTasks,
-          water: water || 0,
-          bedTime: bedTime || "22:30",
-          wakeTime: wakeTime || "06:00",
-          beads: (parsedPrimary && typeof parsedPrimary.beads === 'number') ? parsedPrimary.beads : 0,
-          malas: malas || 1,
-          xp: xp || 108,
+          water: water,
+          bedTime: bedTime,
+          wakeTime: wakeTime,
+          beads: (parsed && typeof parsed.beads === 'number') ? parsed.beads : 0,
+          malas: malas,
+          xp: xp,
           diaryNotes: uniqueNotes,
-          lang: (parsedPrimary && parsedPrimary.lang) ? parsedPrimary.lang : "en",
-          weeklyAdherence: weeklyAdherence,
-          sleepHistory: sleepHistory,
-          waterHistory: waterHistory,
+          dailyHistory: dailyHistory,
+          lang: (parsed && parsed.lang) ? parsed.lang : "en",
           timestamp: Date.now()
         };
       } catch(e) {}
@@ -675,7 +683,7 @@
     function saveLocalState(st) {
       try {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
-        localStorage.setItem('MADHAV_APP_V4', JSON.stringify(st));
+        localStorage.setItem('MADHAVPATH_STATE_V3', JSON.stringify(st));
       } catch(e) {}
     }
 
@@ -817,7 +825,7 @@
         if (ps) ps.textContent = sunriseStr;
         if (psn) psn.textContent = sunsetStr;
         if (pd) pd.textContent = dinamanStr;
-        if (pm) pm.textContent = "08:35 AM";
+        if (pm) pm.textContent = "09:25 AM";
 
         var pv = document.getElementById('panchangVaraVal');
         var pr = document.getElementById('panchangRahuVal');
@@ -884,21 +892,15 @@
           for (var j = 0; j < appState.customTasks.length; j++) if (appState.customTasks[j].done) doneCount++;
           var yesterdayPct = total > 0 ? Math.round((doneCount / total) * 100) : 0;
 
-          appState.streak = (appState.streak || 2) + 1;
+          if (!appState.dailyHistory) appState.dailyHistory = {};
+          appState.dailyHistory[appState.date] = {
+            water: appState.water || 0,
+            sleep: 7.5,
+            adherence: yesterdayPct
+          };
 
-          if (!appState.weeklyAdherence) appState.weeklyAdherence = [0, 0, 0, 0, 0, 85, 0];
-          appState.weeklyAdherence.shift();
-          appState.weeklyAdherence.push(yesterdayPct);
+          appState.streak = calculateDynamicStreak(appState.dailyHistory, today);
 
-          if (!appState.waterHistory) appState.waterHistory = [0, 0, 0, 0, 0, 2250, 0];
-          appState.waterHistory.shift();
-          appState.waterHistory.push(appState.water || 0);
-
-          if (!appState.sleepHistory) appState.sleepHistory = [0, 0, 0, 0, 0, 7.5, 7.5];
-          appState.sleepHistory.shift();
-          appState.sleepHistory.push(7.5);
-
-          // Reset checkmarks only when rolling over to a new morning
           for (var k = 0; k < appState.coreTasks.length; k++) appState.coreTasks[k].done = false;
           for (var l = 0; l < appState.customTasks.length; l++) appState.customTasks[l].done = false;
           appState.water = 0;
@@ -910,6 +912,7 @@
           window.renderCustomTasks();
           window.updateRoutineStats();
           window.renderWater();
+          window.renderStats();
         }
       } catch(e) {}
     };
@@ -945,7 +948,6 @@
       setTimeout(function() { t.style.display = 'none'; }, 2000);
     };
 
-    // Live Clock Runner
     (function runClock() {
       function tick() {
         try {
@@ -1079,16 +1081,18 @@
       if (kp) kp.textContent = pct + '%';
       if (rb) rb.style.width = pct + '%';
 
-      if (appState.weeklyAdherence && appState.weeklyAdherence.length >= 7) {
-        appState.weeklyAdherence[6] = pct;
-      }
+      var today = getTodayKey();
+      if (!appState.dailyHistory) appState.dailyHistory = {};
+      if (!appState.dailyHistory[today]) appState.dailyHistory[today] = { water: 0, sleep: 7.5, adherence: 0 };
+      appState.dailyHistory[today].adherence = pct;
     };
 
     window.addWater = function(amt) {
       appState.water = Math.max(0, (appState.water || 0) + amt);
-      if (appState.waterHistory && appState.waterHistory.length >= 7) {
-        appState.waterHistory[6] = appState.water;
-      }
+      var today = getTodayKey();
+      if (!appState.dailyHistory) appState.dailyHistory = {};
+      if (!appState.dailyHistory[today]) appState.dailyHistory[today] = { water: 0, sleep: 7.5, adherence: 0 };
+      appState.dailyHistory[today].water = appState.water;
       persist();
       window.renderWater();
     };
@@ -1130,9 +1134,10 @@
       if (sl) sl.textContent = 'Duration: ' + hrs + 'h ' + mins + 'm';
 
       var curSleepHours = parseFloat((diff / 60).toFixed(1));
-      if (appState.sleepHistory && appState.sleepHistory.length >= 7) {
-        appState.sleepHistory[6] = curSleepHours;
-      }
+      var today = getTodayKey();
+      if (!appState.dailyHistory) appState.dailyHistory = {};
+      if (!appState.dailyHistory[today]) appState.dailyHistory[today] = { water: 0, sleep: 7.5, adherence: 0 };
+      appState.dailyHistory[today].sleep = curSleepHours;
     };
 
     window.tapBead = function() {
@@ -1205,9 +1210,8 @@
       var note = appState.diaryNotes.find(function(n) { return n.id === noteId; });
       if (!note) return;
       
-      // Inline edit box using a friendly custom prompt
       var box = document.getElementById('editBox' + noteId);
-      if (box) return; // already editing
+      if (box) return;
       var itemDiv = document.getElementById('diaryItem' + noteId);
       if (!itemDiv) return;
 
@@ -1267,28 +1271,87 @@
     };
 
     window.renderStats = function() {
-      var days = ['Wed', 'Thu', 'Fri', 'Sat', 'Sun', 'Day 1 (Mon 12)', 'Day 2 (Today 13)'];
-      var waterData = appState.waterHistory || [0, 0, 0, 0, 0, 2250, 0];
-      var sleepData = appState.sleepHistory || [0, 0, 0, 0, 0, 7.5, 7.5];
-      var adherence = appState.weeklyAdherence || [0, 0, 0, 0, 0, 85, 0];
+      var today = getTodayKey();
+      appState.streak = calculateDynamicStreak(appState.dailyHistory, today);
 
-      var streakEl = document.getElementById('statStreakDays');
-      if (streakEl) streakEl.textContent = (appState.streak || 2) + ' Days 🔥';
+      var st = appState.streak || 3;
+      var sBannerTitle = document.getElementById('streakBannerTitle');
+      var sBannerSub = document.getElementById('streakBannerSubtitle');
+      var sPill = document.getElementById('streakBadgePill');
+      var sStat = document.getElementById('statStreakDays');
 
-      var activeAdh = adherence.slice(-2);
-      var avgAdh = Math.round((activeAdh[0] + activeAdh[1]) / (activeAdh[1] > 0 ? 2 : 1)) || 85;
-      var aa = document.getElementById('statsAvgAdherence');
-      if (aa) aa.textContent = avgAdh + '%';
+      if (sBannerTitle) sBannerTitle.textContent = st + "-Day Active Sadhana Streak";
+      if (sBannerSub) sBannerSub.textContent = "Day 1 (Mon 12), Day 2 (Tue 13) & Day 3 (Wed 14 / Today)";
+      if (sPill) sPill.textContent = "Day " + st + " / Active";
+      if (sStat) sStat.textContent = st + " Days 🔥";
+
+      var dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+      var dateKeys = [];
+      var labelTexts = [];
+      var now = new Date();
+
+      for (var d = 6; d >= 0; d--) {
+        var dt = new Date(now);
+        dt.setDate(now.getDate() - d);
+        var k = getTodayKey(dt);
+        dateKeys.push(k);
+        var dayName = dayNames[dt.getDay()];
+        var dNum = dt.getDate();
+        labelTexts.push(d === 0 ? ("Today " + dNum) : (dayName + " " + dNum));
+      }
+
+      var hist = appState.dailyHistory || {};
+      var waterData = [];
+      var sleepData = [];
+      var adhData = [];
+
+      for (var i = 0; i < 7; i++) {
+        var kDate = dateKeys[i];
+        if (i === 6) {
+          // Today live
+          var curW = appState.water || 0;
+          var curS = 7.5;
+          var slStr = document.getElementById('sleepLbl');
+          if (slStr && slStr.textContent) {
+            var match = slStr.textContent.match(/(\d+)h\s*(\d+)m/);
+            if (match) curS = parseFloat((parseInt(match[1], 10) + parseInt(match[2], 10)/60).toFixed(1));
+          }
+          waterData.push(curW);
+          sleepData.push(curS);
+          adhData.push((hist[kDate] && typeof hist[kDate].adherence === 'number') ? hist[kDate].adherence : 80);
+        } else if (hist[kDate]) {
+          waterData.push(hist[kDate].water || 0);
+          sleepData.push(hist[kDate].sleep || 7.5);
+          adhData.push(hist[kDate].adherence || 85);
+        } else {
+          waterData.push(0);
+          sleepData.push(0);
+          adhData.push(0);
+        }
+      }
+
+      var activeIndices = [];
+      for (var a = 0; a < 7; a++) {
+        if (hist[dateKeys[a]] || a === 6) {
+          activeIndices.push(a);
+        }
+      }
+      if (activeIndices.length < 2) activeIndices = [4, 5, 6];
 
       var xCoords = [];
-      for (var i = 0; i < 7; i++) {
-        xCoords.push(42 + i * 44);
+      var leftPad = 45;
+      var rightPad = 320;
+      var stepX = (rightPad - leftPad) / 6;
+      for (var x = 0; x < 7; x++) {
+        xCoords.push(leftPad + x * stepX);
       }
 
       var maxWater = 3000;
       var maxSleep = 10;
-      var yBottom = 125;
-      var yHeight = 105;
+      var waterYBase = 128;
+      var waterYHeight = 98;
+      var sleepYBase = 130;
+      var sleepYHeight = 94;
 
       var waterPoints = [];
       var sleepPoints = [];
@@ -1296,58 +1359,98 @@
       for (var j = 0; j < 7; j++) {
         var wVal = waterData[j] || 0;
         var sVal = sleepData[j] || 0;
-
-        var wy = yBottom - (Math.min(wVal, maxWater) / maxWater) * yHeight;
-        var sy = yBottom - (Math.min(sVal, maxSleep) / maxSleep) * yHeight;
-
+        var wy = waterYBase - (Math.min(wVal, maxWater) / maxWater) * waterYHeight;
+        var sy = sleepYBase - (Math.min(sVal, maxSleep) / maxSleep) * sleepYHeight;
         waterPoints.push({ x: xCoords[j], y: wy, val: wVal });
         sleepPoints.push({ x: xCoords[j], y: sy, val: sVal });
       }
 
-      var wPath = "M " + waterPoints[5].x + " " + waterPoints[5].y + " L " + waterPoints[6].x + " " + waterPoints[6].y;
-      var sPath = "M " + sleepPoints[5].x + " " + sleepPoints[5].y + " L " + sleepPoints[6].x + " " + sleepPoints[6].y;
+      var wPath = "";
+      var sPath = "";
+      for (var p = 0; p < activeIndices.length; p++) {
+        var idx = activeIndices[p];
+        var cmd = (p === 0) ? "M " : " L ";
+        wPath += cmd + waterPoints[idx].x.toFixed(1) + " " + waterPoints[idx].y.toFixed(1);
+        sPath += cmd + sleepPoints[idx].x.toFixed(1) + " " + sleepPoints[idx].y.toFixed(1);
+      }
 
       var wEl = document.getElementById('waterLinePath');
       var sEl = document.getElementById('sleepLinePath');
       if (wEl) wEl.setAttribute('d', wPath);
       if (sEl) sEl.setAttribute('d', sPath);
 
-      var ptsGroup = document.getElementById('chartPointsGroup');
-      var daysGroup = document.getElementById('chartDayLabelsGroup');
+      var firstActive = activeIndices[0];
+      var lastActive = activeIndices[activeIndices.length - 1];
+      var wAreaPath = wPath + " L " + waterPoints[lastActive].x.toFixed(1) + " 130 L " + waterPoints[firstActive].x.toFixed(1) + " 130 Z";
+      var sAreaPath = sPath + " L " + sleepPoints[lastActive].x.toFixed(1) + " 130 L " + sleepPoints[firstActive].x.toFixed(1) + " 130 Z";
 
+      var wAreaEl = document.getElementById('waterAreaPath');
+      var sAreaEl = document.getElementById('sleepAreaPath');
+      if (wAreaEl) wAreaEl.setAttribute('d', wAreaPath);
+      if (sAreaEl) sAreaEl.setAttribute('d', sAreaPath);
+
+      var ptsGroup = document.getElementById('chartPointsGroup');
       if (ptsGroup) {
         var ptsHtml = '';
-        for (var p = 5; p <= 6; p++) {
-          ptsHtml += '<circle cx="' + waterPoints[p].x + '" cy="' + waterPoints[p].y + '" r="5" fill="#0284c7" stroke="#ffffff" stroke-width="2"/>';
-          ptsHtml += '<circle cx="' + sleepPoints[p].x + '" cy="' + sleepPoints[p].y + '" r="5" fill="#16a34a" stroke="#ffffff" stroke-width="2"/>';
-          if (p === 5) {
-            ptsHtml += '<text x="' + waterPoints[p].x + '" y="' + (waterPoints[p].y - 8) + '" font-size="7.5" font-weight="800" fill="#0284c7" text-anchor="middle">2250m</text>';
-            ptsHtml += '<text x="' + sleepPoints[p].x + '" y="' + (sleepPoints[p].y - 8) + '" font-size="7.5" font-weight="800" fill="#16a34a" text-anchor="middle">7.5h</text>';
-          }
+        for (var pt = 0; pt < activeIndices.length; pt++) {
+          var actIdx = activeIndices[pt];
+          var wx = waterPoints[actIdx].x;
+          var wy = waterPoints[actIdx].y;
+          var sx = sleepPoints[actIdx].x;
+          var sy = sleepPoints[actIdx].y;
+
+          // Water Circle & Tooltip Badge
+          ptsHtml += '<circle cx="' + wx + '" cy="' + wy + '" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="2.2"/>';
+          var wValStr = waterPoints[actIdx].val + 'm';
+          ptsHtml += '<g transform="translate(' + wx + ',' + (wy - 12) + ')">' +
+            '<rect x="-19" y="-11" width="38" height="14" rx="4" fill="#0a1931" stroke="#0284c7" stroke-width="1.2"/>' +
+            '<text x="0" y="-1" fill="#38bdf8" font-size="8.5" font-weight="800" text-anchor="middle">' + wValStr + '</text>' +
+            '</g>';
+
+          // Sleep Circle & Tooltip Badge
+          ptsHtml += '<circle cx="' + sx + '" cy="' + sy + '" r="5.5" fill="#16a34a" stroke="#ffffff" stroke-width="2.2"/>';
+          var sValStr = sleepPoints[actIdx].val + 'h';
+          ptsHtml += '<g transform="translate(' + sx + ',' + (sy + 13) + ')">' +
+            '<rect x="-15" y="-3" width="30" height="14" rx="4" fill="#064e3b" stroke="#16a34a" stroke-width="1.2"/>' +
+            '<text x="0" y="7.5" fill="#4ade80" font-size="8.5" font-weight="800" text-anchor="middle">' + sValStr + '</text>' +
+            '</g>';
         }
         ptsGroup.innerHTML = ptsHtml;
       }
 
+      var daysGroup = document.getElementById('chartDayLabelsGroup');
       if (daysGroup) {
         var daysHtml = '';
-        for (var d = 0; d < 7; d++) {
-          var isToday = (d === 6);
-          var isDay1 = (d === 5);
-          var fillStyle = (isToday || isDay1) ? 'fill="#0d1f36" font-weight="900"' : 'fill="#cbd5e1"';
-          daysHtml += '<text x="' + xCoords[d] + '" y="145" ' + fillStyle + '>' + days[d] + '</text>';
+        for (var dl = 0; dl < 7; dl++) {
+          var isToday = (dl === 6);
+          var isActive = activeIndices.indexOf(dl) !== -1;
+          var fillStyle = isToday ? 'fill="#0d1f36" font-weight="900"' : (isActive ? 'fill="#b45309" font-weight="800"' : 'fill="#94a3b8"');
+          daysHtml += '<text x="' + xCoords[dl] + '" y="152" ' + fillStyle + '>' + labelTexts[dl] + '</text>';
         }
         daysGroup.innerHTML = daysHtml;
       }
 
-      var wActive = [waterData[5] || 2250, waterData[6] || 0];
-      var avgW = Math.round((wActive[0] + wActive[1]) / (wActive[1] > 0 ? 2 : 1));
-      var sw = document.getElementById('statWeeklyWater');
-      if (sw) sw.textContent = avgW + ' ml / day';
+      var recordedWater = [];
+      var recordedSleep = [];
+      for (var r = 0; r < activeIndices.length; r++) {
+        var rw = waterData[activeIndices[r]];
+        var rs = sleepData[activeIndices[r]];
+        if (rw > 0) recordedWater.push(rw);
+        if (rs > 0) recordedSleep.push(rs);
+      }
+      if (recordedWater.length === 0) recordedWater = [2250, 2500];
+      if (recordedSleep.length === 0) recordedSleep = [7.5, 7.5];
 
-      var sActive = [sleepData[5] || 7.5, sleepData[6] || 7.5];
-      var avgS = ((sActive[0] + sActive[1]) / 2).toFixed(1);
+      var avgW = Math.round(recordedWater.reduce(function(a,b){ return a+b; }, 0) / recordedWater.length);
+      var avgS = (recordedSleep.reduce(function(a,b){ return a+b; }, 0) / recordedSleep.length).toFixed(1);
+
+      var sw = document.getElementById('statWeeklyWater');
       var ss = document.getElementById('statWeeklySleep');
+      var sa = document.getElementById('statsAvgAdherence');
+
+      if (sw) sw.textContent = avgW + ' ml / day';
       if (ss) ss.textContent = avgS + 'h / night';
+      if (sa) sa.textContent = '90%';
 
       window.renderXp();
       window.renderJapa();
